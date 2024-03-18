@@ -6,12 +6,15 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 10:27:24 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/18 12:56:24 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+
+//Initializes a new token with the given type and value.
+//Returns a pointer to the newly created token.
 t_token	*init_token(t_token_type type, char *value)
 {
 	t_token	*token;
@@ -25,6 +28,9 @@ t_token	*init_token(t_token_type type, char *value)
 	return (token);
 }
 
+
+//Adds a new token to the end of the token list.
+//If the list is empty, the new token becomes the head.
 void	add_token(t_token **head, t_token *new_token)
 {
 	t_token	*temp;
@@ -40,31 +46,37 @@ void	add_token(t_token **head, t_token *new_token)
 	}
 }
 
-void	identify_double_char_tokens(const char **input, t_token **head)
+
+// Identifies and adds double character tokens to the token list.
+// If the input matches a specific pattern, a new token is created and added.
+//The input pointer is updated accordingly.
+void identify_double_char_tokens(const char **input, t_token **head)
 {
 	if (**input == '$' && *(*input + 1) == '?')
 	{
 		add_token(head, init_token(TOKEN_EXIT_STATUS, "$?"));
 		*input += 2;
-		return ;
+		return;
 	}
 	else if (**input == '>' && *(*input + 1) == '>')
 	{
 		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
 		*input += 2;
-		return ;
+		return;
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
 	{
 		add_token(head, init_token(TOKEN_HEREDOC, "<<"));
 		*input += 2;
-		return ;
+		return;
 	}
 }
 
-void	identify_and_add_token(const char **input, t_token **head)
+// If the input matches a specific pattern, a new token is created and added.
+// The input pointer is updated accordingly.
+void identify_and_add_token(const char **input, t_token **head)
 {
-	t_token_type	type;
+	t_token_type type;
 
 	type = TOKEN_WORD;
 	identify_double_char_tokens(input, head);
@@ -94,6 +106,10 @@ void	identify_and_add_token(const char **input, t_token **head)
 		add_word_token(input, head);
 }
 
+// Tokenizes the input string and returns a linked list of tokens.
+// The input string is iterated character by character.
+// Tokens are identified and added to the list using helper functions.
+// Returns a pointer to the head of the token list.
 t_token	*tokenize(const char *input)
 {
 	t_token	*head;
