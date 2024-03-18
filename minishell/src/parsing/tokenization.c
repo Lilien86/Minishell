@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 12:56:24 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:19:02 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void identify_and_add_token(const char **input, t_token **head)
 			type = TOKEN_REDIRECT_IN;
 		else if (**input == '|')
 			type = TOKEN_PIPE;
-		else if (**input == ';')
-			type = TOKEN_SEMICOLON;
 		else if (**input == '\'')
 			type = TOKEN_SINGLE_QUOTE;
 		else if (**input == '"')
@@ -100,6 +98,8 @@ void identify_and_add_token(const char **input, t_token **head)
 			type = TOKEN_ENV_VAR;
 		else if (**input == '?')
 			type = TOKEN_EXIT_STATUS;
+		else if (**input == '~')
+			type = TOKEN_TILDE;
 		add_special_token(input, head, type);
 	}
 	else if (!ft_isspace(**input))
