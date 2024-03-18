@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:42:13 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/15 08:42:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/18 10:09:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,15 @@ void	add_word_token(const char **input, t_token **head)
 	}
 }
 
+void	free_tokens(t_token **tokens)
+{
+	t_token	*tmp;
+
+	while (*tokens)
+	{
+		tmp = (*tokens)->next;
+		free((*tokens)->value);
+		free(*tokens);
+		*tokens = tmp;
+	}
+}

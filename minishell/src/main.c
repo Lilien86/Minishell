@@ -3,27 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:34 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/15 13:19:01 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/18 10:10:06 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_tokens(t_token **tokens)
-{
-	t_token	*tmp;
-
-	while (*tokens)
-	{
-		tmp = (*tokens)->next;
-		free((*tokens)->value);
-		free(*tokens);
-		*tokens = tmp;
-	}
-}
 
 int	main(void)
 {
@@ -40,4 +27,3 @@ int	main(void)
 	free_tokens(&tokens);
 	return (0);
 }
-
