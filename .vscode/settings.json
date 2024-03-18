@@ -1,0 +1,23 @@
+{
+	"files.associations": {
+		"array": "c",
+		"deque": "c",
+		"string": "c",
+		"vector": "c",
+		"iterator": "c",
+		"string_view": "c",
+		"*.tcc": "c",
+		"unordered_map": "c",
+		"unordered_set": "c",
+		"ranges": "c",
+		"bitset": "c",
+		"initializer_list": "c",
+		"span": "c",
+		"regex": "c",
+		"utility": "c",
+		"variant": "c",
+		"chrono": "c",
+		"push_swap.h": "c"
+	},
+	"cmake.configureOnOpen": true
+}

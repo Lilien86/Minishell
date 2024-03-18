@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:42:13 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 10:09:50 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:15:15 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	add_word_token(const char **input, t_token **head)
 		to_add[1] = '\0';
 		temp = word;
 		word = ft_strjoin(word, to_add);
-		free(temp);
+		//free(temp);
 		(*input)++;
 	}
 	if (word != NULL)
