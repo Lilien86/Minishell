@@ -15,7 +15,7 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c src/parssing/tokenization.c src/parssing/tokenization_utils.c 
+SRC = src/main.c src/parsing/tokenization.c src/parsing/tokenization_utils.c 
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)

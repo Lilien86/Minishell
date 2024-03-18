@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/15 08:41:02 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/18 10:27:24 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,4 +111,3 @@ t_token	*tokenize(const char *input)
 	}
 	return (head);
 }
-
