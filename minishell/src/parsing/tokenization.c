@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/19 09:42:14 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:07:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ t_token	*init_token(t_token_type type, char *value)
 	return (token);
 }
 
-
-//Adds a new token to the end of the token list.
-//If the list is empty, the new token becomes the head.
 void	add_token(t_token **head, t_token *new_token)
 {
 	t_token	*temp;
@@ -46,10 +43,6 @@ void	add_token(t_token **head, t_token *new_token)
 	}
 }
 
-
-// Identifies and adds double character tokens to the token list.
-// If the input matches a specific pattern, a new token is created and added.
-//The input pointer is updated accordingly.
 void identify_double_char_tokens(const char **input, t_token **head)
 {
 	if (**input == '$' && *(*input + 1) == '?')
@@ -72,23 +65,19 @@ void identify_double_char_tokens(const char **input, t_token **head)
 	}
 }
 
-// If the input matches a specific pattern, a new token is created and added.
-// The input pointer is updated accordingly.
-void identify_and_add_token(const char **input, t_token **head) {
-    if (**input == '\'' || **input == '"') {
-        add_quoted_token(input, head, **input);
-    } else if (is_special_char(**input)) {
-        t_token_type type = TOKEN_WORD;
-        add_special_token(input, head, type);
-    } else if (!ft_isspace(**input)) {
-        add_word_token(input, head);
-    }
+void identify_and_add_token(const char **input, t_token **head)
+{
+	if (**input == '\'' || **input == '"')
+		add_quoted_token(input, head, **input);
+	else if (is_special_char(**input))
+	{
+		t_token_type type = TOKEN_WORD;
+		add_special_token(input, head, type);
+	}
+	else if (!ft_isspace(**input))
+		add_word_token(input, head);
 }
 
-// Tokenizes the input string and returns a linked list of tokens.
-// The input string is iterated character by character.
-// Tokens are identified and added to the list using helper functions.
-// Returns a pointer to the head of the token list.
 t_token	*tokenize(const char *input)
 {
 	t_token	*head;
