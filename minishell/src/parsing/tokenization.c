@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 13:19:02 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/19 09:42:14 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,36 +74,15 @@ void identify_double_char_tokens(const char **input, t_token **head)
 
 // If the input matches a specific pattern, a new token is created and added.
 // The input pointer is updated accordingly.
-void identify_and_add_token(const char **input, t_token **head)
-{
-	t_token_type type;
-
-	type = TOKEN_WORD;
-	identify_double_char_tokens(input, head);
-	if (**input == '\0')
-		return ;
-	if (is_special_char(**input))
-	{
-		if (**input == '>')
-			type = TOKEN_REDIRECT_OUT;
-		else if (**input == '<')
-			type = TOKEN_REDIRECT_IN;
-		else if (**input == '|')
-			type = TOKEN_PIPE;
-		else if (**input == '\'')
-			type = TOKEN_SINGLE_QUOTE;
-		else if (**input == '"')
-			type = TOKEN_DOUBLE_QUOTE;
-		else if (**input == '$')
-			type = TOKEN_ENV_VAR;
-		else if (**input == '?')
-			type = TOKEN_EXIT_STATUS;
-		else if (**input == '~')
-			type = TOKEN_TILDE;
-		add_special_token(input, head, type);
-	}
-	else if (!ft_isspace(**input))
-		add_word_token(input, head);
+void identify_and_add_token(const char **input, t_token **head) {
+    if (**input == '\'' || **input == '"') {
+        add_quoted_token(input, head, **input);
+    } else if (is_special_char(**input)) {
+        t_token_type type = TOKEN_WORD;
+        add_special_token(input, head, type);
+    } else if (!ft_isspace(**input)) {
+        add_word_token(input, head);
+    }
 }
 
 // Tokenizes the input string and returns a linked list of tokens.

@@ -6,82 +6,60 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:42:13 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 13:19:41 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:21:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/**
- * Checks if a character is a special character.
- *
- * @param c The character to check.
- * @return 1 if the character is a special character, 0 otherwise.
- */
-int is_special_char(char c)
-{
-	return (c == '>' || c == '<' || c == '|' || c == '~' || c == '\''
-	|| c == '"' || c == '$' || c == '?');
+int is_special_char(char c) {
+    return (c == '>' || c == '<' || c == '|' || c == '~' || c == '\'' ||
+            c == '"' || c == '$' || c == '?');
 }
 
-/**
- * Adds a special token to the token list.
- *
- * @param input The input string.
- * @param head  The head of the token list.
- * @param type  The type of the special token.
- */
-void add_special_token(const char **input, t_token **head, t_token_type type)
-{
-	char value[2];
-	value[0] = **input;
-	value[1] = '\0';
-	add_token(head, init_token(type, value));
-	(*input)++;
+void add_special_token(const char **input, t_token **head, t_token_type type) {
+    char value[3] = {0}; // Increased size to handle double-char tokens
+    value[0] = **input;
+    if ((**input == '>' && *(*input + 1) == '>') || 
+        (**input == '<' && *(*input + 1) == '<') || 
+        (**input == '$' && *(*input + 1) == '?')) {
+        value[1] = *(*input + 1);
+        (*input)++;
+    }
+    add_token(head, init_token(type, value));
 }
 
-/**
- * Adds a word token to the token list.
- *
- * @param input The input string.
- * @param head  The head of the token list.
- */
-void add_word_token(const char **input, t_token **head)
-{
-	char *word;
-	char *temp;
-	char to_add[2];
-	word = NULL;
-	word = ft_strdup("");
-	while (**input && !ft_isspace(**input) && !is_special_char(**input))
-	{
-		to_add[0] = **input;
-		to_add[1] = '\0';
-		temp = word;
-		word = ft_strjoin(word, to_add);
-		//free(temp);
-		(*input)++;
-	}
-	if (word != NULL)
-	{
-		add_token(head, init_token(TOKEN_WORD, word));
-		free(word);
-	}
+void add_quoted_token(const char **input, t_token **head, char quoteType) {
+    const char *start = *input + 1; // Skip the opening quote
+    size_t len = 0;
+    while (start[len] && start[len] != quoteType) {
+        len++;
+    }
+    char *value = ft_strndup(start, len);
+    add_token(head, init_token(quoteType == '"' ? TOKEN_DOUBLE_QUOTE : TOKEN_SINGLE_QUOTE, value));
+    free(value);
+    *input = start + len; // Move input pointer past the closing quote
 }
 
-/**
- * Frees the memory allocated for the token list.
- *
- * @param tokens The token list.
- */
-void free_tokens(t_token **tokens)
-{
-	t_token *tmp;
-	while (*tokens)
-	{
-		tmp = (*tokens)->next;
-		free((*tokens)->value);
-		free(*tokens);
-		*tokens = tmp;
-	}
+void add_word_token(const char **input, t_token **head) {
+    const char *start = *input;
+    while (**input && !ft_isspace(**input) && !is_special_char(**input)) {
+        (*input)++;
+    }
+    size_t len = (size_t)(*input - start);
+    if (len > 0) {
+        char *value = ft_strndup(start, len);
+        add_token(head, init_token(TOKEN_WORD, value));
+        free(value);
+        (*input)--; // Move back one to correctly process next character
+    }
+}
+
+void free_tokens(t_token **tokens) {
+    while (*tokens) {
+        t_token *tmp = (*tokens)->next;
+        free((*tokens)->value);
+        free(*tokens);
+        *tokens = tmp;
+    }
 }

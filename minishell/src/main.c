@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:34 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/18 14:03:57 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/19 09:51:37 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ grep 'pattern' < input.txt | sort >> sorted.txt
 
 int	main(void)
 {
-	char	*input = "echo \"Ceci est un test avec des espaces\" && echo 'Les guillemets simples fonctionnent aussi'";
+	char	*input = "echo \"Ceci est un 'test' avec des espaces\" && echo 'Les guillemets simples fonctionnent aussi'";
 	
 	t_token		*tokens;
 

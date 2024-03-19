@@ -31,6 +31,7 @@ SOURCES += \
 	./string/ft_strmapi.c \
 	./string/ft_substr.c \
 	./string/ft_strdup.c \
+	./string/ft_strndup.c \
 	./string/ft_itoa.c \
 	./string/ft_memcpy.c \
 	./string/ft_strnstr.c \
