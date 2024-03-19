@@ -6,15 +6,12 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/19 11:07:45 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/19 12:36:17 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-//Initializes a new token with the given type and value.
-//Returns a pointer to the newly created token.
 t_token	*init_token(t_token_type type, char *value)
 {
 	t_token	*token;
@@ -43,35 +40,37 @@ void	add_token(t_token **head, t_token *new_token)
 	}
 }
 
-void identify_double_char_tokens(const char **input, t_token **head)
+void	identify_double_char_tokens(const char **input, t_token **head)
 {
 	if (**input == '$' && *(*input + 1) == '?')
 	{
 		add_token(head, init_token(TOKEN_EXIT_STATUS, "$?"));
 		*input += 2;
-		return;
+		return ;
 	}
 	else if (**input == '>' && *(*input + 1) == '>')
 	{
 		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
 		*input += 2;
-		return;
+		return ;
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
 	{
 		add_token(head, init_token(TOKEN_HEREDOC, "<<"));
 		*input += 2;
-		return;
+		return ;
 	}
 }
 
-void identify_and_add_token(const char **input, t_token **head)
+void	identify_and_add_token(const char **input, t_token **head)
 {
+	t_token_type	type;
+
 	if (**input == '\'' || **input == '"')
 		add_quoted_token(input, head, **input);
 	else if (is_special_char(**input))
 	{
-		t_token_type type = TOKEN_WORD;
+		type = TOKEN_WORD;
 		add_special_token(input, head, type);
 	}
 	else if (!ft_isspace(**input))

@@ -6,7 +6,7 @@
 #    By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/18 11:18:52 by ybarbot           #+#    #+#              #
-#    Updated: 2024/03/18 11:18:55 by ybarbot          ###   ########.fr        #
+#    Updated: 2024/03/19 13:09:43 by ybarbot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-funct
 # Wconversion: Warns about implicit conversions
 # Wunreachable-code: Warns about code that will never be executed
 # Wunused-function: Warns if a static function is unused
-LDFLAGS = -L $(LIBFT) -lft
+LDFLAGS = -L $(LIBFT) -lft -lreadline
 
 GREEN = \033[0;32m
 YELLOW = \033[0;33m
