@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:34 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 13:43:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/20 13:52:00 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int ac, char **av)
 {
 	read_input();
-	/*
+	
 	t_token	*tokens;
 	t_token	*temp;
 	char	*input;
