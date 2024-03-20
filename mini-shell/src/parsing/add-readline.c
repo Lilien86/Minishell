@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 11:11:49 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/20 12:56:21 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 
 void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_index)
 {
+	t_token	*tokens;
+	t_token	*temp;
+
 	if (strcmp(input, "") != 0)
 	{
 		add_history(input);
@@ -23,9 +26,17 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_i
 			free(history[*history_index]);
 		history[*history_index] = strdup(input);
 		*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
-		tokenize(input);
+		tokens = tokenize(input);
+		ft_printf("Tokens:\n");
+		temp = tokens;
+		while (temp)
+		{
+			ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
+			temp = temp->next;
+		}
 		
 	}
+	free_tokens(&tokens);
 	return ;
 }
 
