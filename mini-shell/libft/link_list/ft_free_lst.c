@@ -6,13 +6,13 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 08:08:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/15 13:15:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/01/17 08:48:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_list(t_list *head)
+void	ft_free_lst(t_list *head)
 {
 	t_list	*current;
 	t_list	*next_node;

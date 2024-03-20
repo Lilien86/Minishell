@@ -1,8 +1,6 @@
 CFLAGS = -g -Wall -Wextra -Werror -I. -I./check_char -I./management_memory -I./string -I./link_list -fPIE
 NAME = libft.a
-CC = cc
-
-SRC_DI = ./check_char ./management_memory ./string ./link_list ./ft_printf ./gnl
+CC = /bin/cc
 
 SOURCES += \
 	./check_char/ft_isdigit.c \
@@ -13,10 +11,9 @@ SOURCES += \
 	./check_char/ft_isspace.c \
 	./management_memory/ft_calloc.c \
 	./management_memory/ft_bzero.c \
-	./gnl/get_next_line.c \
-	./gnl/get_next_line_bonus.c \
-	./gnl/get_next_line_utils.c \
-	./gnl/get_next_line_utils_bonus.c \
+	./gnl/me/get_next_line.c \
+	./gnl/me/get_next_line_utils.c \
+	./gnl/me/get_next_line_a.c \
 	./ft_printf/ft_putnbr_base_len_origin.c \
 	./ft_printf/ft_putnbr_base_len.c \
 	./ft_printf/ft_putstr_len.c \
@@ -31,7 +28,6 @@ SOURCES += \
 	./string/ft_strmapi.c \
 	./string/ft_substr.c \
 	./string/ft_strdup.c \
-	./string/ft_strndup.c \
 	./string/ft_itoa.c \
 	./string/ft_memcpy.c \
 	./string/ft_strnstr.c \
@@ -55,6 +51,10 @@ SOURCES += \
 	./string/ft_strcpy_map.c \
 	./string/ft_strlen_map.c \
 	./string/ft_atol.c \
+	./string/ft_strcpy.c \
+	./string/ft_strcat.c \
+	./string/ft_strncpy.c \
+	./string/ft_strndup.c \
 	./link_list/ft_lstmap.c \
 	./link_list/ft_lstnew.c \
 	./link_list/ft_lstclear.c \
@@ -66,18 +66,18 @@ SOURCES += \
 	./link_list/ft_lstdelone.c \
 	./link_list/ft_free_lst.c
 
-BUILD = $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(BUILD)
-	ar rcs $(NAME) $(BUILD)
+$(NAME): $(OBJECTS)
+	/bin/ar rcs $(NAME) $(OBJECTS)
 
 clean:
-	rm -f $(BUILD)
+	/bin/rm -f $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	/bin/rm -f $(NAME)
 
 re: fclean all
 

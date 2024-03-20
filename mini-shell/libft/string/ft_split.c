@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:06:31 by marvin            #+#    #+#             */
-/*   Updated: 2023/11/04 17:06:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/03/07 13:30:09 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static void	ft_init_vars(size_t *start, size_t *i, size_t *j)
 {
 	*start = 0;
 	*j = 0;
-	*i = 0;
+	*i = -1;
 }
 
 char	**ft_split(char const *s, char sep)
@@ -95,7 +95,7 @@ char	**ft_split(char const *s, char sep)
 	tab = malloc (sizeof(char *) * (ft_wcount(s, sep) + 1));
 	if (!tab)
 		return (NULL);
-	while (s[i])
+	while (++i < ft_strlen(s))
 	{
 		if (s[i] != sep && j < ft_wcount(s, sep))
 		{
@@ -105,8 +105,6 @@ char	**ft_split(char const *s, char sep)
 			while (s[i] && s[i] != sep)
 				i++;
 		}
-		else
-			i++;
 	}
 	tab[j] = NULL;
 	return (tab);

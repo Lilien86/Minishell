@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 13:02:18 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/15 13:02:37 by lauger           ###   ########.fr       */
+/*   Created: 2024/03/20 07:58:25 by lauger            #+#    #+#             */
+/*   Updated: 2024/03/20 08:19:40 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isspace(int c)
+int	ft_isspace(char c)
 {
-	return (c == ' ' || c == '\n' || c == '\t' ||
-			c == '\v' || c == '\f' || c == '\r');
+	return (c == ' ' || c == '\t' || c == '\n'
+		|| c == '\v' || c == '\f' || c == '\r');
 }

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 16:02:49 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/23 13:41:43 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:44:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #  define BUFFER_SIZE 100
 # endif
 
-char		*get_next_line(int fd);
+char		*get_next_line(int fd, char **buffer);
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char *s1, char *s2);
 void		*ft_calloc(size_t count, size_t size);

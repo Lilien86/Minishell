@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/16 16:02:49 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/23 13:41:18 by lauger           ###   ########.fr       */
+/*   Created: 2024/02/09 11:14:28 by lauger            #+#    #+#             */
+/*   Updated: 2024/03/05 12:54:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+char	*ft_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-char		*get_next_line(int fd);
-size_t		ft_strlen(const char *s);
-char		*ft_strjoin(char *s1, char *s2);
-void		*ft_calloc(size_t count, size_t size);
-int			check_str_char(char *line, char *buffer);
-
-#endif
+	i = 0;
+	while (i < n && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}

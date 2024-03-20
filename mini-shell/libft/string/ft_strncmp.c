@@ -6,14 +6,13 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:44:58 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/02 08:02:39 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/20 08:12:34 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int
-	cmp_char(char c1, char c2)
+static int	cmp_char(char c1, char c2)
 {
 	if ((unsigned char)c1 != (unsigned char)c2)
 		return ((unsigned char)c1 - (unsigned char)c2);
@@ -26,6 +25,8 @@ int
 	size_t			i;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (s1 != s2);
 	while (s1[i] && s2[i] && i < n)
 	{
 		if (cmp_char(s1[i], s2[i]))

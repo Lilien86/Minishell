@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2023/11/06 08:31:53 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/07 12:40:47 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 int			ft_atoi(char const *str);
 void		*ft_calloc(size_t nitems, size_t size);
 char		*ft_strdup(char const *src);
-char	*ft_strndup(const char *s, size_t n);
 
 /*#####################################
 ####PARTIE 2###########################
@@ -91,7 +90,7 @@ int			ft_putstr_len(char *str);
 ####Get_Next_Line######################
 *///###################################
 
-char		*get_next_line(int fd);
+char		*get_next_line(int fd, char **buffer);
 int			check_str_char(char *line, char *buffer);
 char		*ft_strjoin_modif(char *s1, char *s2);
 
@@ -104,7 +103,12 @@ void		ft_free_tab(char **str);
 int			ft_strlen_map(char **map);
 char		**ft_strcpy_map(char **original, int height, int width);
 long long	ft_atol(const char *str);
-void 		ft_free_list(t_list *head);
-int			ft_isspace(int c);
+void		ft_free_lst(t_list *head);
+char		*ft_strcpy(char *dest, const char *src);
+char		*ft_strcat(char *dest, const char *src);
+char		*ft_strncpy(char *dest, const char *src, size_t n);
+char		*get_next_line_a(int fd);
+int			ft_isspace(char c);
+char		*ft_strndup(const char *src, size_t n);
 
 #endif

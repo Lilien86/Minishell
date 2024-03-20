@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 09:26:20 by lauger            #+#    #+#             */
-/*   Updated: 2024/01/12 00:13:00 by lauger           ###   ########.fr       */
+/*   Updated: 2024/02/15 09:58:29 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	ft_free_tab(char **str)
 		return ;
 	while (str[i])
 	{
-		free(str[i]);
+		if (str[i] != NULL)
+			free(str[i]);
 		i++;
 	}
 	free(str);
