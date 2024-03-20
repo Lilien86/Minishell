@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:34 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 10:44:41 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 13:43:33 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	main(int ac, char **av)
 {
+	read_input();
+	/*
 	t_token	*tokens;
 	t_token	*temp;
 	char	*input;
@@ -33,6 +35,6 @@ int	main(int ac, char **av)
 		ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
 		temp = temp->next;
 	}
-	free_tokens(&tokens);
+	free_tokens(&tokens);*/
 	return (0);
 }

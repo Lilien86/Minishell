@@ -6,15 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/19 13:09:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/20 10:39:27 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include "../minishell.h"
 
 #define MAX_HISTORY_SIZE 100
 
@@ -27,6 +23,8 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_i
 			free(history[*history_index]);
 		history[*history_index] = strdup(input);
 		*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
+		tokenize((const char *)history[*history_index]);
+		
 	}
 	return ;
 }
@@ -43,7 +41,7 @@ int	read_input(void)
 	while (1)
 	{
 		input = readline("minishell > ");
-		if (!input)
+		if (input == NULL || strcmp(input, "") == 0)
 		{
 			break ;
 		}
@@ -60,11 +58,5 @@ int	read_input(void)
 	while (i < MAX_HISTORY_SIZE)
 		if (history[i] != NULL)
 			free(history[i++]);
-	return (0);
-}
-
-int	main(void)
-{
-	read_input();
 	return (0);
 }
