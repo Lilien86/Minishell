@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:52:01 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/03/20 10:21:00 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:46:54 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,14 @@ void	free_tokens(t_token **tokens)
 		current = next;
 	}
 	*tokens = NULL;
+}
+
+void	identify_and_add_token(const char **input, t_token **head)
+{
+	if (**input == '\'' || **input == '"')
+		add_quoted_token(input, head, **input);
+	else if (is_special_char(**input))
+		add_token_based_on_char(input, head);
+	else if (!ft_isspace(**input))
+		add_word_token(input, head);
 }

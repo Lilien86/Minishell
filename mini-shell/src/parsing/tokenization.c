@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 10:40:59 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:46:44 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,6 @@ void	add_token_based_on_char(const char **input, t_token **head)
 	else
 		add_word_token(input, head);
 }
-
-void	identify_and_add_token(const char **input, t_token **head)
-{
-	if (**input == '\'' || **input == '"')
-		add_quoted_token(input, head, **input);
-	else if (is_special_char(**input))
-		add_token_based_on_char(input, head);
-	else if (!ft_isspace(**input))
-		add_word_token(input, head);
-}
-
 
 t_token	*tokenize(const char *input)
 {

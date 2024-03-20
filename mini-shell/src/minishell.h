@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 10:52:21 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 12:47:14 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ void	add_word_token(const char **input, t_token **head);
 void	free_tokens(t_token **tokens);
 t_token	*tokenize(const char *input);
 void	add_quoted_token(const char **input, t_token **head, char quoteType);
+void	identify_double_char_tokens(const char **input, t_token **head);
 
 #endif
