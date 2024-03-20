@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:40:54 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/19 12:36:17 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 10:40:59 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,33 @@ void	identify_double_char_tokens(const char **input, t_token **head)
 	}
 }
 
+void	add_token_based_on_char(const char **input, t_token **head)
+{
+	identify_double_char_tokens(input, head);
+	if (**input == '>')
+		add_token(head, init_token(TOKEN_REDIRECT_OUT, ">"));
+	else if (**input == '<')
+		add_token(head, init_token(TOKEN_REDIRECT_IN, "<"));
+	else if (**input == '|')
+		add_token(head, init_token(TOKEN_PIPE, "|"));
+	else if (**input == '$')
+		add_token(head, init_token(TOKEN_ENV_VAR, "$"));
+	else if (**input == '~')
+		add_token(head, init_token(TOKEN_TILDE, "~"));
+	else
+		add_word_token(input, head);
+}
+
 void	identify_and_add_token(const char **input, t_token **head)
 {
-	t_token_type	type;
-
 	if (**input == '\'' || **input == '"')
 		add_quoted_token(input, head, **input);
 	else if (is_special_char(**input))
-	{
-		type = TOKEN_WORD;
-		add_special_token(input, head, type);
-	}
+		add_token_based_on_char(input, head);
 	else if (!ft_isspace(**input))
 		add_word_token(input, head);
 }
+
 
 t_token	*tokenize(const char *input)
 {

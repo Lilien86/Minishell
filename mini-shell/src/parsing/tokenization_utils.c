@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 10:52:01 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/03/19 12:38:04 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 10:21:00 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,6 @@ int	is_special_char(char c)
 {
 	return (c == '>' || c == '<' || c == '|' || c == '~' || c == '\''
 		|| c == '"' || c == '$' || c == '?');
-}
-
-void	add_special_token(const char **input, t_token **head, t_token_type type)
-{
-	char	value[3];
-
-	ft_memset(value, 0, sizeof(value));
-	value[0] = **input;
-	if ((**input == '>' && *(*input + 1) == '>')
-		|| (**input == '<' && *(*input + 1) == '<')
-		|| (**input == '$' && *(*input + 1) == '?'))
-	{
-		value[1] = *(*input + 1);
-		(*input)++;
-	}
-	add_token(head, init_token(type, value));
 }
 
 void	add_quoted_token(const char **input, t_token **head, char quote_type)

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/19 12:42:56 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/20 10:52:21 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ typedef enum e_token_type
 	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
 	TOKEN_HEREDOC,// 5 <<
 	TOKEN_SINGLE_QUOTE,// 6 '
-	TOKEN_DOUBLE_QUOTE,// 7 "
+	TOKEN_DOUBLE_QUOTE,// 7 " fix proute
 	TOKEN_ENV_VAR,// 8 $
-	TOKEN_EXIT_STATUS,// 9 $?
+	TOKEN_EXIT_STATUS,// 9 $? fix a
 	TOKEN_TILDE,// 10 ~
 }	t_token_type;
 
