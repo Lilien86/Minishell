@@ -52,6 +52,24 @@ void	init_history(char *history[MAX_HISTORY_SIZE])
 	}
 }
 
+static void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
+			int *history_index)
+{
+	if (strcmp(input, "") == 0)
+		return ;
+	add_history(input);
+	if (history[*history_index] != NULL)
+		free(history[*history_index]);
+	history[*history_index] = strdup(input);
+	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
+	read_input_two(input, history, history_index);
+	if (strcmp(input, "exit") == 0)
+	{
+		free(input);
+		exit(0);
+	}
+}
+
 int	read_input(void)
 {
 	char	*input;
@@ -59,24 +77,18 @@ int	read_input(void)
 	int		history_index;
 
 	history_index = 0;
+	init_signal_handlers();
 	init_history(history);
 	while (1)
 	{
 		input = readline("Monsieur T-shirt > ");
 		if (input == NULL)
-			break ;
-		else if (strcmp(input, "") == 0)
-			continue ;
-		read_input_two(input, (history), &history_index);
-		if (strcmp(input, "exit") == 0)
 		{
-			if (input)
-				free(input);
-			break ;
+			free_history(history);
+			exit(0);
 		}
-		if (input)
-			free(input);
+		handle_input(input, history, &history_index);
+		free(input);
 	}
-	free_history(history);
 	return (0);
 }
