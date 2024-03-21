@@ -1,8 +1,25 @@
+<<<<<<< HEAD
 # include "../minishell.h"
 
+=======
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add-readline.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
+/*   Updated: 2024/03/21 10:47:45 by lauger           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+>>>>>>> e878d4d (fix: add_readline norminette)
 #define MAX_HISTORY_SIZE 100
 
-void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_index)
+void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
+			int *history_index)
 {
 	t_token	*tokens;
 	t_token	*temp;
@@ -22,7 +39,6 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_i
 			ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
 			temp = temp->next;
 		}
-		
 	}
 	free_tokens(&tokens);
 	return ;
@@ -41,18 +57,31 @@ void	free_history(char *history[MAX_HISTORY_SIZE])
 	}
 }
 
+void	init_history(char *history[MAX_HISTORY_SIZE])
+{
+	int	i;
+
+	i = 0;
+	while (i <= MAX_HISTORY_SIZE)
+	{
+		history[i] = NULL;
+		i++;
+	}
+}
+
 int	read_input(void)
 {
 	char	*input;
-	char	*history[MAX_HISTORY_SIZE] = {NULL};
+	char	*history[MAX_HISTORY_SIZE];
 	int		history_index;
 
 	history_index = 0;
+	init_history(history);
 	while (1)
 	{
 		input = readline("Monsieur T-shirt > ");
 		if (input == NULL)
-			break;
+			break ;
 		else if (strcmp(input, "") == 0)
 			continue ;
 		read_input_two(input, (history), &history_index);
