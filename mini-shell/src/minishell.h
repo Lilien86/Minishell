@@ -6,13 +6,18 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 13:08:11 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/21 09:59:48 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 # include "../libft/libft.h"
 
 typedef enum e_token_type
@@ -37,18 +42,19 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-t_token	*init_token(t_token_type type, char *value);
-void	add_token(t_token **head, t_token *new_token);
-int		is_special_char(char c);
-void	identify_and_add_token(const char **input, t_token **head);
-void	add_special_token(const char **input, t_token **head, \
-		t_token_type type);
-void	add_word_token(const char **input, t_token **head);
-void	free_tokens(t_token **tokens);
-t_token	*tokenize(const char *input);
-void	add_quoted_token(const char **input, t_token **head, char quoteType);
-void	identify_double_char_tokens(const char **input, t_token **head);
-void	add_token_based_on_char(const char **input, t_token **head);
+t_token		*init_token(t_token_type type, char *value);
+void		add_token(t_token **head, t_token *new_token);
+int			is_special_char(char c);
+void		identify_and_add_token(const char **input, t_token **head);
+void		add_special_token(const char **input, t_token **head, \
+			t_token_type type);
+void		add_word_token(const char **input, t_token **head);
+void		free_tokens(t_token **tokens);
+t_token		*tokenize(const char *input);
+void		add_quoted_token(const char **input, t_token **head, char quoteType);
+int			read_input(void);
+void		identify_double_char_tokens(const char **input, t_token **head);
+void			add_token_based_on_char(const char **input, t_token **head);
 
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+         #
+#    By: lauger <lauger@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/18 11:18:52 by ybarbot           #+#    #+#              #
-#    Updated: 2024/03/19 13:09:43 by ybarbot          ###   ########.fr        #
+#    Updated: 2024/03/20 10:17:07 by lauger           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c src/parsing/tokenization.c src/parsing/tokenization_utils.c 
+SRC = src/main.c src/parsing/tokenization.c src/parsing/tokenization_utils.c \
+src/parsing/add-readline.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)
