@@ -15,7 +15,6 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
 		history[*history_index] = strdup(input);
 		*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
 		tokens = tokenize(input);
-		ft_printf("Tokens:\n");
 		temp = tokens;
 		while (temp)
 		{
