@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   add-readline.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/21 09:22:48 by lauger           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 # include "../minishell.h"
 
 #define MAX_HISTORY_SIZE 100
@@ -62,7 +50,7 @@ int	read_input(void)
 	history_index = 0;
 	while (1)
 	{
-		input = readline("minishell > ");
+		input = readline("pipicaca > ");
 		if (input == NULL)
 			break;
 		else if (strcmp(input, "") == 0)
