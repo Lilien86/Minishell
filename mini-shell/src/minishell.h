@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 08:49:57 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 13:45:05 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/20 13:54:33 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void		free_tokens(t_token **tokens);
 t_token		*tokenize(const char *input);
 void		add_quoted_token(const char **input, t_token **head, char quoteType);
 int			read_input(void);
-void	identify_double_char_tokens(const char **input, t_token **head);
+void		identify_double_char_tokens(const char **input, t_token **head);
+void			add_token_based_on_char(const char **input, t_token **head);
 
 
 #endif

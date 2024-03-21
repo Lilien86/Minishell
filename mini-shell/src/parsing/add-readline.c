@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 12:56:21 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/21 09:22:48 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,33 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_i
 	return ;
 }
 
+void	free_history(char *history[MAX_HISTORY_SIZE])
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_HISTORY_SIZE)
+	{
+		if (history[i] != NULL)
+			free(history[i]);
+		i++;
+	}
+}
+
 int	read_input(void)
 {
 	char	*input;
 	char	*history[MAX_HISTORY_SIZE] = {NULL};
 	int		history_index;
-	int		i;
 
 	history_index = 0;
-	i = 0;
 	while (1)
 	{
 		input = readline("minishell > ");
-		if (input == NULL || strcmp(input, "") == 0)
-		{
-			break ;
-		}
+		if (input == NULL)
+			break;
+		else if (strcmp(input, "") == 0)
+			continue ;
 		read_input_two(input, (history), &history_index);
 		if (strcmp(input, "exit") == 0)
 		{
@@ -66,11 +77,6 @@ int	read_input(void)
 		if (input)
 			free(input);
 	}
-	while (i < MAX_HISTORY_SIZE)
-	{
-		if (history[i] != NULL)
-			free(history[i]);
-		i++;
-	}
+	free_history(history);
 	return (0);
 }
