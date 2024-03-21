@@ -1,30 +1,35 @@
 #include "../minishell.h"
 #define MAX_HISTORY_SIZE 100
 
-void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
-			int *history_index)
-{
-	t_token	*tokens;
-	t_token	*temp;
+// ... [rest of the includes and definitions]
 
-	if (strcmp(input, "") != 0)
-	{
-		add_history(input);
-		if (history[*history_index] != NULL)
-			free(history[*history_index]);
-		history[*history_index] = strdup(input);
-		*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
-		tokens = tokenize(input);
+void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE], int *history_index)
+{
+    t_token	*tokens;
+    t_token	*temp;
+
+    if (strcmp(input, "") != 0)
+    {
+        add_history(input);
+        if (history[*history_index] != NULL)
+            free(history[*history_index]);
+        history[*history_index] = strdup(input);
+        *history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
+        tokens = tokenize(input);
+
 		temp = tokens;
-		while (temp)
-		{
-			ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
-			temp = temp->next;
-		}
-	}
-	free_tokens(&tokens);
-	return ;
+        while (temp)
+        {
+            ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
+            temp = temp->next;
+        }
+        if (ft_strncmp(tokens->value, "echo", 4) == 0)
+            ft_echo(tokens); 
+        free_tokens(&tokens);
+    }
+    return ;
 }
+
 
 void	free_history(char *history[MAX_HISTORY_SIZE])
 {

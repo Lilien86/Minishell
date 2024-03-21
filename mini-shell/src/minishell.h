@@ -33,6 +33,7 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+//PARSING
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
 int			is_special_char(char c);
@@ -48,5 +49,9 @@ int			read_input(void);
 void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
+
+//BUILTINS
+void		ft_echo(t_token *tokens);
+
 
 #endif
