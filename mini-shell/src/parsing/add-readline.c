@@ -50,7 +50,7 @@ int	read_input(void)
 	history_index = 0;
 	while (1)
 	{
-		input = readline("pipicaca > ");
+		input = readline("Monsieur T-shirt > ");
 		if (input == NULL)
 			break;
 		else if (strcmp(input, "") == 0)
