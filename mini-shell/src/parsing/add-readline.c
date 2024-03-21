@@ -1,21 +1,4 @@
-<<<<<<< HEAD
-# include "../minishell.h"
-
-=======
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   add-readline.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 13:16:29 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/21 10:47:45 by lauger           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../minishell.h"
->>>>>>> e878d4d (fix: add_readline norminette)
 #define MAX_HISTORY_SIZE 100
 
 void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
