@@ -1,7 +1,7 @@
 #include "../minishell.h"
 #define MAX_HISTORY_SIZE 100
 
-void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
+static t_token	*read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
 			int *history_index)
 {
 	t_token	*tokens;
@@ -24,10 +24,10 @@ void	read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
 		}
 	}
 	free_tokens(&tokens);
-	return ;
+	return (tokens);
 }
 
-void	free_history(char *history[MAX_HISTORY_SIZE])
+static void	free_history(char *history[MAX_HISTORY_SIZE])
 {
 	int	i;
 
@@ -40,7 +40,7 @@ void	free_history(char *history[MAX_HISTORY_SIZE])
 	}
 }
 
-void	init_history(char *history[MAX_HISTORY_SIZE])
+static void	init_history(char *history[MAX_HISTORY_SIZE])
 {
 	int	i;
 
@@ -52,29 +52,33 @@ void	init_history(char *history[MAX_HISTORY_SIZE])
 	}
 }
 
-static void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
+static t_token	*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 			int *history_index)
 {
+	t_token	*tokens;
+
 	if (strcmp(input, "") == 0)
-		return ;
+		return (NULL);
 	add_history(input);
 	if (history[*history_index] != NULL)
 		free(history[*history_index]);
 	history[*history_index] = strdup(input);
 	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
-	read_input_two(input, history, history_index);
+	tokens = read_input_two(input, history, history_index);
 	if (strcmp(input, "exit") == 0)
 	{
 		free(input);
 		exit(0);
 	}
+	return (tokens);
 }
 
-int	read_input(void)
+t_token	*read_input(void)
 {
-	char	*input;
-	char	*history[MAX_HISTORY_SIZE];
-	int		history_index;
+	char		*input;
+	char		*history[MAX_HISTORY_SIZE];
+	int			history_index;
+	t_token		*tokens;
 
 	history_index = 0;
 	init_signal_handlers();
@@ -87,8 +91,9 @@ int	read_input(void)
 			free_history(history);
 			exit(0);
 		}
-		handle_input(input, history, &history_index);
+		tokens = handle_input(input, history, &history_index);
+		syntax_analys(tokens); // it's the continuation of the program
 		free(input);
 	}
-	return (0);
+	return (tokens);
 }
