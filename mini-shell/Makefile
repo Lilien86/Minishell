@@ -16,7 +16,7 @@ RED = \033[0;31m
 NC = \033[0m
 
 SRC = src/main.c src/parsing/tokenization.c src/parsing/tokenization_utils.c \
-src/parsing/add-readline.c
+src/parsing/add-readline.c src/handle_signal.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)
