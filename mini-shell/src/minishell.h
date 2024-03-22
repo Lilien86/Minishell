@@ -1,18 +1,15 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <signal.h>
 # include <unistd.h>
-# include <fcntl.h>
-#define TRUE 1
-#define FALSE 0
+# include <errno.h>
 
+extern char **environ;
 
 typedef enum e_token_type
 {
@@ -69,8 +66,12 @@ void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 
+
+
 //BUILTINS
 void		ft_echo(t_token *tokens);
+char		*ft_getenv(const char *name, char **env);
+void		ft_cd(t_token *tokens, char **env);
 
 void		syntax_analys(t_token *tokens);
 #endif
