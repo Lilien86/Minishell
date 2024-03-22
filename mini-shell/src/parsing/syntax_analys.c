@@ -1,13 +1,8 @@
 #include "../minishell.h"
 
-/*static void	init_data(t_data data)
+static size_t	ft_listsize(t_token *lst)
 {
-
-}*/
-
-/*static int	ft_lstsize(t_tokens *lst)
-{
-	int	cnt;
+	size_t	cnt;
 
 	cnt = 0;
 	while (lst != NULL)
@@ -16,9 +11,9 @@
 		lst = lst->next;
 	}
 	return (cnt);
-}*/
+}
 
-/*static void print_list(t_token *head)
+static void	print_list(t_token *head)
 {
 	t_token *current = head;
 	while (current != NULL)
@@ -26,22 +21,19 @@
 		printf("%s\n", current->value);
 		current = current->next;
 	}
-}*/
+}
 
 void	syntax_analys(t_token *tokens)
 {
-	t_data *data = malloc(sizeof(t_data));
-	t_token	*temp;
-
+	t_data *data;
+	data = ft_calloc(sizeof(t_data), 1);
+	if (data == NULL)
+		return ;
 	data->h_tokens = tokens;
-	data->size = 0;
-	temp = tokens;
+	data->size = ft_listsize(tokens);
 
-	while (temp)
-	{
-		ft_printf("\nType: %d, Value: %s\n", temp->type, temp->value);
-		temp = temp->next;
-	}
-	//print_list(t_tokens->tokens);
+	print_list(data->h_tokens);
 	ft_printf("size---> %d\n", data->size);
+	//merge_token_words(data->h_tokens);
+	//print_list(data->h_tokens);
 }

@@ -55,5 +55,6 @@ void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 void		syntax_analys(t_token *tokens);
+void		merge_token_words(t_token *tokens);
 
 #endif

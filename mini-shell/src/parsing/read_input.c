@@ -7,23 +7,20 @@ static t_token	*read_input_two(char *input, char *history[MAX_HISTORY_SIZE],
 	t_token	*tokens;
 	t_token	*temp;
 
-	if (strcmp(input, "") != 0)
+	add_history(input);
+	if (history[*history_index] != NULL)
+		free(history[*history_index]);
+	history[*history_index] = strdup(input);
+	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
+	tokens = tokenize(input);
+	ft_printf("Tokens:\n");
+	temp = tokens;
+	while (temp)
 	{
-		add_history(input);
-		if (history[*history_index] != NULL)
-			free(history[*history_index]);
-		history[*history_index] = strdup(input);
-		*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
-		tokens = tokenize(input);
-		ft_printf("Tokens:\n");
-		temp = tokens;
-		while (temp)
-		{
-			ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
-			temp = temp->next;
-		}
+		ft_printf("Type: %d, Value: %s\n", temp->type, temp->value);
+		temp = temp->next;
 	}
-	free_tokens(&tokens);
+	//il y avait un if (strcmp(input, "") != 0)
 	return (tokens);
 }
 
