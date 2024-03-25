@@ -25,6 +25,8 @@ void	execute_command(t_token *tokens)
 		ft_cd(tokens, environ);
 	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
 		ft_pwd();
+	else if (ft_strncmp(tokens->value, "export", 6) == 0)
+		ft_export(tokens, &environ);
 }
 
 void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
