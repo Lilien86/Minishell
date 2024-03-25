@@ -1,6 +1,5 @@
 #include "minishell.h"
 
-
 static int	is_flag_n(char *str)
 {
 	if (!str)
@@ -16,8 +15,7 @@ void	ft_echo(t_token *tokens)
 	t_token	*current;
 
 	newline = 1;
-	current = tokens->next; 
-
+	current = tokens->next;
 	while (current && is_flag_n(current->value))
 	{
 		newline = 0;
@@ -28,7 +26,6 @@ void	ft_echo(t_token *tokens)
 		ft_printf("%s", current->value);
 		current = current->next;
 	}
-
 	if (newline)
 		ft_printf("\n");
 }
@@ -42,11 +39,10 @@ void	ft_cd(t_token *tokens, char **env)
 		path = ft_getenv("HOME", env);
 	else
 		path = tokens->next->value;
-
 	if (!path)
 	{
 		ft_printf("minishell: cd: HOME not set\n");
-		return;
+		return ;
 	}
 	ret = chdir(path);
 	if (ret == -1)
@@ -57,11 +53,30 @@ void	ft_cd(t_token *tokens, char **env)
 
 char	*ft_getenv(const char *name, char **env)
 {
-    size_t name_len = strlen(name);
-    for (int i = 0; env[i] != NULL; i++)
-    {
-        if (strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
-            return &env[i][name_len + 1];
-    }
-    return NULL;
+	size_t	name_len;
+	int		i;
+
+	name_len = ft_strlen(name);
+	i = 0;
+	while (env[i])
+	{
+		if (strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
+			return (&env[i][name_len + 1]);
+		i++;
+	}
+	return (NULL);
+}
+
+void	ft_pwd(void)
+{
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
+	{
+		ft_printf("%s\n", cwd);
+		free(cwd);
+	}
+	else
+		ft_printf("minishell: pwd: %s\n", strerror(errno));
 }
