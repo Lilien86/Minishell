@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/21 14:17:17 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:41:15 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ char		*ft_strncpy(char *dest, const char *src, size_t n);
 char		*get_next_line_a(int fd);
 int			ft_isspace(char c);
 char		*ft_strndup(const char *src, size_t n);
+void		*ft_realloc(void *ptr, size_t old_size, size_t new_size);
 
 #endif
