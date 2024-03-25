@@ -15,8 +15,11 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c src/parsing/tokenization.c src/parsing/tokenization_utils.c \
-src/parsing/add-readline.c src/handle_signal.c src/builtins.c src/parsing/readline-history.c
+SRC = src/main.c \
+src/parsing/tokenization.c src/parsing/tokenization_utils.c \
+src/parsing/add-readline.c src/parsing/readline-history.c \
+src/handle_signal.c \
+src/builtins.c src/builtins_env.c src/builtins_utils.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)

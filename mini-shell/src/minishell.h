@@ -63,5 +63,7 @@ void		ft_echo(t_token *tokens);
 char		*ft_getenv(const char *name, char **env);
 void		ft_cd(t_token *tokens, char **env);
 void		ft_pwd(void);
+int			is_flag_n(char *str);
+char		*ft_getenv(const char *name, char **env);
 
 #endif
