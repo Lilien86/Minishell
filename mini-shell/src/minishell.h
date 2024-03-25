@@ -83,6 +83,8 @@ void		ft_cd(t_token *tokens, char **env);
 void		syntax_analys(t_token *tokens);
 =======
 void		ft_pwd(void);
+int			is_flag_n(char *str);
+char		*ft_getenv(const char *name, char **env);
 
 >>>>>>> 95c47a4 (feat: Refactor: Add cd pwd / cut readline)
 #endif
