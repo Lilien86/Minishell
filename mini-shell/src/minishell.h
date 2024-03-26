@@ -37,6 +37,8 @@ typedef struct s_data
 {
 	t_token		*h_tokens;
 	size_t		size;
+	char		***cmds;
+	char		**redirec;
 }	t_data;
 
 t_token		*init_token(t_token_type type, char *value);
@@ -55,6 +57,7 @@ void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 void		syntax_analys(t_token *tokens);
-void		merge_token_words(t_token *tokens);
+void		identify_cmds_redirec(t_data *data);
+char		**alloc_cmds_args(t_token *tokens, int nb_word);
 
 #endif
