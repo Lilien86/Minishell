@@ -30,13 +30,7 @@ void	add_token(t_token **head, t_token *new_token)
 
 void	identify_double_char_tokens(const char **input, t_token **head)
 {
-	if (**input == '$' && *(*input + 1) == '?')
-	{
-		add_token(head, init_token(TOKEN_EXIT_STATUS, "$?"));
-		*input += 2;
-		return ;
-	}
-	else if (**input == '>' && *(*input + 1) == '>')
+	if (**input == '>' && *(*input + 1) == '>')
 	{
 		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
 		*input += 2;
@@ -59,10 +53,6 @@ void	add_token_based_on_char(const char **input, t_token **head)
 		add_token(head, init_token(TOKEN_REDIRECT_IN, "<"));
 	else if (**input == '|')
 		add_token(head, init_token(TOKEN_PIPE, "|"));
-	else if (**input == '$')
-		add_token(head, init_token(TOKEN_ENV_VAR, "$"));
-	else if (**input == '~')
-		add_token(head, init_token(TOKEN_TILDE, "~"));
 	else
 		add_word_token(input, head);
 }
