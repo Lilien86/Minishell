@@ -8,45 +8,42 @@ int	is_special_char(char c)
 
 void	add_quoted_token(const char **input, t_token **head, char quote_type)
 {
+	char		*value;
 	const char	*start;
 	size_t		len;
-	char		*value;
 
-	len = 0;
 	start = *input + 1;
+	len = 0;
 	while (start[len] && start[len] != quote_type)
 		len++;
-	if (quote_type == '"')
+	if (start[len] != quote_type)
 	{
-		value = ft_strndup(start, len);
-		add_token(head, init_token(TOKEN_DOUBLE_QUOTE, value));
+		ft_printf("Error: unmatched %c\n", quote_type);
+		return ;
 	}
-	else
-	{
-		value = ft_strndup(start, len);
-		add_token(head, init_token(TOKEN_SINGLE_QUOTE, value));
-	}
+	value = ft_strndup(start, len);
+	add_token(head, init_token(TOKEN_WORD, value));
 	free(value);
 	*input = start + len;
 }
 
 void	add_word_token(const char **input, t_token **head)
 {
-	const char	*start;
+    const char	*start;
 	size_t		len;
-	char		*value;
 
 	start = *input;
-	while (**input && !ft_isspace(**input) && !is_special_char(**input))
-		(*input)++;
-	len = (size_t)(*input - start);
-	if (len > 0)
-	{
-		value = ft_strndup(start, len);
-		add_token(head, init_token(TOKEN_WORD, value));
-		free(value);
+    while (**input && !ft_isspace(**input) && !is_special_char(**input))
+        (*input)++;
+    len = (size_t)(*input - start);
+    if (len > 0)
+    {
+        char *value = ft_strndup(start, len);
+        add_token(head, init_token(TOKEN_WORD, value));
+        free(value);
+    }
+    if (**input)
 		(*input)--;
-	}
 }
 
 void	free_tokens(t_token **tokens)
