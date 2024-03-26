@@ -50,10 +50,10 @@ static void add_new_env_var(char *arg, char ***env, size_t env_size)
 	new_env = NULL;
     if (!update_env_var(key, value, env))
     {
-        new_env = ft_realloc(*env, sizeof(char *) * env_size, sizeof(char *) * (env_size + 2));
+        new_env = ft_realloc(*env, sizeof(char *) * (env_size + 1), sizeof(char *) * (env_size + 2));
         if (!new_env)
         {
-            //ft_free_tab(split_arg);
+            ft_free_tab(split_arg);
             return ;
         }
 		*env = new_env;
@@ -62,7 +62,8 @@ static void add_new_env_var(char *arg, char ***env, size_t env_size)
         (*env)[env_size + 1] = NULL;
         //free(new_var);
     }
-	//ft_free_tab(split_arg);
+
+	ft_free_tab(split_arg);
 }
 
 void ft_export(t_token *tokens, char ***env)
