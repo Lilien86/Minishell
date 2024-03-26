@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:44:58 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 08:12:34 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/26 09:44:52 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static int	cmp_char(char c1, char c2)
 	return (0);
 }
 
-int
-	ft_strncmp(const char *s1, const char *s2, size_t n)
+// return 0 if s1 and s2 are equal, otherwise return the difference between the first different character
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
 
