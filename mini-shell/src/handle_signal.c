@@ -5,8 +5,9 @@ void	handle_sigint(int sig)
 	(void)sig;
 	rl_replace_line("", 0);
 	write(STDOUT_FILENO, "\n", 1);
-	rl_redisplay();
 	rl_on_new_line();
+	rl_redisplay();
+
 }
 
 //(Ctrl-\)
