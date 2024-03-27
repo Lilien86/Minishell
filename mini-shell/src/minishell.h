@@ -9,6 +9,9 @@
 # include "../libft/libft.h"
 # include <signal.h>
 # include <unistd.h>
+# include <fcntl.h>
+#define TRUE 1
+#define FALSE 0
 
 
 typedef enum e_token_type
@@ -33,12 +36,20 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_file
+{
+	char			*name;
+	t_token_type	type;
+	int				fd[2];
+}	t_file;
+
 typedef struct s_data
 {
 	t_token		*h_tokens;
-	size_t		size;
-	char		***cmds;
-	char		**redirec;
+	t_file		infile;
+	t_file		outfile;
+	char		**argv;
+	int			argc;
 }	t_data;
 
 t_token		*init_token(t_token_type type, char *value);
@@ -57,7 +68,4 @@ void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 void		syntax_analys(t_token *tokens);
-void		identify_cmds_redirec(t_data *data);
-char		**alloc_cmds_args(t_token *tokens, int nb_word);
-
 #endif
