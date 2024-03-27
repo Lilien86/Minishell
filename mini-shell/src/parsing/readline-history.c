@@ -1,8 +1,15 @@
 #include "../minishell.h"
 
-void	free_history(char *history[MAX_HISTORY_SIZE])
+/**
+ * @brief Frees the memory allocated for the history array.
+ * 
+ * This function iterates over the history array and frees the memory allocated for each element.
+ * 
+ * @param history The history array to be freed.
+ */
+void free_history(char *history[MAX_HISTORY_SIZE])
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < MAX_HISTORY_SIZE)
@@ -13,9 +20,16 @@ void	free_history(char *history[MAX_HISTORY_SIZE])
 	}
 }
 
-void	init_history(char *history[MAX_HISTORY_SIZE])
+/**
+ * @brief Initializes the history array.
+ * 
+ * This function initializes the history array by setting all elements to NULL.
+ * 
+ * @param history The history array to be initialized.
+ */
+void init_history(char *history[MAX_HISTORY_SIZE])
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i <= MAX_HISTORY_SIZE)

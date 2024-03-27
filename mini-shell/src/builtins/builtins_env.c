@@ -1,36 +1,53 @@
 #include "../minishell.h"
 
+/**
+ * @brief Prints the environment variables.
+ *
+ * This function prints the environment variables in the format "declare -x VAR_NAME=VAR_VALUE".
+ *
+ * @param env The array of environment variables.
+ */
 static void print_env(char **env)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (env[i])
-    {
-        ft_printf("declare -x %s\n", env[i]);
-        i++;
-    }
+	i = 0;
+	while (env[i])
+	{
+		ft_printf("declare -x %s\n", env[i]);
+		i++;
+	}
 }
 
+/**
+ * @brief Updates an environment variable.
+ *
+ * This function updates the value of an existing environment variable or adds a new environment variable if it doesn't exist.
+ *
+ * @param key The key of the environment variable.
+ * @param value The new value of the environment variable.
+ * @param env A pointer to the array of environment variables.
+ * @return 1 if the environment variable was updated, 0 otherwise.
+ */
 static int update_env_var(char *key, char *value, char ***env)
 {
-    int i;
-    char *new_var;
+	int i;
+	char *new_var;
 
-    i = 0;
-    while ((*env)[i])
-    {
-        if (ft_strncmp((*env)[i], key, ft_strlen(key)) == 0 && (*env)[i][ft_strlen(key)] == '=')
-        {
-            free((*env)[i]);
-            new_var = ft_strjoin(key, "=");
-            (*env)[i] = ft_strjoin(new_var, value);
-            free(new_var);
-            return 1;
-        }
-        i++;
-    }
-    return 0;
+	i = 0;
+	while ((*env)[i])
+	{
+		if (ft_strncmp((*env)[i], key, ft_strlen(key)) == 0 && (*env)[i][ft_strlen(key)] == '=')
+		{
+			free((*env)[i]);
+			new_var = ft_strjoin(key, "=");
+			(*env)[i] = ft_strjoin(new_var, value);
+			free(new_var);
+			return 1;
+		}
+		i++;
+	}
+	return 0;
 }
 
 static void add_new_env_var(char *arg, char ***env, size_t env_size)

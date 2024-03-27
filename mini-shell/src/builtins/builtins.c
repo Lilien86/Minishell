@@ -1,9 +1,17 @@
 #include "../minishell.h"
 
-void	ft_echo(t_token *tokens)
+/**
+ * @brief Implements the echo command.
+ *
+ * This function prints the given arguments to the standard output.
+ * If the "-n" flag is provided as the first argument, it suppresses the trailing newline.
+ *
+ * @param tokens The linked list of tokens representing the command and its arguments.
+ */
+void ft_echo(t_token *tokens)
 {
-	int		newline;
-	t_token	*current;
+	int newline;
+	t_token *current;
 
 	newline = 1;
 	current = tokens->next;
@@ -21,10 +29,19 @@ void	ft_echo(t_token *tokens)
 		ft_printf("\n");
 }
 
-void	ft_cd(t_token *tokens, char **env)
+/**
+ * @brief Implements the cd command.
+ *
+ * This function changes the current working directory to the specified path.
+ * If no path is provided, it changes the directory to the value of the HOME environment variable.
+ *
+ * @param tokens The linked list of tokens representing the command and its arguments.
+ * @param env The array of environment variables.
+ */
+void ft_cd(t_token *tokens, char **env)
 {
-	char	*path;
-	int		ret;
+	char *path;
+	int ret;
 
 	if (tokens->next == NULL)
 		path = ft_getenv("HOME", env);
@@ -33,7 +50,7 @@ void	ft_cd(t_token *tokens, char **env)
 	if (!path)
 	{
 		ft_printf("minishell: cd: HOME not set\n");
-		return ;
+		return;
 	}
 	ret = chdir(path);
 	if (ret == -1)
@@ -42,9 +59,14 @@ void	ft_cd(t_token *tokens, char **env)
 	}
 }
 
-void	ft_pwd(void)
+/**
+ * @brief Implements the pwd command.
+ *
+ * This function prints the current working directory to the standard output.
+ */
+void ft_pwd(void)
 {
-	char	*cwd;
+	char *cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)

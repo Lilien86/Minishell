@@ -20,15 +20,8 @@ typedef enum e_token_type
 	TOKEN_PIPE,// 3 |
 	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
 	TOKEN_HEREDOC,// 5 <<
-	// TOKEN_SINGLE_QUOTE,// 6 '
-	// TOKEN_DOUBLE_QUOTE,// 7 "
-	// TOKEN_ENV_VAR,// 8 $
-	// TOKEN_EXIT_STATUS,// 9 $?
-	// TOKEN_TILDE,// 10 ~
 }	t_token_type;
 
-
-//verif quotes si ferme a la fin 
 typedef struct s_token
 {
 	t_token_type	type;
