@@ -10,7 +10,7 @@
 # include <errno.h>
 
 extern char	**environ;
-#define MAX_HISTORY_SIZE 100
+# define MAX_HISTORY_SIZE 100
 
 typedef enum e_token_type
 {
