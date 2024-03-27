@@ -87,10 +87,10 @@ void	add_word_token(const char **input, t_token **head)
  * 
  * @param tokens A pointer to the linked list of tokens.
  */
-void free_tokens(t_token **tokens)
+void	free_tokens(t_token **tokens)
 {
-	t_token *current;
-	t_token *next;
+	t_token	*current;
+	t_token	*next;
 
 	current = *tokens;
 	while (current != NULL)
@@ -106,13 +106,15 @@ void free_tokens(t_token **tokens)
 /**
  * @brief Identifies and adds a token based on the input character.
  *
- * This function takes a pointer to the input string and a pointer to the head of the token list.
- * It identifies the type of token based on the input character and adds it to the token list.
+ * This function takes a pointer to the input string and a pointer
+ * to the head of the token list.
+ * It identifies the type of token based on
+ * the input character and adds it to the token list.
  *
  * @param input Pointer to the input string.
  * @param head Pointer to the head of the token list.
  */
-void identify_and_add_token(const char **input, t_token **head)
+void	identify_and_add_token(const char **input, t_token **head)
 {
 	if (**input == '\'' || **input == '"')
 		add_quoted_token(input, head, **input);

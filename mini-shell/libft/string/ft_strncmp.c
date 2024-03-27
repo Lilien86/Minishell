@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:44:58 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/26 09:44:52 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/03/27 13:20:58 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,20 @@ static int	cmp_char(char c1, char c2)
 	return (0);
 }
 
-// return 0 if s1 and s2 are equal, otherwise return the difference between the first different character
+/**
+ * @file ft_strncmp.c
+ * @brief Compare two strings up to a specified number of characters.
+ *
+ * This function compares the first `n` characters of the strings `s1` and `s2`.
+ * The comparison is done using unsigned characters, so the result is always
+ * the difference between the ASCII values of the characters.
+ *
+ * @param s1 The first string to compare.
+ * @param s2 The second string to compare.
+ * @param n The maximum number of characters to compare.
+ * @return An integer less than, equal to, or greater than zero if `s1` is found,
+ * respectively, to be less than, to match, or be greater than `s2`.
+ */
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
