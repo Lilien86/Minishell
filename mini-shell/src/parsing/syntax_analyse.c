@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/28 11:14:19 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/28 13:54:37 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	handle_while(t_here_doc *here_doc)
 {
 	static char		*buff;
 	
-	while (TRUE)
+	while (true)
 	{
 		handle_null(here_doc);
 		here_doc->tmp = get_next_line(0, &buff);
@@ -108,7 +108,7 @@ static void	handle_here_doc(char *delimiter)
 	free(here_doc->tmp);
 }
 
-void	syntax_analys(t_token *tokens)
+void	syntax_analyse(t_token *tokens)
 {
 	t_token	*current;
 

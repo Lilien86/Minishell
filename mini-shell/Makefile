@@ -19,7 +19,8 @@ SRC = src/main.c \
 src/parsing/tokenization.c src/parsing/tokenization_utils.c \
 src/parsing/add-readline.c src/parsing/readline-history.c \
 src/handle_signal.c \
-src/builtins/builtins.c src/builtins/builtins_env.c src/builtins/builtins_utils.c
+src/builtins/builtins.c src/builtins/builtins_env.c src/builtins/builtins_utils.c \
+src/parsing/syntax_analyse.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)

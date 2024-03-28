@@ -26,7 +26,7 @@ void	debug_print_tokens(t_token *tokens)
  * @param history The array of previous input history.
  * @param history_index The index of the current input in the history array.
  */
-void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
+t_token	*process_input(char *input, char *history[MAX_HISTORY_SIZE],
 					int *history_index)
 {
 	t_token	*tokens;
@@ -38,7 +38,8 @@ void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
 	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
 	tokens = tokenize(input);
 	execute_command(tokens);
-	free_tokens(&tokens);
+	//free_tokens(&tokens);
+	return (tokens);
 }
 
 /**
@@ -68,11 +69,13 @@ void	execute_command(t_token *tokens)
  * @param history The array of previous input history.
  * @param history_index The index of the current input in the history array.
  */
-void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
+t_token	*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 					int *history_index)
 {
+	t_token *tokens;
+
 	if (strcmp(input, "") == 0)
-		return ;
+		return (NULL);
 	tokens = process_input(input, history, history_index);
 	process_input(input, history, history_index);
 	if (strcmp(input, "exit") == 0)
@@ -89,18 +92,12 @@ void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @return 0 on success.
  */
-int	read_input(void)
+t_token	*read_input(void)
 {
-<<<<<<< HEAD
 	char *input;
 	char *history[MAX_HISTORY_SIZE];
 	int history_index;
 	t_token	*tokens;
-=======
-	char	*input;
-	char	*history[MAX_HISTORY_SIZE];
-	int		history_index;
->>>>>>> 6b368a9 (Refactor: Norminette, clean code)
 
 	history_index = 0;
 	init_signal_handlers();

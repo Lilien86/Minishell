@@ -8,6 +8,9 @@
 # include <signal.h>
 # include <unistd.h>
 # include <errno.h>
+# include <stdbool.h>
+# include <fcntl.h>
+
 
 extern char	**environ;
 # define MAX_HISTORY_SIZE 100
@@ -62,9 +65,9 @@ void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 
 //READLINE
-int			read_input(void);
+t_token		*read_input(void);
 void		execute_command(t_token *tokens);
-void		handle_input(char *input, char *history[MAX_HISTORY_SIZE],
+t_token		*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 				int *history_index);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
@@ -73,14 +76,11 @@ void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		ft_echo(t_token *tokens);
 char		*ft_getenv(const char *name, char **env);
 void		ft_cd(t_token *tokens, char **env);
-<<<<<<< HEAD
-
-void		syntax_analys(t_token *tokens);
-=======
 void		ft_pwd(void);
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		ft_export(t_token *tokens, char ***env);
 
->>>>>>> 95c47a4 (feat: Refactor: Add cd pwd / cut readline)
+void		syntax_analyse(t_token *tokens);
+
 #endif
