@@ -10,6 +10,8 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 extern char	**environ;
 # define MAX_HISTORY_SIZE 100
