@@ -6,13 +6,13 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/29 09:32:11 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/29 11:29:29 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-typedef struct s_here_doc
+/*typedef struct s_here_doc
 {
 	int fd;
 	char *filename;
@@ -20,16 +20,6 @@ typedef struct s_here_doc
 	char *tmp;
 	char *delimiter;
 } t_here_doc;
-
-static void move_cursor_left() {
-	// Move cursor left sequence
-	write(STDOUT_FILENO, "\033[D", 3);
-}
-
-/*static void move_cursor_right() {
-	// Move cursor right sequence
-	write(STDOUT_FILENO, "\033[C", 3);
-}*/
 
 static int is_delimiter(char *line, char *tmp, char *delimiter)
 {
@@ -59,7 +49,8 @@ static void handle_while(t_here_doc *here_doc)
 	while (true)
 	{
 		handle_null(here_doc);
-		here_doc->tmp = get_next_line(0, &buff);
+		//here_doc->tmp = get_next_line(0, &buff);
+		here_doc->tmp = readline(NULL);
 		if (here_doc->tmp)
 		{
 			if (is_delimiter(here_doc->line, here_doc->tmp, here_doc->delimiter) == 0)
@@ -69,12 +60,6 @@ static void handle_while(t_here_doc *here_doc)
 				free(buff);
 				buff = NULL;
 				break;
-			}
-			else
-			{
-				char *arrow_pos = ft_strnstr(here_doc->line, "\033", ft_strlen(here_doc->line));
-				if (arrow_pos != NULL)
-					move_cursor_left();
 			}
 		}
 		else if ((here_doc->line)[0] == '\0' || (here_doc->line)[ft_strlen(here_doc->line) - 1] == '\n')
@@ -121,6 +106,44 @@ static void handle_here_doc(char *delimiter)
 	write(here_doc->fd, here_doc->line, ft_strlen(here_doc->line));
 	free(here_doc->line);
 	free(here_doc->tmp);
+}*/
+
+void handle_here_doc(char *delimiter)
+{
+	char *line;
+	char *here_doc_content = NULL;
+
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+		{
+			ft_printf("\nbash: warning: here-document at line 1 delimited"
+					  "by end-of-file (wanted `%s')\n",
+					  delimiter);
+			break;
+		}
+		if (strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break;
+		}
+		if (here_doc_content == NULL)
+			here_doc_content = strdup(line);
+		else
+		{
+			char *temp = malloc(strlen(here_doc_content) + strlen(line) + 2);
+			sprintf(temp, "%s\n%s", here_doc_content, line);
+			free(here_doc_content);
+			here_doc_content = temp;
+		}
+		free(line);
+	}
+
+	printf("\nContenu du here_doc :\n%s\n", here_doc_content);
+
+	// Libérer la mémoire allouée pour le contenu du here_doc
+	free(here_doc_content);
 }
 
 void syntax_analyse(t_token *tokens)

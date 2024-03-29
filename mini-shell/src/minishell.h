@@ -11,6 +11,8 @@
 # include <stdbool.h>
 # include <fcntl.h>
 
+extern char	**environ;
+# define MAX_HISTORY_SIZE 100
 
 extern char	**environ;
 # define MAX_HISTORY_SIZE 100
