@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/28 13:54:37 by lauger           ###   ########.fr       */
+/*   Updated: 2024/03/29 09:32:11 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,37 @@
 
 typedef struct s_here_doc
 {
-	int		fd;
-	char	*filename;
-	char	*line;
-	char	*tmp;
-	char	*delimiter;
-}	t_here_doc;
+	int fd;
+	char *filename;
+	char *line;
+	char *tmp;
+	char *delimiter;
+} t_here_doc;
 
-static int	is_delimiter(char *line, char *tmp, char *delimiter)
+static void move_cursor_left() {
+	// Move cursor left sequence
+	write(STDOUT_FILENO, "\033[D", 3);
+}
+
+/*static void move_cursor_right() {
+	// Move cursor right sequence
+	write(STDOUT_FILENO, "\033[C", 3);
+}*/
+
+static int is_delimiter(char *line, char *tmp, char *delimiter)
 {
 	if (!line || !tmp | !delimiter)
 		return (0);
-	if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0
-		&& ft_strlen(tmp) == ft_strlen(delimiter) + 1)
+	if (ft_strncmp(line, delimiter, ft_strlen(delimiter)) == 0 && ft_strlen(tmp) == ft_strlen(delimiter) + 1)
 		return (1);
 	return (0);
 }
 
-static void	handle_null(t_here_doc *here_doc)
+static void handle_null(t_here_doc *here_doc)
 {
-	if ((here_doc->line && (here_doc->line)[0] == '\0')
-		|| (here_doc->line && (here_doc->line)[ft_strlen(here_doc->line) - 1] == '\n'))
+	if ((here_doc->line && (here_doc->line)[0] == '\0') || (here_doc->line && (here_doc->line)[ft_strlen(here_doc->line) - 1] == '\n'))
 	{
-		write (1, " > ", 3);
+		write(1, " > ", 3);
 		free(here_doc->tmp);
 		here_doc->tmp = NULL;
 	}
@@ -44,10 +52,10 @@ static void	handle_null(t_here_doc *here_doc)
 		free(here_doc->tmp);
 }
 
-static void	handle_while(t_here_doc *here_doc)
+static void handle_while(t_here_doc *here_doc)
 {
-	static char		*buff;
-	
+	static char *buff;
+
 	while (true)
 	{
 		handle_null(here_doc);
@@ -60,20 +68,27 @@ static void	handle_while(t_here_doc *here_doc)
 			{
 				free(buff);
 				buff = NULL;
-				break ;
+				break;
+			}
+			else
+			{
+				char *arrow_pos = ft_strnstr(here_doc->line, "\033", ft_strlen(here_doc->line));
+				if (arrow_pos != NULL)
+					move_cursor_left();
 			}
 		}
 		else if ((here_doc->line)[0] == '\0' || (here_doc->line)[ft_strlen(here_doc->line) - 1] == '\n')
 		{
 			free(buff);
 			buff = NULL;
-			ft_printf("\nError:\na limiter is expected\n");
-			break ;
+			ft_printf("\nbash: warning: here-document at line 1 delimited"
+				"by end-of-file (wanted `%s')\n", here_doc->delimiter);
+			break;
 		}
 	}
 }
 
-void	init_here_doc(t_here_doc *here_doc)
+void init_here_doc(t_here_doc *here_doc)
 {
 	here_doc->fd = 0;
 	here_doc->filename = NULL;
@@ -82,35 +97,35 @@ void	init_here_doc(t_here_doc *here_doc)
 	here_doc->delimiter = NULL;
 }
 
-static void	handle_here_doc(char *delimiter)
+static void handle_here_doc(char *delimiter)
 {
-	char			*tmp;
-	t_here_doc		*here_doc;
-	
+	char *tmp;
+	t_here_doc *here_doc;
+
 	here_doc = malloc(sizeof(t_here_doc));
 	if (here_doc == NULL)
 	{
 		fprintf(stderr, "Memory allocation failed\n");
-		//freeeeeeeeeeeeee
+		// freeeeeeeeeeeeee
 		exit(EXIT_FAILURE);
 	}
 	init_here_doc(here_doc);
 	here_doc->filename = "/tmp/proute";
 	here_doc->fd = open(here_doc->filename, O_RDWR | O_CREAT | O_TRUNC, 0666);
-	here_doc->line = ft_calloc(1,1);
+	here_doc->line = ft_calloc(1, 1);
 	here_doc->delimiter = delimiter;
-	tmp = ft_calloc(1,1);
+	tmp = ft_calloc(1, 1);
 
 	handle_while(here_doc);
-	
+
 	write(here_doc->fd, here_doc->line, ft_strlen(here_doc->line));
 	free(here_doc->line);
 	free(here_doc->tmp);
 }
 
-void	syntax_analyse(t_token *tokens)
+void syntax_analyse(t_token *tokens)
 {
-	t_token	*current;
+	t_token *current;
 
 	current = tokens;
 	while (current != NULL)

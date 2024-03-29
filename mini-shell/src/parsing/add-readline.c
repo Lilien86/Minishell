@@ -104,7 +104,7 @@ t_token	*read_input(void)
 	init_history(history);
 	while (1)
 	{
-		input = readline("minishell >");
+		input = readline("minishell > ");
 		//debug_print_tokens(tokenize(input));
 		if (input == NULL)
 		{
