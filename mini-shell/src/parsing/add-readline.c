@@ -27,7 +27,7 @@ void	debug_print_tokens(t_token *tokens)
  * @param history_index The index of the current input in the history array.
  */
 void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index)
+					int *history_index, char **env)
 {
 	t_token	*tokens;
 
@@ -37,7 +37,7 @@ void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
 	history[*history_index] = strdup(input);
 	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
 	tokens = tokenize(input);
-	execute_command(tokens);
+	execute_command(tokens, env);
 	free_tokens(&tokens);
 }
 
@@ -46,18 +46,18 @@ void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @param tokens The linked list of tokens representing the command.
  */
-void	execute_command(t_token *tokens)
+void	execute_command(t_token *tokens, char **env)
 {
 	if (!tokens)
 		return ;
 	if (ft_strncmp(tokens->value, "echo", 4) == 0)
 		ft_echo(tokens);
 	else if (ft_strncmp(tokens->value, "cd", 2) == 0)
-		ft_cd(tokens, environ);
+		ft_cd(tokens, env);
 	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
 		ft_pwd();
 	else if (ft_strncmp(tokens->value, "export", 6) == 0)
-		ft_export(tokens, &environ);
+		ft_export(tokens, &env);
 }
 
 /**
@@ -69,11 +69,11 @@ void	execute_command(t_token *tokens)
  * @param history_index The index of the current input in the history array.
  */
 void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index)
+					int *history_index, char **env)
 {
 	if (strcmp(input, "") == 0)
 		return ;
-	process_input(input, history, history_index);
+	process_input(input, history, history_index, env);
 	if (strcmp(input, "exit") == 0)
 	{
 		free(input);
@@ -87,7 +87,7 @@ void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @return 0 on success.
  */
-int	read_input(void)
+int	read_input(char **env)
 {
 	char	*input;
 	char	*history[MAX_HISTORY_SIZE];
@@ -105,7 +105,7 @@ int	read_input(void)
 			free_history(history);
 			exit(0);
 		}
-		handle_input(input, history, &history_index);
+		handle_input(input, history, &history_index, env);
 		free(input);
 	}
 	return (0);

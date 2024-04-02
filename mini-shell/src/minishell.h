@@ -9,7 +9,7 @@
 # include <unistd.h>
 # include <errno.h>
 
-extern char	**environ;
+
 # define MAX_HISTORY_SIZE 100
 
 typedef enum e_token_type
@@ -46,12 +46,14 @@ void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 
 //READLINE
-int			read_input(void);
-void		execute_command(t_token *tokens);
+int			read_input(char **env);
+void		execute_command(t_token *tokens, char **env);
 void		handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-				int *history_index);
+				int *history_index, char **env);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
+void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
+					int *history_index, char **env);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);

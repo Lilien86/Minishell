@@ -1,141 +1,68 @@
 #include "../minishell.h"
 
-/**
- * @brief Prints the environment variables.
- *
- * This function prints the environment variables
- * in the format "declare -x VAR_NAME=VAR_VALUE".
- *
- * @param env The array of environment variables.
- */
-static void	print_env(char **env)
+static void print_env(char **env)
 {
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		ft_printf("declare -x %s\n", env[i]);
-		i++;
-	}
+    int i = 0;
+    while (env[i]) {
+        ft_printf("declare -x %s\n", env[i]);
+        i++;
+    }
 }
 
-/**
- * @brief Updates an environment variable.
- *
- * This function updates the value of an existing 
- * environment variable or adds a new environment variable if it doesn't exist.
- *
- * @param key The key of the environment variable.
- * @param value The new value of the environment variable.
- * @param env A pointer to the array of environment variables.
- * @return 1 if the environment variable was updated, 0 otherwise.
- */
-static int	update_env_var(char *key, char *value, char ***env)
+static int length_until_equal(const char *str)
 {
-	int		i;
-	char	*new_var;
-
-	i = 0;
-	while ((*env)[i])
-	{
-		if (ft_strncmp((*env)[i], key,
-			ft_strlen(key)) == 0 && (*env)[i][ft_strlen(key)] == '=')
-		{
-			free((*env)[i]);
-			new_var = ft_strjoin(key, "=");
-			if (!new_var)
-				return (0);
-			(*env)[i] = ft_strjoin(new_var, value);
-			if (!(*env)[i])
-			{
-				free(new_var);
-				return (0);
-			}
-			free(new_var);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+    int len = 0;
+    while (str[len] != '\0' && str[len] != '=') {
+        len++;
+    }
+    return len;
 }
 
-static void	create_new_env_var(char *key, char *value, char **env_var)
+static void add_new_env_var(char *var, char ***env, int *env_size)
 {
-	char *new_var;
+    int i = 0;
+    int var_len = length_until_equal(var);
+    while (i < *env_size) {
+        if ((*env)[i] != NULL && ft_strncmp((*env)[i], var, (size_t)var_len) == 0 && (*env)[i][var_len] == '=') {
+            free((*env)[i]);
+            (*env)[i] = ft_strdup(var);
+            return;
+        }
+        i++;
+    }
 
-	new_var = ft_strjoin(key, "=");
-	if (!new_var)
-		return ;
-	*env_var = ft_strjoin(new_var, value);
-	if (!*env_var)
-	{
-		free(new_var);
-		return ;
-	}
-	free(new_var);
-}
+    size_t old_size = sizeof(char *) * (size_t)(*env_size);
+    size_t new_size = sizeof(char *) * ((size_t)(*env_size) + 2);
 
-static void	insert_env_var(char ***env, char *env_var, size_t env_size)
-{
-	char **new_env;
+    char **new_env = (char **)ft_realloc(*env, new_size, old_size);
+    if (!new_env) {
+        return;
+    }
 
-	new_env = ft_realloc(*env, sizeof(char *) * (env_size + 1),
-			 sizeof(char *) * (env_size + 2));
-	if (!new_env)
-	{
-		free(env_var);
-		return;
-	}
-	new_env[env_size] = env_var;
-    new_env[env_size + 1] = NULL;
+    new_env[*env_size] = ft_strdup(var);
+    if (!new_env[*env_size]) {
+        return;
+    }
+
+    new_env[*env_size + 1] = NULL; 
     *env = new_env;
+    (*env_size)++;
 }
 
-static void	add_new_env_var(char *arg, char ***env, size_t env_size)
-{
-	char **split_arg;
-	char *key;
-	char *value;
-	char *env_var;
 
-	split_arg = ft_split(arg, '=');
-	if (!split_arg || !split_arg[0])
-	{
-		ft_free_tab(split_arg);
-		return ;
-	}
-	key = split_arg[0];
-	if (split_arg[1])
-		value = split_arg[1];
-	else
-		value = "";
-	if (!update_env_var(key, value, env))
-	{
-		create_new_env_var(key, value, &env_var);
-		insert_env_var(env, env_var, env_size);
-	}
-	ft_free_tab(split_arg);
-}
+void ft_export(t_token *tokens, char ***env) {
+    int env_size;
 
-void	ft_export(t_token *tokens, char ***env)
-{
-	size_t	env_size;
-	char	**temp_env;
-
-	temp_env = *env;
-	env_size = 0;
-	while (temp_env[env_size])
+    env_size = 0;
+    while ((*env)[env_size])
 		env_size++;
-	if (!tokens->next)
-	{
-		print_env(*env);
-		return ;
-	}
-	tokens = tokens->next;
-	while (tokens)
-	{
-		add_new_env_var(tokens->value, env, env_size);
-		tokens = tokens->next;
-	}
+    if (!tokens->next) {
+        print_env(*env);
+        return;
+    }
+    tokens = tokens->next;
+    while (tokens) {
+        add_new_env_var(tokens->value, env, &env_size);
+        tokens = tokens->next;
+    }
 }
