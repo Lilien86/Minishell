@@ -30,7 +30,6 @@ t_token	*process_input(char *input, char *history[MAX_HISTORY_SIZE],
 					int *history_index)
 {
 	t_token	*tokens;
-
 	add_history(input);
 	if (history[*history_index] != NULL)
 		free(history[*history_index]);
@@ -112,7 +111,7 @@ t_token	*read_input(void)
 			exit(0);
 		}
 		tokens = handle_input(input, history, &history_index);
-		syntax_analyse(tokens);
+		here_doc(tokens);
 		free(input);
 	}
 	return (tokens);

@@ -86,4 +86,7 @@ int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		ft_export(t_token *tokens, char ***env);
 
+//UTILS
+char	*generate_random_filename();
+
 #endif
