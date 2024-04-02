@@ -67,6 +67,7 @@ void		add_quoted_token(const char **input, t_token **head,\
 void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
+void		here_doc(t_token *tokens);
 
 //READLINE
 t_token		*read_input(void);
@@ -84,7 +85,5 @@ void		ft_pwd(void);
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		ft_export(t_token *tokens, char ***env);
-
-void		syntax_analyse(t_token *tokens);
 
 #endif

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_analyse.c                                   :+:      :+:    :+:   */
+/*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/29 13:53:28 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/02 08:46:01 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void handle_here_doc(char *delimiter)
+void		handle_sigint_here_doc(int sig);
+static void	fork_here_doc(char *delimiter);
+static void handle_here_doc(char *delimiter);
+
+static void handle_here_doc(char *delimiter)
 {
 	char *line;
 	char *here_doc_content = NULL;
 
 	init_signal_handlers();
-
+	signal(SIGINT, handle_sigint_here_doc);
 	while (1)
 	{
 		line = readline("> ");
@@ -50,7 +54,7 @@ void handle_here_doc(char *delimiter)
 	exit(0);
 }
 
-void	fork_here_doc(char *delimiter)
+static void	fork_here_doc(char *delimiter)
 {
 	pid_t pid;
 	int status;
@@ -72,18 +76,17 @@ void	fork_here_doc(char *delimiter)
 	}
 }
 
-void	handle_sigint_here_doc(int sig)
+static void	handle_sigint_here_doc(int sig)
 {
 	(void)sig;
 	exit(0);
 }
 
-void syntax_analyse(t_token *tokens)
+void	here_doc(t_token *tokens)
 {
 	t_token *current;
 
 	current = tokens;
-	signal(SIGINT, handle_sigint_here_doc);
 	while (current != NULL)
 	{
 		if (current->type == TOKEN_HEREDOC)
