@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	env = copy_environment(envp);
 	if (!env)
 		return (1);
-	read_input(env);
+	read_input(&env);
 	free_env_copy(env);
 	return (0);
 }

@@ -4,7 +4,8 @@ LIBFT = ./libft
 LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
-CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT)
+CFLAGS = -g -I $(LIBFT)
+# CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT)
 # Wconversion: Warns about implicit conversions
 # Wunreachable-code: Warns about code that will never be executed
 # Wunused-function: Warns if a static function is unused

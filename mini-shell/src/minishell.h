@@ -46,14 +46,14 @@ void		add_token_based_on_char(const char **input, t_token **head);
 void		init_signal_handlers(void);
 
 //READLINE
-int			read_input(char **env);
-void		execute_command(t_token *tokens, char **env);
+int			read_input(char ***env);
+void		execute_command(t_token *tokens, char ***env);
 void		handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-				int *history_index, char **env);
+				int *history_index, char ***env);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char **env);
+					int *history_index, char ***env);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);

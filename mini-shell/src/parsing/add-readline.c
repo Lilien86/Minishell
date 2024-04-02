@@ -27,7 +27,7 @@ void	debug_print_tokens(t_token *tokens)
  * @param history_index The index of the current input in the history array.
  */
 void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char **env)
+					int *history_index, char ***env)
 {
 	t_token	*tokens;
 
@@ -46,18 +46,18 @@ void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @param tokens The linked list of tokens representing the command.
  */
-void	execute_command(t_token *tokens, char **env)
+void	execute_command(t_token *tokens, char ***env)
 {
 	if (!tokens)
 		return ;
 	if (ft_strncmp(tokens->value, "echo", 4) == 0)
 		ft_echo(tokens);
 	else if (ft_strncmp(tokens->value, "cd", 2) == 0)
-		ft_cd(tokens, env);
+		ft_cd(tokens, *env);
 	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
 		ft_pwd();
 	else if (ft_strncmp(tokens->value, "export", 6) == 0)
-		ft_export(tokens, &env);
+		ft_export(tokens, env);
 }
 
 /**
@@ -69,7 +69,7 @@ void	execute_command(t_token *tokens, char **env)
  * @param history_index The index of the current input in the history array.
  */
 void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char **env)
+					int *history_index, char ***env)
 {
 	if (strcmp(input, "") == 0)
 		return ;
@@ -87,7 +87,7 @@ void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @return 0 on success.
  */
-int	read_input(char **env)
+int	read_input(char ***env)
 {
 	char	*input;
 	char	*history[MAX_HISTORY_SIZE];
