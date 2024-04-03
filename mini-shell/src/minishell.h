@@ -58,11 +58,11 @@ void		init_signal_handlers(void);
 
 //READLINE
 int			read_input(t_minishell *shell);
-void		execute_command(t_token *tokens, char ***env);
-void		handle_input(char *input, t_minishell *shell);
+void		execute_command(t_minishell *shell);
+void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
-void		process_input(char *input, t_minishell *shell);
+void		process_input(t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);

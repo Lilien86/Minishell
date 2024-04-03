@@ -6,7 +6,7 @@ t_minishell *init_minishell(char **envp)
     if (!shell)
         return (NULL);
     
-    shell->env = copy_environment(envp);
+    shell->env = ft_copy_tab(envp);
 	if (!shell->env)
 		return (NULL);
     shell->tokens = NULL;

@@ -13,42 +13,41 @@ void	debug_print_tokens(t_token *tokens)
 	}
 }
 
-void	process_input(char *input, t_minishell *shell)
+void	process_input(t_minishell *shell)
 {
-	t_token	*tokens;
+    t_token	*tokens;
 
-	add_history(input);
-	if (history[*history_index] != NULL)
-		free(history[*history_index]);
-	history[*history_index] = strdup(input);
-	*history_index = (*history_index + 1) % MAX_HISTORY_SIZE;
-	tokens = tokenize(input);
-	execute_command(tokens, env);
-	free_tokens(&tokens);
+    add_history(shell->input);
+    if (shell->history[shell->history_index] != NULL)
+        free(shell->history[shell->history_index]);
+    shell->history[shell->history_index] = strdup(shell->input);
+    shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
+    shell->tokens = tokenize(shell->input);
+    if (shell->tokens) 
+        execute_command(shell);
+    free_tokens(&(shell->tokens));
 }
 
-void	execute_command(t_token *tokens, char ***env)
-{
-	if (!tokens)
-		return ;
-	if (ft_strncmp(tokens->value, "echo", 4) == 0)
-		ft_echo(tokens);
-	else if (ft_strncmp(tokens->value, "cd", 2) == 0)
-		ft_cd(tokens, *env);
-	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
-		ft_pwd();
-	else if (ft_strncmp(tokens->value, "export", 6) == 0)
-		ft_export(tokens, env);
-}
-
-void	handle_input(char *input, t_minishell *shell)
-{
-    if (strcmp(input, "") == 0)
+void execute_command(t_minishell *shell) {
+    if (!shell->tokens)
         return;
-    process_input(input, shell);
-    if (strcmp(input, "exit") == 0)
+    if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
+        ft_echo(shell->tokens);
+    else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
+        ft_cd(shell->tokens, shell->env);
+    else if (ft_strncmp(shell->tokens->value, "pwd", 3) == 0)
+        ft_pwd();
+    else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
+        ft_export(shell->tokens, &(shell->env));
+}
+
+void	handle_input(t_minishell *shell)
+{
+    if (strcmp(shell->input, "") == 0)
+        return;
+    process_input(shell);
+    if (strcmp(shell->input, "exit") == 0)
 	{
-        free(input);
         free_minishell(shell);
         exit(0);
     }
@@ -57,17 +56,16 @@ void	handle_input(char *input, t_minishell *shell)
 
 int	read_input(t_minishell *shell)
 {
-    char	*input;
-
     while (1)
 	{
-        input = readline("minishell > ");
-        if (input == NULL) {
+        shell->input = readline("minishell > ");
+        if (shell->input == NULL)
+		{
             free_minishell(shell);
             exit(0);
         }
-        handle_input(input, shell);
-        free(input);
+        handle_input(shell);
+        free(shell->input);
     }
     return (0);
 }
