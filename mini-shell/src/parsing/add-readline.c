@@ -80,6 +80,8 @@ t_token	*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 	if (strcmp(input, "exit") == 0)
 	{
 		free(input);
+		free_history(history);
+		free_tokens(&tokens);
 		exit(0);
 	}
 	return (tokens);
@@ -91,7 +93,7 @@ t_token	*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
  * 
  * @return 0 on success.
  */
-t_token	*read_input(void)
+void	read_input(void)
 {
 	char *input;
 	char *history[MAX_HISTORY_SIZE];
@@ -108,11 +110,14 @@ t_token	*read_input(void)
 		if (input == NULL)
 		{
 			free_history(history);
+			free_tokens(&tokens);
+			ft_printf("proute\n");
 			exit(0);
 		}
 		tokens = handle_input(input, history, &history_index);
 		here_doc(tokens);
 		free(input);
+		free_tokens(&tokens);
 	}
-	return (tokens);
+	//free_tokens(&tokens);
 }

@@ -68,7 +68,7 @@ void		init_signal_handlers(void);
 void		here_doc(t_token *tokens);
 
 //READLINE
-t_token		*read_input(void);
+void		read_input(void);
 void		execute_command(t_token *tokens);
 t_token		*handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 				int *history_index);

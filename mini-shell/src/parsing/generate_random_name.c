@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:52:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/02 11:55:22 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/03 10:19:51 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char* generate_random_filename()
 		perror("Erreur lors de l'ouverture de /dev/urandom");
 		exit(EXIT_FAILURE);
 	}
-	filename = (char*)malloc((FILENAME_LENGTH + 1) * sizeof(char));
+	filename = ft_calloc((FILENAME_LENGTH + 1) , sizeof(char));
 	if (filename == NULL)
 	{
 		perror("Erreur d'allocation de mémoire");

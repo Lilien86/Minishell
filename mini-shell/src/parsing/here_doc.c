@@ -6,18 +6,45 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/03 08:24:43 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/03 11:11:58 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void		handle_sigint_here_doc(int sig);
-static void	fork_here_doc(char *delimiter);
-static void handle_here_doc(char *delimiter);
-static void	write_here_doc_in_file(char *content);
+static void	handle_sigint_here_doc(int sig)
+{
+	(void)sig;
+	exit(0);
+}
 
-static void handle_here_doc(char *delimiter)
+static void	write_here_doc_in_file(char *content)
+{
+	int		fd;
+	char	*filename;
+	char	*full_path;
+
+	filename = generate_random_filename();
+	full_path = ft_calloc(sizeof(char) , (strlen(filename) + strlen("/tmp/") + 1));
+	if (full_path == NULL)
+	{
+		perror("Erreur:\n during write_here_doc_in_file\n");
+		return ;
+	}
+	full_path = ft_strncpy(full_path, "/tmp/", ft_strlen("/tmp/"));
+	full_path = ft_strcat(full_path, filename);
+	fd = open(full_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd == -1)
+	{
+		perror("Error:\nduring write_here_doc_in_file");
+		exit(EXIT_FAILURE);
+	}
+	write(fd, content, strlen(content));
+	free(full_path);
+	free(filename);
+}
+
+static void handle_here_doc(char *delimiter, t_token **tokens)
 {
 	char *line;
 	char *here_doc_content = NULL;
@@ -30,8 +57,7 @@ static void handle_here_doc(char *delimiter)
 		if (line == NULL)
 		{
 			ft_printf("\nbash: warning: here-document at line 1 delimited"
-					  "by end-of-file (wanted `%s')\n",
-					  delimiter);
+					"by end-of-file (wanted `%s')\n", delimiter);
 			break;
 		}
 		if (strcmp(line, delimiter) == 0)
@@ -53,34 +79,11 @@ static void handle_here_doc(char *delimiter)
 	//printf("\nContenu du here_doc :\n%s\n", here_doc_content);
 	write_here_doc_in_file(here_doc_content);
 	free(here_doc_content);
+	free_tokens(tokens);
 	exit(0);
 }
 
-static void	write_here_doc_in_file(char *content)
-{
-	int		fd;
-	char	*filename;
-	char	*full_path;
-
-	filename = strdup(generate_random_filename());
-	full_path = malloc(strlen("/tmp/") + strlen(filename) + 1);
-	if (full_path == NULL)
-	{
-		perror("Erreur:\n during write_here_doc_in_file\n");
-		return ;
-	}
-	full_path = ft_strncpy(full_path, "/tmp/", ft_strlen("/tmp/"));
-	full_path = ft_strcat(full_path, filename);
-	fd = open(full_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		perror("Error:\nduring write_here_doc_in_file");
-		exit(EXIT_FAILURE);
-	}
-	write(fd, content, strlen(content));
-}
-
-static void	fork_here_doc(char *delimiter)
+static void	fork_here_doc(char *delimiter, t_token **tokens)
 {
 	pid_t pid;
 	int status;
@@ -88,7 +91,7 @@ static void	fork_here_doc(char *delimiter)
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_here_doc(delimiter);
+		handle_here_doc(delimiter, tokens);
 	}
 	else if (pid > 0)
 	{
@@ -102,12 +105,6 @@ static void	fork_here_doc(char *delimiter)
 	}
 }
 
-static void	handle_sigint_here_doc(int sig)
-{
-	(void)sig;
-	exit(0);
-}
-
 void	here_doc(t_token *tokens)
 {
 	t_token *current;
@@ -118,8 +115,7 @@ void	here_doc(t_token *tokens)
 		if (current->type == TOKEN_HEREDOC)
 		{
 			current = current->next;
-			//handle_here_doc(current->value);
-			fork_here_doc(current->value);
+			fork_here_doc(current->value, &tokens);
 		}
 		current = current->next;
 	}

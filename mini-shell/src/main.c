@@ -2,10 +2,7 @@
 
 int	main(void)
 {
-	t_token	*tokens;
-
-	tokens = read_input();
-	free_tokens(&tokens);
+	read_input();
 
 	return (0);
 }
