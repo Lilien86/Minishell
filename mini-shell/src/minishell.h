@@ -45,11 +45,9 @@ typedef struct s_file
 
 typedef struct s_data
 {
-	t_token		*h_tokens;
 	t_file		infile;
 	t_file		outfile;
 	char		**argv;
-	int			argc;
 }	t_data;
 
 //PARSING

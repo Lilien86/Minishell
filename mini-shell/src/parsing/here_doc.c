@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/02 11:55:06 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/03 08:24:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void handle_here_doc(char *delimiter)
 		}
 		free(line);
 	}
-	printf("\nContenu du here_doc :\n%s\n", here_doc_content);
+	//printf("\nContenu du here_doc :\n%s\n", here_doc_content);
 	write_here_doc_in_file(here_doc_content);
 	free(here_doc_content);
 	exit(0);
@@ -93,7 +93,7 @@ static void	fork_here_doc(char *delimiter)
 	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
-		ft_printf("The child process has finished\n");
+		//ft_printf("The child process has finished\n");
 	}
 	else
 	{
