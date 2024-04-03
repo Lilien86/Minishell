@@ -28,6 +28,17 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+
+typedef struct s_minishell
+{
+    char    **env;
+    t_token *tokens;
+    char    *input;
+    char    *history[MAX_HISTORY_SIZE];
+    int     history_index;
+
+}   t_minishell;
+
 //PARSING
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
