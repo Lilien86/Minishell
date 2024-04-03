@@ -15,8 +15,6 @@ void	debug_print_tokens(t_token *tokens)
 
 void	process_input(t_minishell *shell)
 {
-    t_token	*tokens;
-
     add_history(shell->input);
     if (shell->history[shell->history_index] != NULL)
         free(shell->history[shell->history_index]);
@@ -28,7 +26,8 @@ void	process_input(t_minishell *shell)
     free_tokens(&(shell->tokens));
 }
 
-void execute_command(t_minishell *shell) {
+void execute_command(t_minishell *shell)
+{
     if (!shell->tokens)
         return;
     if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
@@ -39,6 +38,8 @@ void execute_command(t_minishell *shell) {
         ft_pwd();
     else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
         ft_export(shell->tokens, &(shell->env));
+	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
+		ft_unset(shell->tokens, &(shell->env));
 }
 
 void	handle_input(t_minishell *shell)

@@ -68,7 +68,11 @@ void		process_input(t_minishell *shell);
 void		ft_echo(t_token *tokens);
 void		ft_cd(t_token *tokens, char **env);
 void		ft_pwd(void);
+
+//BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env);
+void		ft_unset(t_token *tokens, char ***env);
+
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);

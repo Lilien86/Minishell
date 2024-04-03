@@ -4,11 +4,8 @@ LIBFT = ./libft
 LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
-CFLAGS = -g -I $(LIBFT)
-# CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT)
-# Wconversion: Warns about implicit conversions
-# Wunreachable-code: Warns about code that will never be executed
-# Wunused-function: Warns if a static function is unused
+CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT)
+
 LDFLAGS = -L $(LIBFT) -lft -lreadline
 
 GREEN = \033[0;32m
@@ -20,7 +17,8 @@ SRC = src/main.c \
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/readline/add-readline.c src/readline/readline-history.c \
 src/signal/handle_signal.c \
-src/builtins/builtins.c src/builtins/builtins_env.c src/builtins/builtins_utils.c \
+src/builtins/builtins.c src/builtins/builtins_utils.c \
+src/builtins/env/ft_export.c src/builtins/env/ft_unset.c \
 src/struct_util.c
 
 OBJ_DIR = ./obj
@@ -39,9 +37,8 @@ $(NAME): $(LIBFT_LIBRARY) $(OBJ)
 	@echo
 
 $(OBJ_DIR)/%.o: ./src/%.c | $(OBJ_DIR)
-	@echo
 	@echo "$(YELLOW)Compiling file $<...$(NC)"
-	@$(CC) -c $< -o $@ $(CFLAGS) $(LDFLAGS)
+	@$(CC) -c $< -o $@ $(CFLAGS)
 	@echo
 
 $(OBJ_DIR):

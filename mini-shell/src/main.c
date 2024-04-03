@@ -2,7 +2,6 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**env;
 	t_minishell *shell;
 
 	(void)argc;
