@@ -1,10 +1,5 @@
 #include "../minishell.h"
 
-/**
- * @brief Prints the type and value of each token in a linked list.
- * 
- * @param tokens The linked list of tokens.
- */
 void	debug_print_tokens(t_token *tokens)
 {
 	t_token	*current;
@@ -18,14 +13,6 @@ void	debug_print_tokens(t_token *tokens)
 	}
 }
 
-/**
- * @brief Processes the user input by adding it to the history
- * tokenizing it, and executing the command.
- * 
- * @param input The user input string.
- * @param history The array of previous input history.
- * @param history_index The index of the current input in the history array.
- */
 void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
 					int *history_index, char ***env)
 {
@@ -41,11 +28,6 @@ void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
 	free_tokens(&tokens);
 }
 
-/**
- * @brief Executes the command based on the tokens.
- * 
- * @param tokens The linked list of tokens representing the command.
- */
 void	execute_command(t_token *tokens, char ***env)
 {
 	if (!tokens)
@@ -60,14 +42,6 @@ void	execute_command(t_token *tokens, char ***env)
 		ft_export(tokens, env);
 }
 
-/**
- * @brief Handles the user input by processing it and checking
- * for the "exit" command.
- * 
- * @param input The user input string.
- * @param history The array of previous input history.
- * @param history_index The index of the current input in the history array.
- */
 void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 					int *history_index, char ***env)
 {
@@ -81,12 +55,6 @@ void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 	}
 }
 
-/**
- * @brief Reads user input, adds it to history, and handles
- * the input by calling the appropriate functions.
- * 
- * @return 0 on success.
- */
 int	read_input(char ***env)
 {
 	char	*input;

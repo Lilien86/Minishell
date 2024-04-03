@@ -1,11 +1,5 @@
 #include "../minishell.h"
 
-/**
- * @brief Checks if a string is the "-n" flag.
- * 
- * @param str The string to check.
- * @return 1 if the string is the "-n" flag, 0 otherwise.
- */
 int	is_flag_n(char *str)
 {
 	if (!str)
@@ -15,13 +9,6 @@ int	is_flag_n(char *str)
 	return (0);
 }
 
-/**
- * @brief Retrieves the value of an environment variable.
- * 
- * @param name The name of the environment variable.
- * @param env The array of environment variables.
- * @return The value of the environment variable, or NULL if not found.
- */
 char	*ft_getenv(const char *name, char **env)
 {
 	size_t	name_len;
@@ -36,4 +23,16 @@ char	*ft_getenv(const char *name, char **env)
 		i++;
 	}
 	return (NULL);
+}
+
+void	print_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		ft_printf("declare -x %s\n", env[i]);
+		i++;
+	}
 }

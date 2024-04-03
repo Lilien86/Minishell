@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-#include "minishell.h"
-
 static size_t	env_len(char **env)
 {
 	size_t	i;
@@ -39,21 +37,6 @@ char	**copy_environment(char **env)
 	return (env_copy);
 }
 
-void	free_env_copy(char **env_copy)
-{
-	size_t	i;
-
-	if (!env_copy)
-		return;
-	i = 0;
-	while (env_copy[i])
-	{
-		free(env_copy[i]);
-		i++;
-	}
-	free(env_copy);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	**env;
@@ -64,6 +47,6 @@ int	main(int argc, char **argv, char **envp)
 	if (!env)
 		return (1);
 	read_input(&env);
-	free_env_copy(env);
+	ft_free_tab(env);
 	return (0);
 }

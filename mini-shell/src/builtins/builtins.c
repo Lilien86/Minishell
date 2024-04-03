@@ -1,15 +1,5 @@
 #include "../minishell.h"
 
-/**
- * @brief Implements the echo command.
- *
- * This function prints the given arguments to the standard output.
- * If the "-n" flag is provided as the first argument,
- * it suppresses the trailing newline.
- *
- * @param tokens The linked list of tokens representing
- * the command and its arguments.
- */
 void	ft_echo(t_token *tokens)
 {
 	int		newline;
@@ -31,18 +21,6 @@ void	ft_echo(t_token *tokens)
 		ft_printf("\n");
 }
 
-/**
- * @brief Implements the cd command.
- *
- * This function changes the current working
- * directory to the specified path.
- * If no path is provided, it changes the directory
- * to the value of the HOME environment variable.
- *
- * @param tokens The linked list of tokens representing
- * the command and its arguments.
- * @param env The array of environment variables.
- */
 void	ft_cd(t_token *tokens, char **env)
 {
 	char	*path;
@@ -64,11 +42,6 @@ void	ft_cd(t_token *tokens, char **env)
 	}
 }
 
-/**
- * @brief Implements the pwd command.
- *
- * This function prints the current working directory to the standard output.
- */
 void	ft_pwd(void)
 {
 	char	*cwd;

@@ -9,7 +9,6 @@
 # include <unistd.h>
 # include <errno.h>
 
-
 # define MAX_HISTORY_SIZE 100
 
 typedef enum e_token_type
@@ -34,15 +33,17 @@ t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
 int			is_special_char(char c);
 void		identify_and_add_token(const char **input, t_token **head);
-void		add_special_token(const char **input, t_token **head, \
-			t_token_type type);
 void		add_word_token(const char **input, t_token **head);
 void		free_tokens(t_token **tokens);
 t_token		*tokenize(const char *input);
 void		add_quoted_token(const char **input, t_token **head,\
-			char quoteType);
+							char quoteType);
 void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
+
+//SIGNALS
+void		handle_sigint(int sig);
+void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
 
 //READLINE
@@ -52,16 +53,18 @@ void		handle_input(char *input, char *history[MAX_HISTORY_SIZE],
 				int *history_index, char ***env);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
-void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char ***env);
+void		process_input(char *input, char *history[MAX_HISTORY_SIZE],
+				int *history_index, char ***env);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);
-char		*ft_getenv(const char *name, char **env);
 void		ft_cd(t_token *tokens, char **env);
 void		ft_pwd(void);
+void		ft_export(t_token *tokens, char ***env);
+
+//BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
-void		ft_export(t_token *tokens, char ***env);
+void		print_env(char **env);
 
 #endif
