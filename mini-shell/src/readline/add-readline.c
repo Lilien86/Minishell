@@ -13,8 +13,7 @@ void	debug_print_tokens(t_token *tokens)
 	}
 }
 
-void	process_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char ***env)
+void	process_input(char *input, t_minishell *shell)
 {
 	t_token	*tokens;
 
@@ -42,39 +41,33 @@ void	execute_command(t_token *tokens, char ***env)
 		ft_export(tokens, env);
 }
 
-void	handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-					int *history_index, char ***env)
+void	handle_input(char *input, t_minishell *shell)
 {
-	if (strcmp(input, "") == 0)
-		return ;
-	process_input(input, history, history_index, env);
-	if (strcmp(input, "exit") == 0)
+    if (strcmp(input, "") == 0)
+        return;
+    process_input(input, shell);
+    if (strcmp(input, "exit") == 0)
 	{
-		free(input);
-		exit(0);
-	}
+        free(input);
+        free_minishell(shell);
+        exit(0);
+    }
 }
 
-int	read_input(char ***env)
-{
-	char	*input;
-	char	*history[MAX_HISTORY_SIZE];
-	int		history_index;
 
-	history_index = 0;
-	init_signal_handlers();
-	init_history(history);
-	while (1)
+int	read_input(t_minishell *shell)
+{
+    char	*input;
+
+    while (1)
 	{
-		input = readline("minishell >");
-		//debug_print_tokens(tokenize(input));
-		if (input == NULL)
-		{
-			free_history(history);
-			exit(0);
-		}
-		handle_input(input, history, &history_index, env);
-		free(input);
-	}
-	return (0);
+        input = readline("minishell > ");
+        if (input == NULL) {
+            free_minishell(shell);
+            exit(0);
+        }
+        handle_input(input, shell);
+        free(input);
+    }
+    return (0);
 }

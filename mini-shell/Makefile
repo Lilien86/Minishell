@@ -17,9 +17,9 @@ RED = \033[0;31m
 NC = \033[0m
 
 SRC = src/main.c \
-src/parsing/tokenization.c src/parsing/tokenization_utils.c \
-src/parsing/add-readline.c src/parsing/readline-history.c \
-src/handle_signal.c \
+src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
+src/readline/add-readline.c src/readline/readline-history.c \
+src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_env.c src/builtins/builtins_utils.c
 
 OBJ_DIR = ./obj

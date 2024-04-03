@@ -3,13 +3,15 @@
 int	main(int argc, char **argv, char **envp)
 {
 	char	**env;
+	t_minishell *shell;
 
 	(void)argc;
 	(void)argv;
-	env = ft_copy_tab(envp);
-	if (!env)
+	shell = init_minishell(envp);
+	if (!shell)
 		return (1);
-	read_input(&env);
-	ft_free_tab(env);
+    init_signal_handlers();
+	read_input(shell);
+	free_minishell(shell);
 	return (0);
 }

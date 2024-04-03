@@ -28,7 +28,6 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-
 typedef struct s_minishell
 {
     char    **env;
@@ -58,14 +57,12 @@ void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
 
 //READLINE
-int			read_input(char ***env);
+int			read_input(t_minishell *shell);
 void		execute_command(t_token *tokens, char ***env);
-void		handle_input(char *input, char *history[MAX_HISTORY_SIZE],
-				int *history_index, char ***env);
+void		handle_input(char *input, t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
-void		process_input(char *input, char *history[MAX_HISTORY_SIZE],
-				int *history_index, char ***env);
+void		process_input(char *input, t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);
@@ -77,5 +74,9 @@ void		ft_export(t_token *tokens, char ***env);
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
+
+//STRUCT_UTILS
+t_minishell *init_minishell(char **envp);
+void		free_minishell(t_minishell *shell);
 
 #endif
