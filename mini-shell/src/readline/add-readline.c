@@ -21,9 +21,13 @@ void	process_input(t_minishell *shell)
     shell->history[shell->history_index] = strdup(shell->input);
     shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
     shell->tokens = tokenize(shell->input);
-    if (shell->tokens) 
+    if (shell->tokens)
+	{ 
         execute_command(shell);
-    free_tokens(&(shell->tokens));
+		here_doc(shell->tokens);
+	}
+	else
+	     free_tokens(&(shell->tokens));
 }
 
 void execute_command(t_minishell *shell)
@@ -70,7 +74,7 @@ int	read_input(t_minishell *shell)
             exit(0);
         }
         handle_input(shell);
-		here_doc(shell->tokens);
+
         free(shell->input);
     }
     return (0);

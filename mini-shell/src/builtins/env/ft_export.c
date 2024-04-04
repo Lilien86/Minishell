@@ -60,47 +60,54 @@ static char	**create_new_env_array(char *var, char ***env, int *env_size)
 	array[i + 1] = NULL;
 	return (array);
 }
-
-static char	*prepare_env_var(char *var) {
+static char *prepare_env_var(char *var)
+{
     char *new_var;
-    int var_len = length_until_equal(var);
+    int var_len;
 
+	new_var = NULL;
+    var_len = length_until_equal(var);
     if (var[var_len] != '=') {
-        new_var = malloc(strlen(var) + 3);
-        if (!new_var) return NULL;
-        strcpy(new_var, var);
-        strcat(new_var, "=''");
+        new_var = malloc(ft_strlen(var) + 4);
+        if (new_var == NULL)
+            return (NULL);
+        ft_strcpy(new_var, var);
+        ft_strcat(new_var, "=''");
     } else {
         new_var = ft_strdup(var);
-        if (!new_var) return NULL;
+        if (new_var == NULL)
+            return (NULL);
     }
-    return new_var;
+    return (new_var);
 }
 
-static char	**add_new_env_var(char *var, char ***env, int *env_size) {
-    char	**new_env;
-    char    *prepared_var = prepare_env_var(var);
-    int     var_len;
 
-    if (!prepared_var) return NULL;
+static char **add_new_env_var(char *var, char ***env, int *env_size) {
+    char **new_env;
+    char *prepared_var;
+    int var_len;
+
+    prepared_var = prepare_env_var(var);
+    if (prepared_var == NULL)
+        return (NULL);
 
     var_len = length_until_equal(prepared_var);
     if (update_existing_var(prepared_var, env, var_len, env_size)) {
         free(prepared_var);
         return (*env);
     }
-    
-    new_env = create_new_env_array(prepared_var, env, env_size);
-    free(prepared_var); 
 
-    if (!new_env) return (NULL);
+    new_env = create_new_env_array(prepared_var, env, env_size);
+    free(prepared_var);
+
+    if (new_env == NULL)
+        return (NULL);
 
     (*env_size)++;
     ft_free_tab(*env);
     *env = new_env;
-    return new_env;
+    return (new_env);
 }
-
 
 
 void	ft_export(t_token *tokens, char ***env)

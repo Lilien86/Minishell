@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 11:13:02 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/05 13:17:38 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/04 13:42:43 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char	*ft_strcat(char *dest, const char *src)
 {
 	char	*ptr;
 
+	if (!dest || !src)
+		return (NULL);
 	ptr = dest;
 	while (*dest)
 		dest++;

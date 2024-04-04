@@ -19,7 +19,7 @@ src/readline/add-readline.c src/readline/readline-history.c \
 src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
-src/parsing/here_doc.c src/parsing/generate_random_name.c \
+src/tokenization/here_doc.c src/tokenization/generate_random_name.c \
 src/struct_util.c
 
 OBJ_DIR = ./obj
