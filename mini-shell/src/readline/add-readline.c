@@ -46,7 +46,7 @@ void execute_command(t_minishell *shell)
     }
 }
 
-void	handle_input(t_minishell *shell)
+void handle_input(t_minishell *shell)
 {
     if (strcmp(shell->input, "") == 0)
         return;
@@ -70,6 +70,7 @@ int	read_input(t_minishell *shell)
             exit(0);
         }
         handle_input(shell);
+		here_doc(shell->tokens);
         free(shell->input);
     }
     return (0);

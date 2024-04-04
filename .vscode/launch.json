@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "(gdb) Launch",
       "type": "cppdbg",
@@ -29,8 +30,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/src",
-      "program": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/src/build/Debug/outDebug",
+      "cwd": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell",
+      "program": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

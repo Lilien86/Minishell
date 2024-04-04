@@ -8,6 +8,10 @@
 # include <signal.h>
 # include <unistd.h>
 # include <errno.h>
+# include <stdbool.h>
+# include <fcntl.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -28,6 +32,21 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
+typedef struct s_file
+{
+	char			*name;
+	t_token_type	type;
+	int				fd[2];
+}	t_file;
+
+typedef struct s_data
+{
+	t_file		infile;
+	t_file		outfile;
+	char		**argv;
+}	t_data;
+
+//PARSING
 typedef struct s_minishell
 {
     char    **env;
@@ -55,6 +74,10 @@ void		add_token_based_on_char(const char **input, t_token **head);
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
+void		here_doc(t_token *tokens);
+
+//UTILS
+char	*generate_random_filename();
 
 //READLINE
 int			read_input(t_minishell *shell);
