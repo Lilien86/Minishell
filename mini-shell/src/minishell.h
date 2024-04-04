@@ -72,6 +72,8 @@ void		ft_pwd(void);
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env);
 void		ft_unset(t_token *tokens, char ***env);
+void		ft_env(char **env);
+
 
 
 //BUILTINS_UTILS

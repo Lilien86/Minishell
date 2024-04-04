@@ -24,3 +24,18 @@ void ft_unset(t_token *tokens, char ***env)
         current = current->next;
     }
 }
+
+void	ft_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (strchr(env[i], '=') != NULL)
+		{
+			ft_printf("%s\n", env[i]);
+		}
+		i++;
+	}
+}
