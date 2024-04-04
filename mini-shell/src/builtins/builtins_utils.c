@@ -36,3 +36,13 @@ void	print_env(char **env)
 		i++;
 	}
 }
+
+int	length_until_equal(const char *str)
+{
+	int	len;
+
+	len = 0;
+	while (str[len] != '\0' && str[len] != '=')
+		len++;
+	return (len);
+}

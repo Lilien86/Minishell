@@ -1,15 +1,5 @@
 #include "../../minishell.h"
 
-static int	length_until_equal(const char *str)
-{
-	int	len;
-
-	len = 0;
-	while (str[len] != '\0' && str[len] != '=')
-		len++;
-	return (len);
-}
-
 static int	update_existing_var(char *var, char ***env, int var_len,
 			int *env_size)
 {
@@ -60,20 +50,24 @@ static char	**create_new_env_array(char *var, char ***env, int *env_size)
 	array[i + 1] = NULL;
 	return (array);
 }
-static char *prepare_env_var(char *var)
+
+static char	*prepare_env_var(char *var)
 {
-	char *new_var;
-	int var_len;
+	char	*new_var;
+	int		var_len;
 
 	new_var = NULL;
 	var_len = length_until_equal(var);
-	if (var[var_len] != '=') {
+	if (var[var_len] != '=')
+	{
 		new_var = malloc(ft_strlen(var) + 4);
 		if (new_var == NULL)
 			return (NULL);
 		ft_strcpy(new_var, var);
 		ft_strcat(new_var, "=''");
-	} else {
+	}
+	else
+	{
 		new_var = ft_strdup(var);
 		if (new_var == NULL)
 			return (NULL);
@@ -81,34 +75,30 @@ static char *prepare_env_var(char *var)
 	return (new_var);
 }
 
-
-static char **add_new_env_var(char *var, char ***env, int *env_size) {
-	char **new_env;
-	char *prepared_var;
-	int var_len;
+static char	**add_new_env_var(char *var, char ***env, int *env_size)
+{
+	char	**new_env;
+	char	*prepared_var;
+	int		var_len;
 
 	prepared_var = prepare_env_var(var);
 	if (prepared_var == NULL)
 		return (NULL);
-
 	var_len = length_until_equal(prepared_var);
-	if (update_existing_var(prepared_var, env, var_len, env_size)) {
+	if (update_existing_var(prepared_var, env, var_len, env_size))
+	{
 		free(prepared_var);
 		return (*env);
 	}
-
 	new_env = create_new_env_array(prepared_var, env, env_size);
 	free(prepared_var);
-
 	if (new_env == NULL)
 		return (NULL);
-
 	(*env_size)++;
 	ft_free_tab(*env);
 	*env = new_env;
 	return (new_env);
 }
-
 
 void	ft_export(t_token *tokens, char ***env)
 {
