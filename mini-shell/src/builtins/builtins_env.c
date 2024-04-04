@@ -1,13 +1,5 @@
 #include "../minishell.h"
 
-/**
- * @brief Prints the environment variables.
- *
- * This function prints the environment variables
- * in the format "declare -x VAR_NAME=VAR_VALUE".
- *
- * @param env The array of environment variables.
- */
 static void	print_env(char **env)
 {
 	int	i;
@@ -20,17 +12,6 @@ static void	print_env(char **env)
 	}
 }
 
-/**
- * @brief Updates an environment variable.
- *
- * This function updates the value of an existing 
- * environment variable or adds a new environment variable if it doesn't exist.
- *
- * @param key The key of the environment variable.
- * @param value The new value of the environment variable.
- * @param env A pointer to the array of environment variables.
- * @return 1 if the environment variable was updated, 0 otherwise.
- */
 static int	update_env_var(char *key, char *value, char ***env)
 {
 	int		i;

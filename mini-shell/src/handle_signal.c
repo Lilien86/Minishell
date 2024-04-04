@@ -1,15 +1,5 @@
 #include "minishell.h"
 
-/**
- * @brief Signal handler for SIGINT (Ctrl-C).
- * 
- * This function is called when the SIGINT signal is received. 
- * It clears the current input line,
- * writes a newline character to the standard output,
- * and sets up the readline library for a new line.
- * 
- * @param sig The signal number.
- */
 void	handle_sigint(int sig)
 {
 	(void)sig;
@@ -19,24 +9,11 @@ void	handle_sigint(int sig)
 	rl_redisplay();
 }
 
-/**
- * @brief Signal handler for SIGQUIT (Ctrl-\).
- * 
- * This function is called when the SIGQUIT signal is received
- * It ignores the signal.
- * 
- * @param sig The signal number.
- */
 void	handle_sigquit(int sig)
 {
 	(void)sig;
 }
 
-/**
- * @brief Initializes the signal handlers.
- * 
- * This function sets up the signal handlers for SIGINT and SIGQUIT.
- */
 void	init_signal_handlers(void)
 {
 	struct sigaction	sa_int;
