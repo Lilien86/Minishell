@@ -72,8 +72,8 @@ static char *prepare_env_var(char *var)
         new_var = malloc(strlen(var) + 3);
         if (new_var == NULL)
             return (NULL);
-        strcpy(new_var, var);
-        strcat(new_var, "=''");
+        ft_strcpy(new_var, var);
+        ft_strcat(new_var, "=''");
     }
 	else
 	{

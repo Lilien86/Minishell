@@ -24,3 +24,24 @@ void ft_unset(t_token *tokens, char ***env)
         current = current->next;
     }
 }
+
+void	ft_env(char **env)
+{
+    int	i;
+    char *equalSignPtr;
+
+    i = 0;
+    while (env[i] != NULL)
+    {
+        equalSignPtr = ft_strchr(env[i], '=');
+        if (equalSignPtr != NULL && *(equalSignPtr + 1) != '\0')
+        {
+            if (!(*(equalSignPtr + 1) == '\'' && *(equalSignPtr + 2) == '\'' && *(equalSignPtr + 3) == '\0'))
+            {
+                ft_printf("%s\n", env[i]);
+            }
+        }
+        i++;
+    }
+}
+

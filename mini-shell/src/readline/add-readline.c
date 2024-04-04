@@ -40,6 +40,10 @@ void execute_command(t_minishell *shell)
         ft_export(shell->tokens, &(shell->env));
 	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
 		ft_unset(shell->tokens, &(shell->env));
+    else if (ft_strncmp(shell->tokens->value, "env", 3) == 0 && shell->tokens->value[3] == '\0')
+    {
+        ft_env(shell->env);
+    }
 }
 
 void	handle_input(t_minishell *shell)
