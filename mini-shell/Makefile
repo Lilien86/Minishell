@@ -5,9 +5,7 @@ LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
 CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT)
-# Wconversion: Warns about implicit conversions
-# Wunreachable-code: Warns about code that will never be executed
-# Wunused-function: Warns if a static function is unused
+
 LDFLAGS = -L $(LIBFT) -lft -lreadline
 
 GREEN = \033[0;32m
@@ -16,10 +14,10 @@ RED = \033[0;31m
 NC = \033[0m
 
 SRC = src/main.c \
-src/parsing/tokenization.c src/parsing/tokenization_utils.c \
-src/parsing/add-readline.c src/parsing/readline-history.c \
-src/handle_signal.c \
-src/builtins/builtins.c src/builtins/builtins_env.c src/builtins/builtins_utils.c \
+src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
+src/readline/add-readline.c src/readline/readline-history.c \
+src/signal/handle_signal.c \
+src/builtins/builtins.c src/builtins/builtins_utils.c \ src/builtins/builtins_env.c
 src/parsing/here_doc.c src/parsing/generate_random_name.c
 
 OBJ_DIR = ./obj
