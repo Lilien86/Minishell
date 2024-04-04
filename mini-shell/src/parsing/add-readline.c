@@ -110,14 +110,14 @@ void	read_input(void)
 		if (input == NULL)
 		{
 			free_history(history);
-			free_tokens(&tokens);
+			//free_tokens(&tokens);
 			ft_printf("proute\n");
 			exit(0);
 		}
 		tokens = handle_input(input, history, &history_index);
 		here_doc(tokens);
 		free(input);
-		free_tokens(&tokens);
+		//free_tokens(&tokens);
 	}
 	//free_tokens(&tokens);
 }
