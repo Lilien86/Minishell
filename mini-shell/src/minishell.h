@@ -10,8 +10,8 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <fcntl.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -49,13 +49,13 @@ typedef struct s_data
 //PARSING
 typedef struct s_minishell
 {
-    char    **env;
-    t_token *tokens;
-    char    *input;
-    char    *history[MAX_HISTORY_SIZE];
-    int     history_index;
+	char	**env;
+	t_token	*tokens;
+	char	*input;
+	char	*history[MAX_HISTORY_SIZE];
+	int		history_index;
 
-}   t_minishell;
+}	t_minishell;
 
 //PARSING
 t_token		*init_token(t_token_type type, char *value);
@@ -65,7 +65,7 @@ void		identify_and_add_token(const char **input, t_token **head);
 void		add_word_token(const char **input, t_token **head);
 void		free_tokens(t_token **tokens);
 t_token		*tokenize(const char *input);
-void		add_quoted_token(const char **input, t_token **head,\
+void		add_quoted_token(const char **input, t_token **head, \
 							char quoteType);
 void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input, t_token **head);
@@ -77,7 +77,7 @@ void		init_signal_handlers(void);
 void		here_doc(t_token *tokens);
 
 //UTILS
-char	*generate_random_filename();
+char		*generate_random_filename(void);
 
 //READLINE
 int			read_input(t_minishell *shell);
@@ -97,15 +97,14 @@ void		ft_export(t_token *tokens, char ***env);
 void		ft_unset(t_token *tokens, char ***env);
 void		ft_env(char **env);
 
-
-
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
+int			length_until_equal(const char *str);
 
 //STRUCT_UTILS
-t_minishell *init_minishell(char **envp);
+t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 
 #endif

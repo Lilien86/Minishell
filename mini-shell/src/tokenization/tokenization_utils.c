@@ -5,7 +5,6 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-
 void	add_quoted_token(const char **input, t_token **head, char quote_type)
 {
 	char		*value;
@@ -35,6 +34,7 @@ void	add_word_token(const char **input, t_token **head)
 {
 	const char	*start;
 	size_t		len;
+	char		*value;
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
@@ -42,7 +42,7 @@ void	add_word_token(const char **input, t_token **head)
 	len = (size_t)(*input - start);
 	if (len > 0)
 	{
-		char *value = ft_strndup(start, len);
+		value = ft_strndup(start, len);
 		add_token(head, init_token(TOKEN_WORD, value));
 		free(value);
 	}
