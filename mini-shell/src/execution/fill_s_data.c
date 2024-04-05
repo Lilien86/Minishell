@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/05 11:53:06 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 14:57:22 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	print_data(t_data *data_array, int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
-		ft_printf("Commande %d\n", i);
+		//ft_printf("Commande %d\n", i);
 		ft_printf("Infile : %s\n", data_array[i].infile.name);
 		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
 		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
 		ft_printf("Outfile fd : %d\n", data_array[i].outfile.fd);
+		ft_printf("-------\n\n");
 		i++;
 	}
 }
@@ -59,6 +60,38 @@ void	check_file(t_file *file, int is_append)
 		}
 	}
 }
+
+/*void	handle_while_d_data(t_token **current, t_data **data_array, int i)
+{
+	if ((*current)->type == TOKEN_PIPE)
+	{
+		i++;
+		*current = (*current)->next;
+	}
+	else if ((*current)->type == TOKEN_REDIRECT_IN)
+	{
+		(*data_array)[i].infile.name = (*current)->next->value;
+		check_file(&(*data_array)[i].infile, 0);
+		*current = (*current)->next->next;
+	}
+	else if ((*current)->type == TOKEN_REDIRECT_OUT)
+	{
+		(*data_array)[i].outfile.name = (*current)->next->value;
+		check_file(&(*data_array)[i].outfile, 0);
+		*current = (*current)->next->next;
+	}
+	else if ((*current)->type == TOKEN_DOUBLE_REDIRECT_OUT)
+	{
+		(*data_array)[i].outfile.name = (*current)->next->value;
+		check_file(&(*data_array)[i].outfile, 1);
+		*current = (*current)->next->next;
+	}
+	else if ((*current)->type == TOKEN_HEREDOC)
+	{
+		here_doc(*current, data_array, i);
+		check_file(&(*data_array)[i].infile, 0);
+	}
+}*/
 
 void	fill_s_data(t_token tokens)
 {
@@ -99,16 +132,12 @@ void	fill_s_data(t_token tokens)
 		}
 		else if (current->type == TOKEN_HEREDOC)
 		{
-			//here_doc(&tokens, &data_array[i]);
-			here_doc(&tokens);
+			here_doc(current, &data_array, i);
 			check_file(&data_array[i].infile, 0);
 		}
+		//handle_while_d_data(&current, &data_array, i);
 		current = current->next;
 	}
 	print_data(data_array, nb_cmds);
 }
 
-/* lilien tu vas devoir looper sur la linke list, quand tu rencontre un pipe tu passe a 
-l'index suivant dans data_array et tu passe a l'element suivant dans la linked list doc apres le pipe.
-quand tu rencontre un < c'est que l'infile est juste apres, et quand c'et un > le oufile est apres.
-Oublie pas d'initailiser le infile et oufile a null comme ca tu sais si il existe, et check ussi avec open si tu peu les ouvrire*/
