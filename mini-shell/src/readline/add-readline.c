@@ -35,9 +35,9 @@ void	execute_command(t_minishell *shell)
 	if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
 		ft_echo(shell->tokens);
 	else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
-		ft_cd(shell->tokens, shell->env);
+		ft_cd(shell->tokens, shell->env, &shell->exit_status);
 	else if (ft_strncmp(shell->tokens->value, "pwd", 3) == 0)
-		ft_pwd();
+		ft_pwd(&shell->exit_status);
 	else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
 		ft_export(shell->tokens, &(shell->env));
 	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
@@ -53,11 +53,13 @@ void	handle_input(t_minishell *shell)
 {
 	if (strcmp(shell->input, "") == 0)
 		return ;
+	if (strcmp(shell->input, "$?") == 0)
+		ft_printf("%d\n", shell->exit_status);
 	process_input(shell);
 	if (strcmp(shell->input, "exit") == 0)
 	{
 		free_minishell(shell);
-		exit(0);
+		exit(shell->exit_status);
 	}
 }
 

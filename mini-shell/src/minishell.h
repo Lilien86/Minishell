@@ -54,7 +54,7 @@ typedef struct s_minishell
 	char	*input;
 	char	*history[MAX_HISTORY_SIZE];
 	int		history_index;
-
+	int		exit_status;
 }	t_minishell;
 
 //PARSING
@@ -89,8 +89,8 @@ void		process_input(t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens);
-void		ft_cd(t_token *tokens, char **env);
-void		ft_pwd(void);
+void		ft_cd(t_token *tokens, char **env, int *exit_status);
+void		ft_pwd(int *exit_status);
 
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env);
