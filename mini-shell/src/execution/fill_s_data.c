@@ -6,11 +6,27 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/05 08:58:00 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 09:29:21 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	print_data(t_data *data_array, int nb_cmds)
+{
+	int i;
+
+	i = 0;
+	while (i < nb_cmds)
+	{
+		ft_printf("Commande %d\n", i);
+		ft_printf("Infile : %s\n", data_array[i].infile.name);
+		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
+		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
+		ft_printf("Outfile fd : %d\n", data_array[i].outfile.fd);
+		i++;
+	}
+}
 
 int	counter_cmds(t_token *tokens)
 {
@@ -38,23 +54,9 @@ void	check_file(t_file *file, int is_append)
 			file->fd = open(file->name, O_RDWR | O_TRUNC);
 		if (file->fd == -1)
 		{
-			perror("Error open file");
+			ft_printf("Error open file %s\n", file->name);
 			exit(EXIT_FAILURE);
 		}
-	}
-}
-
-void	print_data(t_data *data_array, int nb_cmds)
-{
-	int i;
-
-	i = 0;
-	while (i < nb_cmds)
-	{
-		printf("Commande %d\n", i);
-		printf("Infile : %s\n", data_array[i].infile.name);
-		printf("Outfile : %s\n", data_array[i].outfile.name);
-		i++;
 	}
 }
 
@@ -95,10 +97,14 @@ void	fill_s_data(t_token tokens)
 			data_array[i].outfile.name = current->next->value;
 			check_file(&data_array[i].outfile, 1);
 		}
+		else if (current->type == TOKEN_HEREDOC)
+		{
+			here_doc(&tokens, &data_array[i]);
+			check_file(&data_array[i].infile, 0);
+		}
 		current = current->next;
 	}
 	print_data(data_array, nb_cmds);
-	
 }
 
 /* lilien tu vas devoir looper sur la linke list, quand tu rencontre un pipe tu passe a 

@@ -73,7 +73,6 @@ void		add_token_based_on_char(const char **input, t_token **head);
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
-void		here_doc(t_token *tokens);
 void		handle_sigint_here_doc(int sig);
 
 //UTILS
@@ -109,5 +108,6 @@ void		free_minishell(t_minishell *shell);
 
 //EXECUTION
 void	fill_s_data(t_token tokens);
+void	here_doc(t_token *tokens, t_data *data_array);
 
 #endif
