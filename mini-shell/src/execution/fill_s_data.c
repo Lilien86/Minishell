@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/05 09:29:21 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 11:53:06 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ void	fill_s_data(t_token tokens)
 		}
 		else if (current->type == TOKEN_HEREDOC)
 		{
-			here_doc(&tokens, &data_array[i]);
+			//here_doc(&tokens, &data_array[i]);
+			here_doc(&tokens);
 			check_file(&data_array[i].infile, 0);
 		}
 		current = current->next;

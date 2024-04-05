@@ -108,6 +108,6 @@ void		free_minishell(t_minishell *shell);
 
 //EXECUTION
 void	fill_s_data(t_token tokens);
-void	here_doc(t_token *tokens, t_data *data_array);
+void	here_doc(t_token *tokens);
 
 #endif
