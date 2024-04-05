@@ -6,16 +6,17 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:52:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/03 10:19:51 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 08:37:07 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 #define FILENAME_LENGTH 10
 
-void	handle_while_loop(int *i, const char *random_chars, char *filename, int fd)
+void	handle_while_loop(int *i, const char *random_chars,
+	char *filename, int fd)
 {
-	unsigned char random_byte;
+	unsigned char	random_byte;
 
 	while (*i < FILENAME_LENGTH)
 	{
@@ -29,20 +30,20 @@ void	handle_while_loop(int *i, const char *random_chars, char *filename, int fd)
 	}
 }
 
-char* generate_random_filename()
+char	*generate_random_filename(void)
 {
 	int			fd;
 	char		*filename;
 	const char	*random_chars;
 	int			i;
-	
+
 	fd = open("/dev/urandom", O_RDONLY);
 	if (fd == -1)
 	{
 		perror("Erreur lors de l'ouverture de /dev/urandom");
 		exit(EXIT_FAILURE);
 	}
-	filename = ft_calloc((FILENAME_LENGTH + 1) , sizeof(char));
+	filename = ft_calloc((FILENAME_LENGTH + 1), sizeof(char));
 	if (filename == NULL)
 	{
 		perror("Erreur d'allocation de mémoire");

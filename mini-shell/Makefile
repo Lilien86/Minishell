@@ -13,14 +13,13 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c \
+SRC = src/main.c src/struct_util.c \
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/readline/add-readline.c src/readline/readline-history.c \
 src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
-src/execution/here_doc.c src/execution/generate_random_name.c \
-src/struct_util.c
+src/execution/here_doc.c src/execution/generate_random_name.c 
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)

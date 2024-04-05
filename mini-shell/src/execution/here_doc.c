@@ -6,17 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/03 11:11:58 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 08:35:41 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static void	handle_sigint_here_doc(int sig)
-{
-	(void)sig;
-	exit(0);
-}
 
 static void	write_here_doc_in_file(char *content)
 {
@@ -25,7 +19,8 @@ static void	write_here_doc_in_file(char *content)
 	char	*full_path;
 
 	filename = generate_random_filename();
-	full_path = ft_calloc(sizeof(char) , (strlen(filename) + strlen("/tmp/") + 1));
+	full_path = ft_calloc(sizeof(char), (strlen(filename)
+				+ strlen("/tmp/") + 1));
 	if (full_path == NULL)
 	{
 		perror("Erreur:\n during write_here_doc_in_file\n");
@@ -44,39 +39,48 @@ static void	write_here_doc_in_file(char *content)
 	free(filename);
 }
 
-static void handle_here_doc(char *delimiter, t_token **tokens)
+void	handle_while_here_doc(char *delimiter, char *line,
+	char *here_doc_content, char *temp)
 {
-	char *line;
-	char *here_doc_content = NULL;
-
-	init_signal_handlers();
-	signal(SIGINT, handle_sigint_here_doc);
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 		{
 			ft_printf("\nbash: warning: here-document at line 1 delimited"
-					"by end-of-file (wanted `%s')\n", delimiter);
-			break;
+				"by end-of-file (wanted `%s')\n", delimiter);
+			break ;
 		}
 		if (strcmp(line, delimiter) == 0)
 		{
 			free(line);
-			break;
+			break ;
 		}
 		if (here_doc_content == NULL)
 			here_doc_content = strdup(line);
 		else
 		{
-			char *temp = malloc(strlen(here_doc_content) + strlen(line) + 2);
+			temp = malloc(strlen(here_doc_content) + strlen(line) + 2);
 			sprintf(temp, "%s\n%s", here_doc_content, line);
 			free(here_doc_content);
 			here_doc_content = temp;
 		}
 		free(line);
 	}
-	//printf("\nContenu du here_doc :\n%s\n", here_doc_content);
+}
+
+static void	handle_here_doc(char *delimiter, t_token **tokens)
+{
+	char	*line;
+	char	*here_doc_content;
+	char	*temp;
+
+	here_doc_content = NULL;
+	line = NULL;
+	temp = NULL;
+	init_signal_handlers();
+	signal(SIGINT, handle_sigint_here_doc);
+	handle_while_here_doc(delimiter, line, here_doc_content, temp);
 	write_here_doc_in_file(here_doc_content);
 	free(here_doc_content);
 	free_tokens(tokens);
@@ -85,8 +89,8 @@ static void handle_here_doc(char *delimiter, t_token **tokens)
 
 static void	fork_here_doc(char *delimiter, t_token **tokens)
 {
-	pid_t pid;
-	int status;
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid == 0)
@@ -94,10 +98,7 @@ static void	fork_here_doc(char *delimiter, t_token **tokens)
 		handle_here_doc(delimiter, tokens);
 	}
 	else if (pid > 0)
-	{
 		waitpid(pid, &status, 0);
-		//ft_printf("The child process has finished\n");
-	}
 	else
 	{
 		perror("Error:\nduring fork_here_doc");
@@ -107,7 +108,7 @@ static void	fork_here_doc(char *delimiter, t_token **tokens)
 
 void	here_doc(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens;
 	while (current != NULL)
