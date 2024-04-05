@@ -26,8 +26,6 @@ void	process_input(t_minishell *shell)
 		execute_command(shell);
 		here_doc(shell->tokens);
 	}
-	else
-		free_tokens(&(shell->tokens));
 }
 
 void	execute_command(t_minishell *shell)
@@ -75,6 +73,7 @@ int	read_input(t_minishell *shell)
 		}
 		handle_input(shell);
 		free(shell->input);
+		free_tokens(&(shell->tokens));
 	}
 	return (0);
 }
