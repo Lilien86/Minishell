@@ -25,6 +25,7 @@ void	process_input(t_minishell *shell)
 	{
 		execute_command(shell);
 		here_doc(shell->tokens);
+		fill_s_data(*shell->tokens);
 	}
 	else
 		free_tokens(&(shell->tokens));

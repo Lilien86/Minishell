@@ -14,7 +14,7 @@ void	handle_sigquit(int sig)
 	(void)sig;
 }
 
-static void	handle_sigint_here_doc(int sig)
+void	handle_sigint_here_doc(int sig)
 {
 	(void)sig;
 	exit(0);

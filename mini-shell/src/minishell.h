@@ -35,8 +35,7 @@ typedef struct s_token
 typedef struct s_file
 {
 	char			*name;
-	t_token_type	type;
-	int				fd[2];
+	int				fd;
 }	t_file;
 
 typedef struct s_data
@@ -75,7 +74,7 @@ void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
 void		here_doc(t_token *tokens);
-static void	handle_sigint_here_doc(int sig);
+void		handle_sigint_here_doc(int sig);
 
 //UTILS
 char		*generate_random_filename(void);
@@ -107,5 +106,8 @@ int			length_until_equal(const char *str);
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
+
+//EXECUTION
+void	fill_s_data(t_token tokens);
 
 #endif

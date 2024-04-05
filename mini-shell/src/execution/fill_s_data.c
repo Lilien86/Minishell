@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/04 14:31:27 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/05 08:58:00 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,32 +28,80 @@ int	counter_cmds(t_token *tokens)
 	return (count + 1);
 }
 
+void	check_file(t_file *file, int is_append)
+{
+	if (file->name != NULL)
+	{
+		if (is_append)
+			file->fd = open(file->name, O_RDWR | O_APPEND);
+		else
+			file->fd = open(file->name, O_RDWR | O_TRUNC);
+		if (file->fd == -1)
+		{
+			perror("Error open file");
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+void	print_data(t_data *data_array, int nb_cmds)
+{
+	int i;
+
+	i = 0;
+	while (i < nb_cmds)
+	{
+		printf("Commande %d\n", i);
+		printf("Infile : %s\n", data_array[i].infile.name);
+		printf("Outfile : %s\n", data_array[i].outfile.name);
+		i++;
+	}
+}
+
 void	fill_s_data(t_token tokens)
 {
 	int		nb_cmds;
 	t_data	*data_array;
 	t_token	*current;
+	int		i;
 
+	i = 0;
 	nb_cmds = counter_cmds(&tokens);
 	current = &tokens;
-	data_array = ft_calloc((nb_cmds), sizeof(t_data));
+	data_array = ft_calloc((size_t)nb_cmds, sizeof(t_data));
 	if (data_array == NULL)
 	{
-		perror("Erreur d'allocation de mémoire");
+		perror("Error malloc data_array");
 		exit(EXIT_FAILURE);
 	}
 	while (current != NULL)
 	{
-		if (current->type == TOKEN_WORD)
+		if (current->type == TOKEN_PIPE)
 		{
-			//add_word_token(&current->value, &data_array->argv);
+			i++;
+		}
+		else if (current->type == TOKEN_REDIRECT_IN)
+		{
+			data_array[i].infile.name = current->next->value;
+			check_file(&data_array[i].infile, 0);
+		}
+		else if (current->type == TOKEN_REDIRECT_OUT)
+		{
+			data_array[i].outfile.name = current->next->value;
+			check_file(&data_array[i].outfile, 0);
+		}
+		else if (current->type == TOKEN_DOUBLE_REDIRECT_OUT)
+		{
+			data_array[i].outfile.name = current->next->value;
+			check_file(&data_array[i].outfile, 1);
 		}
 		current = current->next;
 	}
+	print_data(data_array, nb_cmds);
 	
 }
 
 /* lilien tu vas devoir looper sur la linke list, quand tu rencontre un pipe tu passe a 
 l'index suivant dans data_array et tu passe a l'element suivant dans la linked list doc apres le pipe.
 quand tu rencontre un < c'est que l'infile est juste apres, et quand c'et un > le oufile est apres.
-Oublie pas d'initailiser le infile et oufile a null comme ca tu sais si il existe, et cheque ussi avec open si tu peu les ouvrire*/
+Oublie pas d'initailiser le infile et oufile a null comme ca tu sais si il existe, et check ussi avec open si tu peu les ouvrire*/
