@@ -58,6 +58,7 @@ SOURCES += \
 	./string/ft_strndup.c \
 	./string/ft_tab_len.c \
 	./string/ft_copy_tab.c \
+	./string/ft_strcmp.c \
 	./link_list/ft_lstmap.c \
 	./link_list/ft_lstnew.c \
 	./link_list/ft_lstclear.c \

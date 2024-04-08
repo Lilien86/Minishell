@@ -88,20 +88,24 @@ void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
 //BUILTINS
-void		ft_echo(t_token *tokens);
+void		ft_echo(t_token *tokens, int *exit_status);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_pwd(int *exit_status);
 
 //BUILTINS_ENV
-void		ft_export(t_token *tokens, char ***env);
-void		ft_unset(t_token *tokens, char ***env);
-void		ft_env(char **env);
+void		ft_export(t_token *tokens, char ***env, int *exit_status);
+void		ft_unset(t_token *tokens, char ***env, int *exit_status);
+void		ft_env(char **env, int *exit_status);
+char		**add_new_env_var(char *var, char ***env, int *env_size);
+
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
+int			process_export(t_token *tokens, char ***env, int *env_size);
+
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);

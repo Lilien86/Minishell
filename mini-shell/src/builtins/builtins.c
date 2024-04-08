@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	ft_echo(t_token *tokens)
+void	ft_echo(t_token *tokens, int *exit_status)
 {
 	int		newline;
 	t_token	*current;
@@ -14,12 +14,19 @@ void	ft_echo(t_token *tokens)
 	}
 	while (current != NULL)
 	{
-		ft_printf("%s", current->value);
+		if (ft_printf("%s", current->value) < 0)
+		{
+			perror("echo command failed");
+			*exit_status = 1;
+			return ;
+		}
 		current = current->next;
 	}
 	if (newline)
 		ft_printf("\n");
+	*exit_status = 0;
 }
+
 
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
 {

@@ -75,7 +75,7 @@ static char	*prepare_env_var(char *var)
 	return (new_var);
 }
 
-static char	**add_new_env_var(char *var, char ***env, int *env_size)
+char	**add_new_env_var(char *var, char ***env, int *env_size)
 {
 	char	**new_env;
 	char	*prepared_var;
@@ -100,26 +100,24 @@ static char	**add_new_env_var(char *var, char ***env, int *env_size)
 	return (new_env);
 }
 
-void	ft_export(t_token *tokens, char ***env)
+void	ft_export(t_token *tokens, char ***env, int *exit_status)
 {
-	int		env_size;
-	char	**new_env;
+	int	env_size;
 
 	env_size = 0;
-	while ((*env)[env_size])
-		env_size++;
 	if (!tokens->next)
 	{
 		print_env(*env);
+		*exit_status = 0;
 		return ;
 	}
-	tokens = tokens->next;
-	while (tokens)
+	while ((*env)[env_size])
+		env_size++;
+	if (!process_export(tokens->next, env, &env_size))
 	{
-		new_env = add_new_env_var(tokens->value, env, &env_size);
-		if (!new_env)
-			return ;
-		*env = new_env;
-		tokens = tokens->next;
+		ft_printf("minishell: export: malloc failed\n");
+		*exit_status = 1;
+		return ;
 	}
+	*exit_status = 0;
 }

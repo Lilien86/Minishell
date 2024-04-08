@@ -1,35 +1,51 @@
 #include "../../minishell.h"
 
-void	ft_unset(t_token *tokens, char ***env)
+static	int	remove_env_var(char *var, char ***env)
 {
 	int		i;
-	t_token	*current;
+	size_t	var_len;
 
+	i = 0;
+	var_len = ft_strlen(var);
+	while ((*env)[i])
+	{
+		if (ft_strncmp((*env)[i], var, var_len) \
+		== 0 && (*env)[i][var_len] == '=')
+		{
+			free((*env)[i]);
+			while ((*env)[i + 1])
+			{
+				(*env)[i] = (*env)[i + 1];
+				i++;
+			}
+			(*env)[i] = NULL;
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+void	ft_unset(t_token *tokens, char ***env, int *exit_status)
+{
+	t_token	*current;
+	int		found;
+
+	found = 0;
 	current = tokens->next;
 	while (current)
 	{
-		i = 0;
-		while ((*env)[i])
-		{
-			if (strncmp((*env)[i], current->value, strlen(current->value))
-				== 0 && (*env)[i][strlen(current->value)] == '=')
-			{
-				free((*env)[i]);
-				while ((*env)[i + 1])
-				{
-					(*env)[i] = (*env)[i + 1];
-					i++;
-				}
-				(*env)[i] = NULL;
-				break ;
-			}
-			i++;
-		}
+		found |= remove_env_var(current->value, env);
 		current = current->next;
 	}
+	if (found)
+		*exit_status = 0;
+	else
+		*exit_status = 1;
 }
 
-void	ft_env(char **env)
+
+void	ft_env(char **env, int *exit_status)
 {
 	int		i;
 	char	*equal_sign_ptr;
@@ -40,13 +56,19 @@ void	ft_env(char **env)
 		equal_sign_ptr = ft_strchr(env[i], '=');
 		if (equal_sign_ptr != NULL && *(equal_sign_ptr + 1) != '\0')
 		{
-			if (!(*(equal_sign_ptr + 1) == '\''
-					&& *(equal_sign_ptr + 2) == '\''
-					&& *(equal_sign_ptr + 3) == '\0'))
+			if (!(*(equal_sign_ptr + 1) == '\'' && *(equal_sign_ptr + 2) \
+			== '\'' && *(equal_sign_ptr + 3) == '\0'))
 			{
-				ft_printf("%s\n", env[i]);
+				if (ft_printf("%s\n", env[i]) < 0)
+				{
+					perror("env command failed");
+					*exit_status = 1;
+					return ;
+				}
 			}
 		}
 		i++;
 	}
+	*exit_status = 0;
 }
+

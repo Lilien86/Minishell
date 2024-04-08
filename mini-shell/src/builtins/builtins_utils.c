@@ -46,3 +46,18 @@ int	length_until_equal(const char *str)
 		len++;
 	return (len);
 }
+
+int	process_export(t_token *tokens, char ***env, int *env_size)
+{
+	char	**new_env;
+
+	while (tokens)
+	{
+		new_env = add_new_env_var(tokens->value, env, env_size);
+		if (!new_env)
+			return (0);
+		*env = new_env;
+		tokens = tokens->next;
+	}
+	return (1);
+}
