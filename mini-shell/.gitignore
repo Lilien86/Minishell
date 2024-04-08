@@ -3,4 +3,4 @@
 minishell
 *.a
 *.json
-minishell_tester/
+../minishell_tester/
