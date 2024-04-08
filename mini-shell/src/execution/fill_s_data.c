@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 10:59:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 11:44:54 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void free_redirect_array(t_redirect **redirect_array, int size)
 		}
 		i++;
 	}
+	free(redirect_array);
 }
 
 
@@ -87,7 +88,7 @@ int	counter_cmds(t_token *tokens)
 	return (count + 1);
 }
 
-void	check_file(t_file *file, int is_append)
+void	check_file(t_file *file, int is_append, t_minishell *shell)
 {
 	if (file->name != NULL)
 	{
@@ -98,6 +99,7 @@ void	check_file(t_file *file, int is_append)
 		if (file->fd == -1)
 		{
 			ft_printf("Error open file %s\n", file->name);
+			free_minishell(shell);
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -125,17 +127,17 @@ void	fill_s_data(t_minishell *shell)
 		if (current->type == TOKEN_REDIRECT_IN)
 		{
 			shell->redirect_array[i].infile.name = current->next->value;
-			check_file(&shell->redirect_array[i].infile, 0);
+			check_file(&shell->redirect_array[i].infile, 0, shell);
 		}
 		else if (current->type == TOKEN_REDIRECT_OUT)
 		{
 			shell->redirect_array[i].outfile.name = current->next->value;
-			check_file(&shell->redirect_array[i].outfile, 0);
+			check_file(&shell->redirect_array[i].outfile, 0, shell);
 		}
 		else if (current->type == TOKEN_DOUBLE_REDIRECT_OUT)
 		{
 			shell->redirect_array[i].outfile.name = current->next->value;
-			check_file(&shell->redirect_array[i].outfile, 1);
+			check_file(&shell->redirect_array[i].outfile, 1, shell);
 		}
 		else if (current->type == TOKEN_HEREDOC)
 		{
@@ -148,6 +150,5 @@ void	fill_s_data(t_minishell *shell)
 		current = current->next;
 	}
 	print_data(shell->redirect_array, nb_cmds);
-	//free_minishell(shell);
 }
 

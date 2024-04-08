@@ -28,6 +28,7 @@ void	free_minishell(t_minishell *shell)
 	if (shell->input)
 		free(shell->input);
 	free_history(shell->history);
-	free_redirect_array (&(shell->redirect_array), shell->nb_cmds);
+	if (shell->redirect_array)
+		free_redirect_array (&(shell->redirect_array), shell->nb_cmds);
 	free(shell);
 }

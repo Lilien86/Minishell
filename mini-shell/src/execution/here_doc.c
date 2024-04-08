@@ -6,18 +6,26 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 11:01:05 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 13:09:44 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	write_here_doc_in_file(char *content, int fd, char *fullpath)
+static void	write_here_doc_in_file(char *content, int fd)
 {
-	ft_printf("\n+++++namefile : %s\n", fullpath);
-	ft_printf("+++++fd : %d\n\n", fd);
-	write(fd, content, strlen(content));
-	//free(fullpath);
+	if (fd < 0)
+	{
+		perror("Error:\nduring write_here_doc_in_file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (content == NULL)
+	{
+		perror("Error:\nduring write_here_doc_in_file\n");
+		exit(EXIT_FAILURE);
+	}
+	write(fd, content, ft_strlen(content));
+	
 }
 
 static void handle_here_doc(t_minishell *shell, int i, char *delimiter)
@@ -58,9 +66,8 @@ static void handle_here_doc(t_minishell *shell, int i, char *delimiter)
 		free(line);
 	}
 	//ft_printf("\nContenu du here_doc :\n%s\n", here_doc_content);
-	write_here_doc_in_file(here_doc_content, shell->redirect_array[i].infile.fd, shell->redirect_array[i].infile.name);
+	write_here_doc_in_file(here_doc_content, shell->redirect_array[i].infile.fd);
 	free_minishell(shell);
-	free(here_doc_content);
 	exit(0);
 }
 
@@ -112,20 +119,10 @@ void	fork_here_doc(char *delimiter, t_minishell *shell, int i)
 	}
 }
 
-void	here_doc(t_token *tokens, t_minishell *shell, int i)
+void	here_doc(t_token *current, t_minishell *shell, int i)
 {
-	t_token	*current;
-
-	current = tokens;
-	while (current != NULL)
-	{
-		if (current->type == TOKEN_HEREDOC)
-		{
-			current = current->next;
-			fork_here_doc(current->value, shell, i);
-			printf("name: %s\n", shell->redirect_array[i].infile.name);
-			printf("fd: %d\n\n", shell->redirect_array[i].infile.fd);
-		}
-		current = current->next;
-	}
+	current = current->next;
+	fork_here_doc(current->value, shell, i);
+	printf("name: %s\n", shell->redirect_array[i].infile.name);
+	printf("fd: %d\n\n", shell->redirect_array[i].infile.fd);
 }

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:52:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/05 08:37:07 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 11:44:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_while_loop(int *i, const char *random_chars,
 	{
 		if (read(fd, &random_byte, sizeof(random_byte)) != sizeof(random_byte))
 		{
-			perror("Erreur lors de la lecture de /dev/urandom");
+			perror("Error:\n Could not read from /dev/urandom\n");
 			exit(EXIT_FAILURE);
 		}
 		filename[*i] = random_chars[random_byte % (strlen(random_chars))];
