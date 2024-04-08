@@ -24,7 +24,8 @@ void	process_input(t_minishell *shell)
 	if (shell->tokens)
 	{
 		execute_command(shell);
-		fill_s_data(shell);
+		if (is_token_redirection(shell->tokens) == 1)
+			fill_s_data(shell);
 	}
 }
 
