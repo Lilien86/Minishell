@@ -81,6 +81,7 @@ void		handle_sigint_here_doc(int sig);
 //UTILS
 char		*generate_random_filename(void);
 void		free_redirect_array(t_redirect **redirect_array, int size);
+int			is_token_redirection(t_token *token);
 
 //READLINE
 int			read_input(t_minishell *shell);
