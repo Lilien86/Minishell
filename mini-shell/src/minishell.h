@@ -55,6 +55,7 @@ typedef struct s_minishell
 	int			nb_cmds;
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
+	int			exit_status;
 
 }	t_minishell;
 
