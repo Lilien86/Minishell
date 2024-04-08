@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 13:54:07 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 14:00:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,6 @@ void	fill_s_data(t_minishell *shell)
 		}
 		current = current->next;
 	}
-	//print_data(shell->redirect_array, shell->nb_cmds);
+	print_data(shell->redirect_array, shell->nb_cmds);
 }
 

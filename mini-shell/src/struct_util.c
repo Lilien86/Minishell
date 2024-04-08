@@ -7,8 +7,8 @@ int	is_token_redirection(t_token *token)
 	tmp = token;
 	while (tmp != NULL)
 	{
-		if (token->type == TOKEN_REDIRECT_IN || token->type == TOKEN_REDIRECT_OUT
-			|| token->type == TOKEN_DOUBLE_REDIRECT_OUT || token->type == TOKEN_HEREDOC)
+		if (tmp->type == TOKEN_REDIRECT_IN || tmp->type == TOKEN_REDIRECT_OUT
+			|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT || tmp->type == TOKEN_HEREDOC)
 			return (1);
 		tmp = tmp->next;
 	}
