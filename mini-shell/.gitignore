@@ -3,3 +3,4 @@
 minishell
 *.a
 *.json
+/minishell_tester
