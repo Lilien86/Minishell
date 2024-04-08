@@ -24,7 +24,7 @@ void	process_input(t_minishell *shell)
 	if (shell->tokens)
 	{
 		execute_command(shell);
-		fill_s_data(*shell->tokens);
+		fill_s_data(shell);
 	}
 }
 

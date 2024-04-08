@@ -38,21 +38,23 @@ typedef struct s_file
 	int				fd;
 }	t_file;
 
-typedef struct s_data
+typedef struct s_redirect
 {
 	t_file		infile;
 	t_file		outfile;
 	char		**argv;
-}	t_data;
+}	t_redirect;
 
 //PARSING
 typedef struct s_minishell
 {
-	char	**env;
-	t_token	*tokens;
-	char	*input;
-	char	*history[MAX_HISTORY_SIZE];
-	int		history_index;
+	char		**env;
+	t_token		*tokens;
+	char		*input;
+	t_redirect	*redirect_array;
+	int			nb_cmds;
+	char		*history[MAX_HISTORY_SIZE];
+	int			history_index;
 
 }	t_minishell;
 
@@ -77,6 +79,7 @@ void		handle_sigint_here_doc(int sig);
 
 //UTILS
 char		*generate_random_filename(void);
+void		free_redirect_array(t_redirect **redirect_array, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
@@ -107,7 +110,7 @@ t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 
 //EXECUTION
-void	fill_s_data(t_token tokens);
-void	here_doc(t_token *tokens, t_data **redirect, int i);
+void	fill_s_data(t_minishell *shell);
+void	here_doc(t_token *tokens, t_minishell *shell, int i);
 
 #endif

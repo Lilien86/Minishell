@@ -4,7 +4,7 @@ t_minishell	*init_minishell(char **envp)
 {
 	t_minishell	*shell;
 
-	shell = (t_minishell *)malloc(sizeof(t_minishell));
+	shell = (t_minishell *)ft_calloc(sizeof(t_minishell), 1);
 	if (!shell)
 		return (NULL);
 	shell->env = ft_copy_tab(envp);
@@ -13,6 +13,8 @@ t_minishell	*init_minishell(char **envp)
 	shell->tokens = NULL;
 	shell->input = NULL;
 	shell->history_index = 0;
+	shell->nb_cmds = 0;
+	shell->redirect_array = NULL;
 	init_history(shell->history);
 	return (shell);
 }
@@ -23,7 +25,9 @@ void	free_minishell(t_minishell *shell)
 		return ;
 	ft_free_tab(shell->env);
 	free_tokens(&(shell->tokens));
-	free(shell->input);
+	if (shell->input)
+		free(shell->input);
 	free_history(shell->history);
+	free_redirect_array (&(shell->redirect_array), shell->nb_cmds);
 	free(shell);
 }
