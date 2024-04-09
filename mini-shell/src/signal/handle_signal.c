@@ -14,10 +14,10 @@ void	handle_sigquit(int sig)
 	(void)sig;
 }
 
-void	*handle_sigint_here_doc(int sig, void *shell)
+void	handle_sigint_here_doc(int sig/*, void *shell*/)
 {
 	(void)sig;
-	 free_minishell((t_minishell *)shell);
+	//free_minishell((t_minishell *)shell);
 	exit(0);
 }
 

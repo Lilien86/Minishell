@@ -44,6 +44,19 @@ void	identify_double_char_tokens(const char **input, t_token **head)
 	}
 }
 
+void	add_token_based_on_char(const char **input, t_token **head)
+{
+	identify_double_char_tokens(input, head);
+	if (**input == '>')
+		add_token(head, init_token(TOKEN_REDIRECT_OUT, ">"));
+	else if (**input == '<')
+		add_token(head, init_token(TOKEN_REDIRECT_IN, "<"));
+	else if (**input == '|')
+		add_token(head, init_token(TOKEN_PIPE, "|"));
+	else
+		add_word_token(input, head);
+}
+
 t_token	*tokenize(const char *input)
 {
 	t_token	*head;

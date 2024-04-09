@@ -69,13 +69,13 @@ t_token		*tokenize(const char *input);
 void		add_quoted_token(const char **input, t_token **head, \
 							char quoteType);
 void		identify_double_char_tokens(const char **input, t_token **head);
-//void		add_token_based_on_char(const char **input, t_token **head);
+void		add_token_based_on_char(const char **input, t_token **head);
 
 //SIGNALS
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
-void		*handle_sigint_here_doc(int sig, void *shell);
+void		handle_sigint_here_doc(int sig/*, void *shell*/);
 
 //UTILS
 char		*generate_random_filename(void);
@@ -112,6 +112,8 @@ void		free_minishell(t_minishell *shell);
 
 //EXECUTION
 void	fill_s_data(t_minishell *shell);
-void	here_doc(t_token *tokens, t_minishell *shell, int i);
+void	here_doc(t_token *current, t_minishell *shell, int i);
+void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
+void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 
 #endif
