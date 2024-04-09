@@ -69,13 +69,13 @@ t_token		*tokenize(const char *input);
 void		add_quoted_token(const char **input, t_token **head, \
 							char quoteType);
 void		identify_double_char_tokens(const char **input, t_token **head);
-void		add_token_based_on_char(const char **input, t_token **head);
+//void		add_token_based_on_char(const char **input, t_token **head);
 
 //SIGNALS
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
-void		handle_sigint_here_doc(int sig);
+void		*handle_sigint_here_doc(int sig, void *shell);
 
 //UTILS
 char		*generate_random_filename(void);

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 13:09:44 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/09 09:09:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	write_here_doc_in_file(char *content, int fd)
 	if (content == NULL)
 	{
 		perror("Error:\nduring write_here_doc_in_file\n");
+		//free_minishell(shell);
 		exit(EXIT_FAILURE);
 	}
 	write(fd, content, ft_strlen(content));
@@ -36,7 +37,7 @@ static void handle_here_doc(t_minishell *shell, int i, char *delimiter)
 	size_t		len;
 
 	init_signal_handlers();
-	signal(SIGINT, handle_sigint_here_doc);
+	signal(SIGINT, handle_sigint_here_doc(SIGINT, shell));
 	while (1)
 	{
 		line = readline("> ");
@@ -87,7 +88,7 @@ static void	creat_file_descriptor(t_minishell *shell, int i)
 	shell->redirect_array[i].infile.name = ft_strncpy(shell->redirect_array[i].infile.name, "/tmp/", ft_strlen("/tmp/"));
 	shell->redirect_array[i].infile.name = ft_strcat(shell->redirect_array[i].infile.name, filename);
 	printf("%s\n", shell->redirect_array[i].infile.name);
-	shell->redirect_array[i].infile.fd = open(shell->redirect_array[i].infile.name, O_CREAT | O_WRONLY, O_APPEND, 0777);
+	shell->redirect_array[i].infile.fd = open(shell->redirect_array[i].infile.name, O_CREAT | O_WRONLY, 0777);
 	if (shell->redirect_array[i].infile.fd < 0)
 	{
 		perror("Error:\nduring creat_file_descriptor");
