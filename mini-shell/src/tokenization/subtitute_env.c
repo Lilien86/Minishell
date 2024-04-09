@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:16:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/04/09 10:49:49 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/04/09 11:28:08 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char *substitute_env_vars(const char *input, char **env)
 			to_free = result;
 			result = ft_strjoin(result, temp);
 			free(temp);
-			free(to_free);
 		}
 		else if (input[i] == '$' && (i == 0 || input[i - 1] != '\\') &&
 				 (ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
@@ -61,7 +60,6 @@ char *substitute_env_vars(const char *input, char **env)
 			to_free = result;
 			result = ft_strjoin(result, temp);
 			free(temp);
-			free(to_free);
 			i += var_length(input + i) - 1;
 		}
 		else
