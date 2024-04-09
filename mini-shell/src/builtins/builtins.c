@@ -27,7 +27,6 @@ void	ft_echo(t_token *tokens, int *exit_status)
 	*exit_status = 0;
 }
 
-
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
 {
 	char	*path;

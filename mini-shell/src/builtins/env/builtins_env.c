@@ -44,7 +44,6 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 		*exit_status = 1;
 }
 
-
 void	ft_env(char **env, int *exit_status)
 {
 	int		i;
@@ -71,4 +70,3 @@ void	ft_env(char **env, int *exit_status)
 	}
 	*exit_status = 0;
 }
-

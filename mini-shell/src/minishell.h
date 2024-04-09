@@ -62,19 +62,31 @@ typedef struct s_minishell
 //TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
-int			is_special_char(char c);
-void		identify_and_add_token(const char **input, t_token **head, char **env);
-void 		add_word_token(const char **input, t_token **head, char **env);
-void		free_tokens(t_token **tokens);
 t_token		*tokenize(const char *input, char **env);
-void 		add_quoted_token(const char **input, t_token **head, char quote_type, char **env);
-void		identify_and_add_token(const char **input, t_token **head, char **env);
-
 void		identify_double_char_tokens(const char **input, t_token **head);
-void		add_token_based_on_char(const char **input, t_token **head, char **env);
+void		add_token_based_on_char(const char **input,
+				t_token **head, char **env);
+
+//TOKENIZATION_UTILS
+int			is_special_char(char c);
+void		add_quoted_token(const char **input, t_token **head,
+				char quote_type, char **env);
+void		add_word_token(const char **input, t_token **head, char **env);
+void		free_tokens(t_token **tokens);
+
+//TOKENIZATION_UTILS2
+void		identify_and_add_token(const char **input,
+				t_token **head, char **env);
 
 //SUBSTITUTE_ENV
+int			var_length(const char *str);
+char		*copy_env_value(char *key, char **env);
 char		*substitute_var(const char *input, char **env);
+char		*append_char_to_str(char *str, char c);
+char		*process_single_quote(const char **input, char *result);
+
+//SUBSTITUTE_ENV2
+char		*process_dollar(const char **input, char **env, char *result);
 char		*substitute_env_vars(const char *input, char **env);
 
 //SIGNALS
@@ -107,7 +119,6 @@ void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, int *env_size);
 
-
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
@@ -115,13 +126,12 @@ void		print_env(char **env);
 int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, int *env_size);
 
-
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 
 //EXECUTION
-void	fill_s_data(t_minishell *shell);
-void	here_doc(t_token *tokens, t_minishell *shell, int i);
+void		fill_s_data(t_minishell *shell);
+void		here_doc(t_token *tokens, t_minishell *shell, int i);
 
 #endif
