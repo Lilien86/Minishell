@@ -59,18 +59,23 @@ typedef struct s_minishell
 
 }	t_minishell;
 
-//PARSING
+//TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
 int			is_special_char(char c);
-void		identify_and_add_token(const char **input, t_token **head);
-void		add_word_token(const char **input, t_token **head);
+void		identify_and_add_token(const char **input, t_token **head, char **env);
+void 		add_word_token(const char **input, t_token **head, char **env);
 void		free_tokens(t_token **tokens);
-t_token		*tokenize(const char *input);
-void		add_quoted_token(const char **input, t_token **head, \
-							char quoteType);
+t_token		*tokenize(const char *input, char **env);
+void 		add_quoted_token(const char **input, t_token **head, char quote_type, char **env);
+void		identify_and_add_token(const char **input, t_token **head, char **env);
+
 void		identify_double_char_tokens(const char **input, t_token **head);
-void		add_token_based_on_char(const char **input, t_token **head);
+void		add_token_based_on_char(const char **input, t_token **head, char **env);
+
+//SUBSTITUTE_ENV
+char		*substitute_var(const char *input, char **env);
+char		*substitute_env_vars(const char *input, char **env);
 
 //SIGNALS
 void		handle_sigint(int sig);
