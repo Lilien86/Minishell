@@ -1,0 +1,25 @@
+minishell_tester/bash.supp
+minishell_tester/bonus
+minishell_tester/bonus_bonus
+minishell_tester/builtins
+minishell_tester/extras
+minishell_tester/local.supp
+minishell_tester/loop.out
+minishell_tester/os_specific
+minishell_tester/pipes
+minishell_tester/README.md
+minishell_tester/redirects
+minishell_tester/syntax
+minishell_tester/tester
+minishell_tester/wildcards
+minishell_tester/manual_tests/heredoc
+minishell_tester/manual_tests/mandatory
+minishell_tester/manual_tests/not_mandatory
+minishell_tester/manual_tests/signals
+minishell_tester/test_files/empty
+minishell_tester/test_files/file name with spaces
+minishell_tester/test_files/infile
+minishell_tester/test_files/infile_big
+minishell_tester/test_files/invalid_permission
+minishell_tester/test_files/loop
+minishell_tester/test_files/loop.c

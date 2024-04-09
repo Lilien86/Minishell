@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/05 13:09:38 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 13:22:57 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
-# include <string.h>
 
 typedef struct s_list
 {
@@ -114,6 +113,5 @@ void		*ft_realloc(void *ptr, size_t size, size_t oldsize);
 size_t		ft_tab_len(char **tab);
 char		**ft_copy_tab(char **tab);
 int			ft_strcmp(const char *s1, const char *s2);
-
 
 #endif

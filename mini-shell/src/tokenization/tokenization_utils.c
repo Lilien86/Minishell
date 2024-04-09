@@ -5,23 +5,39 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-void	add_quoted_token(const char **input, t_token **head, char quote_type)
+static	char	*process_quoted_content(const char *quoted_part,
+					char quote_type, char **env)
 {
-	char		*value;
+	char	*value;
+
+	if (quote_type == '"')
+		value = substitute_env_vars(quoted_part, env);
+	else
+		value = ft_strdup(quoted_part);
+	return (value);
+}
+
+void	add_quoted_token(const char **input, t_token **head,
+			char quote_type, char **env)
+{
 	const char	*start;
 	size_t		len;
+	char		*quoted_part;
+	char		*value;
 
-	start = *input;
 	(*input)++;
+	start = *input;
 	len = 0;
 	while ((*input)[len] && (*input)[len] != quote_type)
 		len++;
 	if ((*input)[len] == quote_type)
 	{
-		value = ft_strndup(start, len + 2);
+		quoted_part = ft_strndup(start, len);
+		value = process_quoted_content(quoted_part, quote_type, env);
 		add_token(head, init_token(TOKEN_WORD, value));
+		free(quoted_part);
 		free(value);
-		*input += len;
+		*input += len + 1;
 	}
 	else
 	{
@@ -30,11 +46,12 @@ void	add_quoted_token(const char **input, t_token **head, char quote_type)
 	}
 }
 
-void	add_word_token(const char **input, t_token **head)
+void	add_word_token(const char **input, t_token **head, char **env)
 {
 	const char	*start;
+	char		*word;
 	size_t		len;
-	char		*value;
+	char		*substituted_value;
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
@@ -42,9 +59,11 @@ void	add_word_token(const char **input, t_token **head)
 	len = (size_t)(*input - start);
 	if (len > 0)
 	{
-		value = ft_strndup(start, len);
-		add_token(head, init_token(TOKEN_WORD, value));
-		free(value);
+		word = ft_strndup(start, len);
+		substituted_value = substitute_env_vars(word, env);
+		add_token(head, init_token(TOKEN_WORD, substituted_value));
+		free(word);
+		free(substituted_value);
 	}
 	if (**input)
 		(*input)--;
@@ -64,14 +83,4 @@ void	free_tokens(t_token **tokens)
 		current = next;
 	}
 	*tokens = NULL;
-}
-
-void	identify_and_add_token(const char **input, t_token **head)
-{
-	if (**input == '\'' || **input == '"')
-		add_quoted_token(input, head, **input);
-	else if (is_special_char(**input))
-		add_token_based_on_char(input, head);
-	else if (!ft_isspace(**input))
-		add_word_token(input, head);
 }

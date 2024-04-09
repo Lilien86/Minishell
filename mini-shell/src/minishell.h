@@ -55,21 +55,39 @@ typedef struct s_minishell
 	int			nb_cmds;
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
+	int			exit_status;
 
 }	t_minishell;
 
-//PARSING
+//TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
-int			is_special_char(char c);
-void		identify_and_add_token(const char **input, t_token **head);
-void		add_word_token(const char **input, t_token **head);
-void		free_tokens(t_token **tokens);
-t_token		*tokenize(const char *input);
-void		add_quoted_token(const char **input, t_token **head, \
-							char quoteType);
+t_token		*tokenize(const char *input, char **env);
 void		identify_double_char_tokens(const char **input, t_token **head);
-void		add_token_based_on_char(const char **input, t_token **head);
+void		add_token_based_on_char(const char **input,
+				t_token **head, char **env);
+
+//TOKENIZATION_UTILS
+int			is_special_char(char c);
+void		add_quoted_token(const char **input, t_token **head,
+				char quote_type, char **env);
+void		add_word_token(const char **input, t_token **head, char **env);
+void		free_tokens(t_token **tokens);
+
+//TOKENIZATION_UTILS2
+void		identify_and_add_token(const char **input,
+				t_token **head, char **env);
+
+//SUBSTITUTE_ENV
+int			var_length(const char *str);
+char		*copy_env_value(char *key, char **env);
+char		*substitute_var(const char *input, char **env);
+char		*append_char_to_str(char *str, char c);
+char		*process_single_quote(const char **input, char *result);
+
+//SUBSTITUTE_ENV2
+char		*process_dollar(const char **input, char **env, char *result);
+char		*substitute_env_vars(const char *input, char **env);
 
 //SIGNALS
 void		handle_sigint(int sig);
@@ -92,20 +110,22 @@ void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
 //BUILTINS
-void		ft_echo(t_token *tokens);
-void		ft_cd(t_token *tokens, char **env);
-void		ft_pwd(void);
+void		ft_echo(t_token *tokens, int *exit_status);
+void		ft_cd(t_token *tokens, char **env, int *exit_status);
+void		ft_pwd(int *exit_status);
 
 //BUILTINS_ENV
-void		ft_export(t_token *tokens, char ***env);
-void		ft_unset(t_token *tokens, char ***env);
-void		ft_env(char **env);
+void		ft_export(t_token *tokens, char ***env, int *exit_status);
+void		ft_unset(t_token *tokens, char ***env, int *exit_status);
+void		ft_env(char **env, int *exit_status);
+char		**add_new_env_var(char *var, char ***env, int *env_size);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
+int			process_export(t_token *tokens, char ***env, int *env_size);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
