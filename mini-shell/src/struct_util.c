@@ -1,5 +1,20 @@
 #include "minishell.h"
 
+int	is_token_redirection(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp != NULL)
+	{
+		if (token->type == TOKEN_REDIRECT_IN || token->type == TOKEN_REDIRECT_OUT
+			|| token->type == TOKEN_DOUBLE_REDIRECT_OUT || token->type == TOKEN_HEREDOC)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 t_minishell	*init_minishell(char **envp)
 {
 	t_minishell	*shell;

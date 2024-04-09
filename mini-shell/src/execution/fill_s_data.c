@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 11:44:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/08 13:54:07 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void free_redirect_array(t_redirect **redirect_array, int size)
 		}
 		i++;
 	}
-	free(redirect_array);
+	//free(redirect_array);
 }
 
 
@@ -107,15 +107,13 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 
 void	fill_s_data(t_minishell *shell)
 {
-	int				nb_cmds;
 	t_token			*current;
 	int				i;
 
 	i = 0;
-	nb_cmds = counter_cmds(shell->tokens);
+	shell->nb_cmds = counter_cmds(shell->tokens);
 	current = shell->tokens;
-	shell->nb_cmds = nb_cmds;
-	shell->redirect_array = ft_calloc((size_t)nb_cmds, sizeof(t_redirect));
+	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
 	if (shell->redirect_array == NULL)
 	{
 		perror("Error malloc data_array");
@@ -149,6 +147,6 @@ void	fill_s_data(t_minishell *shell)
 		}
 		current = current->next;
 	}
-	print_data(shell->redirect_array, nb_cmds);
+	//print_data(shell->redirect_array, shell->nb_cmds);
 }
 
