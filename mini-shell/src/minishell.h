@@ -81,6 +81,7 @@ void		handle_sigint_here_doc(int sig/*, void *shell*/);
 char		*generate_random_filename(void);
 void		free_redirect_array(t_redirect **redirect_array, int size);
 int			is_token_redirection(t_token *token);
+void		free_redirect_array(t_redirect **redirect_array, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
@@ -114,6 +115,6 @@ void		free_minishell(t_minishell *shell);
 void	fill_s_data(t_minishell *shell);
 void	here_doc(t_token *current, t_minishell *shell, int i);
 void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
-void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
+void	write_here_doc_in_file(char *content, int fd);
 
 #endif

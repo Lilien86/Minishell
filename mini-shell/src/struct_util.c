@@ -40,10 +40,16 @@ void	free_minishell(t_minishell *shell)
 		return ;
 	ft_free_tab(shell->env);
 	free_tokens(&(shell->tokens));
+	shell->tokens = NULL;
 	if (shell->input)
 		free(shell->input);
 	free_history(shell->history);
+	*shell->history = NULL;
 	if (shell->redirect_array)
+	{
 		free_redirect_array (&(shell->redirect_array), shell->nb_cmds);
+		shell->redirect_array = NULL;
+	}
 	free(shell);
+	shell = NULL;
 }

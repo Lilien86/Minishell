@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/09 10:59:11 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/09 13:42:01 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,31 @@
 	exit(0);
 }*/
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-char* read_and_process_line(char *delimiter, char *here_doc_content)
+char	*read_line(char *delimiter)
 {
 	char	*line;
 
 	line = readline("> ");
-	if (line == NULL)
+	if (line == NULL || ft_strcmp(line, delimiter) == 0)
 	{
-		ft_printf("\nbash: warning: here-document at line 1 delimited by"
-			"end-of-file (wanted `%s')\n", delimiter);
+		if (line != NULL)
+			free(line);
 		return (NULL);
 	}
-	if (ft_strcmp(line, delimiter) == 0)
-	{
-		free(line);
-		return (NULL);
-	}
+	return (line);
+}
+
+char	*update_here_doc_content(char *line, char *here_doc_content)
+{
+	size_t	len;
+	char	*temp;
+
 	if (here_doc_content == NULL)
 		here_doc_content = ft_strdup(line);
 	else
 	{
-		size_t len = ft_strlen(here_doc_content) + ft_strlen(line) + 2;
-		char *temp = ft_calloc(len, 1);
+		len = ft_strlen(here_doc_content) + ft_strlen(line) + 2;
+		temp = ft_calloc(len, 1);
 		ft_strcpy(temp, here_doc_content);
 		ft_strcat(temp, "\n");
 		ft_strcat(temp, line);
@@ -92,21 +91,31 @@ char* read_and_process_line(char *delimiter, char *here_doc_content)
 	return (here_doc_content);
 }
 
-void handle_here_doc(t_minishell *shell, int i, char *delimiter)
+char	*read_and_process_line(char *delimiter, char *here_doc_content)
 {
+	char	*line;
+
+	line = read_line(delimiter);
+	if (line == NULL)
+		return (NULL);
+	here_doc_content = update_here_doc_content(line, here_doc_content);
+	return (here_doc_content);
+}
+
+void	handle_here_doc(t_minishell *shell, int i, char *delimiter)
+{
+	char	*here_doc_content;
+
 	init_signal_handlers();
 	signal(SIGINT, handle_sigint_here_doc);
-	char *here_doc_content = NULL;
+	here_doc_content = NULL;
 	while (1)
 	{
 		here_doc_content = read_and_process_line(delimiter, here_doc_content);
-		if (here_doc_content == NULL) {
+		if (here_doc_content == NULL)
 			break ;
-		}
 	}
-	write_here_doc_in_file(here_doc_content, shell->redirect_array[i].infile.fd, shell);
+	write_here_doc_in_file(here_doc_content, shell->redirect_array[i].infile.fd);
 	free_minishell(shell);
 	exit(0);
 }
-
-

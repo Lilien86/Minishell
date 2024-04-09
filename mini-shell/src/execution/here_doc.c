@@ -6,13 +6,13 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/09 09:49:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/09 13:38:47 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
+void	write_here_doc_in_file(char *content, int fd)
 {
 	if (fd < 0)
 	{
@@ -22,7 +22,6 @@ void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 	if (content == NULL)
 	{
 		perror("Error:\nduring write_here_doc_in_file\n");
-		free_minishell(shell);
 		exit(EXIT_FAILURE);
 	}
 	write(fd, content, ft_strlen(content));
@@ -64,8 +63,8 @@ void	fork_here_doc(char *delimiter, t_minishell *shell, int i)
 	pid_t	pid;
 	int		status;
 
-	pid = fork();
 	creat_file_descriptor(shell, i);
+	pid = fork();
 	if (pid == 0)
 	{
 		handle_here_doc(shell, i, delimiter);

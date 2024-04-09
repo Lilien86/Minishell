@@ -73,6 +73,7 @@ int	read_input(t_minishell *shell)
 			exit(0);
 		}
 		handle_input(shell);
+		//free_minishell(shell);
 		free(shell->input);
 		free_tokens(&(shell->tokens));
 	}

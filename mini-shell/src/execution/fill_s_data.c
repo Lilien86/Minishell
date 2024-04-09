@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 14:00:05 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/09 14:09:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_data(t_redirect *data_array, int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
-		//ft_printf("Commande %d\n", i);
+		ft_printf("Commande %d\n", i);
 		ft_printf("Infile : %s\n", data_array[i].infile.name);
 		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
 		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
@@ -28,49 +28,6 @@ void	print_data(t_redirect *data_array, int nb_cmds)
 		i++;
 	}
 }
-
-#include <stdlib.h>
-
-void free_redirect_array(t_redirect **redirect_array, int size)
-{
-	int i = 0;
-	if (redirect_array == NULL)
-		return;
-	while (i < size)
-	{
-		if (redirect_array[i] != NULL)
-		{
-			if (redirect_array[i]->infile.name != NULL)
-			{
-				free(redirect_array[i]->infile.name);
-				redirect_array[i]->infile.name = NULL;
-			}
-			if (redirect_array[i]->outfile.name != NULL)
-			{
-				free(redirect_array[i]->outfile.name);
-				redirect_array[i]->outfile.name = NULL;
-			}
-			if (redirect_array[i]->argv != NULL)
-			{
-				int j = 0;
-				while (redirect_array[i]->argv[j] != NULL)
-				{
-					free(redirect_array[i]->argv[j]);
-					redirect_array[i]->argv[j] = NULL;
-					j++;
-				}
-				free(redirect_array[i]->argv);
-				redirect_array[i]->argv = NULL;
-			}
-			free(redirect_array[i]);
-			redirect_array[i] = NULL;
-		}
-		i++;
-	}
-	//free(redirect_array);
-}
-
-
 
 int	counter_cmds(t_token *tokens)
 {
@@ -120,8 +77,12 @@ void	fill_s_data(t_minishell *shell)
 		free_minishell(shell);
 		exit(EXIT_FAILURE);
 	}
+	shell->redirect_array[i].infile.name = NULL;
+	shell->redirect_array[i].outfile.name = NULL;
+	shell->redirect_array[i].argv = NULL;
 	while (current != NULL)
 	{
+		
 		if (current->type == TOKEN_REDIRECT_IN)
 		{
 			shell->redirect_array[i].infile.name = current->next->value;
@@ -144,6 +105,9 @@ void	fill_s_data(t_minishell *shell)
 		else if (current->type == TOKEN_PIPE)
 		{
 			i++;
+			shell->redirect_array[i].infile.name = NULL;
+			shell->redirect_array[i].outfile.name = NULL;
+			shell->redirect_array[i].argv = NULL;
 		}
 		current = current->next;
 	}
