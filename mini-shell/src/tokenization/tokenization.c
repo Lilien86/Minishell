@@ -44,7 +44,7 @@ void	identify_double_char_tokens(const char **input, t_token **head)
 	}
 }
 
-void	add_token_based_on_char(const char **input, t_token **head, char **env)
+void	add_token_based_on_char(const char **input, t_token **head, char **env, t_minishell *shell)
 {
 	identify_double_char_tokens(input, head);
 	if (**input == '>')
@@ -54,10 +54,10 @@ void	add_token_based_on_char(const char **input, t_token **head, char **env)
 	else if (**input == '|')
 		add_token(head, init_token(TOKEN_PIPE, "|"));
 	else
-		add_word_token(input, head, env);
+		add_word_token(input, head, env, shell);
 }
 
-t_token	*tokenize(const char *input, char **env)
+t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 {
 	t_token	*head;
 
@@ -70,7 +70,7 @@ t_token	*tokenize(const char *input, char **env)
 				input++;
 			if (*input == '\0')
 				break ;
-			identify_and_add_token(&input, &head, env);
+			identify_and_add_token(&input, &head, env, shell);
 			if (*input)
 				input++;
 		}

@@ -6,19 +6,19 @@ int	is_special_char(char c)
 }
 
 static	char	*process_quoted_content(const char *quoted_part,
-					char quote_type, char **env)
+					char quote_type, t_minishell *shell)
 {
 	char	*value;
 
 	if (quote_type == '"')
-		value = substitute_env_vars(quoted_part, env);
+		value = substitute_env_vars(quoted_part, shell->env, shell);
 	else
 		value = ft_strdup(quoted_part);
 	return (value);
 }
 
 void	add_quoted_token(const char **input, t_token **head,
-			char quote_type, char **env)
+			char quote_type, t_minishell *shell)
 {
 	const char	*start;
 	size_t		len;
@@ -33,7 +33,7 @@ void	add_quoted_token(const char **input, t_token **head,
 	if ((*input)[len] == quote_type)
 	{
 		quoted_part = ft_strndup(start, len);
-		value = process_quoted_content(quoted_part, quote_type, env);
+		value = process_quoted_content(quoted_part, quote_type, shell);
 		add_token(head, init_token(TOKEN_WORD, value));
 		free(quoted_part);
 		free(value);
@@ -46,7 +46,7 @@ void	add_quoted_token(const char **input, t_token **head,
 	}
 }
 
-void	add_word_token(const char **input, t_token **head, char **env)
+void	add_word_token(const char **input, t_token **head, char **env, t_minishell *shell)
 {
 	const char	*start;
 	char		*word;
@@ -60,7 +60,7 @@ void	add_word_token(const char **input, t_token **head, char **env)
 	if (len > 0)
 	{
 		word = ft_strndup(start, len);
-		substituted_value = substitute_env_vars(word, env);
+		substituted_value = substitute_env_vars(word, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
 		free(word);
 		free(substituted_value);

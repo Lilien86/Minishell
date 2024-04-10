@@ -62,32 +62,32 @@ typedef struct s_minishell
 //TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
-t_token		*tokenize(const char *input, char **env);
+t_token		*tokenize(const char *input, char **env, t_minishell *shell);
 void		identify_double_char_tokens(const char **input, t_token **head);
 void		add_token_based_on_char(const char **input,
-				t_token **head, char **env);
+				t_token **head, char **env, t_minishell *shell);
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
 void		add_quoted_token(const char **input, t_token **head,
-				char quote_type, char **env);
-void		add_word_token(const char **input, t_token **head, char **env);
+				char quote_type, t_minishell *shell);
+void		add_word_token(const char **input, t_token **head, char **env, t_minishell *shell);
 void		free_tokens(t_token **tokens);
 
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
-				t_token **head, char **env);
+				t_token **head, char **env, t_minishell *shell);
 
 //SUBSTITUTE_ENV
-int			var_length(const char *str);
-char		*copy_env_value(char *key, char **env);
-char		*substitute_var(const char *input, char **env);
+int			var_length(const char *str, t_minishell *shell);
+char		*copy_env_value(char *key, char **env, t_minishell *shell);
+char		*substitute_var(const char *input, char **env, t_minishell *shell);
 char		*append_char_to_str(char *str, char c);
-char		*process_single_quote(const char **input, char *result);
+char		*process_single_quote(const char **input, char *result, t_minishell *shell);
 
 //SUBSTITUTE_ENV2
-char		*process_dollar(const char **input, char **env, char *result);
-char		*substitute_env_vars(const char *input, char **env);
+char		*process_dollar(const char **input, char **env, char *result, t_minishell *shell);
+char		*substitute_env_vars(const char *input, char **env, t_minishell *shell);
 
 //SIGNALS
 void		handle_sigint(int sig);
