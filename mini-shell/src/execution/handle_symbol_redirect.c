@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 11:12:14 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/10 12:27:28 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	handle_input_redirect(t_minishell *shell, t_token *current, int *i)
 {
+	if (current->next == NULL)
+	{
+		ft_printf("Error:\nno file specified\n");
+		shell->exit_status = 1;
+		return ;
+	}
 	shell->redirect_array[*i].infile.name = current->next->value;
 	check_file(&shell->redirect_array[*i].infile, 0, shell);
 }
@@ -21,6 +27,12 @@ void	handle_input_redirect(t_minishell *shell, t_token *current, int *i)
 void	handle_output_redirect(t_minishell *shell,
 	t_token *current, int *i, int is_double_redirect)
 {
+	if (current->next == NULL)
+	{
+		ft_printf("Error:\nno file specified\n");
+		shell->exit_status = 1;
+		return ;
+	}
 	shell->redirect_array[*i].outfile.name = current->next->value;
 	check_file(&shell->redirect_array[*i].outfile, is_double_redirect, shell);
 }

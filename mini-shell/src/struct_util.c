@@ -7,11 +7,13 @@ void	print_data(t_redirect *data_array, int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
+		ft_printf("\n\n-------\n");
 		ft_printf("Commande %d\n", i);
 		ft_printf("Infile : %s\n", data_array[i].infile.name);
 		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
 		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
 		ft_printf("Outfile fd : %d\n", data_array[i].outfile.fd);
+		print_argv(data_array[i].argv);
 		ft_printf("-------\n\n");
 		i++;
 	}
@@ -25,7 +27,8 @@ int	is_token_redirection(t_token *token)
 	while (tmp != NULL)
 	{
 		if (tmp->type == TOKEN_REDIRECT_IN || tmp->type == TOKEN_REDIRECT_OUT
-			|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT || tmp->type == TOKEN_HEREDOC)
+			|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT
+				|| tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_PIPE)
 			return (1);
 		tmp = tmp->next;
 	}

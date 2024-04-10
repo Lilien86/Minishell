@@ -125,6 +125,7 @@ char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, int *env_size);
+void		print_argv(char **argv);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
@@ -143,5 +144,6 @@ void	handle_output_redirect(t_minishell *shell,
 	t_token *current, int *i, int is_double_redirect);
 void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
 void	check_file(t_file *file, int is_append, t_minishell *shell);
+void	handle_word(t_minishell *shell, t_token **current, int *i);
 
 #endif

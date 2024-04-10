@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 11:11:45 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/10 13:03:25 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,26 +111,33 @@ int	init_redirect_array(t_minishell *shell)
 	return (1);
 }
 
+
+
 void	fill_redirect_array(t_minishell *shell)
 {
-	t_token	*current;
+	//t_token	*current;
 	int		i;
 
 	i = 0;
-	current = shell->tokens;
-	while (current != NULL)
+	//current = shell->tokens;
+	if (shell->tokens == NULL)
+		return ;
+	while (shell->tokens != NULL)
 	{
-		if (current->type == TOKEN_REDIRECT_IN)
-			handle_input_redirect(shell, current, &i);
-		else if (current->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(shell, current, &i, 0);
-		else if (current->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(shell, current, &i, 1);
-		else if (current->type == TOKEN_HEREDOC)
-			handle_heredoc(shell, current, &i);
-		else if (current->type == TOKEN_PIPE)
+		if (shell->tokens->type == TOKEN_REDIRECT_IN)
+			handle_input_redirect(shell, shell->tokens, &i);
+		else if (shell->tokens->type == TOKEN_REDIRECT_OUT)
+			handle_output_redirect(shell, shell->tokens, &i, 0);
+		else if (shell->tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
+			handle_output_redirect(shell, shell->tokens, &i, 1);
+		else if (shell->tokens->type == TOKEN_HEREDOC)
+			handle_heredoc(shell, shell->tokens, &i);
+		else if (shell->tokens->type == TOKEN_PIPE)
 			handle_pipe(shell, &i);
-		current = current->next;
+		else if (shell->tokens->type == TOKEN_WORD)
+			handle_word(shell, &shell->tokens, &i);
+		if (shell->tokens->next != NULL) //read of size herrre
+			shell->tokens = shell->tokens->next;
 	}
 }
 

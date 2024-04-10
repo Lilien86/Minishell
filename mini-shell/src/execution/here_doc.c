@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 11:18:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/10 12:16:36 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	write_here_doc_in_file(char *content, int fd)
 	}
 	if (content == NULL)
 	{
-		perror("Error:\nduring write_here_doc_in_file\n");
+		ft_printf("here_document at line 1 delimited by EOF\n");
 		exit(EXIT_FAILURE);
 	}
 	write(fd, content, ft_strlen(content));
@@ -67,7 +67,7 @@ void	generate_and_assign_filename(t_minishell *shell, int i)
 			(strlen(filename) + strlen("/tmp/") + 1));
 	if (shell->redirect_array[i].infile.name == NULL)
 	{
-		perror("Erreur:\n during write_here_doc_in_file\n");
+		perror("Error:\n during write_here_doc_in_file\n");
 		free(filename);
 		free_minishell(shell);
 		exit(EXIT_FAILURE);
@@ -76,7 +76,7 @@ void	generate_and_assign_filename(t_minishell *shell, int i)
 		(shell->redirect_array[i].infile.name, "/tmp/", ft_strlen("/tmp/"));
 	shell->redirect_array[i].infile.name = ft_strcat
 		(shell->redirect_array[i].infile.name, filename);
-	printf("%s\n", shell->redirect_array[i].infile.name);
+	//printf("%s\n", shell->redirect_array[i].infile.name);
 	free(filename);
 }
 
@@ -124,6 +124,6 @@ void	here_doc(t_token *current, t_minishell *shell, int i)
 	}
 	current = current->next;
 	fork_here_doc(current->value, shell, i);
-	printf("name: %s\n", shell->redirect_array[i].infile.name);
-	printf("fd: %d\n\n", shell->redirect_array[i].infile.fd);
+	//printf("name: %s\n", shell->redirect_array[i].infile.name);
+	//printf("fd: %d\n\n", shell->redirect_array[i].infile.fd);
 }
