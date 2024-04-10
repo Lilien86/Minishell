@@ -97,9 +97,8 @@ void		handle_sigint_here_doc(int sig/*, void *shell*/);
 
 //UTILS
 char		*generate_random_filename(void);
-void		free_redirect_array(t_redirect **redirect_array, int size);
 int			is_token_redirection(t_token *token);
-void		free_redirect_array(t_redirect **redirect_array, int size);
+void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
@@ -130,11 +129,19 @@ int			process_export(t_token *tokens, char ***env, int *env_size);
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
+void		print_data(t_redirect *data_array, int nb_cmds);
 
 //EXECUTION
-void	fill_s_data(t_minishell *shell);
+void	fill_t_redirect(t_minishell *shell);
 void	here_doc(t_token *current, t_minishell *shell, int i);
 void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
 void	write_here_doc_in_file(char *content, int fd);
+
+void	handle_pipe(t_minishell *shell, int *i);
+void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
+void	handle_output_redirect(t_minishell *shell,
+	t_token *current, int *i, int is_double_redirect);
+void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
+void	check_file(t_file *file, int is_append, t_minishell *shell);
 
 #endif

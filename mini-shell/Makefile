@@ -22,7 +22,7 @@ src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
 src/execution/here_doc.c src/execution/generate_random_name.c \
-src/execution/fill_s_data.c src/execution/while_here_doc.c \
+src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c src/execution/while_here_doc.c \
 src/execution/free_t_redirect.c
 
 OBJ_DIR = ./obj

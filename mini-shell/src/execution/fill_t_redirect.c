@@ -1,33 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_s_data.c                                      :+:      :+:    :+:   */
+/*   fill_t_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/09 14:09:19 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/10 11:11:45 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_data(t_redirect *data_array, int nb_cmds)
-{
-	int i;
-
-	i = 0;
-	while (i < nb_cmds)
-	{
-		ft_printf("Commande %d\n", i);
-		ft_printf("Infile : %s\n", data_array[i].infile.name);
-		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
-		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
-		ft_printf("Outfile fd : %d\n", data_array[i].outfile.fd);
-		ft_printf("-------\n\n");
-		i++;
-	}
-}
 
 int	counter_cmds(t_token *tokens)
 {
@@ -47,6 +30,7 @@ int	counter_cmds(t_token *tokens)
 
 void	check_file(t_file *file, int is_append, t_minishell *shell)
 {
+	(void)shell;
 	if (file->name != NULL)
 	{
 		if (is_append)
@@ -56,12 +40,11 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 		if (file->fd == -1)
 		{
 			ft_printf("Error open file %s\n", file->name);
-			free_minishell(shell);
-			exit(EXIT_FAILURE);
+			return ;
 		}
 	}
 }
-
+/*
 void	fill_s_data(t_minishell *shell)
 {
 	t_token			*current;
@@ -113,4 +96,48 @@ void	fill_s_data(t_minishell *shell)
 	}
 	print_data(shell->redirect_array, shell->nb_cmds);
 }
+*/
 
+int	init_redirect_array(t_minishell *shell)
+{
+	shell->nb_cmds = counter_cmds(shell->tokens);
+	shell->redirect_array = calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
+	if (shell->redirect_array == NULL)
+	{
+		perror("Error malloc data_array");
+		free_minishell(shell);
+		exit(EXIT_FAILURE);
+	}
+	return (1);
+}
+
+void	fill_redirect_array(t_minishell *shell)
+{
+	t_token	*current;
+	int		i;
+
+	i = 0;
+	current = shell->tokens;
+	while (current != NULL)
+	{
+		if (current->type == TOKEN_REDIRECT_IN)
+			handle_input_redirect(shell, current, &i);
+		else if (current->type == TOKEN_REDIRECT_OUT)
+			handle_output_redirect(shell, current, &i, 0);
+		else if (current->type == TOKEN_DOUBLE_REDIRECT_OUT)
+			handle_output_redirect(shell, current, &i, 1);
+		else if (current->type == TOKEN_HEREDOC)
+			handle_heredoc(shell, current, &i);
+		else if (current->type == TOKEN_PIPE)
+			handle_pipe(shell, &i);
+		current = current->next;
+	}
+}
+
+void	fill_t_redirect(t_minishell *shell)
+{
+	if (!init_redirect_array(shell))
+		return ;
+	fill_redirect_array(shell);
+	print_data(shell->redirect_array, shell->nb_cmds);
+}

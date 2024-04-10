@@ -1,0 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_symbol_redirect.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
+/*   Updated: 2024/04/10 11:12:14 by lauger           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+void	handle_input_redirect(t_minishell *shell, t_token *current, int *i)
+{
+	shell->redirect_array[*i].infile.name = current->next->value;
+	check_file(&shell->redirect_array[*i].infile, 0, shell);
+}
+
+void	handle_output_redirect(t_minishell *shell,
+	t_token *current, int *i, int is_double_redirect)
+{
+	shell->redirect_array[*i].outfile.name = current->next->value;
+	check_file(&shell->redirect_array[*i].outfile, is_double_redirect, shell);
+}
+
+void	handle_heredoc(t_minishell *shell, t_token *current, int *i)
+{
+	here_doc(current, shell, *i);
+}
+
+void	handle_pipe(t_minishell *shell, int *i)
+{
+	(*i)++;
+	shell->redirect_array[*i].infile.name = NULL;
+	shell->redirect_array[*i].outfile.name = NULL;
+	shell->redirect_array[*i].argv = NULL;
+}

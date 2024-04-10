@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/09 13:42:01 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/10 11:13:42 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void	handle_here_doc(t_minishell *shell, int i, char *delimiter)
 		if (here_doc_content == NULL)
 			break ;
 	}
-	write_here_doc_in_file(here_doc_content, shell->redirect_array[i].infile.fd);
+	write_here_doc_in_file(here_doc_content,
+		shell->redirect_array[i].infile.fd);
 	free_minishell(shell);
 	exit(0);
 }

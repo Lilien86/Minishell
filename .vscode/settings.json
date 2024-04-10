@@ -19,7 +19,9 @@
 	"chrono": "c",
 	"push_swap.h": "c",
 	"minishell.h": "c",
-	"history.h": "c"
+	"history.h": "c",
+	"cstdlib": "c",
+	"typeinfo": "c"
 },
   "cmake.configureOnOpen": true,
   "C_Cpp_Runner.cCompilerPath": "gcc",
