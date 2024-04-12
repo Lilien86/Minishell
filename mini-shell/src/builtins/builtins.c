@@ -40,6 +40,7 @@ void	ft_echo(t_token *tokens, int *exit_status)
 	echo_print_tokens(current, exit_status, newline);
 }
 
+
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
 {
 	char	*path;

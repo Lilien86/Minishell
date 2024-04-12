@@ -55,7 +55,19 @@ void	add_word_token(const char **input, t_token **head,
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
-		(*input)++;
+		if (**input == '\'' || **input == '"')
+		{
+			if (*input != start)
+			{
+				word = ft_strndup(start, (size_t)(*input - start));
+				add_token(head, init_token(TOKEN_WORD, word));
+				free(word);
+			}
+			add_quoted_token(input, head, **input, shell);
+			start = *input;
+		}
+		else
+			(*input)++;
 	if (*input > start)
 	{
 		word = ft_strndup(start, (size_t)(*input - start));
