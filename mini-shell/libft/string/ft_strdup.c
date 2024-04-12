@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 10:57:17 by lauger            #+#    #+#             */
-/*   Updated: 2024/02/09 13:33:38 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/12 11:15:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strdup(const char *src)
 	i = 0;
 	if (src == NULL)
 		return (NULL);
-	dest = malloc(sizeof(char) * (ft_strlen(src) + 1));
+	dest = ft_calloc(sizeof(char), (ft_strlen(src) + 1));
 	if (!dest)
 		return (NULL);
 	if (dest == NULL)
