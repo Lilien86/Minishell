@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/12 10:14:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/12 13:57:31 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	init_redirect_array(t_minishell *shell)
 	{
 		perror("Error malloc data_array");
 		free_minishell(shell);
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	return (1);
@@ -146,6 +147,11 @@ void	fill_t_redirect(t_minishell *shell)
 {
 	if (!init_redirect_array(shell))
 		return ;
+	shell->redirect_array[0].infile.name = NULL;
+	shell->redirect_array[0].infile.fd = -1;
+	shell->redirect_array[0].outfile.name = NULL;
+	shell->redirect_array[0].outfile.fd = -1;
+	shell->redirect_array[0].argv = NULL;
 	fill_redirect_array(shell);
 	print_data(shell->redirect_array, shell->nb_cmds);
 }

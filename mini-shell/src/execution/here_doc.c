@@ -6,22 +6,24 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 12:16:36 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/12 14:00:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	write_here_doc_in_file(char *content, int fd)
+void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 {
 	if (fd < 0)
 	{
 		perror("Error:\nduring write_here_doc_in_file\n");
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	if (content == NULL)
 	{
 		ft_printf("here_document at line 1 delimited by EOF\n");
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	write(fd, content, ft_strlen(content));
@@ -70,6 +72,7 @@ void	generate_and_assign_filename(t_minishell *shell, int i)
 		perror("Error:\n during write_here_doc_in_file\n");
 		free(filename);
 		free_minishell(shell);
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	shell->redirect_array[i].infile.name = ft_strncpy
@@ -88,6 +91,7 @@ void	open_file_and_handle_errors(t_minishell *shell, int i)
 	{
 		perror("Error:\nduring creat_file_descriptor");
 		free_minishell(shell);
+		shell->exit_status = 1;
 		exit (EXIT_FAILURE);
 	}
 }
@@ -110,6 +114,7 @@ void	fork_here_doc(char *delimiter, t_minishell *shell, int i)
 	{
 		perror("Error:\nduring fork_here_doc");
 		free_minishell(shell);
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 }
@@ -120,6 +125,7 @@ void	here_doc(t_token *current, t_minishell *shell, int i)
 	{
 		ft_printf("Error:\nNo delimiter for here_doc\n");
 		free_minishell(shell);
+		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
 	current = current->next;
