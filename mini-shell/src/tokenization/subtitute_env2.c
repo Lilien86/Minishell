@@ -4,13 +4,13 @@ char	*process_dollar(const char **input, char **env, char *result, t_minishell *
 {
 	char	*temp;
 	char	*to_free;
-
-	(*input)++;
+	//shell->exit_status = 110;
+	//(*input)++;
 	temp = substitute_var(*input, env, shell);
 	to_free = result;
 	result = ft_strjoin(result, temp);
 	free(temp);
-	(*input) += var_length(*input, shell) - 1;
+	(*input) += var_length(*input, shell) +1;
 	return (result);
 }
 
@@ -24,10 +24,10 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	i = 0;
 	while (input[i])
 	{
-		if (input[i] == '\'' && (i == 0 || input[i - 1] != '\\'))
+		if (input[i] == '\'' && (i == 0))
 			result = process_single_quote(&input, result, shell);
-		else if (input[i] == '$' && (i == 0 || input[i - 1] != '\\') \
-		&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_'))
+		else if (input[i] == '$' && (i == 0) \
+		&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_' || input[i + 1] == '?'))
 			result = process_dollar(&input, env, result, shell);
 		else
 		{
