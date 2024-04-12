@@ -23,6 +23,7 @@ typedef enum e_token_type
 	TOKEN_PIPE,// 3 |
 	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
 	TOKEN_HEREDOC,// 5 <<
+	TOKEN_SPACE,// 6
 }	t_token_type;
 
 typedef struct s_token

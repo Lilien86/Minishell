@@ -50,23 +50,24 @@ void	add_word_token(const char **input, t_token **head, char **env, t_minishell 
 {
 	const char	*start;
 	char		*word;
-	size_t		len;
 	char		*substituted_value;
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 		(*input)++;
-	len = (size_t)(*input - start);
-	if (len > 0)
+	if (*input > start)
 	{
-		word = ft_strndup(start, len);
+ 		word = ft_strndup(start, (size_t)(*input - start));
 		substituted_value = substitute_env_vars(word, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
 		free(word);
 		free(substituted_value);
 	}
-	if (**input)
-		(*input)--;
+    if (ft_isspace(**input) && (*head)->next && *(*input + 1) != '\0') {
+        while (ft_isspace(*(*input + 1)))
+            (*input)++;
+        add_token(head, init_token(TOKEN_SPACE, " "));
+    }
 }
 
 void	free_tokens(t_token **tokens)
