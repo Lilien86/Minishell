@@ -1,17 +1,17 @@
 #include "../minishell.h"
 
-// void	debug_print_tokens(t_token *tokens)
-// {
-// 	t_token	*current;
+void	debug_print_tokens(t_token *tokens)
+{
+	t_token	*current;
 
-// 	current = tokens;
-// 	while (current != NULL)
-// 	{
-// 		ft_printf("Type de Token: %d, Valeur: %s\n",
-// 			current->type, current->value);
-// 		current = current->next;
-// 	}
-// }
+	current = tokens;
+	while (current != NULL)
+	{
+		ft_printf("Type de Token: %d, Valeur: %s\n",
+			current->type, current->value);
+		current = current->next;
+	}
+}
 
 void	process_input(t_minishell *shell)
 {
@@ -20,7 +20,8 @@ void	process_input(t_minishell *shell)
 		free(shell->history[shell->history_index]);
 	shell->history[shell->history_index] = ft_strdup(shell->input);
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
-	shell->tokens = tokenize(shell->input, shell->env);
+	shell->tokens = tokenize(shell->input, shell->env, shell);
+	//debug_print_tokens(shell->tokens);
 	if (shell->tokens)
 	{
 		execute_command(shell);
@@ -55,8 +56,6 @@ void	handle_input(t_minishell *shell)
 {
 	if (ft_strcmp(shell->input, "") == 0)
 		return ;
-	if (ft_strcmp(shell->input, "$?") == 0)
-		ft_printf("%d\n", shell->exit_status);
 	process_input(shell);
 	if (ft_strcmp(shell->input, "exit") == 0)
 	{

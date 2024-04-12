@@ -1,9 +1,10 @@
 #include "../minishell.h"
 
-int	var_length(const char *str)
+int	var_length(const char *str, t_minishell *shell)
 {
 	int	len;
 
+	(void)shell;
 	len = 0;
 	if (*str == '?')
 		return (1);
@@ -12,10 +13,11 @@ int	var_length(const char *str)
 	return (len);
 }
 
-char	*copy_env_value(char *key, char **env)
+char	*copy_env_value(char *key, char **env, t_minishell *shell)
 {
 	char	*value;
 
+	(void)shell;
 	value = ft_getenv(key, env);
 	if (value)
 		return (ft_strdup(value));
@@ -23,20 +25,24 @@ char	*copy_env_value(char *key, char **env)
 		return (ft_strdup(""));
 }
 
-char	*substitute_var(const char *input, char **env)
+char *substitute_var(const char *input, char **env, t_minishell *shell)
 {
-	int		len;
-	char	*key;
-	char	*substituted_value;
+    if (input[0] == '$' && input[1] == '?') {
+        char *exit_status_str = malloc(12); // Large enough for any int
+        if (!exit_status_str) return NULL;
+        sprintf(exit_status_str, "%d", shell->exit_status);
+        return exit_status_str;
+    }
 
-	len = var_length(input);
-	key = ft_strndup(input, (size_t)len);
-	if (!key)
-		return (NULL);
-	substituted_value = copy_env_value(key, env);
-	free(key);
-	return (substituted_value);
+    // Original functionality for other variables
+    int len = var_length(input, shell);
+    char *key = ft_strndup(input, (size_t)len);
+    if (!key) return NULL;
+    char *substituted_value = copy_env_value(key, env, shell);
+    free(key);
+    return substituted_value;
 }
+
 
 char	*append_char_to_str(char *str, char c)
 {
@@ -53,12 +59,13 @@ char	*append_char_to_str(char *str, char c)
 	return (new_str);
 }
 
-char	*process_single_quote(const char **input, char *result)
+char	*process_single_quote(const char **input, char *result, t_minishell *shell)
 {
 	char	*temp;
 	int		start;
 	char	*to_free;
 
+	(void)shell;
 	start = (int)(*input - result);
 	(*input)++;
 	while (**input && **input != '\'')

@@ -1,5 +1,29 @@
 #include "../minishell.h"
 
+void	echo_print_tokens(t_token *tokens, int *exit_status, int newline)
+{
+	t_token	*current;
+
+	current = tokens;
+	while (current != NULL)
+	{
+		if (current->type == TOKEN_WORD)
+		{
+			if (ft_printf("%s", current->value) < 0)
+			{
+				perror("echo command failed");
+				*exit_status = 1;
+				return ;
+			}
+		}
+		else if (current->type == TOKEN_SPACE)
+			ft_printf(" ");
+		current = current->next;
+	}
+	if (newline)
+		ft_printf("\n");
+}
+
 void	ft_echo(t_token *tokens, int *exit_status)
 {
 	int		newline;
@@ -12,19 +36,8 @@ void	ft_echo(t_token *tokens, int *exit_status)
 		newline = 0;
 		current = current->next;
 	}
-	while (current != NULL)
-	{
-		if (ft_printf("%s", current->value) < 0)
-		{
-			perror("echo command failed");
-			*exit_status = 1;
-			return ;
-		}
-		current = current->next;
-	}
-	if (newline)
-		ft_printf("\n");
 	*exit_status = 0;
+	echo_print_tokens(current, exit_status, newline);
 }
 
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
