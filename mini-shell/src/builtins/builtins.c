@@ -1,38 +1,44 @@
 #include "../minishell.h"
 
-void echo_print_tokens(t_token *tokens, int *exit_status, int newline)
+void	echo_print_tokens(t_token *tokens, int *exit_status, int newline)
 {
-    t_token *current;
+	t_token	*current;
 
 	current = tokens;
-    while (current != NULL) {
-        if (current->type == TOKEN_WORD) {
-            if (ft_printf("%s", current->value) < 0) {
-                perror("echo command failed");
-                *exit_status = 1;
-                return;
-            }
-        } else if (current->type == TOKEN_SPACE) {
-            ft_printf(" ");
-        }
-        current = current->next;
-    }
-    if (newline) ft_printf("\n");
+	while (current != NULL)
+	{
+		if (current->type == TOKEN_WORD)
+		{
+			if (ft_printf("%s", current->value) < 0)
+			{
+				perror("echo command failed");
+				*exit_status = 1;
+				return ;
+			}
+		}
+		else if (current->type == TOKEN_SPACE)
+			ft_printf(" ");
+		current = current->next;
+	}
+	if (newline)
+		ft_printf("\n");
 }
 
-void ft_echo(t_token *tokens, int *exit_status) {
-    int newline = 1;
-    t_token *current = tokens->next;  // Skip the 'echo' token
+void	ft_echo(t_token *tokens, int *exit_status)
+{
+	int		newline;
+	t_token	*current;
 
-    while (current && is_flag_n(current->value)) {
-        newline = 0;
-        current = current->next;
-    }
-
-    *exit_status = 0;  // Default exit status
-    echo_print_tokens(current, exit_status, newline);
+	newline = 1;
+	current = tokens->next;
+	while (current && is_flag_n(current->value))
+	{
+		newline = 0;
+		current = current->next;
+	}
+	*exit_status = 0;
+	echo_print_tokens(current, exit_status, newline);
 }
-
 
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
 {

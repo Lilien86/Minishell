@@ -46,7 +46,8 @@ void	add_quoted_token(const char **input, t_token **head,
 	}
 }
 
-void	add_word_token(const char **input, t_token **head, char **env, t_minishell *shell)
+void	add_word_token(const char **input, t_token **head,
+			char **env, t_minishell *shell)
 {
 	const char	*start;
 	char		*word;
@@ -57,17 +58,18 @@ void	add_word_token(const char **input, t_token **head, char **env, t_minishell 
 		(*input)++;
 	if (*input > start)
 	{
- 		word = ft_strndup(start, (size_t)(*input - start));
+		word = ft_strndup(start, (size_t)(*input - start));
 		substituted_value = substitute_env_vars(word, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
 		free(word);
 		free(substituted_value);
 	}
-    if (ft_isspace(**input) && (*head)->next && *(*input + 1) != '\0') {
-        while (ft_isspace(*(*input + 1)))
-            (*input)++;
-        add_token(head, init_token(TOKEN_SPACE, " "));
-    }
+	if (ft_isspace(**input) && (*head)->next && *(*input + 1) != '\0')
+	{
+		while (ft_isspace(*(*input + 1)))
+			(*input)++;
+		add_token(head, init_token(TOKEN_SPACE, " "));
+	}
 }
 
 void	free_tokens(t_token **tokens)
