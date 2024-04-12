@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 13:03:25 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/12 10:14:26 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,9 @@ int	init_redirect_array(t_minishell *shell)
 
 void	fill_redirect_array(t_minishell *shell)
 {
-	//t_token	*current;
 	int		i;
 
 	i = 0;
-	//current = shell->tokens;
 	if (shell->tokens == NULL)
 		return ;
 	while (shell->tokens != NULL)
@@ -134,10 +132,13 @@ void	fill_redirect_array(t_minishell *shell)
 			handle_heredoc(shell, shell->tokens, &i);
 		else if (shell->tokens->type == TOKEN_PIPE)
 			handle_pipe(shell, &i);
-		else if (shell->tokens->type == TOKEN_WORD)
-			handle_word(shell, &shell->tokens, &i);
-		if (shell->tokens->next != NULL) //read of size herrre
-			shell->tokens = shell->tokens->next;
+		if (1)
+		{
+			if (shell->tokens->type == TOKEN_WORD && (shell->tokens->value != shell->redirect_array[i].infile.name && shell->tokens->value != shell->redirect_array[i].outfile.name))
+				handle_word(shell, &shell->tokens, &i);
+			else
+				shell->tokens = shell->tokens->next;
+		}
 	}
 }
 

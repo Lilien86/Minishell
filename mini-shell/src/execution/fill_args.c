@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/10 12:55:42 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/12 10:03:46 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	count_words_in_token(t_token *token)
 	return count;
 }
 
+void	error_exit(char *message, t_minishell *shell)
+{
+	perror(message);
+	shell->exit_status = 1;
+	free_minishell(shell);
+	exit(EXIT_FAILURE);
+}
+
 void	handle_word(t_minishell *shell, t_token **current, int *i)
 {
 	int		j;
@@ -62,9 +70,7 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	new_argv = ft_calloc(sizeof(char *), (size_t)(word_count + 1));
 	if (new_argv == NULL)
 	{
-		perror("Error:\nduring handle_word\n");
-		free_minishell(shell);
-		exit(EXIT_FAILURE);
+		error_exit("Error:\nduring handle_word\n", shell);
 	}
 	j = 0;
 	while (*current != NULL && (*current)->type == TOKEN_WORD)
@@ -72,12 +78,10 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 		new_argv[j] = ft_strdup((*current)->value);
 		if (new_argv[j] == NULL)
 		{
-			perror("Error:\nduring handle_word\n");
-			free_minishell(shell);
-			exit(EXIT_FAILURE);
+			error_exit("Error:\nduring handle_word\n", shell);
 		}
 		j++;
-		*current = (*current)->next; // Modifier la liste chaînée en place
+		*current = (*current)->next;
 	}
 	new_argv[j] = NULL;
 	if (shell->redirect_array[*i].argv != NULL)
