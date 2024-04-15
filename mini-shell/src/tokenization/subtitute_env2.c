@@ -10,7 +10,8 @@ char	*process_dollar(const char **input, char **env, char *result, t_minishell *
 	to_free = result;
 	result = ft_strjoin(result, temp);
 	free(temp);
-	(*input) += var_length(*input, shell) +1;
+
+		(*input) += var_length(*input, shell) +1;
 	return (result);
 }
 
