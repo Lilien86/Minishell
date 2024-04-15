@@ -27,20 +27,24 @@ char	*copy_env_value(char *key, char **env, t_minishell *shell)
 
 char *substitute_var(const char *input, char **env, t_minishell *shell)
 {
-	if (input[0] == '$' && input[1] == '?') {
-		char *exit_status_str = malloc(12); // Large enough for any int
-		if (!exit_status_str) return NULL;
-		sprintf(exit_status_str, "%d", shell->exit_status);
-		return exit_status_str;
-	}
-
-	// Original functionality for other variables
-	int len = var_length(input, shell);
-	char *key = ft_strndup(input, (size_t)len);
-	if (!key) return NULL;
-	char *substituted_value = copy_env_value(key, env, shell);
-	free(key);
-	return substituted_value;
+    if (input[0] == '$' && input[1] == '?') {
+        char *exit_status_str = malloc(12); // Large enough for any int
+        if (!exit_status_str) return NULL;
+        sprintf(exit_status_str, "%d", shell->exit_status);
+        return exit_status_str;
+    }
+	
+    if (input[0] == '$') {
+        input++;  // Skip the dollar sign for correct key extraction
+        int len = var_length(input, shell);  // Make sure var_length does not account for the '$'
+        char *key = ft_strndup(input, (size_t)len);
+        if (!key) return NULL;
+        char *value = ft_getenv(key, env);
+        free(key);
+        if (value) return ft_strdup(value);
+        return ft_strdup("");
+    }
+    return ft_strdup(input);  // Return the input as is if it's not a variable
 }
 
 
