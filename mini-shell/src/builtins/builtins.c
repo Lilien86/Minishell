@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-void	echo_print_tokens(t_token *tokens, int *exit_status, int newline)
+void	echo_print_tokens(t_token *tokens, int *exit_status, int newline, t_minishell *shell)
 {
 	t_token	*current;
 
@@ -16,7 +16,7 @@ void	echo_print_tokens(t_token *tokens, int *exit_status, int newline)
 				return ;
 			}
 		}
-		else if (current->type == TOKEN_SPACE)
+		else if (shell->space_flag == 1)
 			ft_printf(" ");
 		current = current->next;
 	}
@@ -24,7 +24,8 @@ void	echo_print_tokens(t_token *tokens, int *exit_status, int newline)
 		ft_printf("\n");
 }
 
-void	ft_echo(t_token *tokens, int *exit_status)
+
+void	ft_echo(t_token *tokens, int *exit_status, t_minishell *shell)
 {
 	int		newline;
 	t_token	*current;
@@ -37,7 +38,7 @@ void	ft_echo(t_token *tokens, int *exit_status)
 		current = current->next;
 	}
 	*exit_status = 0;
-	echo_print_tokens(current, exit_status, newline);
+	echo_print_tokens(current, exit_status, newline, shell);
 }
 
 

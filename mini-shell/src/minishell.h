@@ -23,7 +23,6 @@ typedef enum e_token_type
 	TOKEN_PIPE,// 3 |
 	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
 	TOKEN_HEREDOC,// 5 <<
-	TOKEN_SPACE,// 6
 }	t_token_type;
 
 typedef struct s_token
@@ -57,6 +56,7 @@ typedef struct s_minishell
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
 	int			exit_status;
+	int			space_flag;
 
 }	t_minishell;
 
@@ -114,7 +114,8 @@ void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
 //BUILTINS
-void		ft_echo(t_token *tokens, int *exit_status);
+void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
+
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_pwd(int *exit_status);
 

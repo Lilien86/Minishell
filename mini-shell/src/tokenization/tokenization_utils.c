@@ -80,7 +80,7 @@ void	add_word_token(const char **input, t_token **head,
 	{
 		while (ft_isspace(*(*input + 1)))
 			(*input)++;
-		add_token(head, init_token(TOKEN_SPACE, " "));
+		shell->space_flag = 1;
 	}
 }
 
