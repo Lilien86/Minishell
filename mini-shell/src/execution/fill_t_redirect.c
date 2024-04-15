@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/15 12:48:47 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/15 13:28:56 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ void fill_redirect_array(t_minishell *shell)
 			handle_pipe(&cpy, &i);
 		if (1)
 		{
-			if ((cpy.redirect_array[i].infile.name != NULL || cpy.redirect_array[i].outfile.name != NULL) && cpy.tokens->type == TOKEN_WORD)
+			/*if ((cpy.redirect_array[i].infile.name != NULL || cpy.redirect_array[i].outfile.name != NULL) && cpy.tokens->type == TOKEN_WORD)
 			{
 				ft_printf("Error: redirection file must be the last token\n");
 				free_minishell(shell);
 				exit(EXIT_FAILURE);
-			}
+			}*/
 			if (cpy.tokens->type == TOKEN_WORD && (cpy.tokens->value != cpy.redirect_array[i].infile.name && cpy.tokens->value != cpy.redirect_array[i].outfile.name))
 				handle_word(&cpy, &cpy.tokens, &i);
 			else
@@ -134,6 +134,7 @@ void	fill_t_redirect(t_minishell *shell)
 	shell->redirect_array[0].outfile.name = NULL;
 	shell->redirect_array[0].outfile.fd = -1;
 	shell->redirect_array[0].argv = NULL;
+	shell->exit_status = 0;
 	fill_redirect_array(shell);
-	print_data(shell->redirect_array, shell->nb_cmds);
+	//print_data(shell->redirect_array, shell->nb_cmds);
 }
