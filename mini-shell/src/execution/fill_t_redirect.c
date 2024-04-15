@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/12 13:57:31 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/15 12:48:47 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,64 +44,11 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 		}
 	}
 }
-/*
-void	fill_s_data(t_minishell *shell)
-{
-	t_token			*current;
-	int				i;
-
-	i = 0;
-	shell->nb_cmds = counter_cmds(shell->tokens);
-	current = shell->tokens;
-	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
-	if (shell->redirect_array == NULL)
-	{
-		perror("Error malloc data_array");
-		free_minishell(shell);
-		exit(EXIT_FAILURE);
-	}
-	shell->redirect_array[i].infile.name = NULL;
-	shell->redirect_array[i].outfile.name = NULL;
-	shell->redirect_array[i].argv = NULL;
-	while (current != NULL)
-	{
-		
-		if (current->type == TOKEN_REDIRECT_IN)
-		{
-			shell->redirect_array[i].infile.name = current->next->value;
-			check_file(&shell->redirect_array[i].infile, 0, shell);
-		}
-		else if (current->type == TOKEN_REDIRECT_OUT)
-		{
-			shell->redirect_array[i].outfile.name = current->next->value;
-			check_file(&shell->redirect_array[i].outfile, 0, shell);
-		}
-		else if (current->type == TOKEN_DOUBLE_REDIRECT_OUT)
-		{
-			shell->redirect_array[i].outfile.name = current->next->value;
-			check_file(&shell->redirect_array[i].outfile, 1, shell);
-		}
-		else if (current->type == TOKEN_HEREDOC)
-		{
-			here_doc(current, shell, i);
-		}
-		else if (current->type == TOKEN_PIPE)
-		{
-			i++;
-			shell->redirect_array[i].infile.name = NULL;
-			shell->redirect_array[i].outfile.name = NULL;
-			shell->redirect_array[i].argv = NULL;
-		}
-		current = current->next;
-	}
-	print_data(shell->redirect_array, shell->nb_cmds);
-}
-*/
 
 int	init_redirect_array(t_minishell *shell)
 {
 	shell->nb_cmds = counter_cmds(shell->tokens);
-	shell->redirect_array = calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
+	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
 	if (shell->redirect_array == NULL)
 	{
 		perror("Error malloc data_array");
@@ -112,11 +59,9 @@ int	init_redirect_array(t_minishell *shell)
 	return (1);
 }
 
-
-
-void	fill_redirect_array(t_minishell *shell)
+/*void	fill_redirect_array(t_minishell *shell)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	if (shell->tokens == NULL)
@@ -139,6 +84,43 @@ void	fill_redirect_array(t_minishell *shell)
 				handle_word(shell, &shell->tokens, &i);
 			else
 				shell->tokens = shell->tokens->next;
+		}
+	}
+}*/
+
+void fill_redirect_array(t_minishell *shell)
+{
+	t_minishell	cpy;
+	int			i;
+
+	i = 0;
+	cpy = *shell;
+	if (cpy.tokens == NULL)
+		return;
+	while (cpy.tokens != NULL)
+	{
+		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
+			handle_input_redirect(&cpy, cpy.tokens, &i);
+		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
+			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
+		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
+			handle_output_redirect(&cpy, cpy.tokens, &i, 1);
+		else if (cpy.tokens->type == TOKEN_HEREDOC)
+			handle_heredoc(&cpy, cpy.tokens, &i);
+		else if (cpy.tokens->type == TOKEN_PIPE)
+			handle_pipe(&cpy, &i);
+		if (1)
+		{
+			if ((cpy.redirect_array[i].infile.name != NULL || cpy.redirect_array[i].outfile.name != NULL) && cpy.tokens->type == TOKEN_WORD)
+			{
+				ft_printf("Error: redirection file must be the last token\n");
+				free_minishell(shell);
+				exit(EXIT_FAILURE);
+			}
+			if (cpy.tokens->type == TOKEN_WORD && (cpy.tokens->value != cpy.redirect_array[i].infile.name && cpy.tokens->value != cpy.redirect_array[i].outfile.name))
+				handle_word(&cpy, &cpy.tokens, &i);
+			else
+				cpy.tokens = cpy.tokens->next;
 		}
 	}
 }
