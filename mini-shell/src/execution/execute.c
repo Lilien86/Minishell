@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 09:21:10 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/15 13:53:55 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:23:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,75 +19,44 @@ static void	error_exit(char *message, t_minishell *shell)
 	exit(EXIT_FAILURE);
 }
 
-// static void	execute_command_shell(t_redirect *redirect_array,
-// 	int i, t_minishell *shell)
-// {
-// 	pid_t	pid;
-// 	int		status;
-
-// 	pid = fork();
-// 	if (redirect_array[i].infile.fd == -1)
-// 		redirect_array[i].infile.fd = STDIN_FILENO;
-// 	if (redirect_array[i].outfile.fd == -1)
-// 		redirect_array[i].outfile.fd = STDOUT_FILENO;
-// 	if (pid == 0)
-// 	{
-// 		if (redirect_array[i].infile.fd != STDIN_FILENO)
-// 		{
-// 			if (dup2(redirect_array[i].infile.fd, STDIN_FILENO) == -1)
-// 				error_exit("dup2", shell);
-// 			close(redirect_array[i].infile.fd);
-// 		}
-// 		if (redirect_array[i].outfile.fd != STDOUT_FILENO)
-// 		{
-// 			if (dup2(redirect_array[i].outfile.fd, STDOUT_FILENO) == -1)
-// 				error_exit("dup2", shell);
-// 			close(redirect_array[i].outfile.fd);
-// 		}
-// 		if (execve(redirect_array[i].argv[0], redirect_array[i].argv, NULL) == -1)
-// 		error_exit("execve", shell);
-// 	}
-// 	else if (pid < 0)
-// 		error_exit("fork", shell);
-// 	else
-// 	{
-// 		waitpid(pid, &status, 0);
-// 	}
-// }
-
-static void execute_command_shell(t_redirect *redirect_array, int i, t_minishell *shell) {
-	pid_t pid;
-	int status;
+static void	execute_command_shell(t_redirect *redirect_array,
+	int i, t_minishell *shell)
+{
+	pid_t	pid;
+	int		status;
 
 	pid = fork();
-	if (pid == 0) {
-		// Processus enfant
-		if (redirect_array[i].infile.name != NULL) {
-			// Redirection de l'entrée à partir du fichier spécifié
-			int infile_fd = open(redirect_array[i].infile.name, O_RDONLY);
-			if (infile_fd == -1)
-				error_exit("open", shell);
-			if (dup2(infile_fd, STDIN_FILENO) == -1)
+	if (redirect_array[i].infile.fd == -1)
+		redirect_array[i].infile.fd = STDIN_FILENO;
+	if (redirect_array[i].outfile.fd == -1)
+		redirect_array[i].outfile.fd = STDOUT_FILENO;
+	if (pid == 0)
+	{
+		if (redirect_array[i].infile.fd != STDIN_FILENO)
+		{
+			if (dup2(redirect_array[i].infile.fd, STDIN_FILENO) == -1)
+			{
 				error_exit("dup2", shell);
-			close(infile_fd);
+				exit(EXIT_FAILURE);
+			}
+			close(redirect_array[i].infile.fd);
 		}
-
-		// Redirection de la sortie
-		if (redirect_array[i].outfile.fd != STDOUT_FILENO) {
+		if (redirect_array[i].outfile.fd != STDOUT_FILENO)
+		{
 			if (dup2(redirect_array[i].outfile.fd, STDOUT_FILENO) == -1)
+			{
 				error_exit("dup2", shell);
+				exit(EXIT_FAILURE);
+			}
+			close(redirect_array[i].outfile.fd);
 		}
-
-		// Exécution de la commande
-		if (execvp(redirect_array[i].argv[0], redirect_array[i].argv) == -1)
+		if (execve(redirect_array[i].argv[0], redirect_array[i].argv, NULL) == -1)
 			error_exit("execve", shell);
-	} else if (pid < 0) {
-		// Erreur lors du fork
-		error_exit("fork", shell);
-	} else {
-		// Processus parent
-		waitpid(pid, &status, 0);
 	}
+	else if (pid < 0)
+		error_exit("fork", shell);
+	else
+		waitpid(pid, &status, 0);
 }
 
 void execute_redirection(t_minishell *shell)

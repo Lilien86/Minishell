@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/12 14:00:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/17 08:34:25 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	here_doc(t_token *current, t_minishell *shell, int i)
 		ft_printf("Error:\nNo delimiter for here_doc\n");
 		free_minishell(shell);
 		shell->exit_status = 1;
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); //change it
 	}
 	current = current->next;
 	fork_here_doc(current->value, shell, i);

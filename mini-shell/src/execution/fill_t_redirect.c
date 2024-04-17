@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/15 13:31:56 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/16 11:22:54 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 		if (is_append)
 			file->fd = open(file->name, O_RDWR | O_APPEND);
 		else
-			file->fd = open(file->name, O_RDWR | O_TRUNC);
+			file->fd = open(file->name, O_RDWR);
 		if (file->fd == -1)
 		{
 			ft_printf("Error open file %s\n", file->name);
@@ -58,35 +58,6 @@ int	init_redirect_array(t_minishell *shell)
 	}
 	return (1);
 }
-
-/*void	fill_redirect_array(t_minishell *shell)
-{
-	int			i;
-
-	i = 0;
-	if (shell->tokens == NULL)
-		return ;
-	while (shell->tokens != NULL)
-	{
-		if (shell->tokens->type == TOKEN_REDIRECT_IN)
-			handle_input_redirect(shell, shell->tokens, &i);
-		else if (shell->tokens->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(shell, shell->tokens, &i, 0);
-		else if (shell->tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(shell, shell->tokens, &i, 1);
-		else if (shell->tokens->type == TOKEN_HEREDOC)
-			handle_heredoc(shell, shell->tokens, &i);
-		else if (shell->tokens->type == TOKEN_PIPE)
-			handle_pipe(shell, &i);
-		if (1)
-		{
-			if (shell->tokens->type == TOKEN_WORD && (shell->tokens->value != shell->redirect_array[i].infile.name && shell->tokens->value != shell->redirect_array[i].outfile.name))
-				handle_word(shell, &shell->tokens, &i);
-			else
-				shell->tokens = shell->tokens->next;
-		}
-	}
-}*/
 
 void fill_redirect_array(t_minishell *shell)
 {

@@ -145,6 +145,7 @@ void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
 void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 void	execute_redirection(t_minishell *shell);
 char	*check_command_existence(const char *cmd, char *env[]);
+void	execute_command_shell_2(t_redirect *redirect_array, int nb_cmds, t_minishell *shell);
 
 void	handle_pipe(t_minishell *shell, int *i);
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
