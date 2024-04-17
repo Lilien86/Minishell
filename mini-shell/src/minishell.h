@@ -79,6 +79,10 @@ void		free_tokens(t_token **tokens);
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
+void		check_space_after_token(const char **input, t_token**head,
+				t_minishell *shell);
+void		handle_quotes(const char **input, t_token **head,
+				t_minishell *shell, const char **start);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -118,6 +122,7 @@ void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
 
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_pwd(int *exit_status);
+void		ft_exit(t_token *tokens, t_minishell *shell);
 
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env, int *exit_status);

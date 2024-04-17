@@ -46,56 +46,33 @@ void	add_quoted_token(const char **input, t_token **head,
 	}
 }
 
-void	add_word_token(const char **input, t_token **head,
-			char **env, t_minishell *shell)
+void	handle_quotes(const char **input, t_token **head,
+			t_minishell *shell, const char **start)
 {
-	const char	*start;
-	char		*word;
-	char		*substituted_value;
+	char	*word;
 
-	start = *input;
-	while (**input && !ft_isspace(**input) && !is_special_char(**input))
-		if (**input == '\'' || **input == '"')
-		{
-			if (*input != start)
-			{
-				word = ft_strndup(start, (size_t)(*input - start));
-				add_token(head, init_token(TOKEN_WORD, word));
-				free(word);
-			}
-			add_quoted_token(input, head, **input, shell);
-			start = *input;
-		}
-		else
-			(*input)++;
-	if (*input > start)
+	if (**input == '\'' || **input == '"')
 	{
-		word = ft_strndup(start, (size_t)(*input - start));
-		substituted_value = substitute_env_vars(word, env, shell);
-		add_token(head, init_token(TOKEN_WORD, substituted_value));
-		free(word);
-		free(substituted_value);
+		if (*input != *start)
+		{
+			word = ft_strndup(*start, (size_t)(*input - *start));
+			add_token(head, init_token(TOKEN_WORD, word));
+			free(word);
+		}
+		add_quoted_token(input, head, **input, shell);
+		*start = *input;
 	}
+	else
+		(*input)++;
+}
+
+void	check_space_after_token(const char **input, t_token**head,
+			t_minishell *shell)
+{
 	if (ft_isspace(**input) && (*head)->next && *(*input + 1) != '\0')
 	{
 		while (ft_isspace(*(*input + 1)))
 			(*input)++;
 		shell->space_flag = 1;
 	}
-}
-
-void	free_tokens(t_token **tokens)
-{
-	t_token	*current;
-	t_token	*next;
-
-	current = *tokens;
-	while (current != NULL)
-	{
-		next = current->next;
-		free(current->value);
-		free(current);
-		current = next;
-	}
-	*tokens = NULL;
 }

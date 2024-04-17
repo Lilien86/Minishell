@@ -37,7 +37,9 @@ void	execute_command(t_minishell *shell)
 {
 	if (!shell->tokens)
 		return ;
-	if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
+	if (ft_strncmp(shell->tokens->value, "exit", 4) == 0)
+		ft_exit(shell->tokens, shell);
+	else if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
 		ft_echo(shell->tokens, &shell->exit_status, shell);
 	else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
 		ft_cd(shell->tokens, shell->env, &shell->exit_status);
