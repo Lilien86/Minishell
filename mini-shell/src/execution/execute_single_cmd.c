@@ -16,7 +16,8 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 	}
 	if (access(redirect->argv[0], X_OK) == -1)
 	{
-		ft_printf("Error: %s is not executable or does not exist.\n", redirect->argv[0]);
+		ft_printf("Error: %s is not executable or does not exist.\n",
+			redirect->argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	execve(redirect->argv[0], redirect->argv, NULL);
@@ -43,5 +44,4 @@ void	execute_single_command(t_redirect *redirect, t_minishell *shell)
 		close(redirect->infile.fd);
 		close(redirect->outfile.fd);
 	}
-	
 }

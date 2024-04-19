@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/19 10:02:01 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/19 10:41:21 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 int	init_redirect_array(t_minishell *shell)
 {
 	shell->nb_cmds = counter_cmds(shell->tokens);
-	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds, sizeof(t_redirect));
+	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds,
+		sizeof(t_redirect));
 	if (shell->redirect_array == NULL)
 	{
 		perror("Error malloc data_array");
@@ -59,7 +60,7 @@ int	init_redirect_array(t_minishell *shell)
 	return (1);
 }
 
-void fill_redirect_array(t_minishell *shell)
+void	fill_redirect_array(t_minishell *shell)
 {
 	t_minishell	cpy;
 	int			i;
@@ -67,7 +68,7 @@ void fill_redirect_array(t_minishell *shell)
 	i = 0;
 	cpy = *shell;
 	if (cpy.tokens == NULL)
-		return;
+		return ;
 	while (cpy.tokens != NULL)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
@@ -82,13 +83,17 @@ void fill_redirect_array(t_minishell *shell)
 			handle_pipe(&cpy, &i);
 		if (1)
 		{
-			/*if ((cpy.redirect_array[i].infile.name != NULL || cpy.redirect_array[i].outfile.name != NULL) && cpy.tokens->type == TOKEN_WORD)
+			/*if ((cpy.redirect_array[i].infile.name != NULL
+				|| cpy.redirect_array[i].outfile.name != NULL)
+				&& cpy.tokens->type == TOKEN_WORD)
 			{
 				ft_printf("Error: redirection file must be the last token\n");
 				free_minishell(shell);
 				exit(EXIT_FAILURE);
 			}*/
-			if (cpy.tokens->type == TOKEN_WORD && (cpy.tokens->value != cpy.redirect_array[i].infile.name && cpy.tokens->value != cpy.redirect_array[i].outfile.name))
+			if (cpy.tokens->type == TOKEN_WORD
+				&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
+					&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
 				handle_word(&cpy, &cpy.tokens, &i);
 			else
 				cpy.tokens = cpy.tokens->next;

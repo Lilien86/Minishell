@@ -1,12 +1,5 @@
 #include "../minishell.h"
 
-typedef struct s_pipe
-{
-	int	pipefd[2];
-	int	prev_pipe[2];
-	int	pipe_count;
-}	t_pipe;
-
 /*
 void	execute_command_shell_2(t_minishell *shell)
 {
@@ -17,7 +10,8 @@ void	execute_command_shell_2(t_minishell *shell)
 
 	while (i < shell->nb_cmds)
 	{
-		shell->redirect_array[i].argv[0] = check_command_existence(shell->redirect_array[i].argv[0], shell->env);
+		shell->redirect_array[i].argv[0] = check_command_existence
+			(shell->redirect_array[i].argv[0], shell->env);
 		i++;
 	}
 	i = 0;
@@ -100,7 +94,7 @@ void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 	}
 }
 
-void execute_command_shell_2(t_minishell *shell)
+void	execute_command_shell_2(t_minishell *shell)
 {
 	t_pipe	pipe_info;
 	int		i;
@@ -109,7 +103,8 @@ void execute_command_shell_2(t_minishell *shell)
 	pipe_info.pipe_count = 0;
 	while (i < shell->nb_cmds)
 	{
-		shell->redirect_array[i].argv[0] = check_command_existence(shell->redirect_array[i].argv[0], shell->env);
+		shell->redirect_array[i].argv[0] = check_command_existence
+			(shell->redirect_array[i].argv[0], shell->env);
 		i++;
 	}
 	i = 0;
