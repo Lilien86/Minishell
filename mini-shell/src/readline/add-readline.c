@@ -29,7 +29,7 @@ void	process_input(t_minishell *shell)
 		{
 			fill_t_redirect(shell);
 			//execute_redirection(shell);
-			execute_command_shell_2(shell->redirect_array, shell->nb_cmds, shell);
+			execute_command_shell_2(shell);
 
 		}
 	}

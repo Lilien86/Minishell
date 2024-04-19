@@ -6,18 +6,12 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 09:21:10 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/16 11:23:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/19 10:26:31 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	error_exit(char *message, t_minishell *shell)
-{
-	perror(message);
-	shell->exit_status = 1;
-	exit(EXIT_FAILURE);
-}
 
 static void	execute_command_shell(t_redirect *redirect_array,
 	int i, t_minishell *shell)
