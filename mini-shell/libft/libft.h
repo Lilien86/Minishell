@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/08 13:22:57 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/22 10:35:32 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char		*ft_strnstr(const char *big, const char *little, size_t len);
 int			ft_atoi(char const *str);
 void		*ft_calloc(size_t nitems, size_t size);
 char		*ft_strdup(char const *src);
+int			ft_atoi_endptr(const char *str, char **endptr);
+
 
 /*#####################################
 ####PARTIE 2###########################

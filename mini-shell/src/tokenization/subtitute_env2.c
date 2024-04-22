@@ -40,3 +40,38 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	}
 	return (result);
 }
+
+char	*append_char_to_str(char *str, char c)
+{
+	size_t	len;
+	char	*new_str;
+
+	len = ft_strlen(str);
+	new_str = malloc(sizeof(char) * (len + 2));
+	if (!new_str)
+		return (NULL);
+	ft_strncpy(new_str, str, len);
+	new_str[len] = c;
+	new_str[len + 1] = '\0';
+	return (new_str);
+}
+
+char	*process_single_quote(const char **input, char *result,
+			t_minishell *shell)
+{
+	char	*temp;
+	int		start;
+	char	*to_free;
+
+	(void)shell;
+	start = (int)(*input - result);
+	(*input)++;
+	while (**input && **input != '\'')
+		(*input)++;
+	temp = ft_substr(result, (unsigned int)start,
+			(size_t)((*input) - result - start));
+	to_free = result;
+	result = ft_strjoin(result, temp);
+	free(temp);
+	return (result);
+}

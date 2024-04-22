@@ -120,9 +120,9 @@ void		process_input(t_minishell *shell);
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
 
-void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_pwd(int *exit_status);
 void		ft_exit(t_token *tokens, t_minishell *shell);
+void		ft_cd(t_token *tokens, char **env, int *exit_status);
 
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env, int *exit_status);
