@@ -129,6 +129,8 @@ void		ft_export(t_token *tokens, char ***env, int *exit_status);
 void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, int *env_size);
+int			is_valid_var_name(const char *var);
+int			handle_export_token(t_token *token, char ***env, int *env_size);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);

@@ -113,11 +113,15 @@ void	ft_export(t_token *tokens, char ***env, int *exit_status)
 	}
 	while ((*env)[env_size])
 		env_size++;
-	if (!process_export(tokens->next, env, &env_size))
+	tokens = tokens->next;
+	while (tokens)
 	{
-		ft_printf("minishell: export: malloc failed\n");
-		*exit_status = 1;
-		return ;
+		if (!handle_export_token(tokens, env, &env_size))
+		{
+			*exit_status = 1;
+			return ;
+		}
+		tokens = tokens->next;
 	}
 	*exit_status = 0;
 }
