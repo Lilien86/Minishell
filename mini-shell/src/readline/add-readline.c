@@ -26,11 +26,13 @@ void	process_input(t_minishell *shell)
 	{
 		if (is_token_redirection(shell->tokens) == 0)
 		{
-			if (check_builtins(shell) == 1)
+			if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
 				execute_builtins(shell);
 			else
 			{
 				fill_t_redirect(shell);
+				shell->redirect_array->argv[0] = check_command_existence
+					(shell->redirect_array[0].argv[0], shell->env);
 				execute_single_command(shell->redirect_array, shell);
 			}
 		}
@@ -42,7 +44,7 @@ void	process_input(t_minishell *shell)
 	}
 }
 
-int	execute_command(t_minishell *shell)
+int	execute_builtins(t_minishell *shell)
 {
 	if (!shell->tokens)
 		return (1);
@@ -94,7 +96,7 @@ int	read_input(t_minishell *shell)
 			exit(0);
 		}
 		handle_input(shell);
-		free(shell->input);
+		//free(shell->input);
 		free_tokens(&(shell->tokens));
 	}
 	return (0);

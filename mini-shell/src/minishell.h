@@ -117,7 +117,7 @@ void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-int		execute_command(t_minishell *shell);
+int			execute_builtins(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
@@ -173,7 +173,7 @@ void	check_file(t_file *file, int is_append, t_minishell *shell);
 void	handle_word(t_minishell *shell, t_token **current, int *i);
 
 //UTILS_CHECK
-int		check_builtins(t_minishell *shell);
+int		check_builtins(char *cmd);
 int		is_token_redirection(t_token *token);
 
 #endif

@@ -14,8 +14,11 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 			error_exit("dup2", shell);
 		close(redirect->outfile.fd);
 	}
-	if (check_builtins(shell))
+	if (check_builtins(redirect->argv[0]))
+	{
 		execute_builtins(shell);
+		exit(shell->exit_status);
+	}
 	else
 	{
 		if (access(redirect->argv[0], X_OK) == -1)

@@ -1,21 +1,23 @@
 #include "../minishell.h"
 
-int	check_builtins(t_minishell *shell)
+int	check_builtins(char *cmd)
 {
-	if (!shell->tokens)
+	if (!cmd)
 		return (0);
-	if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
+	if (ft_strncmp(cmd, "exit", 4) == 0)
 		return (1);
-	else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
+	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (1);
-	else if (ft_strncmp(shell->tokens->value, "pwd", 3) == 0)
+	else if (ft_strncmp(cmd, "cd", 2) == 0)
 		return (1);
-	else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
+	else if (ft_strncmp(cmd, "pwd", 3) == 0)
 		return (1);
-	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
+	else if (ft_strncmp(cmd, "export", 6) == 0)
 		return (1);
-	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0
-		&& shell->tokens->value[3] == '\0')
+	else if (ft_strncmp(cmd, "unset", 5) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "env", 3) == 0
+		&& cmd[3] == '\0')
 		return (1);
 	else
 		return (0);
