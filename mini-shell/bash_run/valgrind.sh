@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell_2/mini-shell/bash_run"
+cd "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/mini-shell/bash_run"
 
 Make -C ../
 

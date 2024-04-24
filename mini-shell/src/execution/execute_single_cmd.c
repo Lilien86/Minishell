@@ -14,14 +14,17 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 			error_exit("dup2", shell);
 		close(redirect->outfile.fd);
 	}
-	if (access(redirect->argv[0], X_OK) == -1)
+	if (check_builtins(shell))
+		execute_builtins(shell);
+	else
 	{
-		ft_printf("Error: %s is not executable or does not exist.\n",
-			redirect->argv[0]);
-		exit(EXIT_FAILURE);
+		if (access(redirect->argv[0], X_OK) == -1)
+		{
+			exit(EXIT_FAILURE);
+		}
+		execve(redirect->argv[0], redirect->argv, NULL);
+		error_exit("execve", shell);
 	}
-	execve(redirect->argv[0], redirect->argv, NULL);
-	error_exit("execve", shell);
 }
 
 void	execute_single_command(t_redirect *redirect, t_minishell *shell)

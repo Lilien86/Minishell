@@ -109,12 +109,11 @@ void		handle_sigint_here_doc(int sig/*, void *shell*/);
 
 //UTILS
 char		*generate_random_filename(void);
-int			is_token_redirection(t_token *token);
 void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-void		execute_command(t_minishell *shell);
+void		execute_builtins(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
@@ -163,5 +162,9 @@ void	handle_output_redirect(t_minishell *shell,
 void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
 void	check_file(t_file *file, int is_append, t_minishell *shell);
 void	handle_word(t_minishell *shell, t_token **current, int *i);
+
+//UTILS_CHECK
+int		check_builtins(t_minishell *shell);
+int		is_token_redirection(t_token *token);
 
 #endif

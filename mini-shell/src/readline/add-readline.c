@@ -24,18 +24,25 @@ void	process_input(t_minishell *shell)
 	//debug_print_tokens(shell->tokens);
 	if (shell->tokens)
 	{
-		execute_command(shell);
-		if (is_token_redirection(shell->tokens) == 1)
+		if (is_token_redirection(shell->tokens) == 0)
+		{
+			if (check_builtins(shell) == 1)
+				execute_builtins(shell);
+			else
+			{
+				fill_t_redirect(shell);
+				execute_single_command(shell->redirect_array, shell);
+			}
+		}
+		else
 		{
 			fill_t_redirect(shell);
-			//execute_redirection(shell);
 			execute_command_shell_2(shell);
-
 		}
 	}
 }
 
-void	execute_command(t_minishell *shell)
+void	execute_builtins(t_minishell *shell)
 {
 	if (!shell->tokens)
 		return ;
@@ -70,6 +77,11 @@ int	read_input(t_minishell *shell)
 {
 	while (1)
 	{
+		if (shell->input != NULL)
+		{
+			free(shell->input);
+			shell->input = NULL;
+		}
 		shell->input = readline("minishell > ");
 		if (shell->input == NULL)
 		{
@@ -78,8 +90,8 @@ int	read_input(t_minishell *shell)
 		}
 		handle_input(shell);
 		//free_minishell(shell);
-		free(shell->input);
-		free_tokens(&(shell->tokens));
+		//free(shell->input); .00000000000000000000
+		//free_tokens(&(shell->tokens)); 000000000000000
 	}
 	return (0);
 }

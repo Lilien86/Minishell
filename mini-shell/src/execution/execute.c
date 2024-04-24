@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 09:21:10 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/19 10:32:22 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/24 11:29:53 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ static void	handle_child(t_redirect *redirect, t_minishell *shell)
 	}
 	if (access(redirect->argv[0], X_OK) == -1)
 	{
-		ft_printf("Error: %s is not executable or does not exist.\n",
-			redirect->argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	execve(redirect->argv[0], redirect->argv, NULL);
