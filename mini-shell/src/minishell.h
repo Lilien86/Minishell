@@ -86,6 +86,10 @@ void		free_tokens(t_token **tokens);
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
+void		check_space_after_token(const char **input, t_token**head,
+				t_minishell *shell);
+void		handle_quotes(const char **input, t_token **head,
+				t_minishell *shell, const char **start);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -113,23 +117,28 @@ void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-void		execute_builtins(t_minishell *shell);
+int		execute_command(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
+//HANDLE_INVALID
+int			execute_external_command(t_minishell *shell);
+
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
-
-void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_pwd(int *exit_status);
+void		ft_exit(t_token *tokens, t_minishell *shell);
+void		ft_cd(t_token *tokens, char **env, int *exit_status);
 
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env, int *exit_status);
 void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, int *env_size);
+int			is_valid_var_name(const char *var);
+int			handle_export_token(t_token *token, char ***env, int *env_size);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);

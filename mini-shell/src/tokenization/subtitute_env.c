@@ -25,59 +25,41 @@ char	*copy_env_value(char *key, char **env, t_minishell *shell)
 		return (ft_strdup(""));
 }
 
-char *substitute_var(const char *input, char **env, t_minishell *shell)
+static char	*get_exit_status_str(int status)
 {
-    if (input[0] == '$' && input[1] == '?') {
-        char *exit_status_str = malloc(12); // Large enough for any int
-        if (!exit_status_str) return NULL;
-        sprintf(exit_status_str, "%d", shell->exit_status);
-        return exit_status_str;
-    }
-	
-    if (input[0] == '$') {
-        input++;  // Skip the dollar sign for correct key extraction
-        int len = var_length(input, shell);  // Make sure var_length does not account for the '$'
-        char *key = ft_strndup(input, (size_t)len);
-        if (!key) return NULL;
-        char *value = ft_getenv(key, env);
-        free(key);
-        if (value) return ft_strdup(value);
-        return ft_strdup("");
-    }
-    return ft_strdup(input);  // Return the input as is if it's not a variable
-}
+	char	*status_str;
 
-
-char	*append_char_to_str(char *str, char c)
-{
-	size_t	len;
-	char	*new_str;
-
-	len = ft_strlen(str);
-	new_str = malloc(sizeof(char) * (len + 2));
-	if (!new_str)
+	status_str = ft_itoa(status);
+	if (!status_str)
 		return (NULL);
-	ft_strncpy(new_str, str, len);
-	new_str[len] = c;
-	new_str[len + 1] = '\0';
-	return (new_str);
+	return (status_str);
 }
 
-char	*process_single_quote(const char **input, char *result, t_minishell *shell)
+static char	*get_env_var(const char *input, char **env, t_minishell *shell)
 {
-	char	*temp;
-	int		start;
-	char	*to_free;
+	int		len;
+	char	*key;
+	char	*value;
 
-	(void)shell;
-	start = (int)(*input - result);
-	(*input)++;
-	while (**input && **input != '\'')
-		(*input)++;
-	temp = ft_substr(result, (unsigned int)start,
-			(size_t)((*input) - result - start));
-	to_free = result;
-	result = ft_strjoin(result, temp);
-	free(temp);
-	return (result);
+	len = var_length(input, shell);
+	key = ft_strndup(input, (size_t)len);
+	if (!key)
+		return (NULL);
+	value = ft_getenv(key, env);
+	free(key);
+	if (value)
+		return (ft_strdup(value));
+	return (ft_strdup(""));
+}
+
+char	*substitute_var(const char *input, char **env, t_minishell *shell)
+{
+	if (input[0] == '$')
+	{
+		if (input[1] == '?')
+			return (get_exit_status_str(shell->exit_status));
+		input++;
+		return (get_env_var(input, env, shell));
+	}
+	return (ft_strdup(input));
 }

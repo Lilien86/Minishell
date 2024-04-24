@@ -42,11 +42,13 @@ void	process_input(t_minishell *shell)
 	}
 }
 
-void	execute_builtins(t_minishell *shell)
+int	execute_command(t_minishell *shell)
 {
 	if (!shell->tokens)
-		return ;
-	if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
+		return (1);
+	if (ft_strncmp(shell->tokens->value, "exit", 4) == 0)
+		ft_exit(shell->tokens, shell);
+	else if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
 		ft_echo(shell->tokens, &shell->exit_status, shell);
 	else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
 		ft_cd(shell->tokens, shell->env, &shell->exit_status);
@@ -59,6 +61,9 @@ void	execute_builtins(t_minishell *shell)
 	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0
 		&& shell->tokens->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
+	else
+		return (execute_external_command(shell));
+	return (1);
 }
 
 void	handle_input(t_minishell *shell)
@@ -89,9 +94,8 @@ int	read_input(t_minishell *shell)
 			exit(0);
 		}
 		handle_input(shell);
-		//free_minishell(shell);
-		//free(shell->input); .00000000000000000000
-		//free_tokens(&(shell->tokens)); 000000000000000
+		free(shell->input);
+		free_tokens(&(shell->tokens));
 	}
 	return (0);
 }

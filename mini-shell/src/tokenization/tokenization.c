@@ -44,7 +44,8 @@ void	identify_double_char_tokens(const char **input, t_token **head)
 	}
 }
 
-void	add_token_based_on_char(const char **input, t_token **head, char **env, t_minishell *shell)
+void	add_token_based_on_char(const char **input, t_token **head,
+			char **env, t_minishell *shell)
 {
 	identify_double_char_tokens(input, head);
 	if (**input == '>')
