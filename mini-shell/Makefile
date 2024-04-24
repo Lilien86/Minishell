@@ -18,6 +18,7 @@ src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/tokenization/tokenization_utils2.c \
 src/tokenization/subtitute_env.c  src/tokenization/subtitute_env2.c \
 src/readline/add-readline.c src/readline/readline-history.c \
+src/readline/handle_invalid.c \
 src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c \
 src/builtins/exit.c src/builtins/cd.c \

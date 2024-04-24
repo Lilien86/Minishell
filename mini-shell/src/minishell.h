@@ -111,15 +111,17 @@ void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-void		execute_command(t_minishell *shell);
+int		execute_command(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
+//HANDLE_INVALID
+int			execute_external_command(t_minishell *shell);
+
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
-
 void		ft_pwd(int *exit_status);
 void		ft_exit(t_token *tokens, t_minishell *shell);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);

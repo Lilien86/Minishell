@@ -33,10 +33,10 @@ void	process_input(t_minishell *shell)
 	}
 }
 
-void	execute_command(t_minishell *shell)
+int	execute_command(t_minishell *shell)
 {
 	if (!shell->tokens)
-		return ;
+		return (1);
 	if (ft_strncmp(shell->tokens->value, "exit", 4) == 0)
 		ft_exit(shell->tokens, shell);
 	else if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
@@ -52,6 +52,9 @@ void	execute_command(t_minishell *shell)
 	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0
 		&& shell->tokens->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
+	else
+		return (execute_external_command(shell));
+	return (1);
 }
 
 void	handle_input(t_minishell *shell)
