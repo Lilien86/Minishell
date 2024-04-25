@@ -1,17 +1,23 @@
 #include "../minishell.h"
 
-char	*process_dollar(const char **input, char **env, char *result,
-			t_minishell *shell)
+char *process_dollar(const char **input, char **env, char *result, t_minishell *shell)
 {
-	char	*temp;
-	char	*to_free;
+    char *temp;
+    int var_len;
 
-	temp = substitute_var(*input, env, shell);
-	to_free = result;
-	result = ft_strjoin(result, temp);
-	free(temp);
-	(*input) += var_length(*input, shell) + 1;
-	return (result);
+    temp = substitute_var(*input, env, shell);
+
+    char *new_result = malloc(strlen(result) + strlen(temp) + 1);
+    if (!new_result) return NULL;
+    strcpy(new_result, result);
+    strcat(new_result, temp);
+    free(result);
+    free(temp);
+
+    var_len = var_length(*input + 1, shell) + 1; 
+    *input += var_len;
+
+    return new_result;
 }
 
 char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
