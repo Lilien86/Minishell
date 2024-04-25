@@ -20,7 +20,7 @@ static char	*get_path(t_token *tokens, char **env, int *exit_status)
 	}
 	if (!path)
 	{
-		write(2, "minishell: cd: HOME not set\n", 29);
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 		*exit_status = 1;
 	}
 	return (path);

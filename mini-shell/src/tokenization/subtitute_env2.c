@@ -1,17 +1,27 @@
 #include "../minishell.h"
 
-char	*process_dollar(const char **input, char **env, char *result,
-			t_minishell *shell)
+char *process_dollar(const char **input, char **env, char *result, t_minishell *shell)
 {
-	char	*temp;
-	char	*to_free;
+    char *temp;
+    int var_len;
 
-	temp = substitute_var(*input, env, shell);
-	to_free = result;
-	result = ft_strjoin(result, temp);
-	free(temp);
-	(*input) += var_length(*input, shell) + 1;
-	return (result);
+    temp = substitute_var(*input, env, shell);
+
+
+    char *new_result = malloc(ft_strlen(result) + ft_strlen(temp) + 1);
+    if (!new_result) return NULL;
+    ft_strcpy(new_result, result);
+    ft_strcat(new_result, temp);
+    free(result);
+    free(temp);
+
+    var_len = var_length(*input + 1, shell) + 1; 
+	if (*(*input + var_len) != '\0') {
+	    *input += var_len;
+	} else {
+	    *input += ft_strlen(*input); // pour éviter de dépasser la fin de la chaîne
+	}
+    return new_result;
 }
 
 char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
@@ -29,7 +39,12 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 		else if (input[i] == '$' && (i == 0) \
 		&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_'
 				|| input[i + 1] == '?'))
+		{
 			result = process_dollar(&input, env, result, shell);
+			if (!result)
+				return (NULL);
+			return (result);
+		}
 		else
 		{
 			temp = append_char_to_str(result, input[i]);
