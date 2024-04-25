@@ -23,3 +23,4 @@ minishell_tester/test_files/infile_big
 minishell_tester/test_files/invalid_permission
 minishell_tester/test_files/loop
 minishell_tester/test_files/loop.c
+minishell_tester/*
