@@ -7,16 +7,20 @@ char *process_dollar(const char **input, char **env, char *result, t_minishell *
 
     temp = substitute_var(*input, env, shell);
 
-    char *new_result = malloc(strlen(result) + strlen(temp) + 1);
+
+    char *new_result = malloc(ft_strlen(result) + ft_strlen(temp) + 1);
     if (!new_result) return NULL;
-    strcpy(new_result, result);
-    strcat(new_result, temp);
+    ft_strcpy(new_result, result);
+    ft_strcat(new_result, temp);
     free(result);
     free(temp);
 
     var_len = var_length(*input + 1, shell) + 1; 
-    *input += var_len;
-
+	if (*(*input + var_len) != '\0') {
+	    *input += var_len;
+	} else {
+	    *input += ft_strlen(*input); // pour éviter de dépasser la fin de la chaîne
+	}
     return new_result;
 }
 
@@ -35,7 +39,12 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 		else if (input[i] == '$' && (i == 0) \
 		&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_'
 				|| input[i + 1] == '?'))
+		{
 			result = process_dollar(&input, env, result, shell);
+			if (!result)
+				return (NULL);
+			return (result);
+		}
 		else
 		{
 			temp = append_char_to_str(result, input[i]);
