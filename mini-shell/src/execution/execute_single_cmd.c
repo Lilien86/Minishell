@@ -33,7 +33,6 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 void	execute_single_command(t_redirect *redirect, t_minishell *shell)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (redirect->infile.fd == -1)
@@ -46,8 +45,9 @@ void	execute_single_command(t_redirect *redirect, t_minishell *shell)
 		error_exit("fork", shell);
 	else
 	{
-		waitpid(pid, &status, 0);
+		//if (redirect->infile.fd != STDIN_FILENO)
 		close(redirect->infile.fd);
+		//if (redirect->outfile.fd != STDOUT_FILENO)
 		close(redirect->outfile.fd);
 	}
 }

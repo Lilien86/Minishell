@@ -16,10 +16,12 @@ void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 	{
 		if (i > 0)
 		{
-			shell->redirect_array[i].infile.fd = the_pipe->prev_pipe[0];
+			if (shell->redirect_array[i].infile.fd == -1)
+				shell->redirect_array[i].infile.fd = the_pipe->prev_pipe[0];
 			if (i == shell->nb_cmds - 1)
 			{
-				shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
+				if (shell->redirect_array[i].outfile.fd == -1)
+					shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
 			}
 			else
 				handle_new_pipe(shell, the_pipe, i);
@@ -27,7 +29,12 @@ void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 		else
 		{
 			if (shell->nb_cmds == 1)
-				shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
+			{
+				if (shell->redirect_array[i].infile.fd == -1)
+					shell->redirect_array[i].infile.fd = STDIN_FILENO;
+				if (shell->redirect_array[i].outfile.fd == -1)
+					shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
+			}
 			else
 				handle_new_pipe(shell, the_pipe, i);
 		}
@@ -37,6 +44,19 @@ void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 		//printf("pipefd[lecture]--->%d\n", the_pipe->pipefd[0]);
 		//printf("pipefd[ecriture]--->%d\n\n", the_pipe->pipefd[1]);
 		execute_single_command(&shell->redirect_array[i], shell);
+		i++;
+	}
+}
+
+void	handle_wait(t_minishell *shell)
+{
+	int	i;
+	int	status;
+
+	i = 0;
+	while (i < shell->nb_cmds)
+	{
+		wait(&status);
 		i++;
 	}
 }
@@ -57,6 +77,7 @@ void	execute_command_shell_2(t_minishell *shell)
 	}
 	i = 0;
 	handle_while(i, shell, &pipe_info);
+	handle_wait(shell);
 	if (pipe_info.pipe_count > 0)
 	{
 		close(pipe_info.prev_pipe[0]);

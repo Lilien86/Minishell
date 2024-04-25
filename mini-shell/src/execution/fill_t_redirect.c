@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/24 13:30:29 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/25 11:51:04 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_file(t_file *file, int is_append, t_minishell *shell)
 			file->fd = open(file->name, O_RDWR);
 		if (file->fd == -1)
 		{
-			ft_printf("Error open file %s\n", file->name);
+			ft_printf("Error:\n open file %s\n", file->name);
 			return ;
 		}
 	}

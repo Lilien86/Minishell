@@ -26,11 +26,11 @@ void	process_input(t_minishell *shell)
 	{
 		if (is_token_redirection(shell->tokens) == 0)
 		{
+			fill_t_redirect(shell);
 			if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
 				execute_builtins(shell);
 			else
 			{
-				fill_t_redirect(shell);
 				shell->redirect_array->argv[0] = check_command_existence
 					(shell->redirect_array[0].argv[0], shell->env);
 				execute_single_command(shell->redirect_array, shell);
