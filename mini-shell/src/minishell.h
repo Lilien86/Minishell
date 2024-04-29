@@ -17,12 +17,12 @@
 
 typedef enum e_token_type
 {
-	TOKEN_WORD,// 0
-	TOKEN_REDIRECT_IN,// 1 <
-	TOKEN_REDIRECT_OUT,// 2 >
-	TOKEN_PIPE,// 3 |
-	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
-	TOKEN_HEREDOC,// 5 <<
+	TOKEN_WORD,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_PIPE,
+	TOKEN_DOUBLE_REDIRECT_OUT,
+	TOKEN_HEREDOC,
 }	t_token_type;
 
 typedef struct s_token
@@ -111,7 +111,7 @@ void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-int		execute_command(t_minishell *shell);
+int			execute_command(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
@@ -148,19 +148,19 @@ void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
 
 //EXECUTION
-void	fill_t_redirect(t_minishell *shell);
-void	here_doc(t_token *current, t_minishell *shell, int i);
-void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
-void	write_here_doc_in_file(char *content, int fd);
-void	execute_redirection(t_minishell *shell);
-char	*check_command_existence(const char *cmd, char *env[]);
+void		fill_t_redirect(t_minishell *shell);
+void		here_doc(t_token *current, t_minishell *shell, int i);
+void		handle_here_doc(t_minishell *shell, int i, char *delimiter);
+void		write_here_doc_in_file(char *content, int fd);
+void		execute_redirection(t_minishell *shell);
+char		*check_command_existence(const char *cmd, char *env[]);
 
-void	handle_pipe(t_minishell *shell, int *i);
-void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
-void	handle_output_redirect(t_minishell *shell,
-	t_token *current, int *i, int is_double_redirect);
-void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
-void	check_file(t_file *file, int is_append, t_minishell *shell);
-void	handle_word(t_minishell *shell, t_token **current, int *i);
+void		handle_pipe(t_minishell *shell, int *i);
+void		handle_heredoc(t_minishell *shell, t_token *current, int *i);
+void		handle_output_redirect(t_minishell *shell,
+				t_token *current, int *i, int is_double_redirect);
+void		handle_input_redirect(t_minishell *shell, t_token *current, int *i);
+void		check_file(t_file *file, int is_append, t_minishell *shell);
+void		handle_word(t_minishell *shell, t_token **current, int *i);
 
 #endif

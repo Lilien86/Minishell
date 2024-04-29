@@ -28,7 +28,7 @@ int	is_token_redirection(t_token *token)
 	{
 		if (tmp->type == TOKEN_REDIRECT_IN || tmp->type == TOKEN_REDIRECT_OUT
 			|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT
-				|| tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_PIPE)
+			|| tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_PIPE)
 			return (1);
 		tmp = tmp->next;
 	}
