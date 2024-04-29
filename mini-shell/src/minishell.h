@@ -17,12 +17,12 @@
 
 typedef enum e_token_type
 {
-	TOKEN_WORD,// 0
-	TOKEN_REDIRECT_IN,// 1 <
-	TOKEN_REDIRECT_OUT,// 2 >
-	TOKEN_PIPE,// 3 |
-	TOKEN_DOUBLE_REDIRECT_OUT,// 4 >>
-	TOKEN_HEREDOC,// 5 <<
+	TOKEN_WORD,
+	TOKEN_REDIRECT_IN,
+	TOKEN_REDIRECT_OUT,
+	TOKEN_PIPE,
+	TOKEN_DOUBLE_REDIRECT_OUT,
+	TOKEN_HEREDOC,
 }	t_token_type;
 
 typedef struct s_token

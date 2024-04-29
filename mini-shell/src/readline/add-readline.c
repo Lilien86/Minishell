@@ -63,8 +63,8 @@ int	execute_builtins(t_minishell *shell)
 	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0
 		&& shell->tokens->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
-	else
-		return (execute_external_command(shell));
+	// else
+	// 	return (execute_external_command(shell));
 	return (1);
 }
 

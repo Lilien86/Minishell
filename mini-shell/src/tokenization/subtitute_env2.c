@@ -1,57 +1,46 @@
 #include "../minishell.h"
 
-char *process_dollar(const char **input, char **env, char *result, t_minishell *shell)
+char	*process_dollar(const char **input, char **env, char *result,
+		t_minishell *shell)
 {
-    char *temp;
-    int var_len;
+	char	*temp;
+	int		var_len;
+	char	*new_result;
 
-    temp = substitute_var(*input, env, shell);
-
-
-    char *new_result = malloc(ft_strlen(result) + ft_strlen(temp) + 1);
-    if (!new_result) return NULL;
-    ft_strcpy(new_result, result);
-    ft_strcat(new_result, temp);
-    free(result);
-    free(temp);
-
-    var_len = var_length(*input + 1, shell) + 1; 
-	if (*(*input + var_len) != '\0') {
-	    *input += var_len;
-	} else {
-	    *input += ft_strlen(*input); // pour éviter de dépasser la fin de la chaîne
-	}
-    return new_result;
+	temp = substitute_var(*input, env, shell);
+	new_result = malloc(ft_strlen(result) + ft_strlen(temp) + 1);
+	if (!new_result)
+		return (NULL);
+	ft_strcpy(new_result, result);
+	ft_strcat(new_result, temp);
+	free(temp);
+	var_len = var_length(*input + 1, shell) + 1; 
+	*input += var_len;
+	return (new_result);
 }
 
 char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 {
 	char	*result;
 	char	*temp;
-	int		i;
 
 	result = ft_strdup("");
-	i = 0;
-	while (input[i])
+	if (!result)
+		return (NULL);
+	while (*input)
 	{
-		if (input[i] == '\'' && (i == 0))
-			result = process_single_quote(&input, result, shell);
-		else if (input[i] == '$' && (i == 0) \
-		&& (ft_isalnum(input[i + 1]) || input[i + 1] == '_'
-				|| input[i + 1] == '?'))
-		{
-			result = process_dollar(&input, env, result, shell);
-			if (!result)
-				return (NULL);
-			return (result);
-		}
+		if (*input == '$' && (ft_isalnum(*(input + 1)) \
+		|| *(input + 1) == '_' || *(input + 1) == '?'))
+			temp = process_dollar(&input, env, result, shell);
 		else
+			temp = append_char_to_str(result, *input++);
+		if (!temp)
 		{
-			temp = append_char_to_str(result, input[i]);
 			free(result);
-			result = temp;
+			return (NULL);
 		}
-		i++;
+		free(result);
+		result = temp;
 	}
 	return (result);
 }

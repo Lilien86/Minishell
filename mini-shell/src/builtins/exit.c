@@ -46,4 +46,3 @@ void	ft_exit(t_token *tokens, t_minishell *shell)
 	free_minishell(shell);
 	exit(shell->exit_status);
 }
-

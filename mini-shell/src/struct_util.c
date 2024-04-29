@@ -19,6 +19,22 @@ void	print_data(t_redirect *data_array, int nb_cmds)
 	}
 }
 
+int	is_token_redirection(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	while (tmp != NULL)
+	{
+		if (tmp->type == TOKEN_REDIRECT_IN || tmp->type == TOKEN_REDIRECT_OUT
+			|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT
+			|| tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_PIPE)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
 t_minishell	*init_minishell(char **envp)
 {
 	t_minishell	*shell;
