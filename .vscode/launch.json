@@ -1,7 +1,6 @@
 {
   "version": "0.2.0",
   "configurations": [
-
     {
       "name": "(gdb) Launch",
       "type": "cppdbg",
@@ -9,7 +8,7 @@
       "program": "${workspaceFolder}/mini-shell/minishell",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/mini-shell",
       "environment": [],
       "externalConsole": false,
       "MIMode": "gdb",
@@ -20,27 +19,8 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "build",
+      "preLaunchTask": "buildddddddddddd",
       "miDebuggerPath": "/usr/bin/gdb"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell",
-      "program": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "gdb",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
     }
   ]
 }

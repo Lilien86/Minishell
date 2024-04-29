@@ -2,6 +2,7 @@
 
 void	handle_child(t_redirect *redirect, t_minishell *shell)
 {
+	printf("in: %d\n out: %d\n", redirect->infile.fd, redirect->outfile.fd);
 	if (redirect->infile.fd != STDIN_FILENO)
 	{
 		if (dup2(redirect->infile.fd, STDIN_FILENO) == -1)
@@ -25,6 +26,7 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 		{
 			exit(EXIT_FAILURE);
 		}
+		dprintf(2, "pid: %d\n", getpid());
 		execve(redirect->argv[0], redirect->argv, NULL);
 		error_exit("execve", shell);
 	}

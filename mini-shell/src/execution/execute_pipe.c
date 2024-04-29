@@ -4,14 +4,35 @@ void	handle_new_pipe(t_minishell *shell, t_pipe *the_pipe, int i)
 {
 	if (pipe(the_pipe->pipefd) == -1)
 		error_exit("pipe", shell);
-	shell->redirect_array[i].outfile.fd = the_pipe->pipefd[1];
 	the_pipe->prev_pipe[0] = the_pipe->pipefd[0];
 	the_pipe->prev_pipe[1] = the_pipe->pipefd[1];
+	shell->redirect_array[i].outfile.fd = the_pipe->pipefd[1];
 	the_pipe->pipe_count = 1;
 }
 
+// void handle_new_pipe(t_minishell *shell, t_pipe *the_pipe, int i)
+// {
+// 	if (pipe(the_pipe->pipefd) == -1)
+// 		error_exit("pipe", shell);
+// 	shell->redirect_array[i].outfile.fd = the_pipe->pipefd[1];
+// 	the_pipe->prev_pipe[0] = the_pipe->pipefd[0];
+// 	the_pipe->prev_pipe[1] = the_pipe->pipefd[1];
+// 	the_pipe->pipe_count = 1;
+
+// 	// Vérifier si le fd de lecture du pipe est valide avant de l'utiliser avec dup2
+// 	if (the_pipe->pipefd[0]!= -1)
+// 	{
+// 		if (dup2(the_pipe->pipefd[0], STDIN_FILENO) == -1)
+// 			error_exit("dup2", shell);
+// 		close(the_pipe->pipefd[1]);
+// 	}
+// 	else
+// 		error_exit("Invalid pipe fd", shell);
+// }
+
 void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 {
+	printf("par pid: %d\n", getpid());
 	while (i < shell->nb_cmds)
 	{
 		if (i > 0)
@@ -70,9 +91,11 @@ void	execute_command_shell_2(t_minishell *shell)
 	pipe_info.pipe_count = 0;
 	while (i < shell->nb_cmds)
 	{
-		if (check_builtins(shell->redirect_array[i].argv[0]) == 0)
+		if (check_builtins(shell->redirect_array[i].argv[0]) != 1)
+		{
 			shell->redirect_array[i].argv[0] = check_command_existence
 				(shell->redirect_array[i].argv[0], shell->env);
+		}
 		i++;
 	}
 	i = 0;

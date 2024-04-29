@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/25 13:39:49 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/29 10:14:59 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 	(void)shell;
 	if (file->name != NULL)
 	{
-		if (is_append)
+		if (is_append) // outfile append
 			file->fd = open(file->name, O_WRONLY | O_APPEND);
-		else if (status == 0)
-			file->fd = open(file->name, O_RDONLY, 0644);
-		else if (status == 1)
+		else if (status == 1) //oufile ------------------------>
 			file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		else if (status == 0) // infile
+			file->fd = open(file->name, O_RDONLY, 0644);
 			
 		if (file->fd == -1)
 		{
@@ -76,24 +76,18 @@ void	fill_redirect_array(t_minishell *shell)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 			handle_input_redirect(&cpy, cpy.tokens, &i);
+
 		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
+			handle_output_redirect(&cpy, cpy.tokens, &i, 0); // change it
 		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 1);
+			handle_output_redirect(&cpy, cpy.tokens, &i, 1); // change it
+
 		else if (cpy.tokens->type == TOKEN_HEREDOC)
 			handle_heredoc(&cpy, cpy.tokens, &i);
 		else if (cpy.tokens->type == TOKEN_PIPE)
 			handle_pipe(&cpy, &i);
 		if (1)
 		{
-			/*if ((cpy.redirect_array[i].infile.name != NULL
-				|| cpy.redirect_array[i].outfile.name != NULL)
-				&& cpy.tokens->type == TOKEN_WORD)
-			{
-				ft_printf("Error: redirection file must be the last token\n");
-				free_minishell(shell);
-				exit(EXIT_FAILURE);
-			}*/
 			if (cpy.tokens->type == TOKEN_WORD
 				&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
 					&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))

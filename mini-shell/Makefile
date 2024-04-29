@@ -27,8 +27,8 @@ src/builtins/env/ft_export2.c \
 src/execution/here_doc.c src/execution/generate_random_name.c \
 src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c \
 src/execution/fill_args.c src/execution/while_here_doc.c \
-src/execution/free_t_redirect.c src/execution/exec_redirection.c \
-src/execution/search_path_cmd.c src/execution/execute_2_pipe.c \
+src/execution/free_t_redirect.c \
+src/execution/search_path_cmd.c src/execution/execute_pipe.c \
 src/execution/execute_single_cmd.c src/readline/utils_check.c
 
 OBJ_DIR = ./obj
