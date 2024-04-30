@@ -6,6 +6,7 @@ static int	update_existing_var(char *var, char ***env, int var_len,
 	int	i;
 
 	i = 0;
+	
 	while (i < *env_size)
 	{
 		if ((*env)[i] != NULL && ft_strncmp((*env)[i], var,
