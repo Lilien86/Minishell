@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:10:16 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/11 11:11:31 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/29 09:55:51 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,15 @@ static void	*search_path(char *env[], int i, char *path)
 	return (path);
 }
 
-// int	ultim_check_path(char *path)
-// {
-// 	if (ft_strncmp(path, "/nfs/homes/lauger/.local/bin:/nfs/homes/lauger/bin:"
-// 			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/"
-// 			"games:/usr/local/games:/snap/bin:/nfs/homes/lauger/"
-// 			".local/bin", 178) == 0)
-// 		return (1);
-// 	else
-// 		return (0);
-// }
+int	is_path(const char *cmd)
+{
+	if (ft_strncmp(cmd, "./", 2) == 0)
+		return (1);
+	else if (ft_strncmp(cmd, "/", 1) == 0)
+		return (1);
+	else
+		return (0);
+}
 
 char	*check_command_existence(const char *cmd, char *env[])
 {
@@ -90,13 +89,9 @@ char	*check_command_existence(const char *cmd, char *env[])
 
 	path = NULL;
 	i = -1;
+	if (is_path(cmd) == 1)
+		return ((char *)ft_strdup(cmd)); 
 	path = search_path(env, i, path);
-	// if (ultim_check_path(path) == 0)
-	// {
-	// 	free(path);
-	// 	perror("PATH not found");
-	// 	return (NULL);
-	// }
 	if (path == NULL)
 		return (NULL);
 	tab_directories = ft_split(path, ':');

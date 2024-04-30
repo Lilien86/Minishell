@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/22 10:35:32 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:44:42 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void		*ft_realloc(void *ptr, size_t size, size_t oldsize);
 size_t		ft_tab_len(char **tab);
 char		**ft_copy_tab(char **tab);
 int			ft_strcmp(const char *s1, const char *s2);
+int			ft_atoi_endptr(const char *str, char **endptr);
 
 #endif

@@ -61,6 +61,13 @@ typedef struct s_minishell
 
 }	t_minishell;
 
+typedef struct s_pipe
+{
+	int	pipefd[2];
+	int	prev_pipe[2];
+	int	pipe_count;
+}	t_pipe;
+
 //TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
@@ -107,12 +114,11 @@ void		handle_sigint_here_doc(int sig/*, void *shell*/);
 
 //UTILS
 char		*generate_random_filename(void);
-int			is_token_redirection(t_token *token);
 void		free_redirect_array(t_minishell *shell, int size);
 
 //READLINE
 int			read_input(t_minishell *shell);
-int			execute_command(t_minishell *shell);
+int			execute_builtins(t_minishell *shell);
 void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
@@ -151,19 +157,27 @@ void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
 
 //EXECUTION
-void		fill_t_redirect(t_minishell *shell);
-void		here_doc(t_token *current, t_minishell *shell, int i);
-void		handle_here_doc(t_minishell *shell, int i, char *delimiter);
-void		write_here_doc_in_file(char *content, int fd);
-void		execute_redirection(t_minishell *shell);
-char		*check_command_existence(const char *cmd, char *env[]);
+void	fill_t_redirect(t_minishell *shell);
+void	here_doc(t_token *current, t_minishell *shell, int i);
+void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
+void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
+void	execute_redirection(t_minishell *shell);
+char	*check_command_existence(const char *cmd, char *env[]);
+void	execute_command_shell_2(t_minishell *shell);
+void	execute_command(t_redirect *redirect, t_minishell *shell);
+void	execute_single_command(t_redirect *redirect, t_minishell *shell);
 
-void		handle_pipe(t_minishell *shell, int *i);
-void		handle_heredoc(t_minishell *shell, t_token *current, int *i);
-void		handle_output_redirect(t_minishell *shell,
-				t_token *current, int *i, int is_double_redirect);
-void		handle_input_redirect(t_minishell *shell, t_token *current, int *i);
-void		check_file(t_file *file, int is_append, t_minishell *shell);
-void		handle_word(t_minishell *shell, t_token **current, int *i);
+void error_exit(char *message, t_minishell *shell);
+void	handle_pipe(t_minishell *shell, int *i);
+void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
+void	handle_output_redirect(t_minishell *shell,
+	t_token *current, int *i, int is_double_redirect);
+void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
+void	check_file(t_file *file, int is_append, t_minishell *shell, int status);
+void	handle_word(t_minishell *shell, t_token **current, int *i);
+
+//UTILS_CHECK
+int		check_builtins(char *cmd);
+int		is_token_redirection(t_token *token);
 
 #endif
