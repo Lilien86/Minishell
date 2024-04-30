@@ -13,6 +13,27 @@ void	debug_print_tokens(t_token *tokens)
 	}
 }
 
+static	void	execute_input_commands(t_minishell *shell)
+{
+	if (is_token_redirection(shell->tokens) == 0)
+	{
+		fill_t_redirect(shell);
+		if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
+			execute_builtins(shell);
+		else
+		{
+			shell->redirect_array->argv[0] = check_command_existence \
+				(shell->redirect_array[0].argv[0], shell->env);
+			execute_command_shell(shell);
+		}
+	}
+	else
+	{
+		fill_t_redirect(shell);
+		execute_command_shell(shell);
+	}
+}
+
 void	process_input(t_minishell *shell)
 {
 	add_history(shell->input);
@@ -23,25 +44,7 @@ void	process_input(t_minishell *shell)
 	shell->tokens = tokenize(shell->input, shell->env, shell);
 	//debug_print_tokens(shell->tokens);
 	if (shell->tokens)
-	{
-		if (is_token_redirection(shell->tokens) == 0)
-		{
-			fill_t_redirect(shell);
-			if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
-				execute_builtins(shell);
-			else
-			{
-				shell->redirect_array->argv[0] = check_command_existence
-					(shell->redirect_array[0].argv[0], shell->env);
-				execute_command_shell(shell);
-			}
-		}
-		else
-		{
-			fill_t_redirect(shell);
-			execute_command_shell(shell);
-		}
-	}
+		execute_input_commands(shell);
 }
 
 int	execute_builtins(t_minishell *shell)
@@ -78,26 +81,4 @@ void	handle_input(t_minishell *shell)
 		free_minishell(shell);
 		exit(shell->exit_status);
 	}
-}
-
-int	read_input(t_minishell *shell)
-{
-	while (1)
-	{
-		if (shell->input != NULL)
-		{
-			free(shell->input);
-			shell->input = NULL;
-		}
-		shell->input = readline("minishell > ");
-		if (shell->input == NULL)
-		{
-			free_minishell(shell);
-			exit(0);
-		}
-		handle_input(shell);
-		//free(shell->input);
-		free_tokens(&(shell->tokens));
-	}
-	return (0);
 }

@@ -142,7 +142,6 @@ int			is_valid_var_name(const char *var);
 int			handle_export_token(t_token *token, char ***env, int *env_size);
 int			is_valid_var_value(const char *value);
 
-
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);

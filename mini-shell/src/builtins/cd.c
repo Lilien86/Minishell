@@ -5,9 +5,7 @@ static char	*get_path(t_token *tokens, char **env, int *exit_status)
 	char	*path;
 
 	if (tokens->next == NULL)
-	{
 		path = ft_getenv("HOME", env);
-	}
 	else
 	{
 		if (tokens->next->next != NULL)
@@ -42,16 +40,11 @@ static void	change_directory(char *path, int *exit_status)
 
 	if (!path)
 		return ;
-
 	ret = chdir(path);
 	if (ret == -1)
-	{
 		handle_cd_error(path, exit_status);
-	}
 	else
-	{
 		*exit_status = 0;
-	}
 }
 
 void	ft_cd(t_token *tokens, char **env, int *exit_status)
