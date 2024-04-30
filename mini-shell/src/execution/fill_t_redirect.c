@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 09:43:40 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/30 13:41:42 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 	(void)shell;
 	if (file->name != NULL)
 	{
-		if (is_append) // outfile append
+		if (is_append)
 			file->fd = open(file->name, O_WRONLY | O_APPEND);
-		else if (status == 1) //oufile ------------------------>
+		else if (status == 1)
 			file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (status == 0) // infile
+		else if (status == 0)
 			file->fd = open(file->name, O_RDONLY, 0644);
-			
 		if (file->fd == -1)
 		{
 			ft_printf("Error:\n open file %s\n", file->name);
@@ -52,7 +51,7 @@ int	init_redirect_array(t_minishell *shell)
 {
 	shell->nb_cmds = counter_cmds(shell->tokens);
 	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds,
-		sizeof(t_redirect));
+			sizeof(t_redirect));
 	if (shell->redirect_array == NULL)
 	{
 		perror("Error malloc data_array");
@@ -76,12 +75,10 @@ void	fill_redirect_array(t_minishell *shell)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 			handle_input_redirect(&cpy, cpy.tokens, &i);
-
 		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 0); // change it
+			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
 		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 1); // change it
-
+			handle_output_redirect(&cpy, cpy.tokens, &i, 1);
 		else if (cpy.tokens->type == TOKEN_HEREDOC)
 			handle_heredoc(&cpy, cpy.tokens, &i);
 		else if (cpy.tokens->type == TOKEN_PIPE)

@@ -10,7 +10,8 @@ void	handle_new_pipe(t_minishell *shell, t_pipe *the_pipe, int i)
 	the_pipe->pipe_count = 1;
 }
 
-void	setup_pipes_and_redirections(int i, t_minishell *shell, t_pipe *the_pipe)
+void	setup_pipes_and_redirections(
+	int i, t_minishell *shell, t_pipe *the_pipe)
 {
 	while (i < shell->nb_cmds)
 	{
@@ -63,7 +64,7 @@ void	execute_command_shell(t_minishell *shell)
 		if (check_builtins(shell->redirect_array[i].argv[0]) != 1)
 		{
 			shell->redirect_array[i].argv[0] = check_command_existence(
-				shell->redirect_array[i].argv[0], shell->env);
+					shell->redirect_array[i].argv[0], shell->env);
 		}
 		i++;
 	}

@@ -1,5 +1,15 @@
 #include "../minishell.h"
 
+void	execute_execve(t_redirect *redirect, t_minishell *shell)
+{
+	if (access(redirect->argv[0], X_OK) == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
+	execve(redirect->argv[0], redirect->argv, shell->env);
+	error_exit("execve", shell);
+}
+
 void	handle_child(t_redirect *redirect, t_minishell *shell)
 {
 	if (redirect->infile.fd != STDIN_FILENO)
@@ -20,14 +30,7 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 		exit(shell->exit_status);
 	}
 	else
-	{
-		if (access(redirect->argv[0], X_OK) == -1)
-		{
-			exit(EXIT_FAILURE);
-		}
-		execve(redirect->argv[0], redirect->argv, shell->env);
-		error_exit("execve", shell);
-	}
+		execute_execve(redirect, shell);
 }
 
 void	execute_command(t_redirect *redirect, t_minishell *shell)
@@ -45,14 +48,11 @@ void	execute_command(t_redirect *redirect, t_minishell *shell)
 		error_exit("fork", shell);
 	else if (shell->nb_cmds != 1)
 	{
-		if (redirect->infile.fd != STDIN_FILENO && redirect->infile.fd != STDOUT_FILENO)
+		if (redirect->infile.fd != STDIN_FILENO
+			&& redirect->infile.fd != STDOUT_FILENO)
 			close(redirect->infile.fd);
-		if (redirect->outfile.fd != STDIN_FILENO && redirect->outfile.fd != STDOUT_FILENO)
+		if (redirect->outfile.fd != STDIN_FILENO
+			&& redirect->outfile.fd != STDOUT_FILENO)
 			close(redirect->outfile.fd);
-	}
-	else
-	{
-		//close(redirect->infile.fd);
-		//close(redirect->outfile.fd);
 	}
 }

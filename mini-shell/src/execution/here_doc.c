@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 09:31:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/17 08:34:25 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/30 13:42:59 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,6 @@ void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 	write(fd, content, ft_strlen(content));
 }
 
-/*static void	creat_file_descriptor(t_minishell *shell, int i)
-{
-	char	*filename;
-
-	filename = generate_random_filename();
-	shell->redirect_array[i].infile.name = ft_calloc(sizeof(char),
-			(strlen(filename) + strlen("/tmp/") + 1));
-	if (shell->redirect_array[i].infile.name == NULL)
-	{
-		perror("Erreur:\n during write_here_doc_in_file\n");
-		free(filename);
-		free_minishell(shell);
-		exit(EXIT_FAILURE);
-	}
-	shell->redirect_array[i].infile.name = ft_strncpy
-		(shell->redirect_array[i].infile.name, "/tmp/", ft_strlen("/tmp/"));
-	shell->redirect_array[i].infile.name = ft_strcat
-		(shell->redirect_array[i].infile.name, filename);
-	printf("%s\n", shell->redirect_array[i].infile.name);
-	shell->redirect_array[i].infile.fd = open
-		(shell->redirect_array[i].infile.name, O_CREAT | O_WRONLY, 0777);
-	if (shell->redirect_array[i].infile.fd < 0)
-	{
-		perror("Error:\nduring creat_file_descriptor");
-		free(filename);
-		free_minishell(shell);
-		exit (EXIT_FAILURE);
-	}
-	free(filename);
-}*/
-
 void	generate_and_assign_filename(t_minishell *shell, int i)
 {
 	char	*filename;
@@ -79,7 +48,6 @@ void	generate_and_assign_filename(t_minishell *shell, int i)
 		(shell->redirect_array[i].infile.name, "/tmp/", ft_strlen("/tmp/"));
 	shell->redirect_array[i].infile.name = ft_strcat
 		(shell->redirect_array[i].infile.name, filename);
-	//printf("%s\n", shell->redirect_array[i].infile.name);
 	free(filename);
 }
 
@@ -126,10 +94,8 @@ void	here_doc(t_token *current, t_minishell *shell, int i)
 		ft_printf("Error:\nNo delimiter for here_doc\n");
 		free_minishell(shell);
 		shell->exit_status = 1;
-		exit(EXIT_FAILURE); //change it
+		exit(EXIT_FAILURE);
 	}
 	current = current->next;
 	fork_here_doc(current->value, shell, i);
-	//printf("name: %s\n", shell->redirect_array[i].infile.name);
-	//printf("fd: %d\n\n", shell->redirect_array[i].infile.fd);
 }

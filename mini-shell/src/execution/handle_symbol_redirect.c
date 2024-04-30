@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 11:42:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/04/30 13:44:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	handle_output_redirect(t_minishell *shell,
 		return ;
 	}
 	shell->redirect_array[*i].outfile.name = current->next->value;
-	check_file(&shell->redirect_array[*i].outfile, is_double_redirect, shell, 1);
-	//shell->tokens = current->next->next;
+	check_file(
+		&shell->redirect_array[*i].outfile, is_double_redirect, shell, 1);
 }
 
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i)
