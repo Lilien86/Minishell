@@ -32,7 +32,6 @@ void	handle_new_pipe(t_minishell *shell, t_pipe *the_pipe, int i)
 
 void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 {
-	printf("par pid: %d\n", getpid());
 	while (i < shell->nb_cmds)
 	{
 		if (i > 0)
@@ -44,27 +43,25 @@ void	handle_while(int i, t_minishell *shell, t_pipe *the_pipe)
 				if (shell->redirect_array[i].outfile.fd == -1)
 					shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
 			}
-			else
-				handle_new_pipe(shell, the_pipe, i);
+
+
+		}
+		else if (shell->nb_cmds == 1)
+		{
+			
+			if (shell->redirect_array[i].infile.fd == -1)
+				shell->redirect_array[i].infile.fd = STDIN_FILENO;
+			if (shell->redirect_array[i].outfile.fd == -1)
+				shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
 		}
 		else
-		{
-			if (shell->nb_cmds == 1)
-			{
-				if (shell->redirect_array[i].infile.fd == -1)
-					shell->redirect_array[i].infile.fd = STDIN_FILENO;
-				if (shell->redirect_array[i].outfile.fd == -1)
-					shell->redirect_array[i].outfile.fd = STDOUT_FILENO;
-			}
-			else
-				handle_new_pipe(shell, the_pipe, i);
-		}
+			handle_new_pipe(shell, the_pipe, i);
 		//printf("count--->%d\n\n", the_pipe->pipe_count);
 		//printf("prev_pipe[lecture]--->%d\n", the_pipe->prev_pipe[0]);
 		//printf("prev_pipe[ecriture]--->%d\n\n", the_pipe->prev_pipe[1]);
 		//printf("pipefd[lecture]--->%d\n", the_pipe->pipefd[0]);
 		//printf("pipefd[ecriture]--->%d\n\n", the_pipe->pipefd[1]);
-		execute_single_command(&shell->redirect_array[i], shell);
+		execute_command(&shell->redirect_array[i], shell);
 		i++;
 	}
 }
@@ -93,8 +90,8 @@ void	execute_command_shell_2(t_minishell *shell)
 	{
 		if (check_builtins(shell->redirect_array[i].argv[0]) != 1)
 		{
-			shell->redirect_array[i].argv[0] = check_command_existence
-				(shell->redirect_array[i].argv[0], shell->env);
+			shell->redirect_array[i].argv[0] = check_command_existence(
+				shell->redirect_array[i].argv[0], shell->env);
 		}
 		i++;
 	}

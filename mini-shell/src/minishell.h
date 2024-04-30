@@ -161,6 +161,7 @@ void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 void	execute_redirection(t_minishell *shell);
 char	*check_command_existence(const char *cmd, char *env[]);
 void	execute_command_shell_2(t_minishell *shell);
+void	execute_command(t_redirect *redirect, t_minishell *shell);
 void	execute_single_command(t_redirect *redirect, t_minishell *shell);
 
 void error_exit(char *message, t_minishell *shell);

@@ -33,7 +33,7 @@ void	process_input(t_minishell *shell)
 			{
 				shell->redirect_array->argv[0] = check_command_existence
 					(shell->redirect_array[0].argv[0], shell->env);
-				execute_single_command(shell->redirect_array, shell);
+				execute_command_shell_2(shell);
 			}
 		}
 		else
@@ -64,7 +64,7 @@ int	execute_builtins(t_minishell *shell)
 		&& shell->tokens->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
 	// else
-	// 	return (execute_external_command(shell));
+	//	return (execute_external_command(shell));
 	return (1);
 }
 

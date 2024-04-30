@@ -2,7 +2,6 @@
 
 void	handle_child(t_redirect *redirect, t_minishell *shell)
 {
-	printf("in: %d\n out: %d\n", redirect->infile.fd, redirect->outfile.fd);
 	if (redirect->infile.fd != STDIN_FILENO)
 	{
 		if (dup2(redirect->infile.fd, STDIN_FILENO) == -1)
@@ -26,13 +25,12 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 		{
 			exit(EXIT_FAILURE);
 		}
-		dprintf(2, "pid: %d\n", getpid());
-		execve(redirect->argv[0], redirect->argv, NULL);
+		execve(redirect->argv[0], redirect->argv, shell->env);
 		error_exit("execve", shell);
 	}
 }
 
-void	execute_single_command(t_redirect *redirect, t_minishell *shell)
+void	execute_command(t_redirect *redirect, t_minishell *shell)
 {
 	pid_t	pid;
 
@@ -45,11 +43,16 @@ void	execute_single_command(t_redirect *redirect, t_minishell *shell)
 		handle_child(redirect, shell);
 	else if (pid < 0)
 		error_exit("fork", shell);
+	else if (shell->nb_cmds != 1)
+	{
+		if (redirect->infile.fd != STDIN_FILENO && redirect->infile.fd != STDOUT_FILENO)
+			close(redirect->infile.fd);
+		if (redirect->outfile.fd != STDIN_FILENO && redirect->outfile.fd != STDOUT_FILENO)
+			close(redirect->outfile.fd);
+	}
 	else
 	{
-		//if (redirect->infile.fd != STDIN_FILENO)
-		close(redirect->infile.fd);
-		//if (redirect->outfile.fd != STDOUT_FILENO)
-		close(redirect->outfile.fd);
+		//close(redirect->infile.fd);
+		//close(redirect->outfile.fd);
 	}
 }
