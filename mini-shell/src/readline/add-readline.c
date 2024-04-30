@@ -33,13 +33,13 @@ void	process_input(t_minishell *shell)
 			{
 				shell->redirect_array->argv[0] = check_command_existence
 					(shell->redirect_array[0].argv[0], shell->env);
-				execute_command_shell_2(shell);
+				execute_command_shell(shell);
 			}
 		}
 		else
 		{
 			fill_t_redirect(shell);
-			execute_command_shell_2(shell);
+			execute_command_shell(shell);
 		}
 	}
 }

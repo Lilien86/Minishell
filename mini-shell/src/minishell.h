@@ -160,7 +160,7 @@ void	handle_here_doc(t_minishell *shell, int i, char *delimiter);
 void	write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 void	execute_redirection(t_minishell *shell);
 char	*check_command_existence(const char *cmd, char *env[]);
-void	execute_command_shell_2(t_minishell *shell);
+void	execute_command_shell(t_minishell *shell);
 void	execute_command(t_redirect *redirect, t_minishell *shell);
 void	execute_single_command(t_redirect *redirect, t_minishell *shell);
 
