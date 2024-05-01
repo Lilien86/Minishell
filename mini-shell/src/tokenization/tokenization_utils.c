@@ -38,6 +38,8 @@ void	add_quoted_token(const char **input, t_token **head,
 		free(quoted_part);
 		free(value);
 		*input += len + 1;
+		if (**input == quote_type)
+			add_quoted_token(input, head, quote_type, shell);
 	}
 	else
 	{
