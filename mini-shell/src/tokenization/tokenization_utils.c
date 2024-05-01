@@ -34,11 +34,12 @@ void	add_quoted_token(const char **input, t_token **head,
 	{
 		quoted_part = ft_strndup(start, len);
 		value = process_quoted_content(quoted_part, quote_type, shell);
-		
 		add_token(head, init_token(TOKEN_WORD, value));
 		free(quoted_part);
 		free(value);
 		*input += len + 1;
+		if (**input == quote_type)
+			add_quoted_token(input, head, quote_type, shell);
 	}
 	else
 	{

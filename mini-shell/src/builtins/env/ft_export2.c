@@ -14,10 +14,10 @@ int	is_valid_var_name(const char *var)
 	return (1);
 }
 
-int is_valid_var_value(const char *value)
+int	is_valid_var_value(const char *value)
 {
 	(void)value;
-    return 1;
+	return (1);
 }
 
 int	handle_export_token(t_token *token, char ***env, int *env_size)
