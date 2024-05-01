@@ -31,16 +31,19 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 void	ft_exit(t_token *tokens, t_minishell *shell)
 {
 	t_token	*current;
+	int     local_exit_status;
 
+	local_exit_status = 0;
 	current = tokens->next;
 	if (!current)
 	{
+		local_exit_status = shell->exit_status;
 		free_minishell(shell);
 		ft_printf("exit\n");
-		exit(shell->exit_status);
+		exit(local_exit_status);
 	}
 	handle_exit_with_args(tokens, shell);
 	ft_printf("exit\n");
 	free_minishell(shell);
-	exit(shell->exit_status);
+	exit(local_exit_status);
 }

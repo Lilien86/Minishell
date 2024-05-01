@@ -58,6 +58,7 @@ typedef struct s_minishell
 	int			history_index;
 	int			exit_status;
 	int			space_flag;
+	int			last_var_ends_with_equal;
 
 }	t_minishell;
 
@@ -134,12 +135,12 @@ void		ft_exit(t_token *tokens, t_minishell *shell);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 
 //BUILTINS_ENV
-void		ft_export(t_token *tokens, char ***env, int *exit_status);
+void		ft_export(t_token *tokens, char ***env, int *exit_status, t_minishell *shell);
 void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, int *env_size);
 int			is_valid_var_name(const char *var);
-int			handle_export_token(t_token *token, char ***env, int *env_size);
+int			handle_export_token(t_token *token, char ***env, int *env_size, t_minishell *shell);
 int			is_valid_var_value(const char *value);
 
 //BUILTINS_UTILS

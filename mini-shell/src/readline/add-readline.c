@@ -60,7 +60,7 @@ int	execute_builtins(t_minishell *shell)
 	else if (ft_strncmp(shell->tokens->value, "pwd", 3) == 0)
 		ft_pwd(&shell->exit_status);
 	else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
-		ft_export(shell->tokens, &(shell->env), &shell->exit_status);
+		ft_export(shell->tokens, &(shell->env), &shell->exit_status, shell);
 	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
 		ft_unset(shell->tokens, &shell->env, &shell->exit_status);
 	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0

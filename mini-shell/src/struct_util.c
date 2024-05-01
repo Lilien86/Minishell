@@ -60,11 +60,18 @@ void	free_minishell(t_minishell *shell)
 {
 	if (!shell)
 		return ;
-	ft_free_tab(shell->env);
+	if (shell->env)
+	{
+		ft_free_tab(shell->env);
+		shell->env = NULL;
+	}
 	free_tokens(&(shell->tokens));
 	shell->tokens = NULL;
 	if (shell->input)
+	{
 		free(shell->input);
+		shell->input = NULL;
+	}
 	free_history(shell->history);
 	*shell->history = NULL;
 	if (shell->redirect_array)

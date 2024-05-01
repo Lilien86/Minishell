@@ -101,7 +101,7 @@ char	**add_new_env_var(char *var, char ***env, int *env_size)
 	return (new_env);
 }
 
-void	ft_export(t_token *tokens, char ***env, int *exit_status)
+void	ft_export(t_token *tokens, char ***env, int *exit_status, t_minishell *shell)
 {
 	int	env_size;
 
@@ -117,7 +117,7 @@ void	ft_export(t_token *tokens, char ***env, int *exit_status)
 	tokens = tokens->next;
 	while (tokens)
 	{
-		if (!handle_export_token(tokens, env, &env_size))
+		if (!handle_export_token(tokens, env, &env_size, shell))
 		{
 			*exit_status = 1;
 			return ;

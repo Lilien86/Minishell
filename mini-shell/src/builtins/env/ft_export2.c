@@ -2,6 +2,8 @@
 
 int	is_valid_var_name(const char *var)
 {
+	if (var[ft_strlen(var) - 1] == '=')
+	{
 	if (!ft_isalpha(*var) && *var != '_')
 		return (0);
 	var++;
@@ -10,6 +12,7 @@ int	is_valid_var_name(const char *var)
 		if (!ft_isalnum(*var) && *var != '_')
 			return (0);
 		var++;
+	}
 	}
 	return (1);
 }
@@ -20,8 +23,9 @@ int	is_valid_var_value(const char *value)
 	return (1);
 }
 
-int	handle_export_token(t_token *token, char ***env, int *env_size)
+int	handle_export_token(t_token *token, char ***env, int *env_size, t_minishell *shell)
 {
+	(void)shell;
 	if (!is_valid_var_name(token->value))
 	{
 		ft_putstr_fd(" not a valid identifier\n", 2);
