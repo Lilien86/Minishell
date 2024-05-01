@@ -34,7 +34,8 @@ void	setup_pipes_and_redirections(
 		}
 		else
 			handle_new_pipe(shell, the_pipe, i);
-		execute_command(&shell->redirect_array[i], shell);
+		if (shell->redirect_array[i].infile.fd != -2)
+			execute_command(&shell->redirect_array[i], shell);
 		i++;
 	}
 }

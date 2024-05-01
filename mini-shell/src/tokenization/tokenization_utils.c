@@ -42,7 +42,7 @@ void	add_quoted_token(const char **input, t_token **head,
 	}
 	else
 	{
-		ft_printf("minishell: syntax error: missing quotes\n");
+		ft_putstr_fd("minishell: syntax error: No such file or directory\n", 2);
 		free_tokens(head);
 	}
 }

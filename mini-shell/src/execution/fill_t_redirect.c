@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 13:41:42 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/01 10:31:09 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 			file->fd = open(file->name, O_RDONLY, 0644);
 		if (file->fd == -1)
 		{
-			ft_printf("Error:\n open file %s\n", file->name);
+			ft_printf("minishell: %s: ", file->name);
+			perror(NULL);
+			shell->exit_status = 1;
+			shell->redirect_array[0].infile.fd = -2;
 			return ;
 		}
 	}
@@ -69,8 +72,6 @@ void	fill_redirect_array(t_minishell *shell)
 
 	i = 0;
 	cpy = *shell;
-	if (cpy.tokens == NULL)
-		return ;
 	while (cpy.tokens != NULL)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
@@ -83,15 +84,12 @@ void	fill_redirect_array(t_minishell *shell)
 			handle_heredoc(&cpy, cpy.tokens, &i);
 		else if (cpy.tokens->type == TOKEN_PIPE)
 			handle_pipe(&cpy, &i);
-		if (1)
-		{
-			if (cpy.tokens->type == TOKEN_WORD
-				&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
-					&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
-				handle_word(&cpy, &cpy.tokens, &i);
-			else
-				cpy.tokens = cpy.tokens->next;
-		}
+		if (cpy.tokens->type == TOKEN_WORD
+			&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
+				&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
+			handle_word(&cpy, &cpy.tokens, &i);
+		else
+			cpy.tokens = cpy.tokens->next;
 	}
 }
 
