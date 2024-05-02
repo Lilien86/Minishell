@@ -6,38 +6,44 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:07:03 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/02 12:33:15 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/02 12:52:06 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// static void process_quoted_part(const char *start, size_t len, t_token **head, char quote_type, t_minishell *shell)
-// {
-//     static char *empty_str = "";
-//     char *quoted_part;
-//     char *value;
-
-//     if (len == 0)
-//     {
-//         add_token(head, init_token(TOKEN_WORD, empty_str));
-//         return;
-//     }
-//     quoted_part = ft_strndup(start, len);
-//     value = process_quoted_content(quoted_part, quote_type, shell);
-//     add_token(head, init_token(TOKEN_WORD, value));
-//     free(quoted_part);
-//     free(value);
-// }
-
 static size_t find_quote_end(const char *input, char quote_type)
 {
     size_t len = 0;
     while (input[len] && input[len] != quote_type)
-    {
         len++;
-    }
     return len;
+}
+
+static char *process_quoted_segment(const char *start, size_t len, char quote_type, t_minishell *shell)
+{
+    char *segment;
+    char *processed_segment;
+
+    segment = ft_strndup(start, len);
+    if (!segment)
+        return NULL;
+    processed_segment = process_quoted_content(segment, quote_type, shell);
+    free(segment);
+    return processed_segment;
+}
+
+static void append_segment(char **final_value, char *segment)
+{
+    char *temp;
+	if (!segment)
+		return;
+    temp = ft_strjoin(*final_value, segment);
+	if (temp)
+	{
+    	//free(*final_value);
+    	*final_value = temp;
+	}
 }
 
 void add_quoted_token(const char **input, t_token **head, char quote_type, t_minishell *shell)
@@ -46,51 +52,28 @@ void add_quoted_token(const char **input, t_token **head, char quote_type, t_min
     size_t len;
     char *final_value;
     char *segment;
-    char *processed_segment;
-    char *temp;
 
-    final_value = ft_strdup("");  // Start with an empty string to concatenate onto
-    if (!final_value)
-        return;  // Handle memory allocation failure
-
+    final_value = ft_strdup("");
     while (**input == quote_type) {
-        (*input)++;  // Skip the opening quote
-        start = *input;  // Start of the quoted text
-        len = find_quote_end(*input, quote_type);  // Find the end of the quote
-
+        (*input)++;
+        start = *input;
+        len = find_quote_end(*input, quote_type);
         if ((*input)[len] != quote_type) {
             ft_printf("minishell: syntax error: missing closing quote '%c'\n", quote_type);
             free(final_value);
-            free_tokens(head);  // Free all tokens due to syntax error
+            free_tokens(head);
             return;
         }
-
-        segment = ft_strndup(start, len);
+        segment = process_quoted_segment(start, len, quote_type, shell);
         if (!segment) {
             free(final_value);
-            return;  // Handle memory allocation failure
+            return;
         }
-        processed_segment = process_quoted_content(segment, quote_type, shell);
+        append_segment(&final_value, segment);
         free(segment);
-        if (!processed_segment) {
-            free(final_value);
-            return;  // Handle memory allocation failure
-        }
-
-        temp = ft_strjoin(final_value, processed_segment);
-	
-       	//free(final_value);
-        free(processed_segment);
-        if (!temp) {
-            return;  // Handle memory allocation failure
-        }
-        final_value = temp;
-
-        *input += len + 1;  // Move past the closing quote
+        *input += len + 1;
     }
-
     if (final_value[0] != '\0')
         add_token(head, init_token(TOKEN_WORD, final_value));
     free(final_value);
 }
-
