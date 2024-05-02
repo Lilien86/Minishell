@@ -2,7 +2,7 @@
 
 cd "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/mini-shell/bash_run"
 
-Make -C ../
+make -C ../
 
 # Nom du fichier binaire à tester avec Valgrind
 binary="../minishell"

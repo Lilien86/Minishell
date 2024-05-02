@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 09:43:40 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:26:49 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,18 @@ void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 	(void)shell;
 	if (file->name != NULL)
 	{
-		if (is_append) // outfile append
+		if (is_append)
 			file->fd = open(file->name, O_WRONLY | O_APPEND);
-		else if (status == 1) //oufile ------------------------>
+		else if (status == 1)
 			file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		else if (status == 0) // infile
+		else if (status == 0)
 			file->fd = open(file->name, O_RDONLY, 0644);
-			
-		if (file->fd == -1)
+		if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0)
 		{
-			ft_printf("Error:\n open file %s\n", file->name);
+			ft_printf("minishell: %s: ", file->name);
+			perror(NULL);
+			shell->exit_status = 1;
+			shell->redirect_array[0].infile.fd = -2;
 			return ;
 		}
 	}
@@ -52,7 +54,7 @@ int	init_redirect_array(t_minishell *shell)
 {
 	shell->nb_cmds = counter_cmds(shell->tokens);
 	shell->redirect_array = ft_calloc((size_t)shell->nb_cmds,
-		sizeof(t_redirect));
+			sizeof(t_redirect));
 	if (shell->redirect_array == NULL)
 	{
 		perror("Error malloc data_array");
@@ -70,31 +72,24 @@ void	fill_redirect_array(t_minishell *shell)
 
 	i = 0;
 	cpy = *shell;
-	if (cpy.tokens == NULL)
-		return ;
 	while (cpy.tokens != NULL)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
-			handle_input_redirect(&cpy, cpy.tokens, &i);
-
+			handle_input_redirect(&cpy, cpy.tokens, &i, shell);
 		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 0); // change it
+			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
 		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 1); // change it
-
+			handle_output_redirect(&cpy, cpy.tokens, &i, 1);
 		else if (cpy.tokens->type == TOKEN_HEREDOC)
 			handle_heredoc(&cpy, cpy.tokens, &i);
 		else if (cpy.tokens->type == TOKEN_PIPE)
 			handle_pipe(&cpy, &i);
-		if (1)
-		{
-			if (cpy.tokens->type == TOKEN_WORD
-				&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
-					&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
-				handle_word(&cpy, &cpy.tokens, &i);
-			else
-				cpy.tokens = cpy.tokens->next;
-		}
+		if (cpy.tokens->type == TOKEN_WORD
+			&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
+				&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
+			handle_word(&cpy, &cpy.tokens, &i);
+		else
+			cpy.tokens = cpy.tokens->next;
 	}
 }
 

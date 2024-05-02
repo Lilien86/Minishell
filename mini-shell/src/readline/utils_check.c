@@ -22,3 +22,23 @@ int	check_builtins(char *cmd)
 	else
 		return (0);
 }
+
+int	check_redirect_in_to_pipe(t_token *tokens)
+{
+	t_token *current;
+
+	current = tokens;
+	current = current->next;
+	if (current == NULL)
+		return (0);
+	while (current != NULL)
+	{
+		if (current->type == TOKEN_PIPE)
+			return (0);
+		else if (current->type == TOKEN_REDIRECT_IN)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
+

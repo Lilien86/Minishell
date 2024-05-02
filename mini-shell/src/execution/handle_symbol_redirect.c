@@ -6,22 +6,23 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 11:42:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:27:27 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_input_redirect(t_minishell *shell, t_token *current, int *i)
+void	handle_input_redirect(t_minishell *cpy, t_token *current, int *i, t_minishell *shell)
 {
 	if (current->next == NULL)
 	{
-		ft_printf("Error:\nno file specified\n");
+		ft_putstr_fd("minishell: Error: no file specified\n", 2);
 		shell->exit_status = 1;
+		free_minishell(shell);
 		return ;
 	}
-	shell->redirect_array[*i].infile.name = current->next->value;
-	check_file(&shell->redirect_array[*i].infile, 0, shell, 0);
+	cpy->redirect_array[*i].infile.name = current->next->value;
+	check_file(&cpy->redirect_array[*i].infile, 0, cpy, 0);
 }
 
 void	handle_output_redirect(t_minishell *shell,
@@ -34,8 +35,8 @@ void	handle_output_redirect(t_minishell *shell,
 		return ;
 	}
 	shell->redirect_array[*i].outfile.name = current->next->value;
-	check_file(&shell->redirect_array[*i].outfile, is_double_redirect, shell, 1);
-	//shell->tokens = current->next->next;
+	check_file(
+		&shell->redirect_array[*i].outfile, is_double_redirect, shell, 1);
 }
 
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i)

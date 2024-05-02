@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:10:16 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/29 09:55:51 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/01 13:28:55 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*check_command_existence(const char *cmd, char *env[])
 	path = NULL;
 	i = -1;
 	if (is_path(cmd) == 1)
-		return ((char *)ft_strdup(cmd)); 
+		return ((char *)ft_strdup(cmd));
 	path = search_path(env, i, path);
 	if (path == NULL)
 		return (NULL);
