@@ -34,7 +34,6 @@ void	ft_exit(t_token *tokens, t_minishell *shell)
 	t_token	*current;
 	int     local_exit_status;
 
-	local_exit_status = 0;
 	local_exit_status = shell->exit_status;
 	current = tokens->next;
 	if (!current)
@@ -45,6 +44,7 @@ void	ft_exit(t_token *tokens, t_minishell *shell)
 		exit(local_exit_status);
 	}
 	handle_exit_with_args(tokens, shell);
+	local_exit_status = shell->exit_status;
 	ft_printf("exit\n");
 	free_minishell(shell);
 	exit(local_exit_status);
