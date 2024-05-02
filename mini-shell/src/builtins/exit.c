@@ -24,23 +24,28 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 	if (*endptr != '\0')
 		print_error_and_set_status("minishell: exit: numeric argument "
 			"required\n", 2, shell);
-	else
-		shell->exit_status = (int) exit_code;
+    shell->exit_status = exit_code % 256;
+    if (shell->exit_status < 0)
+        shell->exit_status += 256;
 }
 
 void	ft_exit(t_token *tokens, t_minishell *shell)
 {
 	t_token	*current;
+	int     local_exit_status;
 
+	local_exit_status = 0;
+	local_exit_status = shell->exit_status;
 	current = tokens->next;
 	if (!current)
 	{
+		local_exit_status = shell->exit_status;
 		free_minishell(shell);
 		ft_printf("exit\n");
-		exit(shell->exit_status);
+		exit(local_exit_status);
 	}
 	handle_exit_with_args(tokens, shell);
 	ft_printf("exit\n");
 	free_minishell(shell);
-	exit(shell->exit_status);
+	exit(local_exit_status);
 }
