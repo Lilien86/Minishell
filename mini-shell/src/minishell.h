@@ -92,6 +92,8 @@ void		check_space_after_token(const char **input, t_token**head,
 				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, const char **start);
+char	*process_quoted_content(const char *quoted_part,
+			char quote_type, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
