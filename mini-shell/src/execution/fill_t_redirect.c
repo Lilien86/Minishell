@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/01 10:31:09 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 13:26:49 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 			file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (status == 0)
 			file->fd = open(file->name, O_RDONLY, 0644);
-		if (file->fd == -1)
+		if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0)
 		{
 			ft_printf("minishell: %s: ", file->name);
 			perror(NULL);
@@ -75,7 +75,7 @@ void	fill_redirect_array(t_minishell *shell)
 	while (cpy.tokens != NULL)
 	{
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
-			handle_input_redirect(&cpy, cpy.tokens, &i);
+			handle_input_redirect(&cpy, cpy.tokens, &i, shell);
 		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
 			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
 		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)

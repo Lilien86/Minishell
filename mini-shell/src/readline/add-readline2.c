@@ -18,6 +18,9 @@ int	read_input(t_minishell *shell)
 		handle_input(shell);
 		//free(shell->input);
 		free_tokens(&(shell->tokens));
+		shell->tokens = NULL;
+		free_redirect_array(shell, shell->nb_cmds);
+		shell->redirect_array = NULL;
 	}
 	return (0);
 }

@@ -43,7 +43,8 @@ void	add_quoted_token(const char **input, t_token **head,
 	}
 	else
 	{
-		ft_putstr_fd("minishell: syntax error: No such file or directory\n", 2);
+		ft_putstr_fd("minishell: syntax error: no Such file or directory\n", 2);
+		shell->exit_status = 1;
 		free_tokens(head);
 	}
 }

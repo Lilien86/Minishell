@@ -22,8 +22,14 @@ static	void	execute_input_commands(t_minishell *shell)
 			execute_builtins(shell);
 		else
 		{
-			shell->redirect_array->argv[0] = check_command_existence \
-				(shell->redirect_array[0].argv[0], shell->env);
+			shell->redirect_array->argv[0] = check_command_existence(
+				shell->redirect_array[0].argv[0], shell->env);
+			if (shell->redirect_array->argv[0] == NULL)
+			{
+				ft_putstr_fd("minishell: command not found\n", 2);
+				shell->exit_status = 127;
+				return ;
+			}
 			execute_command_shell(shell);
 		}
 	}

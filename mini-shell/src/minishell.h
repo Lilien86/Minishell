@@ -166,16 +166,17 @@ void	execute_command_shell(t_minishell *shell);
 void	execute_command(t_redirect *redirect, t_minishell *shell);
 void	execute_single_command(t_redirect *redirect, t_minishell *shell);
 
-void error_exit(char *message, t_minishell *shell);
+void	error_exit(char *message, t_minishell *shell);
 void	handle_pipe(t_minishell *shell, int *i);
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
 void	handle_output_redirect(t_minishell *shell,
 	t_token *current, int *i, int is_double_redirect);
-void	handle_input_redirect(t_minishell *shell, t_token *current, int *i);
+void		handle_input_redirect(t_minishell *cpy, t_token *current, int *i, t_minishell *shell);
 void	check_file(t_file *file, int is_append, t_minishell *shell, int status);
 void	handle_word(t_minishell *shell, t_token **current, int *i);
 
 //UTILS_CHECK
+int		check_redirect_in_to_pipe(t_token *tokens);
 int		check_builtins(char *cmd);
 int		is_token_redirection(t_token *token);
 
