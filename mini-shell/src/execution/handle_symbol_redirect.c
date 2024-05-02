@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/02 13:27:27 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 14:24:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,39 @@ void	handle_input_redirect(t_minishell *cpy, t_token *current, int *i, t_minishe
 {
 	if (current->next == NULL)
 	{
-		ft_putstr_fd("minishell: Error: no file specified\n", 2);
+		ft_putstr_fd("minishell: Error: parse error near\n", 2);
 		shell->exit_status = 1;
-		free_minishell(shell);
+		shell->redirect_array[0].infile.fd = -2;
 		return ;
 	}
 	cpy->redirect_array[*i].infile.name = current->next->value;
 	check_file(&cpy->redirect_array[*i].infile, 0, cpy, 0);
 }
 
-void	handle_output_redirect(t_minishell *shell,
-	t_token *current, int *i, int is_double_redirect)
+void	handle_output_redirect(t_minishell *cpy,
+	t_token *current, int *i, int is_double_redirect, t_minishell *shell)
 {
 	if (current->next == NULL)
 	{
-		ft_printf("Error:\nno file specified\n");
+		ft_putstr_fd("minishell: Error: parse error near\n", 2);
 		shell->exit_status = 1;
+		shell->redirect_array[0].infile.fd = -2;
 		return ;
 	}
-	shell->redirect_array[*i].outfile.name = current->next->value;
+	cpy->redirect_array[*i].outfile.name = current->next->value;
 	check_file(
-		&shell->redirect_array[*i].outfile, is_double_redirect, shell, 1);
+		&cpy->redirect_array[*i].outfile, is_double_redirect, cpy, 1);
 }
 
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i)
 {
+	if (current->next == NULL)
+	{
+		ft_putstr_fd("minishell: Error: parse error near\n", 2);
+		shell->exit_status = 1;
+		shell->redirect_array[0].infile.fd = -2;
+		return ;
+	}
 	here_doc(current, shell, *i);
 }
 

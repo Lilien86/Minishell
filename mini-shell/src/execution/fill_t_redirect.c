@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/02 13:26:49 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 14:01:36 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	fill_redirect_array(t_minishell *shell)
 		if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 			handle_input_redirect(&cpy, cpy.tokens, &i, shell);
 		else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 0);
+			handle_output_redirect(&cpy, cpy.tokens, &i, 0, shell);
 		else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-			handle_output_redirect(&cpy, cpy.tokens, &i, 1);
+			handle_output_redirect(&cpy, cpy.tokens, &i, 1, shell);
 		else if (cpy.tokens->type == TOKEN_HEREDOC)
 			handle_heredoc(&cpy, cpy.tokens, &i);
 		else if (cpy.tokens->type == TOKEN_PIPE)
