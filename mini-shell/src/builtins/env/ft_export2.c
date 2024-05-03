@@ -2,17 +2,14 @@
 
 int	is_valid_var_name(const char *var)
 {
-	if (var[ft_strlen(var) - 1] == '=')
-	{
-	if (!ft_isalpha(*var) && *var != '_')
-		return (0);
+    if (!var || !(*var == '_' || ft_isalpha(*var)))
+		return 0;
 	var++;
 	while (*var && *var != '=')
 	{
 		if (!ft_isalnum(*var) && *var != '_')
 			return (0);
 		var++;
-	}
 	}
 	return (1);
 }

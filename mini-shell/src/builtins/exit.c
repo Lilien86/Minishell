@@ -21,12 +21,15 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 			1, shell);
 		return ;
 	}
-	if (*endptr != '\0')
+	else if (*endptr != '\0')
 		print_error_and_set_status("minishell: exit: numeric argument "
 			"required\n", 2, shell);
-    shell->exit_status = exit_code % 256;
-    if (shell->exit_status < 0)
-        shell->exit_status += 256;
+	else
+	{
+    	shell->exit_status = exit_code % 256;
+    	if (shell->exit_status < 0)
+        	shell->exit_status += 256;
+	}
 }
 
 void	ft_exit(t_token *tokens, t_minishell *shell)
