@@ -5,7 +5,6 @@ src/lab.py
 src/printer.py
 src/process.py
 src/tester.py
-src/tests.py
 src/utils.py
 .gitignore
 LICENSE
