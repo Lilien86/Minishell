@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/30 13:39:44 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/03 11:14:17 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,27 +64,80 @@ void	error_exit(char *message, t_minishell *shell)
 	exit(EXIT_FAILURE);
 }
 
-void	handle_word(t_minishell *shell, t_token **current, int *i)
-{
-	int		j;
-	int		word_count;
-	char	**new_argv;
+// void	handle_word(t_minishell *shell, t_token **current, int *i)
+// {
+// 	int		j;
+// 	int		word_count;
+// 	char	**new_argv;
+
+// 	word_count = count_words_in_token(*current);
+// 	new_argv = ft_calloc(sizeof(char *), (size_t)(word_count + 1));
+// 	if (new_argv == NULL)
+// 		error_exit("Error:\nduring handle_word\n", shell);
+// 	j = 0;
+// 	while (*current != NULL && (*current)->type == TOKEN_WORD)
+// 	{
+// 		new_argv[j] = ft_strdup((*current)->value);
+// 		if (new_argv[j] == NULL)
+// 			error_exit("Error:\nduring handle_word\n", shell);
+// 		j++;
+// 		*current = (*current)->next;
+// 	}
+// 	new_argv[j] = NULL;
+// 	if (shell->redirect_array[*i].argv != NULL)
+// 		free_argv(shell->redirect_array[*i].argv);
+// 	shell->redirect_array[*i].argv = new_argv;
+// }
+
+#include <stdlib.h>
+#include <string.h>
+
+void handle_word(t_minishell *shell, t_token **current, int *i) {
+	int j = 0;
+	int word_count;
+	char **new_argv;
 
 	word_count = count_words_in_token(*current);
 	new_argv = ft_calloc(sizeof(char *), (size_t)(word_count + 1));
-	if (new_argv == NULL)
+	if (new_argv == NULL) {
 		error_exit("Error:\nduring handle_word\n", shell);
-	j = 0;
-	while (*current != NULL && (*current)->type == TOKEN_WORD)
-	{
+		return;
+	}
+
+	while (*current!= NULL && (*current)->type == TOKEN_WORD) {
 		new_argv[j] = ft_strdup((*current)->value);
-		if (new_argv[j] == NULL)
+		if (new_argv[j] == NULL) {
 			error_exit("Error:\nduring handle_word\n", shell);
+			return;
+		}
 		j++;
 		*current = (*current)->next;
 	}
 	new_argv[j] = NULL;
-	if (shell->redirect_array[*i].argv != NULL)
-		free_argv(shell->redirect_array[*i].argv);
-	shell->redirect_array[*i].argv = new_argv;
+
+	if (shell->redirect_array[*i].argv!= NULL) {
+		char **temp_argv = shell->redirect_array[*i].argv;
+		shell->redirect_array[*i].argv = ft_calloc(sizeof(char *), (size_t)(j + 1));
+		if (shell->redirect_array[*i].argv == NULL) {
+			error_exit("Error:\nduring handle_word\n", shell);
+			return;
+		}
+
+		int k = 0;
+		while (temp_argv[k]!= NULL) {
+			shell->redirect_array[*i].argv[k] = temp_argv[k];
+			k++;
+		}
+
+		k = 0;
+		while (k < j) {
+			shell->redirect_array[*i].argv[k + j] = new_argv[k];
+			k++;
+		}
+
+		free(temp_argv);
+	} else {
+		shell->redirect_array[*i].argv = new_argv;
+	}
 }
+
