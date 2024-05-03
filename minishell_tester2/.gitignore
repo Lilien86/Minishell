@@ -1,13 +1,2 @@
 # Python
-src/__pycache__
-src/__main__.py
-src/lab.py
-src/printer.py
-src/process.py
-src/tester.py
-src/tests.py
-src/utils.py
-.gitignore
-LICENSE
-README.md
-requirements.txt
+
