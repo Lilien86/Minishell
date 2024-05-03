@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:10:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/02 11:24:30 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/02 14:37:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	free_file_names(t_minishell *shell, int index)
 {
 	if (shell->redirect_array[index].infile.name != NULL)
 	{
-		free(shell->redirect_array[index].infile.name);
+		//free(shell->redirect_array[index].infile.name);
 		shell->redirect_array[index].infile.name = NULL;
 	}
 	if (shell->redirect_array[index].outfile.name != NULL)

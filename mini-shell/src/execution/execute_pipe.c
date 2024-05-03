@@ -62,6 +62,9 @@ void	execute_command_shell(t_minishell *shell)
 	pipe_info.pipe_count = 0;
 	while (i < shell->nb_cmds)
 	{
+		if (shell->redirect_array[i].infile.fd == -2
+			|| shell->redirect_array[i].outfile.fd == -2)
+			return ;
 		if (check_builtins(shell->redirect_array[i].argv[0]) != 1)
 		{
 			shell->redirect_array[i].argv[0] = check_command_existence(

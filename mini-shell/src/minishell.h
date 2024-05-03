@@ -172,8 +172,8 @@ void	execute_single_command(t_redirect *redirect, t_minishell *shell);
 void	error_exit(char *message, t_minishell *shell);
 void	handle_pipe(t_minishell *shell, int *i);
 void	handle_heredoc(t_minishell *shell, t_token *current, int *i);
-void	handle_output_redirect(t_minishell *shell,
-	t_token *current, int *i, int is_double_redirect);
+void	handle_output_redirect(t_minishell *cpy,
+	t_token *current, int *i, int is_double_redirect, t_minishell *shell);
 void		handle_input_redirect(t_minishell *cpy, t_token *current, int *i, t_minishell *shell);
 void	check_file(t_file *file, int is_append, t_minishell *shell, int status);
 void	handle_word(t_minishell *shell, t_token **current, int *i);
