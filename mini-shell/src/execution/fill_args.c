@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/03 12:02:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/03 13:30:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void concate_argv(char ***argv1, char **argv2, t_minishell *shell)
 		j++;
 	}
 	temp_argv[i] = NULL;
-	*argv1 = temp_argv; // Assurez-vous de mettre à jour argv1 avec le nouvel espace mémoire
+	*argv1 = temp_argv;
 }
 
 void	handle_word(t_minishell *shell, t_token **current, int *i)
@@ -132,6 +132,7 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	new_argv[j] = NULL;
 	if (shell->redirect_array[*i].argv != NULL)
 	{
+		//*current = (*current)->next;
 		concate_argv(&shell->redirect_array[*i].argv, new_argv, shell);
 		free_argv(new_argv);
 	}
