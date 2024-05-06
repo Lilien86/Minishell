@@ -62,13 +62,6 @@ typedef struct s_minishell
 
 }	t_minishell;
 
-typedef struct s_pipe
-{
-	int	pipefd[2];
-	int	prev_pipe[2];
-	int	pipe_count;
-}	t_pipe;
-
 //TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
 void		add_token(t_token **head, t_token *new_token);
