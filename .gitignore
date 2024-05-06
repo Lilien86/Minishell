@@ -24,3 +24,15 @@ minishell_tester/test_files/invalid_permission
 minishell_tester/test_files/loop
 minishell_tester/test_files/loop.c
 minishell_tester/*
+minishell_tester2/src/__pycache__/lab.cpython-310.pyc
+minishell_tester2/src/__pycache__/printer.cpython-310.pyc
+minishell_tester2/src/__pycache__/process.cpython-310.pyc
+minishell_tester2/src/__pycache__/tester.cpython-310.pyc
+minishell_tester2/src/__pycache__/tests.cpython-310.pyc
+minishell_tester2/src/__pycache__/utils.cpython-310.pyc
+minishell_tester2/src/__pycache__/lab.cpython-310.pyc
+minishell_tester2/src/__pycache__/printer.cpython-310.pyc
+minishell_tester2/src/__pycache__/process.cpython-310.pyc
+minishell_tester2/src/__pycache__/tester.cpython-310.pyc
+minishell_tester2/src/__pycache__/tests.cpython-310.pyc
+minishell_tester2/src/__pycache__/utils.cpython-310.pyc

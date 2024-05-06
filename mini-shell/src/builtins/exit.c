@@ -12,24 +12,26 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 	t_token	*current;
 	char	*endptr;
 	long	exit_code;
+	int		sign;
+	char*   value;
 
 	current = tokens->next;
-	exit_code = ft_atoi_endptr(current->value, &endptr);
-	if (*endptr == '\0' && current->next)
-	{
-		print_error_and_set_status("minishell: exit: too many arguments\n",
-			1, shell);
-		return ;
+	sign = 1;
+	value = current->value;
+	if (*value == '+' || *value == '-') {
+        sign = (*value == '-') ? -1 : 1;
+        value++;
 	}
-	else if (*endptr != '\0')
-		print_error_and_set_status("minishell: exit: numeric argument "
-			"required\n", 2, shell);
-	else
-	{
-    	shell->exit_status = exit_code % 256;
-    	if (shell->exit_status < 0)
-        	shell->exit_status += 256;
-	}
+	exit_code = ft_atoi_endptr(value, &endptr) * sign;
+    if (*endptr != '\0') {
+        print_error_and_set_status("minishell: exit: numeric argument required\n", 2, shell);
+    } else if (current->next) {
+        print_error_and_set_status("minishell: exit: too many arguments\n", 1, shell);
+    } else {
+        shell->exit_status = exit_code % 256;
+        if (shell->exit_status < 0)
+            shell->exit_status += 256;
+    }
 }
 
 void	ft_exit(t_token *tokens, t_minishell *shell)
