@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/03 13:41:09 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/06 10:09:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	fill_t_redirect(t_minishell *shell)
 	shell->redirect_array[0].argv = NULL;
 	shell->exit_status = 0;
 	fill_redirect_array(shell);
-	print_data(shell->redirect_array, shell->nb_cmds);
+	//print_data(shell->redirect_array, shell->nb_cmds);
 }

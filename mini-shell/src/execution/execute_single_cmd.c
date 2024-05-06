@@ -37,11 +37,11 @@ void	execute_command(t_redirect *redirect, t_minishell *shell)
 {
 	pid_t	pid;
 
-	pid = fork();
 	if (redirect->infile.fd == -1)
 		redirect->infile.fd = STDIN_FILENO;
 	if (redirect->outfile.fd == -1)
 		redirect->outfile.fd = STDOUT_FILENO;
+	pid = fork();
 	if (pid == 0)
 		handle_child(redirect, shell);
 	else if (pid < 0)

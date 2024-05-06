@@ -42,3 +42,32 @@ int	check_redirect_in_to_pipe(t_token *tokens)
 	return (0);
 }
 
+char	**convert_linked_list_to_array(t_token *head)
+{
+	int				count;
+	char			**array;
+	t_token			*current;
+	int				i;
+
+	i = 0;
+	count = 0;
+	current = head;
+	while (current != NULL)
+	{
+		count++;
+		current = current->next;
+	}
+	array = ft_calloc((size_t)(count + 1) , sizeof(char*));
+	if (array == NULL)
+		error_exit("Memory allocation failed", NULL);
+	array[count] = NULL;
+	current = head;
+	while (i < count)
+	{
+		array[i] = current->value;
+		current = current->next;
+		i++;
+	}
+	return (array);
+}
+

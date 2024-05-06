@@ -157,6 +157,7 @@ void		print_argv(char **argv);
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
+char		**convert_linked_list_to_array(t_token *head);
 
 //EXECUTION
 void	fill_t_redirect(t_minishell *shell);
