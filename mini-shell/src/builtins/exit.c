@@ -35,7 +35,7 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 void	ft_exit(t_token *tokens, t_minishell *shell)
 {
 	t_token	*current;
-	int     local_exit_status;
+	int		local_exit_status;
 
 	local_exit_status = shell->exit_status;
 	current = tokens->next;

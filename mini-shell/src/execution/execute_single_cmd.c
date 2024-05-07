@@ -26,7 +26,7 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 	}
 	if (check_builtins(redirect->argv[0]))
 	{
-		execute_builtins(shell);
+		execute_builtins(ft_strlen_map(redirect->argv), redirect->argv, shell);
 		exit(shell->exit_status);
 	}
 	else
