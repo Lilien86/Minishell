@@ -28,22 +28,6 @@ void	add_token(t_token **head, t_token *new_token)
 	}
 }
 
-void	identify_double_char_tokens(const char **input, t_token **head)
-{
-	if (**input == '>' && *(*input + 1) == '>')
-	{
-		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
-		*input += 2;
-		return ;
-	}
-	else if (**input == '<' && *(*input + 1) == '<')
-	{
-		add_token(head, init_token(TOKEN_HEREDOC, "<<"));
-		*input += 2;
-		return ;
-	}
-}
-
 void	add_token_based_on_char(const char **input, t_token **head,
 			char **env, t_minishell *shell)
 {
@@ -55,6 +39,15 @@ void	add_token_based_on_char(const char **input, t_token **head,
 	else if (**input == '|')
 		add_token(head, init_token(TOKEN_PIPE, "|"));
 	else
+		add_word_token(input, head, env, shell);
+}
+
+void	identify_and_add_token(const char **input, t_token **head,
+			char **env, t_minishell *shell)
+{
+	if (is_special_char(**input))
+		add_token_based_on_char(input, head, env, shell);
+	else if (!ft_isspace(**input))
 		add_word_token(input, head, env, shell);
 }
 

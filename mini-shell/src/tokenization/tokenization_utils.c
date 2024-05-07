@@ -1,39 +1,58 @@
 #include "../minishell.h"
 
+void	add_word_token(const char **input, t_token **head,
+			char **env, t_minishell *shell)
+{
+	const char	*start;
+	char		*word;
+	char		*substituted_value;
+
+	start = *input;
+	while (**input && !ft_isspace(**input) && !is_special_char(**input))
+		handle_quotes(input, head, shell, &start);
+	if (*input > start)
+	{
+		word = ft_strndup(start, (size_t)(*input - start));
+		substituted_value = substitute_env_vars(word, env, shell);
+		add_token(head, init_token(TOKEN_WORD, substituted_value));
+		free(word);
+		free(substituted_value);
+	}
+}
+
 int	is_special_char(char c)
 {
 	return (c == '>' || c == '<' || c == '|');
 }
 
-char	*process_quoted_content(const char *quoted_part,
-					char quote_type, t_minishell *shell)
+void	identify_double_char_tokens(const char **input, t_token **head)
 {
-	char	*value;
-
-	if (quote_type == '"')
-		value = substitute_env_vars(quoted_part, shell->env, shell);
-	else
-		value = ft_strdup(quoted_part);
-	return (value);
+	if (**input == '>' && *(*input + 1) == '>')
+	{
+		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
+		*input += 2;
+		return ;
+	}
+	else if (**input == '<' && *(*input + 1) == '<')
+	{
+		add_token(head, init_token(TOKEN_HEREDOC, "<<"));
+		*input += 2;
+		return ;
+	}
 }
 
-
-void	handle_quotes(const char **input, t_token **head,
-			t_minishell *shell, const char **start)
+void	free_tokens(t_token **tokens)
 {
-	char	*word;
+	t_token	*current;
+	t_token	*next;
 
-	if (**input == '\'' || **input == '"')
+	current = *tokens;
+	while (current != NULL)
 	{
-		if (*input != *start)
-		{
-			word = ft_strndup(*start, (size_t)(*input - *start));
-			add_token(head, init_token(TOKEN_WORD, word));
-			free(word);
-		}
-		add_quoted_token(input, head, **input, shell);
-		*start = *input;
+		next = current->next;
+		free(current->value);
+		free(current);
+		current = next;
 	}
-	else
-		(*input)++;
+	*tokens = NULL;
 }
