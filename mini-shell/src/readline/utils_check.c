@@ -25,7 +25,7 @@ int	check_builtins(char *cmd)
 
 int	check_redirect_in_to_pipe(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens;
 	current = current->next;
@@ -57,7 +57,7 @@ char	**convert_linked_list_to_array(t_token *head)
 		count++;
 		current = current->next;
 	}
-	array = ft_calloc((size_t)(count + 1) , sizeof(char*));
+	array = ft_calloc((size_t)(count + 1), sizeof(char *));
 	if (array == NULL)
 		error_exit("Memory allocation failed", NULL);
 	array[count] = NULL;
@@ -71,3 +71,23 @@ char	**convert_linked_list_to_array(t_token *head)
 	return (array);
 }
 
+t_token	*convert_argv_to_list(int argc, char **argv)
+{
+	t_token	*head;
+	t_token	*tmp;
+	int		i;
+
+	head = NULL;
+	i = 0;
+	while (i < argc)
+	{
+		tmp = ft_calloc(sizeof(t_list), 1);
+		if (!tmp)
+			return (NULL);
+		tmp->value = argv[argc - 1];
+		tmp->next = head;
+		head = tmp;
+		argc--;
+	}
+	return (head);
+}

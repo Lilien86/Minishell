@@ -8,6 +8,18 @@ static size_t find_quote_end(const char *input, char quote_type)
     return len;
 }
 
+char	*process_quoted_content(const char *quoted_part,
+					char quote_type, t_minishell *shell)
+{
+	char	*value;
+
+	if (quote_type == '"')
+		value = substitute_env_vars(quoted_part, shell->env, shell);
+	else
+		value = ft_strdup(quoted_part);
+	return (value);
+}
+
 static char *process_quoted_segment(const char *start, size_t len, char quote_type, t_minishell *shell)
 {
     char *segment;
@@ -65,3 +77,4 @@ void add_quoted_token(const char **input, t_token **head, char quote_type, t_min
         add_token(head, init_token(TOKEN_WORD, final_value));
     free(final_value);
 }
+

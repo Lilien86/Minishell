@@ -4,24 +4,22 @@ void	echo_print_tokens(t_token *tokens, int *exit_status, int newline,
 		t_minishell *shell)
 {
 	t_token	*current;
-	int		first;
 
+	(void)shell;
 	current = tokens;
-	first = 1;
 	while (current != NULL)
 	{
 		if (current->type == TOKEN_WORD)
 		{
-			if (!first && shell->space_flag == 1)
-				ft_printf(" ");
 			if (ft_printf("%s", current->value) < 0)
 			{
 				perror("echo command failed");
 				*exit_status = 1;
 				return ;
 			}
-			first = 0;
 		}
+		//if (current->next != NULL)
+		//	ft_printf(" ");
 		current = current->next;
 	}
 	if (newline)
