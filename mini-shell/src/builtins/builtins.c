@@ -18,8 +18,10 @@ void	echo_print_tokens(t_token *tokens, int *exit_status, int newline,
 				return ;
 			}
 		}
-		//if (current->next != NULL)
-		//	ft_printf(" ");
+		if (current->next != NULL)
+			ft_printf(" ");
+		if (current->next == NULL)
+			break ;
 		current = current->next;
 	}
 	if (newline)
@@ -32,7 +34,9 @@ void	ft_echo(t_token *tokens, int *exit_status, t_minishell *shell)
 	t_token	*current;
 
 	newline = 1;
-	current = tokens->next;
+	current = tokens;
+	if (current)
+		current = current->next;
 	while (current && is_flag_n(current->value))
 	{
 		newline = 0;
