@@ -3,8 +3,11 @@
 static size_t find_quote_end(const char *input, char quote_type)
 {
     size_t len = 0;
+
     while (input[len] && input[len] != quote_type)
+	{
         len++;
+	}
     return len;
 }
 
@@ -46,12 +49,13 @@ static void append_segment(char **final_value, char *segment)
 	}
 }
 
-void add_quoted_token(const char **input, t_token **head, char quote_type, t_minishell *shell)
+char  *add_quoted_token(const char **input, t_token **head, char quote_type, t_minishell *shell)
 {
     const char *start;
     size_t len;
     char *final_value;
     char *segment;
+	const char *temp;
 
     final_value = ft_strdup("");
     while (**input == quote_type) {
@@ -62,19 +66,33 @@ void add_quoted_token(const char **input, t_token **head, char quote_type, t_min
             ft_printf("minishell: syntax error: missing closing quote '%c'\n", quote_type);
             free(final_value);
             free_tokens(head);
-            return;
+            return (NULL);
         }
         segment = process_quoted_segment(start, len, quote_type, shell);
         if (!segment) {
             free(final_value);
-            return;
+            return (NULL);
         }
         append_segment(&final_value, segment);
         free(segment);
         *input += len + 1;
     }
+	if (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
+	{
+		temp = *input;
+		while (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
+		{
+			(*input)++;
+		}
+		segment = ft_strndup(temp, (size_t)(*input - temp));
+		if (segment)
+		{
+			append_segment(&final_value, segment);
+			free(segment);
+		}
+	}
     if (final_value[0] != '\0')
         add_token(head, init_token(TOKEN_WORD, final_value));
-    free(final_value);
+    return(final_value);
 }
 

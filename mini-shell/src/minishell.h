@@ -79,7 +79,7 @@ void		add_token_based_on_char(const char **input,
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
-void		add_quoted_token(const char **input, t_token **head,
+char		*add_quoted_token(const char **input, t_token **head,
 				char quote_type, t_minishell *shell);
 void		add_word_token(const char **input, t_token **head, char **env,
 				t_minishell *shell);
