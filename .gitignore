@@ -36,3 +36,8 @@ minishell_tester2/src/__pycache__/process.cpython-310.pyc
 minishell_tester2/src/__pycache__/tester.cpython-310.pyc
 minishell_tester2/src/__pycache__/tests.cpython-310.pyc
 minishell_tester2/src/__pycache__/utils.cpython-310.pyc
+.idea/.gitignore
+.idea/minishell.iml
+.idea/modules.xml
+.idea/vcs.xml
+mini-shell/.nfs000000000bda09a300002158

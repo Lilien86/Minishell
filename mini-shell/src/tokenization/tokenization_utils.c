@@ -6,10 +6,12 @@ void	add_word_token(const char **input, t_token **head,
 	const char	*start;
 	char		*word;
 	char		*substituted_value;
+	//char		*final_value;
 
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 		handle_quotes(input, head, shell, &start);
+	
 	if (*input > start)
 	{
 		word = ft_strndup(start, (size_t)(*input - start));

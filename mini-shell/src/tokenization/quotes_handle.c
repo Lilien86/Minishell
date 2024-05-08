@@ -55,7 +55,7 @@ char  *add_quoted_token(const char **input, t_token **head, char quote_type, t_m
     size_t len;
     char *final_value;
     char *segment;
-	const char *temp;
+	//const char *temp;
 
     final_value = ft_strdup("");
     while (**input == quote_type) {
@@ -77,22 +77,20 @@ char  *add_quoted_token(const char **input, t_token **head, char quote_type, t_m
         free(segment);
         *input += len + 1;
     }
-	if (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
-	{
-		temp = *input;
-		while (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
-		{
-			(*input)++;
-		}
-		segment = ft_strndup(temp, (size_t)(*input - temp));
-		if (segment)
-		{
-			append_segment(&final_value, segment);
-			free(segment);
-		}
-	}
-    if (final_value[0] != '\0')
-        add_token(head, init_token(TOKEN_WORD, final_value));
+	// if (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
+	// {
+	// 	temp = *input;
+	// 	while (!ft_isspace(**input) && !is_special_char(**input) && **input != '\0' && **input != quote_type)
+	// 		(*input)++;
+	// 	segment = ft_strndup(temp, (size_t)(*input - temp));
+	// 	if (segment)
+	// 	{
+	// 		append_segment(&final_value, segment);
+	// 		free(segment);
+	// 	}
+	// }
+    // if (final_value[0] != '\0')
+    //     add_token(head, init_token(TOKEN_WORD, final_value));
     return(final_value);
 }
 
