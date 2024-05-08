@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/12 14:00:30 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/08 11:34:26 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*update_here_doc_content(char *line, char *here_doc_content)
 	return (here_doc_content);
 }
 
-char	*read_and_process_line(char *delimiter, char *here_doc_content)
+static char	*read_and_process_line(char *delimiter, char *here_doc_content)
 {
 	char	*line;
 
@@ -102,22 +102,28 @@ char	*read_and_process_line(char *delimiter, char *here_doc_content)
 	return (here_doc_content);
 }
 
-void	handle_here_doc(t_minishell *shell, int i, char *delimiter)
+void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter)
 {
 	char	*here_doc_content;
+	char	*temp;
 
 	init_signal_handlers();
 	signal(SIGINT, handle_sigint_here_doc);
 	here_doc_content = NULL;
 	while (1)
 	{
-		here_doc_content = read_and_process_line(delimiter, here_doc_content);
-		if (here_doc_content == NULL)
+		temp = read_and_process_line(delimiter, here_doc_content);
+		if (temp == NULL)
+		{
+			free(temp);
 			break ;
+		}
+		here_doc_content = temp;
 	}
-	write_here_doc_in_file(here_doc_content,
-		shell->redirect_array[i].infile.fd, shell);
+	write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
 	free_minishell(shell);
 	shell->exit_status = 0;
-	exit(0);
+	close(here_doc.fd);
+	free(here_doc_content);
+	exit(EXIT_SUCCESS);
 }
