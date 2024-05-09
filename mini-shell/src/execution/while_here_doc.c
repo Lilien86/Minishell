@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/08 11:34:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/09 14:04:26 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*read_line(char *delimiter)
 {
 	char	*line;
 
-	line = readline("> ");
+	line = readline("gnegnegne > ");
 	if (line == NULL || ft_strcmp(line, delimiter) == 0)
 	{
 		if (line != NULL)
@@ -116,6 +116,7 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter)
 		if (temp == NULL)
 		{
 			free(temp);
+			here_doc_content = ft_strjoin(here_doc_content, "\n");
 			break ;
 		}
 		here_doc_content = temp;

@@ -56,30 +56,42 @@ static int	open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy)
 	return (fd);
 }
 
-static t_file	fork_here_doc(char *delimiter, t_minishell *shell)
+static t_file fork_here_doc(char *delimiter, t_minishell *shell)
 {
 	pid_t	pid;
 	int		status;
-	t_file	here_doc_cpy;
+	t_file	*here_doc_cpy;
 
-	here_doc_cpy.name = generate_and_assign_filename(shell);
-	here_doc_cpy.fd = open_file_and_handle_errors(shell, here_doc_cpy);
-	pid = fork();
-	if (pid == 0)
-	{ 
-		handle_here_doc(shell, here_doc_cpy, delimiter);
-	}
-	else if (pid > 0)
-		waitpid(pid, &status, 0);
-	else
+	here_doc_cpy = malloc(sizeof(t_file)); // Allocate memory on the heap
+	if (here_doc_cpy == NULL)
 	{
-		perror("Error:\nduring fork_here_doc");
+		perror("Error:\nduring fork_here_doc\n");
 		free_minishell(shell);
 		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	return (here_doc_cpy);
+	here_doc_cpy->name = generate_and_assign_filename(shell);
+	here_doc_cpy->fd = open_file_and_handle_errors(shell, *here_doc_cpy);
+	pid = fork();
+	if (pid == 0)
+	{
+		handle_here_doc(shell, *here_doc_cpy, delimiter);
+	}
+	else if (pid > 0)
+	{
+		waitpid(pid, &status, 0);
+	}
+	else
+	{
+		perror("Error:\nduring fork_here_doc");
+		free(here_doc_cpy);
+		free_minishell(shell);
+		shell->exit_status = 1;
+		exit(EXIT_FAILURE);
+	}
+	return (*here_doc_cpy);
 }
+
 
 t_file	here_doc_2(t_token *current, t_minishell *shell)
 {

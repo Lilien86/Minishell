@@ -24,13 +24,15 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipe
 
 	if (index < shell->nb_cmds - 1)
 		pipe(pipes[index]);
+	//ft_printf("\n\nEXECUTE --------------------");
+	//print_data(shell->redirect_array, shell->nb_cmds);
 	pid = fork();
 	if (pid == -1)
 	{
 		perror("fork");
 		exit(EXIT_FAILURE);
 	}
-	if (pid == 0) // Child process
+	if (pid == 0)
 	{
 		if (index < shell->nb_cmds - 1)
 		{
@@ -45,12 +47,16 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipe
 			close(pipes[index - 1][READ_END]);
 		}
 		if (redirect_array[index].outfile.fd != -1)
+		{
 			dup2(redirect_array[index].outfile.fd, STDOUT_FILENO);
+		}
 		if (redirect_array[index].infile.fd != -1)
+		{
 			dup2(redirect_array[index].infile.fd, STDIN_FILENO);
+		}
 		if (check_builtins(redirect_array[index].argv[0]) == 1)
 		{
-			//execute_builtins(redirect_array[index].argv, shell);
+			execute_builtins(ft_strlen_map(redirect_array[index].argv), redirect_array[index].argv, shell);
 			exit(EXIT_SUCCESS);
 		}
 		else
