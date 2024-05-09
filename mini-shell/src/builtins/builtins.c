@@ -18,8 +18,8 @@ void	echo_print_tokens(t_token *tokens, int *exit_status, int newline,
 				return ;
 			}
 		}
-		//if (current->next != NULL)
-		//	ft_printf(" ");
+		if (current->next != NULL)
+			ft_printf(" ");
 		current = current->next;
 	}
 	if (newline)
