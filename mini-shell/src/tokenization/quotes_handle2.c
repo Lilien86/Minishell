@@ -1,34 +1,25 @@
 #include "../minishell.h"
 
 void	handle_quotes(const char **input, t_token **head,
-			t_minishell *shell, const char **start)
+			t_minishell *shell, char **token_temp)
 {
+	char	*word;
 
-	(void)start;
-
-	if (**input == '\'' || **input == '"')
+	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 	{
-		add_quoted_token(input, head, **input, shell);
-		// if (*input != *start)
-		// {
-		// 	word = ft_strndup(*start, (size_t)(*input - *start));
-		// 	//add_token(head, init_token(TOKEN_WORD, word));
-		// 	//free(word);
-		// }
-
+		if (**input == '\'' || **input == '"')
+		{
+			*token_temp = add_quoted_token(input, head, **input, shell);
+		}
+		else
+		{
+			word = append_char_to_str(*token_temp, **input);
+			if (word)
+			{
+				*token_temp = word;
+			}
+			(*input)++;
+		}
 	}
-	else
-		(*input)++;
-	// {
-	// 	temp = append_char_to_str(final_value, **input);
-	// 	if (temp)
-	// 	{
-	// 		final_value = temp;
-	// 	}
-	// 	(*input)++;
-	// }
 
-		
-	//*start = *input;
-	//return (temp);
 }

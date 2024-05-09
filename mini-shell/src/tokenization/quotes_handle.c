@@ -55,7 +55,6 @@ char  *add_quoted_token(const char **input, t_token **head, char quote_type, t_m
     size_t len;
     char *final_value;
     char *segment;
-	//const char *temp;
 
     final_value = ft_strdup("");
     while (**input == quote_type) {

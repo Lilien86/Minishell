@@ -92,7 +92,7 @@ void		identify_and_add_token(const char **input,
 void		check_space_after_token(const char **input, t_token**head,
 				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
-				t_minishell *shell, const char **start);
+				t_minishell *shell, char **token_temp);
 char	*process_quoted_content(const char *quoted_part,
 			char quote_type, t_minishell *shell);
 
