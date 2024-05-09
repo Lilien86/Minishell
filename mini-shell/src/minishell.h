@@ -12,6 +12,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 # define MAX_HISTORY_SIZE 100
 

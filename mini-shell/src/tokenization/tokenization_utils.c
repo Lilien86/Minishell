@@ -6,8 +6,8 @@ void	add_word_token(const char **input, t_token **head,
 	const char	*start;
 	char		*word;
 	char		*substituted_value;
-	//char		*final_value;
 
+	(void)env;
 	start = *input;
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 		handle_quotes(input, head, shell, &start);
@@ -17,9 +17,9 @@ void	add_word_token(const char **input, t_token **head,
 		word = ft_strndup(start, (size_t)(*input - start));
 		substituted_value = substitute_env_vars(word, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
-		free(word);
 		free(substituted_value);
 	}
+	start = *input;
 }
 
 int	is_special_char(char c)
