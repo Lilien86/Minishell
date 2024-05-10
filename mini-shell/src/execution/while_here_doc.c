@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/09 14:04:26 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/10 08:43:10 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,15 @@ char	*read_line(char *delimiter)
 {
 	char	*line;
 
-	line = readline("gnegnegne > ");
-	if (line == NULL || ft_strcmp(line, delimiter) == 0)
+	line = readline(" > ");
+	if (line == NULL)
+	{
+		if (line != NULL)
+			free(line);
+		ft_putstr_fd("bash: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", 2);
+		return (NULL);
+	}
+	if (ft_strcmp(line, delimiter) == 0)
 	{
 		if (line != NULL)
 			free(line);

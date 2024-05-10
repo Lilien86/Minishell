@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/09 14:01:14 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/10 09:06:02 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,9 +148,13 @@ void	to_choice_here_doc(t_minishell *shell, int *i)
 
 	j = 0;
 	nb_here_doc = counter_here_doc(shell->tokens);
+	while (nb_here_doc != 0 && j != *i)
+	{
+		close(shell->tab_here_doc[*i][j].fd);
+		j++;
+	}
 	if (shell->tab_here_doc && nb_here_doc != 0)
 	{
-		shell->redirect_array[*i].infile.fd = 0;
 		close (shell->tab_here_doc[*i][nb_here_doc - 1].fd);
 		shell->redirect_array[*i].infile.fd = open (shell->tab_here_doc[*i][nb_here_doc - 1].name, O_RDONLY);
 		if (shell->tab_here_doc[*i][nb_here_doc - 1].fd == -1)

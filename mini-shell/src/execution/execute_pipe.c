@@ -24,8 +24,6 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipe
 
 	if (index < shell->nb_cmds - 1)
 		pipe(pipes[index]);
-	//ft_printf("\n\nEXECUTE --------------------");
-	//print_data(shell->redirect_array, shell->nb_cmds);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -49,10 +47,12 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipe
 		if (redirect_array[index].outfile.fd != -1)
 		{
 			dup2(redirect_array[index].outfile.fd, STDOUT_FILENO);
+			close(redirect_array[index].outfile.fd);
 		}
 		if (redirect_array[index].infile.fd != -1)
 		{
 			dup2(redirect_array[index].infile.fd, STDIN_FILENO);
+			close(redirect_array[index].infile.fd);
 		}
 		if (check_builtins(redirect_array[index].argv[0]) == 1)
 		{
@@ -95,6 +95,8 @@ void	execute_command_shell(t_minishell *shell)
 	while (i < shell->nb_cmds)
 	{
 		ft_exec(shell->redirect_array, i, shell, pipes);
+		close(shell->redirect_array[i].infile.fd);
+		close(shell->redirect_array[i].outfile.fd);
 		i++;
 	}
 	handle_wait(shell);
