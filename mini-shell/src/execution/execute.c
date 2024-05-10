@@ -1,10 +1,5 @@
 #include "../minishell.h"
 
-#define READ_END 0
-#define WRITE_END 1
-#define MAX_PIPES 10
-
-
 void	handle_wait(t_minishell *shell)
 {
 	int	i;
@@ -18,7 +13,8 @@ void	handle_wait(t_minishell *shell)
 	}
 }
 
-void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipes[MAX_PIPES][2])
+void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
+	int pipes[MAX_PIPES][2])
 {
 	pid_t	pid;
 
@@ -56,12 +52,14 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell, int pipe
 		}
 		if (check_builtins(redirect_array[index].argv[0]) == 1)
 		{
-			execute_builtins(ft_strlen_map(redirect_array[index].argv), redirect_array[index].argv, shell);
+			execute_builtins(ft_strlen_map(redirect_array[index].argv),
+				redirect_array[index].argv, shell);
 			exit(EXIT_SUCCESS);
 		}
 		else
 		{
-			execve(redirect_array[index].argv[0], redirect_array[index].argv, shell->env);
+			execve(redirect_array[index].argv[0], redirect_array[index].argv,
+				shell->env);
 			perror("execve");
 			exit(EXIT_FAILURE);
 		}

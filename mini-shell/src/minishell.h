@@ -15,6 +15,10 @@
 
 # define MAX_HISTORY_SIZE 100
 
+#define READ_END 0
+#define WRITE_END 1
+#define MAX_PIPES 512
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,
@@ -157,19 +161,12 @@ char		**convert_linked_list_to_array(t_token *head);
 
 //EXECUTION
 void		fill_t_redirect(t_minishell *shell);
-t_file		here_doc_2(t_token *current, t_minishell *shell);
-void		here_doc(t_token *current, t_minishell *shell, int i);
-void		handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter);
 void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
-void		execute_redirection(t_minishell *shell);
 char		*check_command_existence(const char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
-void		execute_command(t_redirect *redirect, t_minishell *shell);
-void		execute_single_command(t_redirect *redirect, t_minishell *shell);
 
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
-void		handle_heredoc(t_minishell *shell, t_token *current, int *i);
 void		handle_output_redirect(t_minishell *cpy, t_token *current,
 				int *i, int is_double_redirect, t_minishell *shell);
 void		handle_input_redirect(t_minishell *cpy, t_token *current,
@@ -178,11 +175,22 @@ void		check_file(t_file *file, int is_append, t_minishell *shell,
 				int status);
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 
+//------here_doc
+t_file		here_doc(t_token *current, t_minishell *shell);
+void		handle_here_doc(t_minishell *shell, t_file here_doc,
+				char *delimiter);
+void		to_choice_here_doc(t_minishell *shell, int *i);
+void		run_here_doc(t_minishell *shell);
+
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);
 int			is_token_redirection(t_token *token);
 t_token		*convert_argv_to_list(int argc, char **argv);
 void		print_linked_list(t_token *head);
+int			counter_cmds(t_token *tokens);
+
+//UTILS_FDS
+int		open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
 
 #endif
