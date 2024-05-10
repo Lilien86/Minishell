@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(gdb) Launch",
+      "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/mini-shell/minishell",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/mini-shell",
-      "environment": [],
       "externalConsole": false,
+      "cwd": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/src/parssing",
+      "program": "/nfs/homes/lauger/Documents/PROJECT/cercle_4/minishell/src/parssing/build/Debug/outDebug",
       "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
@@ -21,6 +21,7 @@
       ],
       "preLaunchTask": "buildddddddddddd",
       "miDebuggerPath": "/usr/bin/gdb"
+      ]
     }
   ]
 }

@@ -1,30 +1,4 @@
 {
-  "files.associations": {
-	"array": "c",
-	"deque": "c",
-	"string": "c",
-	"vector": "c",
-	"iterator": "c",
-	"string_view": "c",
-	"*.tcc": "c",
-	"unordered_map": "c",
-	"unordered_set": "c",
-	"ranges": "c",
-	"bitset": "c",
-	"initializer_list": "c",
-	"span": "c",
-	"regex": "c",
-	"utility": "c",
-	"variant": "c",
-	"chrono": "c",
-	"push_swap.h": "c",
-	"minishell.h": "c",
-	"history.h": "c",
-	"cstdlib": "c",
-	"typeinfo": "c",
-	"system_error": "c"
-},
-  "cmake.configureOnOpen": true,
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
@@ -81,9 +55,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-"C_Cpp_Runner.msvcSecureNoWarnings": false,
-"editor.tokenColorCustomizations": {
-	"comments": "",
-	"textMateRules": []
-}
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }
