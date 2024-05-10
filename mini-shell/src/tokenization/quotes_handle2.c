@@ -11,22 +11,19 @@ void	handle_quotes(const char **input, t_token **head,
 		if (**input == '\'' || **input == '"')
 		{
 			word = add_quoted_token(input, head, **input, shell);
-			if (word)
-			{
-				ft_strjoin(*token_temp, word);
-				//free(word);
-			}
+			if (!word)
+				return ;
+			*token_temp = ft_strjoin(*token_temp, word);
+			if (!*token_temp)
+				return ;
+			free(word);
 		}
 		else
 		{
-			word = append_char_to_str(*token_temp, **input);
-			if (word)
-			{
-				ft_strjoin(*token_temp, word);
-				//free(word);
-			}
+			*token_temp = append_char_to_str(*token_temp, **input);
+			if (!*token_temp)
+				return ;
 			(*input)++;
 		}
 	}
-
 }
