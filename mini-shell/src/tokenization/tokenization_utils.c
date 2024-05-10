@@ -17,8 +17,9 @@ void	add_word_token(const char **input, t_token **head,
 	if (token_temp)
 	{
 		substituted_value = substitute_env_vars(token_temp, env, shell);
-		add_token(head, init_token(TOKEN_WORD, token_temp));
+		add_token(head, init_token(TOKEN_WORD, substituted_value));
 		free(token_temp);
+		free(substituted_value);
 	}
 
 }
