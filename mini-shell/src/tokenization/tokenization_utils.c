@@ -7,6 +7,8 @@ void	add_word_token(const char **input, t_token **head,
 	char		*token_temp;
 
 	(void)env;
+	shell->is_single_quote = 0;
+	substituted_value = NULL;
 	token_temp = ft_strdup("");
 	if (!token_temp)
 		return ;

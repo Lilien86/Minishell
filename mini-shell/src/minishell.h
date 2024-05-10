@@ -58,7 +58,7 @@ typedef struct s_minishell
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
 	int			exit_status;
-	int			space_flag;
+	int			is_single_quote;
 	int			last_var_ends_with_equal;
 
 }	t_minishell;

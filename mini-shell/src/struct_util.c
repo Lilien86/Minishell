@@ -51,7 +51,7 @@ t_minishell	*init_minishell(char **envp)
 	shell->nb_cmds = 0;
 	shell->redirect_array = NULL;
 	shell->exit_status = 0;
-	shell->space_flag = 0;
+	shell->is_single_quote = 0;
 	init_history(shell->history);
 	return (shell);
 }
