@@ -29,11 +29,14 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 		return (NULL);
 	while (*input)
 	{
-		if (*input == '$' && (ft_isalnum(*(input + 1)) \
-		|| *(input + 1) == '_' || *(input + 1) == '?'))
+		if (shell->is_single_quote != 1 && *input == '$'
+			&& (ft_isalnum(*(input + 1)) \
+			|| *(input + 1) == '_' || *(input + 1) == '?'))
 			temp = process_dollar(&input, env, result, shell);
 		else
+		{
 			temp = append_char_to_str(result, *input++);
+		}
 		if (!temp)
 		{
 			free(result);

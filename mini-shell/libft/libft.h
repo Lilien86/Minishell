@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/04/24 11:44:42 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/10 10:52:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,14 +86,6 @@ int			ft_putchar(char c);
 int			ft_putnbr_base_len(unsigned long int nbr, char *base);
 int			ft_putnbr_base_len_origin(int nbr, char *base);
 int			ft_putstr_len(char *str);
-
-/*#####################################
-####Get_Next_Line######################
-*///###################################
-
-char		*get_next_line(int fd, char **buffer);
-int			check_str_char(char *line, char *buffer);
-char		*ft_strjoin_modif(char *s1, char *s2);
 
 /*#####################################
 ####En Plus############################

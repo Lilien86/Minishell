@@ -3,6 +3,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*shell;
+	int			exit_status;
 
 	(void)argc;
 	(void)argv;
@@ -11,6 +12,7 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	init_signal_handlers();
 	read_input(shell);
+	exit_status = shell->exit_status;
 	free_minishell(shell);
-	return (0);
+	return (exit_status);
 }

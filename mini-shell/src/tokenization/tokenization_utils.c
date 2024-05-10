@@ -3,21 +3,24 @@
 void	add_word_token(const char **input, t_token **head,
 			char **env, t_minishell *shell)
 {
-	const char	*start;
-	char		*word;
 	char		*substituted_value;
+	char		*token_temp;
 
-	start = *input;
-	while (**input && !ft_isspace(**input) && !is_special_char(**input))
-		handle_quotes(input, head, shell, &start);
-	if (*input > start)
+	(void)env;
+	shell->is_single_quote = 0;
+	substituted_value = NULL;
+	token_temp = ft_strdup("");
+	if (!token_temp)
+		return ;
+	if (**input && !ft_isspace(**input) && !is_special_char(**input))
+		handle_quotes(input, head, shell, &token_temp);
+	if (token_temp && *token_temp)
 	{
-		word = ft_strndup(start, (size_t)(*input - start));
-		substituted_value = substitute_env_vars(word, env, shell);
+		substituted_value = substitute_env_vars(token_temp, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
-		free(word);
 		free(substituted_value);
 	}
+	free(token_temp);
 }
 
 int	is_special_char(char c)

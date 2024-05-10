@@ -12,6 +12,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -62,7 +63,7 @@ typedef struct s_minishell
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
 	int			exit_status;
-	int			space_flag;
+	int			is_single_quote;
 	int			last_var_ends_with_equal;
 
 }	t_minishell;
@@ -77,7 +78,7 @@ void		add_token_based_on_char(const char **input,
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
-void		add_quoted_token(const char **input, t_token **head,
+char		*add_quoted_token(const char **input, t_token **head,
 				char quote_type, t_minishell *shell);
 void		add_word_token(const char **input, t_token **head, char **env,
 				t_minishell *shell);
@@ -89,9 +90,9 @@ void		identify_and_add_token(const char **input,
 void		check_space_after_token(const char **input, t_token**head,
 				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
-				t_minishell *shell, const char **start);
-char		*process_quoted_content(const char *quoted_part,
-				char quote_type, t_minishell *shell);
+				t_minishell *shell, char **token_temp);
+char	*process_quoted_content(const char *quoted_part,
+			char quote_type, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);

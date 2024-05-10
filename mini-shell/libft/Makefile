@@ -12,9 +12,6 @@ SOURCES += \
 	./management_memory/ft_calloc.c \
 	./management_memory/ft_bzero.c \
 	./management_memory/ft_realloc.c \
-	./gnl/me/get_next_line.c \
-	./gnl/me/get_next_line_utils.c \
-	./gnl/me/get_next_line_a.c \
 	./ft_printf/ft_putnbr_base_len_origin.c \
 	./ft_printf/ft_putnbr_base_len.c \
 	./ft_printf/ft_putstr_len.c \
