@@ -7,16 +7,23 @@ void	handle_quotes(const char **input, t_token **head,
 
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 	{
+		word = NULL;
 		if (**input == '\'' || **input == '"')
 		{
-			*token_temp = add_quoted_token(input, head, **input, shell);
+			word = add_quoted_token(input, head, **input, shell);
+			if (word)
+			{
+				ft_strjoin(*token_temp, word);
+				//free(word);
+			}
 		}
 		else
 		{
 			word = append_char_to_str(*token_temp, **input);
 			if (word)
 			{
-				*token_temp = word;
+				ft_strjoin(*token_temp, word);
+				//free(word);
 			}
 			(*input)++;
 		}

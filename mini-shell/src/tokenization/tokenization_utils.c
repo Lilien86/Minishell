@@ -8,7 +8,7 @@ void	add_word_token(const char **input, t_token **head,
 	char		*token_temp;
 
 	(void)env;
-	token_temp = NULL;
+	token_temp = ft_strdup("");
 
 	if (**input && !ft_isspace(**input) && !is_special_char(**input))
 	{
@@ -19,7 +19,7 @@ void	add_word_token(const char **input, t_token **head,
 		substituted_value = substitute_env_vars(token_temp, env, shell);
 		add_token(head, init_token(TOKEN_WORD, substituted_value));
 		free(token_temp);
-		free(substituted_value);
+		//free(substituted_value);
 	}
 
 }
