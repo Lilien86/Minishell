@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/03 13:30:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/10 11:44:37 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,41 +64,19 @@ void	error_exit(char *message, t_minishell *shell)
 	exit(EXIT_FAILURE);
 }
 
-// void	handle_word(t_minishell *shell, t_token **current, int *i)
-// {
-// 	int		j;
-// 	int		word_count;
-// 	char	**new_argv;
-
-// 	word_count = count_words_in_token(*current);
-// 	new_argv = ft_calloc(sizeof(char *), (size_t)(word_count + 1));
-// 	if (new_argv == NULL)
-// 		error_exit("Error:\nduring handle_word\n", shell);
-// 	j = 0;
-// 	while (*current != NULL && (*current)->type == TOKEN_WORD)
-// 	{
-// 		new_argv[j] = ft_strdup((*current)->value);
-// 		if (new_argv[j] == NULL)
-// 			error_exit("Error:\nduring handle_word\n", shell);
-// 		j++;
-// 		*current = (*current)->next;
-// 	}
-// 	new_argv[j] = NULL;
-// 	if (shell->redirect_array[*i].argv != NULL)
-// 		free_argv(shell->redirect_array[*i].argv);
-// 	shell->redirect_array[*i].argv = new_argv;
-// }
-
-void concate_argv(char ***argv1, char **argv2, t_minishell *shell)
+void	concate_argv(char ***argv1, char **argv2, t_minishell *shell)
 {
-	int i = 0;
-	int j = 0;
-	char **temp_argv = *argv1;
+	int		i;
+	int		j;
+	char	**temp_argv;
 
-	while (temp_argv[i]!= NULL)
+	temp_argv = *argv1;
+	i = 0;
+	j = 0;
+	while (temp_argv[i] != NULL)
 		i++;
 	j = 0;
-	while (argv2[j]!= NULL)
+	while (argv2[j] != NULL)
 	{
 		temp_argv[i] = ft_strdup(argv2[j]);
 		if (temp_argv[i] == NULL)
@@ -132,7 +110,6 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	new_argv[j] = NULL;
 	if (shell->redirect_array[*i].argv != NULL)
 	{
-		//*current = (*current)->next;
 		concate_argv(&shell->redirect_array[*i].argv, new_argv, shell);
 		free_argv(new_argv);
 	}

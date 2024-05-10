@@ -40,28 +40,15 @@ static char	*generate_and_assign_filename(t_minishell *shell)
 	return (final_path);
 }
 
-static int	open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy)
-{
-	int	fd;
-
-	fd = open (here_doc_cpy.name, O_CREAT | O_WRONLY, 0777);
-	if (fd < 0)
-	{
-		perror("Error:\nduring creat_file_descriptor");
-		free_minishell(shell);
-		shell->exit_status = 1;
-		exit (EXIT_FAILURE);
-	}
-	return (fd);
-}
-
-static t_file fork_here_doc(char *delimiter, t_minishell *shell)
+static t_file	fork_here_doc(char *delimiter, t_minishell *shell)
 {
 	pid_t	pid;
 	int		status;
 	t_file	*here_doc_cpy;
 
-	here_doc_cpy = malloc(sizeof(t_file)); // Allocate memory on the heap
+	here_doc_cpy = ft_calloc(sizeof(t_file), 1);
+	if (here_doc_cpy == NULL)
+		error_exit("Error:\nduring fork_here_doc\n", shell);
 	if (here_doc_cpy == NULL)
 	{
 		perror("Error:\nduring fork_here_doc\n");
@@ -91,8 +78,7 @@ static t_file fork_here_doc(char *delimiter, t_minishell *shell)
 	return (*here_doc_cpy);
 }
 
-
-t_file	here_doc_2(t_token *current, t_minishell *shell)
+t_file	here_doc(t_token *current, t_minishell *shell)
 {
 	t_file	here_doc;
 

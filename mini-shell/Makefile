@@ -26,10 +26,11 @@ src/builtins/exit.c src/builtins/cd.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
 src/builtins/env/ft_export2.c src/execution/generate_random_name.c \
 src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c \
-src/execution/fill_args.c src/execution/while_here_doc.c \
+src/execution/fill_args.c src/execution/fill_fd_heredoc.c \
 src/execution/free_t_redirect.c \
-src/execution/search_path_cmd.c src/execution/execute_pipe.c \
-src/readline/utils_check.c src/execution/here_doc_2.c
+src/execution/search_path_cmd.c src/execution/execute.c \
+src/readline/utils_check.c src/execution/exec_here_doc.c \
+src/readline/utils_fd.c src/execution/fill_here_doc.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)
