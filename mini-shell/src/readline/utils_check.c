@@ -78,16 +78,18 @@ t_token	*convert_argv_to_list(int argc, char **argv)
 	int		i;
 
 	head = NULL;
-	i = 0;
-	while (i < argc)
+	i = argc - 1;
+	while (i >= 0)
 	{
-		tmp = ft_calloc(sizeof(t_list), 1);
+		tmp = (t_token *)malloc(sizeof(t_token));
 		if (!tmp)
 			return (NULL);
-		tmp->value = argv[argc - 1];
+		tmp->value = argv[i];
+		tmp->type = TOKEN_WORD;
 		tmp->next = head;
 		head = tmp;
-		argc--;
+		i--;
 	}
 	return (head);
 }
+
