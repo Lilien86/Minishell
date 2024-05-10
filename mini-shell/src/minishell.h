@@ -53,6 +53,7 @@ typedef struct s_minishell
 	t_token		*tokens;
 	char		*input;
 	t_redirect	*redirect_array;
+	t_file		**tab_here_doc;
 	int			nb_cmds;
 	char		*history[MAX_HISTORY_SIZE];
 	int			history_index;
@@ -61,13 +62,6 @@ typedef struct s_minishell
 	int			last_var_ends_with_equal;
 
 }	t_minishell;
-
-typedef struct s_pipe
-{
-	int	pipefd[2];
-	int	prev_pipe[2];
-	int	pipe_count;
-}	t_pipe;
 
 //TOKENIZATION
 t_token		*init_token(t_token_type type, char *value);
@@ -163,8 +157,9 @@ char		**convert_linked_list_to_array(t_token *head);
 
 //EXECUTION
 void		fill_t_redirect(t_minishell *shell);
+t_file		here_doc_2(t_token *current, t_minishell *shell);
 void		here_doc(t_token *current, t_minishell *shell, int i);
-void		handle_here_doc(t_minishell *shell, int i, char *delimiter);
+void		handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter);
 void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 void		execute_redirection(t_minishell *shell);
 char		*check_command_existence(const char *cmd, char *env[]);
