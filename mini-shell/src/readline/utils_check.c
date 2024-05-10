@@ -25,7 +25,7 @@ int	check_builtins(char *cmd)
 
 int	check_redirect_in_to_pipe(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens;
 	current = current->next;
@@ -40,5 +40,56 @@ int	check_redirect_in_to_pipe(t_token *tokens)
 		current = current->next;
 	}
 	return (0);
+}
+
+char	**convert_linked_list_to_array(t_token *head)
+{
+	int				count;
+	char			**array;
+	t_token			*current;
+	int				i;
+
+	i = 0;
+	count = 0;
+	current = head;
+	while (current != NULL)
+	{
+		count++;
+		current = current->next;
+	}
+	array = ft_calloc((size_t)(count + 1), sizeof(char *));
+	if (array == NULL)
+		error_exit("Memory allocation failed", NULL);
+	array[count] = NULL;
+	current = head;
+	while (i < count)
+	{
+		array[i] = current->value;
+		current = current->next;
+		i++;
+	}
+	return (array);
+}
+
+t_token	*convert_argv_to_list(int argc, char **argv)
+{
+	t_token	*head;
+	t_token	*tmp;
+	int		i;
+
+	head = NULL;
+	i = argc - 1;
+	while (i >= 0)
+	{
+		tmp = (t_token *)malloc(sizeof(t_token));
+		if (!tmp)
+			return (NULL);
+		tmp->value = argv[i];
+		tmp->type = TOKEN_WORD;
+		tmp->next = head;
+		head = tmp;
+		i--;
+	}
+	return (head);
 }
 

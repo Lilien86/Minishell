@@ -26,7 +26,7 @@ void	handle_child(t_redirect *redirect, t_minishell *shell)
 	}
 	if (check_builtins(redirect->argv[0]))
 	{
-		execute_builtins(shell);
+		execute_builtins(ft_strlen_map(redirect->argv), redirect->argv, shell);
 		exit(shell->exit_status);
 	}
 	else
@@ -37,11 +37,11 @@ void	execute_command(t_redirect *redirect, t_minishell *shell)
 {
 	pid_t	pid;
 
-	pid = fork();
 	if (redirect->infile.fd == -1)
 		redirect->infile.fd = STDIN_FILENO;
 	if (redirect->outfile.fd == -1)
 		redirect->outfile.fd = STDOUT_FILENO;
+	pid = fork();
 	if (pid == 0)
 		handle_child(redirect, shell);
 	else if (pid < 0)

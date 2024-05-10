@@ -19,11 +19,12 @@ static	void	execute_input_commands(t_minishell *shell)
 	{
 		fill_t_redirect(shell);
 		if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
-			execute_builtins(shell);
+			execute_builtins(ft_strlen_map(shell->redirect_array->argv),
+				shell->redirect_array->argv, shell);
 		else
 		{
 			shell->redirect_array->argv[0] = check_command_existence(
-				shell->redirect_array[0].argv[0], shell->env);
+					shell->redirect_array[0].argv[0], shell->env);
 			if (shell->redirect_array->argv[0] == NULL)
 			{
 				ft_putstr_fd("minishell: command not found\n", 2);
@@ -53,27 +54,43 @@ void	process_input(t_minishell *shell)
 		execute_input_commands(shell);
 }
 
-int	execute_builtins(t_minishell *shell)
+void	print_linked_list(t_token *head)
 {
-	if (!shell->tokens)
+	t_token		*current;
+	int			i;
+
+	current = head;
+	i = 0;
+	while (current != NULL)
+	{
+		ft_printf("%d Valeur: %s\n", i, current->value);
+		i++;
+		current = current->next;
+	}
+}
+
+int	execute_builtins(int argc, char **argv, t_minishell *shell)
+{
+	t_token	*tokens;
+
+	if (!argv || !argv[0])
 		return (1);
-	if (ft_strncmp(shell->tokens->value, "exit", 4) == 0)
-		ft_exit(shell->tokens, shell);
-	else if (ft_strncmp(shell->tokens->value, "echo", 4) == 0)
-		ft_echo(shell->tokens, &shell->exit_status, shell);
-	else if (ft_strncmp(shell->tokens->value, "cd", 2) == 0)
-		ft_cd(shell->tokens, shell->env, &shell->exit_status);
-	else if (ft_strncmp(shell->tokens->value, "pwd", 3) == 0)
+	tokens = convert_argv_to_list(argc, argv);
+	if (ft_strncmp(tokens->value, "exit", 4) == 0)
+		ft_exit(tokens, shell);
+	else if (ft_strncmp(tokens->value, "echo", 4) == 0)
+		ft_echo(tokens, &shell->exit_status, shell);
+	else if (ft_strncmp(tokens->value, "cd", 2) == 0)
+		ft_cd(tokens, shell->env, &shell->exit_status);
+	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
 		ft_pwd(&shell->exit_status);
-	else if (ft_strncmp(shell->tokens->value, "export", 6) == 0)
-		ft_export(shell->tokens, &(shell->env), &shell->exit_status, shell);
-	else if (ft_strncmp(shell->tokens->value, "unset", 5) == 0)
-		ft_unset(shell->tokens, &shell->env, &shell->exit_status);
-	else if (ft_strncmp(shell->tokens->value, "env", 3) == 0
-		&& shell->tokens->value[3] == '\0')
+	else if (ft_strncmp(tokens->value, "export", 6) == 0)
+		ft_export(tokens, &(shell->env), &shell->exit_status, shell);
+	else if (ft_strncmp(tokens->value, "unset", 5) == 0)
+		ft_unset(tokens, &shell->env, &shell->exit_status);
+	else if (ft_strncmp(tokens->value, "env", 3) == 0
+		&& tokens->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
-	// else
-	//	return (execute_external_command(shell));
 	return (1);
 }
 
