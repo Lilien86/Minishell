@@ -25,7 +25,7 @@ char	*process_single_quote(const char **input, char *result,
 {
 	char	*temp;
 	int		start;
-	char	*to_free;
+	//char	*to_free;
 
 	(void)shell;
 	start = (int)(*input - result);
@@ -34,7 +34,7 @@ char	*process_single_quote(const char **input, char *result,
 		(*input)++;
 	temp = ft_substr(result, (unsigned int)start,
 			(size_t)((*input) - result - start));
-	to_free = result;
+	//to_free = result;
 	result = ft_strjoin(result, temp);
 	free(temp);
 	return (result);
