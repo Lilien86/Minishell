@@ -200,7 +200,7 @@ int			counter_cmds(t_token *tokens);
 int			open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
 
 //UTILS TO EXEC
-const char  *here_doc_replace_var_env(const char *content);
+const char  *here_doc_replace_var_env(const char *content, t_minishell *shell);
 void   		print_pos_dollars(t_pos_len *dollars, int size);
 int  		counter_dollars(const   char *content);
 int  		len_to_dollars(const char *content, int index);
