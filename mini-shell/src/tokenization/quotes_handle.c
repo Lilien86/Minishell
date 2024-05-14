@@ -15,7 +15,7 @@ char	*process_quoted_content(const char *quoted_part,
 {
 	char	*value;
 
-	if (quote_type == '"')
+	if (quote_type == '"' || quote_type != '\'')
 		value = substitute_env_vars(quoted_part, shell->env, shell);
 	else
 	{
