@@ -117,6 +117,8 @@ char		*append_char_to_str(char *str, char c);
 char		*append_char_to_strfree(char *str, char c);
 char		*process_single_quote(const char **input,
 				char *result, t_minishell *shell);
+void	append_segment(char **final_value, char *segment);
+
 
 //SUBSTITUTE_ENV2
 char		*process_dollar(const char **input, char **env,
