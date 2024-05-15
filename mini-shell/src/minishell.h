@@ -192,9 +192,9 @@ void		check_file(t_file *file, int is_append, t_minishell *shell,
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 
 //------here_doc
-t_file		here_doc(t_token *current, t_minishell *shell);
+t_file		here_doc(t_token *current, t_minishell *shell, int replace_env);
 void		handle_here_doc(t_minishell *shell, t_file here_doc,
-				char *delimiter);
+				char *delimiter, int replace_env);
 void		to_choice_here_doc(t_minishell *shell, int *i);
 void		run_here_doc(t_minishell *shell);
 

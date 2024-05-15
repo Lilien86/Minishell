@@ -50,13 +50,13 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 			dup2(redirect_array[index].infile.fd, STDIN_FILENO);
 			close(redirect_array[index].infile.fd);
 		}
-		if (check_builtins(redirect_array[index].argv[0]) == 1)
+		if (redirect_array[index].argv != NULL && check_builtins(redirect_array[index].argv[0]) == 1)
 		{
 			execute_builtins(ft_strlen_map(redirect_array[index].argv),
 				redirect_array[index].argv, shell);
 			exit(EXIT_SUCCESS);
 		}
-		else
+		else if (redirect_array[index].argv != NULL)
 		{
 			execve(redirect_array[index].argv[0], redirect_array[index].argv,
 				shell->env);
@@ -82,7 +82,7 @@ void	execute_command_shell(t_minishell *shell)
 		if (shell->redirect_array[i].infile.fd == -2
 			|| shell->redirect_array[i].outfile.fd == -2)
 			return ;
-		if (check_builtins(shell->redirect_array[i].argv[0]) != 1)
+		if (shell->redirect_array[i].argv != NULL && check_builtins(shell->redirect_array[i].argv[0]) != 1)
 		{
 			shell->redirect_array[i].argv[0] = check_command_existence(
 					shell->redirect_array[i].argv[0], shell->env);

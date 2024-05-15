@@ -13,20 +13,21 @@ void    print_pos_dollars(t_pos_len *dollars, int size)
 	return ;
 }
 
-int  counter_dollars(const   char *content)
+int		counter_dollars(const char *content)
 {
-	int     counter;
-	int     i;
+	int		counter;
+	int		i;
 
 	counter = 0;
 	i = 0;
-	 while(content[i] != '\0')
+	if (content != NULL)
 	{
-		if (content[i] == '$')
+		while(content[i] != '\0')
 		{
-			counter++;
+			if (content[i] == '$')
+				counter++;
+			i++;
 		}
-		i++;
 	}
 	return (counter);
 }

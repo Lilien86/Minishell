@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/15 10:55:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/15 11:40:13 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static char	*read_and_process_line(char *delimiter, char *here_doc_content)
 	return (here_doc_content);
 }
 
-void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter)
+void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
+		int replace_env)
 {
 	char	*here_doc_content;
 	char	*temp;
@@ -84,10 +85,13 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter)
 		}
 		here_doc_content = temp;
 	}
+	if (replace_env != 1)
+	{
+		free(here_doc_content);
+		here_doc_content = (char *)here_doc_replace_var_env(here_doc_content, shell);
+	}
 	write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
-	//here_doc_replace_var_env(here_doc_content, shell);
 	free_minishell(shell);
-	shell->exit_status = 0;
 	close(here_doc.fd);
 	free(here_doc_content);
 	exit(EXIT_SUCCESS);

@@ -20,11 +20,13 @@ void	run_here_doc(t_minishell *shell)
 {
 	t_token		*current;
 	t_file		**tab_here_doc;
+	int			replace_env;
 	int			i;
 	int			j;
 
 	i = 0;
 	j = 0;
+	replace_env = 0;
 	current = shell->tokens;
 	tab_here_doc = ft_calloc(((size_t)shell->nb_cmds), sizeof(t_file *));
 	if (tab_here_doc == NULL)
@@ -33,6 +35,8 @@ void	run_here_doc(t_minishell *shell)
 	{
 		if (current->type == TOKEN_HEREDOC)
 		{
+			if (current->next->quote_type == SINGLE_QUOTE)
+				replace_env = 1;
 			if (j == 0)
 			{
 				tab_here_doc[i] = ft_calloc((size_t)counter_here_doc(current),
@@ -40,7 +44,7 @@ void	run_here_doc(t_minishell *shell)
 				if (tab_here_doc[i] == NULL)
 					error_exit("Error malloc here_doc", shell);
 			}
-			tab_here_doc[i][j] = here_doc(current, shell);
+			tab_here_doc[i][j] = here_doc(current, shell, replace_env);
 			j++;
 		}
 		else if (current->type == TOKEN_PIPE)
