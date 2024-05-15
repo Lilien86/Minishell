@@ -8,13 +8,13 @@ t_token	*init_token(t_token_type type, char *value, t_minishell *shell)
 	if (!token)
 		return (NULL);
 	token->type = type;
-	token->value = ft_strdup(value);
 	if (shell->is_single_quote == 1)
 		token->quote_type = SINGLE_QUOTE;
 	else if (shell->is_double_quote == 1)
 		token->quote_type = DOUBLE_QUOTE;
 	else
 		token->quote_type = NO_QUOTE;
+	token->value = ft_strdup(value);
 	if (!token->value)
 	{
 		free(token);

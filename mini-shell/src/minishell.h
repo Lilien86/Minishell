@@ -40,9 +40,10 @@ typedef enum e_quote_type
 typedef struct s_token
 {
 	t_token_type	type;
+	t_quote_type	quote_type;
 	char			*value;
 	struct s_token	*next;
-	t_quote_type	quote_type;
+
 }	t_token;
 
 typedef struct s_pos_len
