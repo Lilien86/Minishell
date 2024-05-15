@@ -2,8 +2,8 @@
 
 int	is_valid_var_name(const char *var)
 {
-    if (!var || !(*var == '_' || ft_isalpha(*var)))
-		return 0;
+	if (!var || !(*var == '_' || ft_isalpha(*var)))
+		return (0);
 	var++;
 	while (*var && *var != '=')
 	{
@@ -20,7 +20,8 @@ int	is_valid_var_value(const char *value)
 	return (1);
 }
 
-int	handle_export_token(t_token *token, char ***env, int *env_size, t_minishell *shell)
+int	handle_export_token(t_token *token, char ***env, 
+	int *env_size, t_minishell *shell)
 {
 	(void)shell;
 	if (!is_valid_var_name(token->value))

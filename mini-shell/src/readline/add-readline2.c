@@ -39,3 +39,18 @@ int	read_input(t_minishell *shell)
 	}
 	return (0);
 }
+
+void	print_linked_list(t_token *head)
+{
+	t_token		*current;
+	int			i;
+
+	current = head;
+	i = 0;
+	while (current != NULL)
+	{
+		ft_printf("%d Valeur: %s\n", i, current->value);
+		i++;
+		current = current->next;
+	}
+}

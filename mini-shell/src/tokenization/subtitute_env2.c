@@ -34,9 +34,7 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 			|| *(input + 1) == '_' || *(input + 1) == '?'))
 			temp = process_dollar(&input, env, result, shell);
 		else
-		{
 			temp = append_char_to_str(result, *input++);
-		}
 		if (!temp)
 		{
 			free(result);

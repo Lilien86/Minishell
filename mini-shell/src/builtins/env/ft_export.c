@@ -61,7 +61,7 @@ static char	*prepare_env_var(char *var)
 	if (var[var_len] != '=')
 	{
 		new_var = malloc(ft_strlen(var) + 4);
-		if (new_var == NULL)
+		if (!new_var)
 			return (NULL);
 		ft_strcpy(new_var, var);
 		ft_strcat(new_var, "=''");
@@ -100,7 +100,8 @@ char	**add_new_env_var(char *var, char ***env, int *env_size)
 	return (new_env);
 }
 
-void	ft_export(t_token *tokens, char ***env, int *exit_status, t_minishell *shell)
+void	ft_export(t_token *tokens, char ***env,
+		int *exit_status, t_minishell *shell)
 {
 	int	env_size;
 

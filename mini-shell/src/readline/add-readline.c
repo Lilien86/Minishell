@@ -54,21 +54,6 @@ void	process_input(t_minishell *shell)
 		execute_input_commands(shell);
 }
 
-void	print_linked_list(t_token *head)
-{
-	t_token		*current;
-	int			i;
-
-	current = head;
-	i = 0;
-	while (current != NULL)
-	{
-		ft_printf("%d Valeur: %s\n", i, current->value);
-		i++;
-		current = current->next;
-	}
-}
-
 int	execute_builtins(int argc, char **argv, t_minishell *shell)
 {
 	t_token	*tokens;

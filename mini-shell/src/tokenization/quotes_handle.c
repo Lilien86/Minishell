@@ -11,7 +11,7 @@ static	size_t	find_quote_end(const char *input, char quote_type)
 }
 
 char	*process_quoted_content(const char *quoted_part,
-					char quote_type, t_minishell *shell)
+		char quote_type, t_minishell *shell)
 {
 	char	*value;
 
