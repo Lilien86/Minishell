@@ -1,5 +1,25 @@
 #include "../minishell.h"
 
+static void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < nb_cmds)
+	{
+		while (tab_here_doc[i][j].name != NULL)
+		{
+			free(tab_here_doc[i][j].name);
+			j++;
+		}
+		free(tab_here_doc[i]);
+		i++;
+	}
+	free(tab_here_doc);
+}
+
 static int	counter_here_doc(t_token *tokens)
 {
 	int	count;
@@ -79,4 +99,5 @@ void	to_choice_here_doc(t_minishell *shell, int *i)
 		shell->redirect_array[*i].infile.name = shell->tab_here_doc[*i][
 			nb_here_doc - 1].name;
 	}
+	free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
 }
