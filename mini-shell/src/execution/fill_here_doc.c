@@ -3,10 +3,8 @@
 static int	counter_here_doc(t_token *tokens)
 {
 	int	count;
-	int	i;
 
 	count = 0;
-	i = 0;
 	while (tokens != NULL)
 	{
 		if (tokens->type == TOKEN_HEREDOC)

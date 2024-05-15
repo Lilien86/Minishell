@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   while_here_doc.c                                   :+:      :+:    :+:   */
+/*   fill_fd_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/10 11:23:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/14 09:09:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter)
 		here_doc_content = temp;
 	}
 	write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
+	here_doc_replace_var_env(here_doc_content, shell);
 	free_minishell(shell);
 	shell->exit_status = 0;
 	close(here_doc.fd);
