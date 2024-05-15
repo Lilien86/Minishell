@@ -114,6 +114,7 @@ int			var_length(const char *str, t_minishell *shell);
 char		*copy_env_value(char *key, char **env, t_minishell *shell);
 char		*substitute_var(const char *input, char **env, t_minishell *shell);
 char		*append_char_to_str(char *str, char c);
+char		*append_char_to_strfree(char *str, char c);
 char		*process_single_quote(const char **input,
 				char *result, t_minishell *shell);
 

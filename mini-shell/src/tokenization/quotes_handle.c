@@ -46,10 +46,9 @@ static void	append_segment(char **final_value, char *segment)
 
 	if (!segment)
 		return ;
-	temp = ft_strjoin(*final_value, segment);
+	temp = ft_strjoinfree(*final_value, segment);
 	if (!temp)
 		return ;
-	free(*final_value);
 	*final_value = temp;
 }
 
@@ -62,6 +61,7 @@ char	*add_quoted_token(const char **input, t_token **head,
 	char		*segment;
 
 	shell->is_single_quote = 0;
+	shell->is_double_quote = 0;
 	final_value = ft_strdup("");
 	if (!final_value)
 		return (NULL);
