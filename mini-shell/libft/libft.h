@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/10 10:52:50 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/15 11:25:38 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int			ft_atoi(char const *str);
 void		*ft_calloc(size_t nitems, size_t size);
 char		*ft_strdup(char const *src);
 int			ft_atoi_endptr(const char *str, char **endptr);
+char		*ft_strjoinfree(char *s1, char const *s2);
+
 
 
 /*#####################################

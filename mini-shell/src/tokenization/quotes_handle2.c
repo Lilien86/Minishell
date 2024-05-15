@@ -13,14 +13,14 @@ void	handle_quotes(const char **input, t_token **head,
 			word = add_quoted_token(input, head, **input, shell);
 			if (!word)
 				return ;
-			*token_temp = ft_strjoin(*token_temp, word);
+			*token_temp = ft_strjoinfree(*token_temp, word);
 			if (!*token_temp)
 				return ;
 			free(word);
 		}
 		else
 		{
-			*token_temp = append_char_to_str(*token_temp, **input);
+			*token_temp = append_char_to_strfree(*token_temp, **input);
 			if (!*token_temp)
 				return ;
 			(*input)++;
