@@ -45,6 +45,12 @@ typedef struct s_token
 	t_quote_type	quote_type;
 }	t_token;
 
+typedef struct s_pos_len
+{
+	int             pos;
+	int				len;
+}	t_pos_len;
+
 typedef struct s_file
 {
 	char			*name;
@@ -200,6 +206,14 @@ void		print_linked_list(t_token *head);
 int			counter_cmds(t_token *tokens);
 
 //UTILS_FDS
-int		open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
+int			open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
+
+//UTILS TO EXEC
+const char  *here_doc_replace_var_env(const char *content, t_minishell *shell);
+void   		print_pos_dollars(t_pos_len *dollars, int size);
+int  		counter_dollars(const   char *content);
+int  		len_to_dollars(const char *content, int index);
+void		print_list(t_list *list);
+
 
 #endif

@@ -26,4 +26,26 @@ void	handle_quotes(const char **input, t_token **head,
 			(*input)++;
 		}
 	}
+	else
+		(*input)++;
+}
+
+char	*process_single_quote(const char **input, char *result,
+			t_minishell *shell)
+{
+	char	*temp;
+	int		start;
+	//char	*to_free;
+
+	(void)shell;
+	start = (int)(*input - result);
+	(*input)++;
+	while (**input && **input != '\'')
+		(*input)++;
+	temp = ft_substr(result, (unsigned int)start,
+			(size_t)((*input) - result - start));
+	//to_free = result;
+	result = ft_strjoin(result, temp);
+	free(temp);
+	return (result);
 }

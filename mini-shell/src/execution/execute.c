@@ -93,8 +93,8 @@ void	execute_command_shell(t_minishell *shell)
 	while (i < shell->nb_cmds)
 	{
 		ft_exec(shell->redirect_array, i, shell, pipes);
-		close(shell->redirect_array[i].infile.fd);
-		close(shell->redirect_array[i].outfile.fd);
+		//close(shell->redirect_array[i].infile.fd);
+		//close(shell->redirect_array[i].outfile.fd);
 		i++;
 	}
 	handle_wait(shell);
