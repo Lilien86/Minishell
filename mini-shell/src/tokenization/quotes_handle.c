@@ -40,7 +40,7 @@ static	char	*process_quoted_segment(const char *start,
 	return (processed_segment);
 }
 
-static void	append_segment(char **final_value, char *segment)
+void	append_segment(char **final_value, char *segment)
 {
 	char	*temp;
 
