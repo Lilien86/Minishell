@@ -80,6 +80,8 @@ char	*add_quoted_token(const char **input, t_token **head,
 		}
 		if (quote_type == '\'')
 			shell->is_single_quote = 1;
+		else if (quote_type == '"')
+			shell->is_double_quote = 1;
 		segment = process_quoted_segment(start, len, quote_type, shell);
 		if (!segment)
 		{

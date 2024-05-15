@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-t_token	*init_token(t_token_type type, char *value)
+t_token	*init_token(t_token_type type, char *value, t_minishell *shell)
 {
 	t_token	*token;
 
@@ -9,6 +9,12 @@ t_token	*init_token(t_token_type type, char *value)
 		return (NULL);
 	token->type = type;
 	token->value = ft_strdup(value);
+	if (shell->is_single_quote == 1)
+		token->quote_type = SINGLE_QUOTE;
+	else if (shell->is_double_quote == 1)
+		token->quote_type = DOUBLE_QUOTE;
+	else
+		token->quote_type = NO_QUOTE;
 	if (!token->value)
 	{
 		free(token);
@@ -36,13 +42,13 @@ void	add_token(t_token **head, t_token *new_token)
 void	add_token_based_on_char(const char **input, t_token **head,
 			char **env, t_minishell *shell)
 {
-	identify_double_char_tokens(input, head);
+	identify_double_char_tokens(input, head, shell);
 	if (**input == '>')
-		add_token(head, init_token(TOKEN_REDIRECT_OUT, ">"));
+		add_token(head, init_token(TOKEN_REDIRECT_OUT, ">", shell));
 	else if (**input == '<')
-		add_token(head, init_token(TOKEN_REDIRECT_IN, "<"));
+		add_token(head, init_token(TOKEN_REDIRECT_IN, "<", shell));
 	else if (**input == '|')
-		add_token(head, init_token(TOKEN_PIPE, "|"));
+		add_token(head, init_token(TOKEN_PIPE, "|", shell));
 	else
 		add_word_token(input, head, env, shell);
 }

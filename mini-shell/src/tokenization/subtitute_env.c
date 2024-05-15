@@ -61,8 +61,5 @@ char	*substitute_var(const char *input, char **env, t_minishell *shell)
 		input++;
 		return (get_env_var(input, env, shell));
 	}
-	ft_strdup(input);
-	if (!input)
-		return (NULL);
-	return (input);
+	return (ft_strdup(input));
 }

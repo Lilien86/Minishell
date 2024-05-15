@@ -30,12 +30,19 @@ typedef enum e_token_type
 	TOKEN_HEREDOC,
 }	t_token_type;
 
+typedef enum e_quote_type
+{
+	NO_QUOTE,
+	SINGLE_QUOTE,
+	DOUBLE_QUOTE,
+}	t_quote_type;
+
 typedef struct s_token
 {
 	t_token_type	type;
 	char			*value;
 	struct s_token	*next;
-	int				is_double_quotes;
+	t_quote_type	quote_type;
 }	t_token;
 
 typedef struct s_file
@@ -64,15 +71,16 @@ typedef struct s_minishell
 	int			history_index;
 	int			exit_status;
 	int			is_single_quote;
+	int			is_double_quote;
 	int			last_var_ends_with_equal;
 
 }	t_minishell;
 
 //TOKENIZATION
-t_token		*init_token(t_token_type type, char *value);
+t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 void		add_token(t_token **head, t_token *new_token);
 t_token		*tokenize(const char *input, char **env, t_minishell *shell);
-void		identify_double_char_tokens(const char **input, t_token **head);
+void		identify_double_char_tokens(const char **input, t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
 

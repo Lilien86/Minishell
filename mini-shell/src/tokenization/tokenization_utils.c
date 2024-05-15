@@ -8,6 +8,7 @@ void	add_word_token(const char **input, t_token **head,
 
 	(void)env;
 	shell->is_single_quote = 0;
+	shell->is_double_quote = 0;
 	substituted_value = NULL;
 	token_temp = ft_strdup("");
 	if (!token_temp)
@@ -17,7 +18,7 @@ void	add_word_token(const char **input, t_token **head,
 	if (token_temp && *token_temp)
 	{
 		substituted_value = substitute_env_vars(token_temp, env, shell);
-		add_token(head, init_token(TOKEN_WORD, substituted_value));
+		add_token(head, init_token(TOKEN_WORD, substituted_value, shell));
 		free(substituted_value);
 	}
 	free(token_temp);
@@ -28,17 +29,17 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-void	identify_double_char_tokens(const char **input, t_token **head)
+void	identify_double_char_tokens(const char **input, t_token **head, t_minishell *shell)
 {
 	if (**input == '>' && *(*input + 1) == '>')
 	{
-		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>"));
+		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>", shell));
 		*input += 2;
 		return ;
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
 	{
-		add_token(head, init_token(TOKEN_HEREDOC, "<<"));
+		add_token(head, init_token(TOKEN_HEREDOC, "<<", shell));
 		*input += 2;
 		return ;
 	}
