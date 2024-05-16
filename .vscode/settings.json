@@ -18,7 +18,8 @@
 		"variant": "c",
 		"chrono": "c",
 		"push_swap.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"typeinfo": "c"
 	},
 	"cmake.configureOnOpen": true
 }

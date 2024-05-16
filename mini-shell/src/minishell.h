@@ -48,7 +48,7 @@ typedef struct s_token
 
 typedef struct s_pos_len
 {
-	int             pos;
+	int				pos;
 	int				len;
 }	t_pos_len;
 

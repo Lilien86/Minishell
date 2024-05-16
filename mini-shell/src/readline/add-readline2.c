@@ -1,5 +1,23 @@
 #include "../minishell.h"
 
+static void	unlink_file(t_file **tab_files)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (tab_files && tab_files[i] != NULL)
+	{
+		while (tab_files[i][j].name != NULL)
+		{
+			unlink(tab_files[i][j].name);
+			j++;
+		}
+		//free(tab_files[i]);
+		i++;
+	}
+}
 void	free_read(t_minishell *shell)
 {
 	if (shell->input != NULL)
@@ -17,6 +35,7 @@ void	free_read(t_minishell *shell)
 		free_redirect_array(shell, shell->nb_cmds);
 		shell->redirect_array = NULL;
 	}
+	unlink_file(shell->tab_here_doc);
 }
 
 int	read_input(t_minishell *shell)
