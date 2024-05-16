@@ -53,9 +53,30 @@ void	free_tokens(t_token **tokens)
 	while (current != NULL)
 	{
 		next = current->next;
-		free(current->value);
-		free(current);
+		if (current->value)
+			free(current->value);
+		if (current)
+			free(current);
 		current = next;
 	}
 	*tokens = NULL;
 }
+
+// void	free_tokens(t_token **tokens)
+// {
+// 	t_token *next;
+
+// 	if (tokens == NULL || *tokens == NULL)
+// 		return;
+// 	while (*tokens != NULL)
+// 	{
+// 		next = (*tokens)->next;
+// 		if ((*tokens)->value != NULL)
+// 		{
+// 			free((*tokens)->value);
+// 			(*tokens)->value = NULL;
+// 		}
+// 		free(*tokens);
+// 		*tokens = next;
+// 	}
+// }

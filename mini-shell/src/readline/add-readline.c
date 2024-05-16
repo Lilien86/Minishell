@@ -56,26 +56,28 @@ void	process_input(t_minishell *shell)
 
 int	execute_builtins(int argc, char **argv, t_minishell *shell)
 {
-	t_token	*tokens;
+	t_token	*arg_lst;
 
 	if (!argv || !argv[0])
 		return (1);
-	tokens = convert_argv_to_list(argc, argv);
-	if (ft_strncmp(tokens->value, "exit", 4) == 0)
-		ft_exit(tokens, shell);
-	else if (ft_strncmp(tokens->value, "echo", 4) == 0)
-		ft_echo(tokens, &shell->exit_status, shell);
-	else if (ft_strncmp(tokens->value, "cd", 2) == 0)
-		ft_cd(tokens, shell->env, &shell->exit_status);
-	else if (ft_strncmp(tokens->value, "pwd", 3) == 0)
+	arg_lst = convert_argv_to_list(argc, argv);
+	if (ft_strncmp(arg_lst->value, "exit", 4) == 0)
+		ft_exit(arg_lst, shell);
+	else if (ft_strncmp(arg_lst->value, "echo", 4) == 0)
+		ft_echo(arg_lst, &shell->exit_status, shell);
+	else if (ft_strncmp(arg_lst->value, "cd", 2) == 0)
+		ft_cd(arg_lst, shell->env, &shell->exit_status);
+	else if (ft_strncmp(arg_lst->value, "pwd", 3) == 0)
 		ft_pwd(&shell->exit_status);
-	else if (ft_strncmp(tokens->value, "export", 6) == 0)
-		ft_export(tokens, &(shell->env), &shell->exit_status, shell);
-	else if (ft_strncmp(tokens->value, "unset", 5) == 0)
-		ft_unset(tokens, &shell->env, &shell->exit_status);
-	else if (ft_strncmp(tokens->value, "env", 3) == 0
-		&& tokens->value[3] == '\0')
+	else if (ft_strncmp(arg_lst->value, "export", 6) == 0)
+		ft_export(arg_lst, &(shell->env), &shell->exit_status, shell);
+	else if (ft_strncmp(arg_lst->value, "unset", 5) == 0)
+		ft_unset(arg_lst, &shell->env, &shell->exit_status);
+	else if (ft_strncmp(arg_lst->value, "env", 3) == 0
+		&& arg_lst->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
+	if (arg_lst)
+		free_tokens(&arg_lst);
 	return (1);
 }
 

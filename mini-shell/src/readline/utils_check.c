@@ -68,7 +68,7 @@ t_token	*convert_argv_to_list(int argc, char **argv)
 	i = argc - 1;
 	while (i >= 0)
 	{
-		tmp = (t_token *)malloc(sizeof(t_token));
+		tmp = (t_token *)ft_calloc(sizeof(t_token), 1);
 		if (!tmp)
 			return (NULL);
 		tmp->value = argv[i];

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:10:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/02 14:37:05 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/16 12:27:35 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	free_arguments(t_minishell *shell, int index)
 	{
 		while (shell->redirect_array[index].argv[j] != NULL)
 		{
-			free(shell->redirect_array[index].argv[j]);
+			//free(shell->redirect_array[index].argv[j]);
 			shell->redirect_array[index].argv[j] = NULL;
 			j++;
 		}
@@ -87,8 +87,10 @@ void	free_redirect_array(t_minishell *shell, int size)
 	i = 0;
 	while (i < size)
 	{
-		free_file_names(shell, i);
-		free_arguments(shell, i);
+		if (shell->redirect_array[i].infile.name != NULL)
+			free_file_names(shell, i);
+		if (shell->redirect_array[i].argv != NULL)
+			free_arguments(shell, i);
 		i++;
 	}
 	free(shell->redirect_array);
