@@ -1,24 +1,31 @@
 #include "../minishell.h"
 
-static void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
+void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < nb_cmds)
+	while (tab_here_doc && i < nb_cmds)
 	{
-		while (tab_here_doc[i][j].name != NULL)
+		while (tab_here_doc[i] && tab_here_doc[i][j].name!= NULL)
 		{
 			free(tab_here_doc[i][j].name);
 			j++;
 		}
+		i++;
+	}
+	j = 0;
+	while (tab_here_doc && i < nb_cmds)
+	{
 		free(tab_here_doc[i]);
 		i++;
 	}
 	free(tab_here_doc);
+	tab_here_doc = NULL;
 }
+
 
 static int	counter_here_doc(t_token *tokens)
 {
@@ -36,7 +43,7 @@ static int	counter_here_doc(t_token *tokens)
 	return (count);
 }
 
-void	run_here_doc(t_minishell *shell)
+t_file	**run_here_doc(t_minishell *shell)
 {
 	t_token		*current;
 	t_file		**tab_here_doc;
@@ -74,7 +81,7 @@ void	run_here_doc(t_minishell *shell)
 		}
 		current = current->next;
 	}
-	shell->tab_here_doc = tab_here_doc;
+	return (tab_here_doc);
 }
 
 void	to_choice_here_doc(t_minishell *shell, int *i)
@@ -99,5 +106,4 @@ void	to_choice_here_doc(t_minishell *shell, int *i)
 		shell->redirect_array[*i].infile.name = shell->tab_here_doc[*i][
 			nb_here_doc - 1].name;
 	}
-	free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
 }

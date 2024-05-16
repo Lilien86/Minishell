@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/10 13:17:18 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/16 08:52:25 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	fill_redirect_array(t_minishell *shell)
 	int			i;
 	int			here_doc_available;
 
-	run_here_doc(shell);
+	shell->tab_here_doc = run_here_doc(shell);
 	cpy = *shell;
 	here_doc_available = 0;
 	i = 0;
@@ -94,6 +94,7 @@ void	fill_redirect_array(t_minishell *shell)
 			cpy.tokens = cpy.tokens->next;
 		}
 	}
+	free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
 }
 
 void	fill_t_redirect(t_minishell *shell)

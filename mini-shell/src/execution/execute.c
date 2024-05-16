@@ -76,7 +76,7 @@ void	execute_command_shell(t_minishell *shell)
 	int		i;
 	int		pipes[MAX_PIPES][2];
 
-	i = 0;
+		i = 0;
 	while (i < shell->nb_cmds)
 	{
 		if (shell->redirect_array[i].infile.fd == -2
@@ -92,7 +92,8 @@ void	execute_command_shell(t_minishell *shell)
 	i = 0;
 	while (i < shell->nb_cmds)
 	{
-		ft_exec(shell->redirect_array, i, shell, pipes);
+		if (shell->redirect_array[i].argv != NULL)
+			ft_exec(shell->redirect_array, i, shell, pipes);
 		//close(shell->redirect_array[i].infile.fd);
 		//close(shell->redirect_array[i].outfile.fd);
 		i++;
