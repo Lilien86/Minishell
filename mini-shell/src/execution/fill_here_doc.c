@@ -11,6 +11,8 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 	{
 		while (tab_here_doc[i] && tab_here_doc[i][j].name!= NULL)
 		{
+			close(tab_here_doc[i][j].fd);
+			unlink(tab_here_doc[i][j].name);
 			free(tab_here_doc[i][j].name);
 			j++;
 		}
@@ -43,21 +45,14 @@ static int	counter_here_doc(t_token *tokens)
 	return (count);
 }
 
-t_file	**run_here_doc(t_minishell *shell)
+static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
+		t_file **tab_here_doc, int replace_env)
 {
-	t_token		*current;
-	t_file		**tab_here_doc;
-	int			replace_env;
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	replace_env = 0;
-	current = shell->tokens;
-	tab_here_doc = ft_calloc(((size_t)shell->nb_cmds), sizeof(t_file *));
-	if (tab_here_doc == NULL)
-		error_exit("Error malloc here_doc", shell);
 	while (current != NULL)
 	{
 		if (current->type == TOKEN_HEREDOC)
@@ -66,7 +61,7 @@ t_file	**run_here_doc(t_minishell *shell)
 				replace_env = 1;
 			if (j == 0)
 			{
-				tab_here_doc[i] = ft_calloc((size_t)counter_here_doc(current),
+				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(current) + 1),
 						sizeof(t_file));
 				if (tab_here_doc[i] == NULL)
 					error_exit("Error malloc here_doc", shell);
@@ -76,11 +71,26 @@ t_file	**run_here_doc(t_minishell *shell)
 		}
 		else if (current->type == TOKEN_PIPE)
 		{
+			tab_here_doc[i][j].name = NULL;
 			i++;
 			j = 0;
 		}
 		current = current->next;
 	}
+	return (tab_here_doc);
+}
+t_file	**run_here_doc(t_minishell *shell)
+{
+	t_token		*current;
+	t_file		**tab_here_doc;
+	int			replace_env;
+
+	replace_env = 0;
+	current = shell->tokens;
+	tab_here_doc = ft_calloc(((size_t)shell->nb_cmds + 1), sizeof(t_file *));
+	if (tab_here_doc == NULL)
+		error_exit("Error malloc here_doc", shell);
+	fill_tab_here_doc(current, shell, tab_here_doc, replace_env);
 	return (tab_here_doc);
 }
 
