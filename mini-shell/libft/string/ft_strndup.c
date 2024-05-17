@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:03:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/03/20 08:18:21 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/16 13:33:43 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strndup(const char *src, size_t n)
 		len++;
 		ptr++;
 	}
-	dup = (char *)malloc((len + 1) * sizeof(char));
+	dup = (char *)ft_calloc((len + 1),sizeof(char));
 	if (dup == NULL)
 		return (NULL);
 	while (i < len)

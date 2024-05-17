@@ -47,13 +47,44 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	return (result);
 }
 
+char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell)
+{
+	char	*result;
+	char	*temp;
+
+	result = ft_strdup("");
+	if (!result)
+		return (NULL);
+	while (*word)
+	{
+		if (shell->is_single_quote != 1 && *word == '$'
+			&& (ft_isalnum(*(word + 1)) \
+			|| *(word + 1) == '_' || *(word + 1) == '?'))
+			temp = process_dollar((const char **)&word, env, result, shell);
+		else
+			temp = append_char_to_str(result, *word++);
+		if (!temp)
+		{
+			free(result);
+			return (NULL);
+		}
+		if (result)
+			free(result);
+		result = temp;	
+	}
+	word = NULL;
+	word = ft_strdup(result);
+	free(result);
+	return (word);
+}
+
 char	*append_char_to_str(char *str, char c)
 {
 	size_t	len;
 	char	*new_str;
 
 	len = ft_strlen(str);
-	new_str = malloc(sizeof(char) * (len + 2));
+	new_str = ft_calloc(sizeof(char),(len + 2));
 	if (!new_str)
 		return (NULL);
 	ft_strncpy(new_str, str, len);
