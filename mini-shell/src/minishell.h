@@ -125,6 +125,8 @@ char		*process_dollar(const char **input, char **env,
 				char *result, t_minishell *shell);
 char		*substitute_env_vars(const char *input,
 				char **env, t_minishell *shell);
+char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell);
+
 
 //SIGNALS
 void		handle_sigint(int sig);
