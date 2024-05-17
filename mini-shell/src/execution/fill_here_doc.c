@@ -71,7 +71,7 @@ static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 		}
 		else if (current->type == TOKEN_PIPE)
 		{
-			tab_here_doc[i][j].name = NULL;
+			//tab_here_doc[i][j].name = NULL;
 			i++;
 			j = 0;
 		}
