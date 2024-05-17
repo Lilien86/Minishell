@@ -6,12 +6,12 @@ void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 	{
 		perror("Error:\nduring write_here_doc_in_file\n");
 		shell->exit_status = 1;
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	if (content == NULL)
 	{
 		shell->exit_status = 1;
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	write(fd, content, ft_strlen(content));
 }

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 13:38:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/16 13:18:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:46:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	check_file(t_file *file, int is_append, t_minishell *shell, int status)
 {
-	//(void)shell;
 	if (file->name != NULL)
 	{
 		if (is_append)

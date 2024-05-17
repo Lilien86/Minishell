@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:10:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/16 12:27:35 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/17 10:45:24 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	free_arguments(t_minishell *shell, int index)
 	{
 		while (shell->redirect_array[index].argv[j] != NULL)
 		{
-			//free(shell->redirect_array[index].argv[j]);
+			free(shell->redirect_array[index].argv[j]);
 			shell->redirect_array[index].argv[j] = NULL;
 			j++;
 		}
