@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/20 14:14:30 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/20 14:39:07 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,62 +65,8 @@ static char	*read_and_process_line(char *delimiter, char *here_doc_content)
 	return (here_doc_content);
 }
 
-static void	read_here_doc(char *delimiter, char *here_doc_content, char *temp)
-{
-	while (1)
-	{
-		temp = read_and_process_line(delimiter, here_doc_content);
-		if (temp == NULL)
-		{
-			free(temp);
-			here_doc_content = ft_strjoin(here_doc_content, "\n");
-			break ;
-		}
-		here_doc_content = temp;
-	}
-}
-
-void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
-		int replace_env, t_file **tab_here_doc)
-{
-	char	*here_doc_content;
-	char	*here_doc_content_env;
-	char	*temp;
-
-	init_signal_handlers();
-	signal(SIGINT, handle_sigint_here_doc);
-	here_doc_content = NULL;
-	here_doc_content_env = NULL;
-	read_here_doc(delimiter, here_doc_content, temp);
-	if (replace_env != 1)
-	{
-		here_doc_content_env = (char *)here_doc_replace_var_env(here_doc_content, shell);
-		write_here_doc_in_file(here_doc_content_env, here_doc.fd, shell);
-	}
-	else
-		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
-	printf("====%d==== FREE_MINISHELL", getpid());
-	free_minishell(shell);
-	free_tab_here_doc(tab_here_doc, shell->nb_cmds);
-	close(here_doc.fd);
-	if (here_doc_content != NULL)
-		free(here_doc_content);
-	if (here_doc_content_env != NULL)
-		free(here_doc_content_env);
-	exit(EXIT_SUCCESS);
-}
-
-// void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
-// 		int replace_env, t_file **tab_here_doc)
+// static void	read_here_doc(char *delimiter, char *here_doc_content, char *temp)
 // {
-// 	char	*here_doc_content;
-// 	char	*here_doc_content_env;
-// 	char	*temp;
-
-// 	init_signal_handlers();
-// 	signal(SIGINT, handle_sigint_here_doc);
-// 	here_doc_content = NULL;
-// 	here_doc_content_env = NULL;
 // 	while (1)
 // 	{
 // 		temp = read_and_process_line(delimiter, here_doc_content);
@@ -132,13 +78,35 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 // 		}
 // 		here_doc_content = temp;
 // 	}
+// }
+
+// static void	write_infile(int replace_env, t_file here_doc, t_minishell *shell, char *here_doc_content)
+// {
 // 	if (replace_env != 1)
 // 	{
-// 		here_doc_content_env = (char *)here_doc_replace_var_env(here_doc_content, shell);
-// 		write_here_doc_in_file(here_doc_content_env, here_doc.fd, shell);
+// 		here_doc_content = (char *)here_doc_replace_var_env(here_doc_content, shell);
+// 		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
 // 	}
 // 	else
 // 		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
+// }
+
+// void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
+// 		int replace_env, t_file **tab_here_doc)
+// {
+// 	char	*here_doc_content;
+// 	char	*here_doc_content_env;
+// 	char	*temp;
+
+// 	init_signal_handlers();
+// 	signal(SIGINT, handle_sigint_here_doc);
+// 	temp = NULL;
+// 	here_doc_content = NULL;
+// 	here_doc_content_env = NULL;
+
+// 	read_here_doc(delimiter, here_doc_content, temp);
+// 	write_infile(replace_env, here_doc, shell, here_doc_content);
+	
 // 	printf("====%d==== FREE_MINISHELL", getpid());
 // 	free_minishell(shell);
 // 	free_tab_here_doc(tab_here_doc, shell->nb_cmds);
@@ -149,3 +117,44 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 // 		free(here_doc_content_env);
 // 	exit(EXIT_SUCCESS);
 // }
+
+void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
+		int replace_env, t_file *tab_here_doc)
+{
+	char	*here_doc_content;
+	char	*here_doc_content_env;
+	char	*temp;
+
+	init_signal_handlers();
+	signal(SIGINT, handle_sigint_here_doc);
+	here_doc_content = NULL;
+	here_doc_content_env = NULL;
+	while (1)
+	{
+		temp = read_and_process_line(delimiter, here_doc_content);
+		if (temp == NULL)
+		{
+			free(temp);
+			here_doc_content = ft_strjoin(here_doc_content, "\n");
+			break ;
+		}
+		here_doc_content = temp;
+	}
+	if (replace_env != 1)
+	{
+		here_doc_content_env = (char *)here_doc_replace_var_env(here_doc_content, shell);
+		write_here_doc_in_file(here_doc_content_env, here_doc.fd, shell);
+	}
+	else
+		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
+	printf("====%d==== FREE_MINISHELL", getpid());
+	//free_tab_here_doc(tab_here_doc, shell->nb_cmds);
+	free_minishell(shell);
+	free(tab_here_doc);
+	close(here_doc.fd);
+	if (here_doc_content != NULL)
+		free(here_doc_content);
+	if (here_doc_content_env != NULL)
+		free(here_doc_content_env);
+	exit(EXIT_SUCCESS);
+}

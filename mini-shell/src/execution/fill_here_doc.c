@@ -9,12 +9,15 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 	j = 0;
 	while (tab_here_doc && i < nb_cmds)
 	{
-		while (tab_here_doc[i] && tab_here_doc[i][j].name!= NULL)
+		while (tab_here_doc[i] && tab_here_doc[i][j].name != NULL)
 		{
 			close(tab_here_doc[i][j].fd);
 			unlink(tab_here_doc[i][j].name);
-			if (tab_here_doc[i][j].is_allocated == 1)
-				free(tab_here_doc[i][j].name);
+			printf("====%d==== %p\n", getpid(), tab_here_doc[i][j].name);
+			printf("%s\n", tab_here_doc[i][j].name);
+			free(tab_here_doc[i][j].name);
+			//printf("====%d==== %p\n", getpid(), tab_here_doc[i][j].name);
+			//printf("%s\n", tab_here_doc[i][j].name);
 			j++;
 		}
 		i++;
@@ -25,7 +28,8 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 		free(tab_here_doc[i]);
 		i++;
 	}
-	free(tab_here_doc);
+	if (tab_here_doc)
+		free(tab_here_doc);
 }
 
 
@@ -57,7 +61,7 @@ static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	{
 		if (current->type == TOKEN_HEREDOC)
 		{
-			if (current->next->quote_type == SINGLE_QUOTE)
+			if (current->next->quote_type != SINGLE_QUOTE)
 				replace_env = 1;
 			if (j == 0)
 			{
