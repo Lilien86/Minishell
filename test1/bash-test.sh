@@ -1,1 +1,1 @@
-cd .. && cd mini-shell && make && cd .. && cd test1 && ./tester builtins
+cd .. && cd mini-shell && make && cd .. && cd test1 && ./tester
