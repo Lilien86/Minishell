@@ -12,15 +12,54 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 	t_token		*current;
 	char		*endptr;
 	long long	exit_code;
+	int			i;
 
+	i= 0;
 	current = tokens->next;
-	exit_code = atoll(current->value);
-	if (exit_code > LLONG_MAX || exit_code < LLONG_MIN)
+	if (current->value[0] == '-' || current->value[0] == '+')
+		i++;
+	while (current->value[i])
+	{
+		if (!ft_isdigit(current->value[i]))
+		{
+			print_error_and_set_status("minishell: exit: numeric argument "
+			"required\n", 2, shell);
+			return ;
+		}
+		i++;
+	}
+
+	if ((ft_strlen(current->value) > 19 && current->value[0] != '-' && current->value[0] != '+'))
 	{
 		print_error_and_set_status("minishell: exit: numeric argument "
-			"required\n", 2, shell);
+		"required\n", 2, shell);
 		return ;
 	}
+	if ((ft_strlen(current->value) > 20 && (current->value[0] == '-' || current->value[0] == '+')))
+	{
+		print_error_and_set_status("minishell: exit: numeric argument "
+		"required\n", 2, shell);
+		return ;
+	}
+	if (ft_strlen(current->value) == 19 && (current->value[0] != '-' || current->value[0] != '+'))
+	{
+		if (ft_strncmp(current->value, "9223372036854775807", 19) > 0)
+		{
+					print_error_and_set_status("minishell: exit: numeric argument "
+					"required\n", 2, shell);
+					return ;
+		}
+	}
+	if (ft_strlen(current->value) == 20 && (current->value[0] == '-' || current->value[0] == '+'))
+	{
+		if (ft_strncmp(current->value, "-9223372036854775808", 20) > 0)
+		{
+					print_error_and_set_status("minishell: exit: numeric argument "
+					"required\n", 2, shell);
+					return ;
+		}
+	}
+
 	exit_code = ft_atoi_endptr(current->value, &endptr);
 	if (*endptr == '\0' && current->next)
 	{
