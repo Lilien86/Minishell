@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/17 13:24:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/20 15:59:05 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,5 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	}
 	else
 		shell->redirect_array[*i].argv = new_argv;
+		//free_argv(new_argv);
 }

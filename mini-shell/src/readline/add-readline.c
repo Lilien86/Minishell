@@ -19,8 +19,10 @@ static	void	execute_input_commands(t_minishell *shell)
 	{
 		fill_t_redirect(shell);
 		if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
+		{
 			execute_builtins(ft_strlen_map(shell->redirect_array->argv),
 				shell->redirect_array->argv, shell);
+		}
 		else
 		{
 			shell->redirect_array->argv[0] = check_command_existence(
@@ -54,12 +56,27 @@ void	process_input(t_minishell *shell)
 		execute_input_commands(shell);
 }
 
+// static void	free_arg_to_list(t_token *arg_lst)
+// {
+// 	t_token	*tmp;
+
+// 	while (arg_lst)
+// 	{
+// 		tmp = arg_lst;
+// 		arg_lst = arg_lst->next;
+// 		free(tmp->value);
+// 		free(tmp);
+// 	}
+// 	free(arg_lst);
+// }
+
 int	execute_builtins(int argc, char **argv, t_minishell *shell)
 {
 	t_token	*arg_lst;
 
 	if (!argv || !argv[0])
 		return (1);
+	printf("PID: ---------%d\n", getpid());
 	arg_lst = convert_argv_to_list(argc, argv);
 	if (ft_strncmp(arg_lst->value, "exit", 4) == 0)
 		ft_exit(arg_lst, shell);
@@ -76,8 +93,8 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 	else if (ft_strncmp(arg_lst->value, "env", 3) == 0
 		&& arg_lst->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
-	if (arg_lst)
-		free_tokens(&arg_lst);
+	printf("freeing tokens\n");
+	free_tokens(&arg_lst);
 	return (1);
 }
 
