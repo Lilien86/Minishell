@@ -56,6 +56,7 @@ typedef struct s_file
 {
 	char			*name;
 	int				fd;
+	int				is_allocated;
 }	t_file;
 
 typedef struct s_redirect
@@ -197,9 +198,9 @@ void		check_file(t_file *file, int is_append, t_minishell *shell,
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 
 //------here_doc
-t_file		here_doc(t_token *current, t_minishell *shell, int replace_env);
+t_file		here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **tab_here_doc);
 void		handle_here_doc(t_minishell *shell, t_file here_doc,
-				char *delimiter, int replace_env);
+				char *delimiter, int replace_env, t_file **tab_here_doc);
 void		to_choice_here_doc(t_minishell *shell, int *i);
 t_file		**run_here_doc(t_minishell *shell);
 
