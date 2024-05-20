@@ -54,13 +54,15 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		{
 			execute_builtins(ft_strlen_map(redirect_array[index].argv),
 				redirect_array[index].argv, shell);
+			free_minishell(shell);
 			exit(EXIT_SUCCESS);
 		}
-		else if (redirect_array[index].argv != NULL)
+		else if (redirect_array[index].argv != NULL || redirect_array[index].argv[0][0] == '$')
 		{
 			execve(redirect_array[index].argv[0], redirect_array[index].argv,
 				shell->env);
-			perror("execve");
+			//perror("execve");
+			free_minishell(shell);
 			exit(EXIT_FAILURE);
 		}
 	}

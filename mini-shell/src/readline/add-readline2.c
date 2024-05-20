@@ -38,7 +38,11 @@ void	free_read(t_minishell *shell)
 		free_redirect_array(shell, shell->nb_cmds);
 		shell->redirect_array = NULL;
 	}
-	free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
+	if (shell->tab_here_doc != NULL)
+	{
+		free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
+		shell->tab_here_doc = NULL;
+	}
 }
 
 int	read_input(t_minishell *shell)
