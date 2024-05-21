@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:10:16 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/21 09:03:59 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/21 09:55:52 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*check_command_existence(char *cmd, char *env[])
 		return (NULL);
 	result = check_command_existence_two(cmd, tab_directories);
 	if (!result)
-		return (NULL);
+		return (cmd);
 	free(cmd);
 	return (result);
 }

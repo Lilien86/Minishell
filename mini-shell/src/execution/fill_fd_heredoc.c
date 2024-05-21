@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/21 08:21:00 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/21 09:38:29 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static char	*read_and_process_line(char *delimiter, char *here_doc_content)
 }
 
 void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
-		int replace_env, t_file *tab_here_doc)
+		int replace_env)
 {
 	char	*here_doc_content;
 	char	*here_doc_content_env;
@@ -95,8 +95,8 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	else
 		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
 	free_minishell(shell);
-	free(tab_here_doc->name);
-	free(tab_here_doc);
+	free(here_doc.name);
+	//free(tab_here_doc);
 	close(here_doc.fd);
 	if (here_doc_content != NULL)
 		free(here_doc_content);
