@@ -38,17 +38,25 @@ char	*ft_getenv(const char *name, char **env)
 void	print_env(char **env)
 {
 	int	i;
-	int is_invalid;
-	
+	int	j;
+	char *eq;
+	int index;
+
 	i = 0;
 	ft_sort_string_tab(env);
 	while (env[i])
 	{
-		is_invalid = 0;
-		if (env[i][0] == '_' && env[i][1] == '=')
-			is_invalid = 1;
-		if (is_invalid != 1)
-			ft_printf("declare -x %s\n", env[i]);
+		if (!(env[i][0] == '_' && env[i][1] == '='))
+		{
+			eq = ft_strchr(env[i], '=');
+			if (eq)
+			{
+				index = (int)(eq - env[i]);
+				printf("declare -x %.*s=\"%s\"\n", index, env[i], env[i] + index + 1);
+			}
+			else
+				ft_printf("declare -x %s\n", env[i]);
+		}
 		i++;
 	}
 }
