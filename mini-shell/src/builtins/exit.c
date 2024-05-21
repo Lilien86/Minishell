@@ -9,23 +9,74 @@ static void	print_error_and_set_status(char *msg, int status,
 
 static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 {
-	t_token	*current;
-	char	*endptr;
-	long	exit_code;
+	t_token		*current;
+	char		*endptr;
+	long long	exit_code;
+	int			i;
 
+	i= 0;
 	current = tokens->next;
+	if (current->value[0] == '-' || current->value[0] == '+')
+		i++;
+	while (current->value[i])
+	{
+		if (!ft_isdigit(current->value[i]))
+		{
+			print_error_and_set_status("minishell: exit: numeric argument "
+			"required\n", 2, shell);
+			return ;
+		}
+		i++;
+	}
+
+	if ((ft_strlen(current->value) > 19 && current->value[0] != '-' && current->value[0] != '+'))
+	{
+		print_error_and_set_status("minishell: exit: numeric argument "
+		"required\n", 2, shell);
+		return ;
+	}
+	if ((ft_strlen(current->value) > 20 && (current->value[0] == '-' || current->value[0] == '+')))
+	{
+		print_error_and_set_status("minishell: exit: numeric argument "
+		"required\n", 2, shell);
+		return ;
+	}
+	if (ft_strlen(current->value) == 19 && (current->value[0] != '-' || current->value[0] != '+'))
+	{
+		if (ft_strncmp(current->value, "9223372036854775807", 19) > 0)
+		{
+					print_error_and_set_status("minishell: exit: numeric argument "
+					"required\n", 2, shell);
+					return ;
+		}
+	}
+	if (ft_strlen(current->value) == 20 && (current->value[0] == '-' || current->value[0] == '+'))
+	{
+		if (ft_strncmp(current->value, "-9223372036854775808", 20) > 0)
+		{
+					print_error_and_set_status("minishell: exit: numeric argument "
+					"required\n", 2, shell);
+					return ;
+		}
+	}
+
 	exit_code = ft_atoi_endptr(current->value, &endptr);
 	if (*endptr == '\0' && current->next)
 	{
-		print_error_and_set_status("minishell: exit: too many arguments\n",
-			1, shell);
-		return ;
+	    print_error_and_set_status("minishell: exit: too many arguments\n",
+	        1, shell);
+	    return ;
 	}
 	if (*endptr != '\0')
-		print_error_and_set_status("minishell: exit: numeric argument "
-			"required\n", 2, shell);
+	    print_error_and_set_status("minishell: exit: numeric argument "
+	        "required\n", 2, shell);
 	else
+	{
+		exit_code %= 256;
+		if (exit_code < 0)
+			exit_code += 256;
 		shell->exit_status = (int) exit_code;
+	}
 }
 
 void	ft_exit(t_token *tokens, t_minishell *shell)
