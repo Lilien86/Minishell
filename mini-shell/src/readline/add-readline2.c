@@ -58,6 +58,7 @@ int	read_input(t_minishell *shell)
 		if (shell->input == NULL)
 		{
 			free_minishell(shell);
+			ft_printf("exit\n");
 			exit(0);
 		}
 		handle_input(shell);
