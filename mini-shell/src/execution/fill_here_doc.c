@@ -9,6 +9,7 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 	j = 0;
 	while (tab_here_doc && i < nb_cmds)
 	{
+		j = 0;
 		while (tab_here_doc[i] && tab_here_doc[i][j].name != NULL)
 		{
 			close(tab_here_doc[i][j].fd);
@@ -16,16 +17,11 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 			free(tab_here_doc[i][j].name);
 			j++;
 		}
-		i++;
-	}
-	i = 0;
-	while (tab_here_doc && i < nb_cmds)
-	{
 		free(tab_here_doc[i]);
 		i++;
 	}
-	if (tab_here_doc)
-		free(tab_here_doc);
+	i = 0;
+	free(tab_here_doc);
 }
 
 
@@ -62,7 +58,7 @@ static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 			if (j == 0)
 			{
 				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(current) + 1),
-						sizeof(t_file));
+						sizeof(t_file *));
 				if (tab_here_doc[i] == NULL)
 					error_exit("Error malloc here_doc", shell);
 			}

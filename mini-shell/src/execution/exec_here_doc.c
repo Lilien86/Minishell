@@ -38,7 +38,7 @@ static char	*generate_and_assign_filename(t_minishell *shell)
 	return (final_path);
 }
 
-static t_file	fork_here_doc(char *delimiter, t_minishell *shell, int replace_env, t_file **tab_here_doc)
+static t_file	*fork_here_doc(char *delimiter, t_minishell *shell, int replace_env, t_file **tab_here_doc)
 {
 	pid_t	pid;
 	int		status;
@@ -69,12 +69,12 @@ static t_file	fork_here_doc(char *delimiter, t_minishell *shell, int replace_env
 		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	return (*here_doc);
+	return (here_doc);
 }
 
 t_file	here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **tab_here_doc)
 {
-	t_file	here_doc;
+	t_file	*here_doc;
 
 	if (current->next == NULL)
 	{
@@ -85,5 +85,5 @@ t_file	here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **
 	}
 	current = current->next;
 	here_doc = fork_here_doc(current->value, shell, replace_env, tab_here_doc);
-	return (here_doc);
+	return (*here_doc);
 }
