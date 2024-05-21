@@ -79,6 +79,11 @@ void	free_minishell(t_minishell *shell)
 		free_redirect_array (shell, shell->nb_cmds);
 		shell->redirect_array = NULL;
 	}
+	if (shell->tab_here_doc)
+	{
+		free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
+		shell->tab_here_doc = NULL;
+	}
 	if (shell != NULL)
 	{
 		free(shell);

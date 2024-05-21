@@ -23,7 +23,7 @@ static char	*generate_and_assign_filename(t_minishell *shell)
 
 	filename = generate_random_filename();
 	final_path = ft_calloc(sizeof(char),
-			(strlen(filename) + strlen("/tmp/") + 1));
+			(ft_strlen(filename) + ft_strlen("/tmp/") + 1));
 	if (final_path == NULL)
 	{
 		perror("Error:\n during write_here_doc_in_file\n");
@@ -32,36 +32,30 @@ static char	*generate_and_assign_filename(t_minishell *shell)
 		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	final_path = ft_strncpy
-		(final_path, "/tmp/", ft_strlen("/tmp/"));
-	final_path = ft_strcat
-		(final_path, filename);
+	final_path = ft_strncpy (final_path, "/tmp/", ft_strlen("/tmp/"));
+	final_path = ft_strcat (final_path, filename);
 	free(filename);
 	return (final_path);
 }
 
-static t_file	fork_here_doc(char *delimiter, t_minishell *shell, int replace_env)
+static t_file	fork_here_doc(char *delimiter, t_minishell *shell, int replace_env, t_file **tab_here_doc)
 {
 	pid_t	pid;
 	int		status;
-	t_file	*here_doc_cpy;
+	t_file	*here_doc;
 
-	here_doc_cpy = ft_calloc(sizeof(t_file), 1);
-	if (here_doc_cpy == NULL)
+	here_doc = ft_calloc(sizeof(t_file), 1);
+	if (here_doc == NULL)
 		error_exit("Error:\nduring fork_here_doc\n", shell);
-	if (here_doc_cpy == NULL)
-	{
-		perror("Error:\nduring fork_here_doc\n");
-		free_minishell(shell);
-		shell->exit_status = 1;
-		exit(EXIT_FAILURE);
-	}
-	here_doc_cpy->name = generate_and_assign_filename(shell);
-	here_doc_cpy->fd = open_file_and_handle_errors(shell, *here_doc_cpy);
+	if (here_doc == NULL)
+		error_exit("Error:\nduring fork_here_doc\n", shell);
+	here_doc->name = generate_and_assign_filename(shell);
+	here_doc->fd = open_file_and_handle_errors(shell, *here_doc);
+	shell->tab_here_doc = tab_here_doc;
 	pid = fork();
 	if (pid == 0)
 	{
-		handle_here_doc(shell, *here_doc_cpy, delimiter, replace_env);
+		handle_here_doc(shell, *here_doc, delimiter, replace_env, here_doc);
 	}
 	else if (pid > 0)
 	{
@@ -70,15 +64,15 @@ static t_file	fork_here_doc(char *delimiter, t_minishell *shell, int replace_env
 	else
 	{
 		perror("Error:\nduring fork_here_doc");
-		free(here_doc_cpy);
+		free(here_doc);
 		free_minishell(shell);
 		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
 	}
-	return (*here_doc_cpy);
+	return (*here_doc);
 }
 
-t_file	here_doc(t_token *current, t_minishell *shell, int replace_env)
+t_file	here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **tab_here_doc)
 {
 	t_file	here_doc;
 
@@ -90,6 +84,6 @@ t_file	here_doc(t_token *current, t_minishell *shell, int replace_env)
 		exit(EXIT_FAILURE);
 	}
 	current = current->next;
-	here_doc = fork_here_doc(current->value, shell, replace_env);
+	here_doc = fork_here_doc(current->value, shell, replace_env, tab_here_doc);
 	return (here_doc);
 }

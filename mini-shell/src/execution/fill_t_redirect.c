@@ -89,6 +89,7 @@ void	fill_t_redirect(t_minishell *shell)
 		return ;
 	shell->redirect_array[0].infile.name = NULL;
 	shell->redirect_array[0].infile.fd = -1;
+	shell->redirect_array[0].infile.is_allocated = 0;
 	shell->redirect_array[0].outfile.name = NULL;
 	shell->redirect_array[0].outfile.fd = -1;
 	shell->redirect_array[0].argv = NULL;

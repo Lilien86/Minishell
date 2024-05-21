@@ -71,7 +71,12 @@ t_token	*convert_argv_to_list(int argc, char **argv)
 		tmp = (t_token *)ft_calloc(sizeof(t_token), 1);
 		if (!tmp)
 			return (NULL);
-		tmp->value = argv[i];
+		tmp->value = ft_strdup(argv[i]);
+		if (tmp->value == NULL)
+		{
+			free(tmp);
+			return (NULL);
+		}
 		tmp->type = TOKEN_WORD;
 		tmp->next = head;
 		head = tmp;

@@ -20,13 +20,6 @@ void	handle_sigint_here_doc(int sig)
 	exit(0);
 }
 
-// void	handle_sigint_here_doc(int sig/*, void *shell*/)
-// {
-// 	(void)sig;
-// 	//free_minishell((t_minishell *)shell);
-// 	exit(0);
-// }
-
 void	init_signal_handlers(void)
 {
 	struct sigaction	sa_int;

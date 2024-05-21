@@ -96,6 +96,7 @@ void	ft_exit(t_token *tokens, t_minishell *shell)
 	handle_exit_with_args(tokens, shell);
 	local_exit_status = shell->exit_status;
 	ft_printf("exit\n");
+	free_tokens(&tokens);
 	free_minishell(shell);
 	exit(local_exit_status);
 }
