@@ -2,10 +2,20 @@
 
 int	is_flag_n(char *str)
 {
+	int i;
+
+	i = 1;
 	if (!str)
 		return (0);
-	if (str[0] == '-' && str[1] == 'n' && str[2] == '\0')
-		return (1);
+	if (str[0] == '-' && str[1] == 'n')
+	{
+		while (str[i] == 'n')
+			i++;
+		if (str[i] != ' ' && str[i] != '\0')
+			return (0);
+		else
+			return (1);
+	}
 	return (0);
 }
 
