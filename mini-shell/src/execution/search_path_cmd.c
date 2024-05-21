@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:10:16 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/17 13:15:00 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/21 09:03:59 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	is_path(const char *cmd)
 		return (0);
 }
 
-char	*check_command_existence(const char *cmd, char *env[])
+char	*check_command_existence(char *cmd, char *env[])
 {
 	char	*path;
 	char	*result;
@@ -101,5 +101,6 @@ char	*check_command_existence(const char *cmd, char *env[])
 	result = check_command_existence_two(cmd, tab_directories);
 	if (!result)
 		return (NULL);
+	free(cmd);
 	return (result);
 }
