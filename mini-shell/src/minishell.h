@@ -153,7 +153,7 @@ int			execute_external_command(t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
-void		ft_pwd(int *exit_status);
+void		ft_pwd(t_token *arg_lst, int *exit_status);
 void		ft_exit(t_token *tokens, t_minishell *shell);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 
@@ -161,7 +161,7 @@ void		ft_cd(t_token *tokens, char **env, int *exit_status);
 void		ft_export(t_token *tokens, char ***env, int *exit_status,
 				t_minishell *shell);
 void		ft_unset(t_token *tokens, char ***env, int *exit_status);
-void		ft_env(char **env, int *exit_status);
+void		ft_env(t_token *arg_lst, char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, int *env_size);
 int			is_valid_var_name(const char *var);
 int			handle_export_token(t_token *token, char ***env, int *env_size,

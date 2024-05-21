@@ -42,12 +42,18 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 		*exit_status = 0;
 }
 
-void	ft_env(char **env, int *exit_status)
+void	ft_env(t_token *arg_lst, char **env, int *exit_status)
 {
 	int		i;
 	char	*equal_sign_ptr;
 
 	i = 0;
+	if (arg_lst->next && arg_lst->next->value)
+	{
+		ft_printf("env: too many arguments\n");
+		*exit_status = 127;
+		return ;
+	}
 	while (env[i] != NULL)
 	{
 		equal_sign_ptr = ft_strchr(env[i], '=');

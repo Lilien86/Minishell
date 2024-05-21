@@ -46,10 +46,16 @@ void	ft_echo(t_token *tokens, int *exit_status, t_minishell *shell)
 	echo_print_tokens(current, exit_status, newline, shell);
 }
 
-void	ft_pwd(int *exit_status)
+void	ft_pwd(t_token *arg_lst, int *exit_status)
 {
 	char	*cwd;
 
+	if (arg_lst->next && arg_lst->next->value)
+	{
+		ft_printf("pwd: too many arguments\n");
+		*exit_status = 127;
+		return ;
+	}
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
 	{
