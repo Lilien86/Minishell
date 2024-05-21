@@ -58,13 +58,13 @@ static char	*prepare_env_var(char *var)
 
 	new_var = NULL;
 	var_len = length_until_equal(var);
-	if (var[var_len] != '=')
+	if (var[var_len] == '=')
 	{
-		new_var = malloc(ft_strlen(var) + 4);
+		new_var = malloc(ft_strlen(var) + 3);
 		if (!new_var)
 			return (NULL);
 		ft_strcpy(new_var, var);
-		ft_strcat(new_var, "=''");
+		ft_strcat(new_var, "\"\"");
 	}
 	else
 	{
