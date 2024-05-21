@@ -84,14 +84,14 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 	else if (ft_strncmp(arg_lst->value, "cd", 2) == 0)
 		ft_cd(arg_lst, shell->env, &shell->exit_status);
 	else if (ft_strncmp(arg_lst->value, "pwd", 3) == 0)
-		ft_pwd(&shell->exit_status);
+		ft_pwd(arg_lst, &shell->exit_status);
 	else if (ft_strncmp(arg_lst->value, "export", 6) == 0)
 		ft_export(arg_lst, &(shell->env), &shell->exit_status, shell);
 	else if (ft_strncmp(arg_lst->value, "unset", 5) == 0)
 		ft_unset(arg_lst, &shell->env, &shell->exit_status);
 	else if (ft_strncmp(arg_lst->value, "env", 3) == 0
 		&& arg_lst->value[3] == '\0')
-		ft_env(shell->env, &shell->exit_status);
+		ft_env(arg_lst, shell->env, &shell->exit_status);
 	free_tokens(&arg_lst);
 	return (1);
 }

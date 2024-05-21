@@ -58,7 +58,7 @@ static char	*prepare_env_var(char *var)
 
 	new_var = NULL;
 	var_len = length_until_equal(var);
-	if (var[var_len] == '=')
+	if (var[var_len] == '=' && var[var_len + 1] == '\0')
 	{
 		new_var = malloc(ft_strlen(var) + 3);
 		if (!new_var)
