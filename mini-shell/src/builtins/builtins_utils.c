@@ -40,6 +40,7 @@ void	print_env(char **env)
 	int	i;
 
 	i = 0;
+	ft_sort_string_tab(env);
 	while (env[i])
 	{
 		ft_printf("declare -x %s\n", env[i]);

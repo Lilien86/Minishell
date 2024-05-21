@@ -59,6 +59,8 @@ SOURCES += \
 	./string/ft_atoi_endptr.c \
 	./string/ft_atoi_endptr.c \
 	./string/ft_strjoinfree.c \
+	./string/ft_sort_int_tab.c \
+	./string/ft_sort_string_tab.c \
 	./link_list/ft_lstmap.c \
 	./link_list/ft_lstnew.c \
 	./link_list/ft_lstclear.c \
