@@ -38,12 +38,17 @@ char	*ft_getenv(const char *name, char **env)
 void	print_env(char **env)
 {
 	int	i;
-
+	int is_invalid;
+	
 	i = 0;
 	ft_sort_string_tab(env);
 	while (env[i])
 	{
-		ft_printf("declare -x %s\n", env[i]);
+		is_invalid = 0;
+		if (env[i][0] == '_' && env[i][1] == '=')
+			is_invalid = 1;
+		if (is_invalid != 1)
+			ft_printf("declare -x %s\n", env[i]);
 		i++;
 	}
 }
@@ -64,6 +69,8 @@ int	process_export(t_token *tokens, char ***env, int *env_size)
 
 	while (tokens)
 	{
+		if (tokens->value[0] == '_' && tokens->value[1] == '=')
+			return (1);
 		new_env = add_new_env_var(tokens->value, env, env_size);
 		if (!new_env)
 			return (0);
