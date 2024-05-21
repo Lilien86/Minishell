@@ -13,11 +13,7 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 		{
 			close(tab_here_doc[i][j].fd);
 			unlink(tab_here_doc[i][j].name);
-			printf("====%d==== %p\n", getpid(), tab_here_doc[i][j].name);
-			printf("%s\n", tab_here_doc[i][j].name);
 			free(tab_here_doc[i][j].name);
-			//printf("====%d==== %p\n", getpid(), tab_here_doc[i][j].name);
-			//printf("%s\n", tab_here_doc[i][j].name);
 			j++;
 		}
 		i++;

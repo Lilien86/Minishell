@@ -96,8 +96,6 @@ void	execute_command_shell(t_minishell *shell)
 	{
 		if (shell->redirect_array[i].argv != NULL)
 			ft_exec(shell->redirect_array, i, shell, pipes);
-		//close(shell->redirect_array[i].infile.fd);
-		//close(shell->redirect_array[i].outfile.fd);
 		i++;
 	}
 	handle_wait(shell);

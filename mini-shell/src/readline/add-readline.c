@@ -76,7 +76,6 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 
 	if (!argv || !argv[0])
 		return (1);
-	printf("PID: ---------%d\n", getpid());
 	arg_lst = convert_argv_to_list(argc, argv);
 	if (ft_strncmp(arg_lst->value, "exit", 4) == 0)
 		ft_exit(arg_lst, shell);
@@ -93,7 +92,6 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 	else if (ft_strncmp(arg_lst->value, "env", 3) == 0
 		&& arg_lst->value[3] == '\0')
 		ft_env(shell->env, &shell->exit_status);
-	printf("freeing tokens\n");
 	free_tokens(&arg_lst);
 	return (1);
 }
