@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/21 09:38:29 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/22 09:25:57 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,16 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	here_doc_content_env = NULL;
 	while (1)
 	{
+		if (exit_signal == 1)
+		{
+			exit_signal = 0;
+			free(here_doc_content);
+			free_minishell(shell);
+			free(here_doc.name);
+			close(here_doc.fd);
+			ft_printf("\n");
+			exit(131);// exit(131) + recup exit code in main
+		}
 		temp = read_and_process_line(delimiter, here_doc_content);
 		if (temp == NULL)
 		{
@@ -96,7 +106,6 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 		write_here_doc_in_file(here_doc_content, here_doc.fd, shell);
 	free_minishell(shell);
 	free(here_doc.name);
-	//free(tab_here_doc);
 	close(here_doc.fd);
 	if (here_doc_content != NULL)
 		free(here_doc_content);
