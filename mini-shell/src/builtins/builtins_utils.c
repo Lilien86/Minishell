@@ -60,9 +60,10 @@ void	print_env(char **env)
 		i++;
 	}
 	// i = 0;
+	// printf("\n\n\n");
+
 	// while (env[i])
 	// {
-	// 	printf("\n\n\n");
 	// 	printf("%s\n", env[i]);
 	// 	i++;
 	// }

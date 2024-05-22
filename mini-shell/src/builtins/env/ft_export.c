@@ -5,12 +5,12 @@ static int	update_existing_var(char *var, char ***env, int var_len,
 {
 	int	i;
 	char *eq;
-//&& (*env)[i][var_len] == '='
+
 	i = 0;
 	while (i < *env_size)
 	{
 		if ((*env)[i] != NULL && ft_strncmp((*env)[i], var,
-		(size_t)var_len) == 0 )
+		(size_t)var_len) == 0)
 		{
 			eq = ft_strchr(var, '=');
 			if (!eq || *(eq + 1) == '\0' && eq != &var[strlen(var) - 1])

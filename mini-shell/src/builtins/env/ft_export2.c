@@ -8,7 +8,12 @@ int	is_valid_var_name(const char *var)
 	while (*var && *var != '=')
 	{
 		if (!ft_isalnum(*var) && *var != '_')
-			return (0);
+		{
+			if (*var == '+' && *(var + 1) == '=')
+				var++;
+			else
+				return (0);
+		}
 		var++;
 	}
 	return (1);

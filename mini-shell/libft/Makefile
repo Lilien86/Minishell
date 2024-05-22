@@ -61,6 +61,7 @@ SOURCES += \
 	./string/ft_strjoinfree.c \
 	./string/ft_sort_int_tab.c \
 	./string/ft_sort_string_tab.c \
+	./string/ft_strstr.c \
 	./link_list/ft_lstmap.c \
 	./link_list/ft_lstnew.c \
 	./link_list/ft_lstclear.c \
