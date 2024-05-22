@@ -13,22 +13,10 @@ void	handle_wait(t_minishell *shell)
 	}
 }
 
-void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
-	int pipes[MAX_PIPES][2])
+void	handle_dup_close(int index, t_redirect *redirect_array,
+		t_minishell *shell, int pipes[MAX_PIPES][2])
 {
-	pid_t	pid;
-
 	if (index < shell->nb_cmds - 1)
-		pipe(pipes[index]);
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid == 0)
-	{
-		if (index < shell->nb_cmds - 1)
 		{
 			dup2(pipes[index][WRITE_END], STDOUT_FILENO);
 			close(pipes[index][READ_END]);
@@ -50,6 +38,24 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 			dup2(redirect_array[index].infile.fd, STDIN_FILENO);
 			close(redirect_array[index].infile.fd);
 		}
+}
+
+void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
+	int pipes[MAX_PIPES][2])
+{
+	pid_t	pid;
+
+	if (index < shell->nb_cmds - 1)
+		pipe(pipes[index]);
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		handle_dup_close(index, redirect_array, shell, pipes);
 		if (redirect_array[index].argv != NULL && check_builtins(redirect_array[index].argv[0]) == 1)
 		{
 			execute_builtins(ft_strlen_map(redirect_array[index].argv),

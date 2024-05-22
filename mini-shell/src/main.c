@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+int	exit_signal = 0;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*shell;
