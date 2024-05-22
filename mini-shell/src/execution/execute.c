@@ -1,16 +1,35 @@
 #include "../minishell.h"
 
-void	handle_wait(t_minishell *shell)
-{
-	int	i;
-	int	status;
+// void	handle_wait(t_minishell *shell)
+// {
+// 	int	i;
+// 	int	status;
 
+// 	i = 0;
+// 	while (i < shell->nb_cmds)
+// 	{
+// 		wait(&status);
+// 		i++;
+// 	}
+// }
+
+int	handle_wait(t_minishell *shell)
+{
+	int i;
+	int status;
+	int first_status = 0;
 	i = 0;
 	while (i < shell->nb_cmds)
 	{
 		wait(&status);
+		if (i == 0 && WIFEXITED(status))
+		{
+			first_status = WEXITSTATUS(status);
+		}
 		i++;
 	}
+	ft_printf("exit status: %d\n", first_status);
+	return (first_status);
 }
 
 void	handle_dup_close(int index, t_redirect *redirect_array,
@@ -104,5 +123,7 @@ void	execute_command_shell(t_minishell *shell)
 			ft_exec(shell->redirect_array, i, shell, pipes);
 		i++;
 	}
-	handle_wait(shell);
+	shell->exit_status = handle_wait(shell);
+	shell->exit_status = 4;
+	printf("exit status: %d\n", shell->exit_status);
 }
