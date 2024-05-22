@@ -21,6 +21,8 @@
 # define WRITE_END 1
 # define MAX_PIPES 512
 
+extern int exit_signal;
+
 typedef enum e_token_type
 {
 	TOKEN_WORD,

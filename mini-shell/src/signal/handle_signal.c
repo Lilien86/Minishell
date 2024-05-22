@@ -17,7 +17,8 @@ void	handle_sigquit(int sig)
 void	handle_sigint_here_doc(int sig)
 {
 	(void)sig;
-	exit(0);
+	exit_signal = 1;
+	return ;
 }
 
 void	init_signal_handlers(void)
