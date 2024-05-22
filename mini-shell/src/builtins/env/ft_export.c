@@ -4,6 +4,7 @@ static int	update_existing_var(char *var, char ***env, int var_len,
 			int *env_size)
 {
 	int	i;
+	char *eq;
 
 	i = 0;
 	while (i < *env_size)
@@ -11,6 +12,9 @@ static int	update_existing_var(char *var, char ***env, int var_len,
 		if ((*env)[i] != NULL && ft_strncmp((*env)[i], var,
 		(size_t)var_len) == 0 && (*env)[i][var_len] == '=')
 		{
+			eq = ft_strchr(var, '=');
+			if (!eq || *(eq + 1) == '\0')
+				return (1);
 			free((*env)[i]);
 			(*env)[i] = ft_strdup(var);
 			if (!(*env)[i])
@@ -58,13 +62,13 @@ static char	*prepare_env_var(char *var)
 
 	new_var = NULL;
 	var_len = length_until_equal(var);
-	if (var[var_len] == '=' && var[var_len + 1] == '\0')
+	if (var[var_len] != '=')
 	{
-		new_var = malloc(ft_strlen(var) + 3);
+		new_var = malloc(ft_strlen(var) + 4);
 		if (!new_var)
 			return (NULL);
 		ft_strcpy(new_var, var);
-		ft_strcat(new_var, "\"\"");
+		ft_strcat(new_var, "=");
 	}
 	else
 	{
