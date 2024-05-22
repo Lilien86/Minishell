@@ -59,6 +59,13 @@ void	print_env(char **env)
 		}
 		i++;
 	}
+	// i = 0;
+	// while (env[i])
+	// {
+	// 	printf("\n\n\n");
+	// 	printf("%s\n", env[i]);
+	// 	i++;
+	// }
 }
 
 int	length_until_equal(const char *str)
