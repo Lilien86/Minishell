@@ -28,7 +28,6 @@ int	handle_wait(t_minishell *shell)
 		}
 		i++;
 	}
-	ft_printf("exit status: %d\n", first_status);
 	return (first_status);
 }
 
