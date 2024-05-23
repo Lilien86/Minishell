@@ -28,7 +28,7 @@ int	handle_wait(t_minishell *shell)
 		}
 		i++;
 	}
-	ft_printf("exit status: %d\n", first_status);
+	//ft_printf("exit status: %d\n", first_status);
 	return (first_status);
 }
 
@@ -124,6 +124,6 @@ void	execute_command_shell(t_minishell *shell)
 		i++;
 	}
 	shell->exit_status = handle_wait(shell);
-	shell->exit_status = 4;
-	printf("exit status: %d\n", shell->exit_status);
+	//shell->exit_status = 4;
+	//printf("exit status: %d\n", shell->exit_status);
 }
