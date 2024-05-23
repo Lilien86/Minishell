@@ -14,6 +14,7 @@
 # include <sys/wait.h>
 # include <stdio.h>
 # include <limits.h>
+#include <dirent.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -207,6 +208,9 @@ void		handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 void		to_choice_here_doc(t_minishell *shell, int *i);
 t_file		**run_here_doc(t_minishell *shell);
 
+//OPEN_FILE
+void		open_file_in(t_file *file, int is_append, t_minishell *shell, int status, int index);
+void		open_file_out(t_file *file, int is_append, t_minishell *shell, int status, int index);
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);
