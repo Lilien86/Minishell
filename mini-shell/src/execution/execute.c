@@ -15,19 +15,23 @@
 
 int	handle_wait(t_minishell *shell)
 {
-	int i;
-	int status;
-	int first_status = 0;
+	int		i;
+	int		status;
+	int		first_status;
+
 	i = 0;
+	first_status = shell->exit_status;
 	while (i < shell->nb_cmds)
 	{
 		wait(&status);
-		if (i == 0 && WIFEXITED(status))
+		if (i == 0 && WIFEXITED(status)
+			&& (shell->redirect_array[i].infile.fd != -2 && shell->redirect_array[i].outfile.fd != -2))
 		{
 			first_status = WEXITSTATUS(status);
 		}
 		i++;
 	}
+	//ft_printf("exit status: %d\n", first_status);
 	return (first_status);
 }
 
@@ -105,9 +109,6 @@ void	execute_command_shell(t_minishell *shell)
 		i = 0;
 	while (i < shell->nb_cmds)
 	{
-		if (shell->redirect_array[i].infile.fd == -2
-			|| shell->redirect_array[i].outfile.fd == -2)
-			return ;
 		if (shell->redirect_array[i].argv != NULL && check_builtins(shell->redirect_array[i].argv[0]) != 1)
 		{
 			shell->redirect_array[i].argv[0] = check_command_existence(
@@ -118,9 +119,13 @@ void	execute_command_shell(t_minishell *shell)
 	i = 0;
 	while (i < shell->nb_cmds)
 	{
+		while (shell->redirect_array[i].infile.fd == -2
+			|| shell->redirect_array[i].outfile.fd == -2)
+			i++;
 		if (shell->redirect_array[i].argv != NULL)
 			ft_exec(shell->redirect_array, i, shell, pipes);
 		i++;
 	}
 	shell->exit_status = handle_wait(shell);
+	//printf("exit status: %d\n", shell->exit_status);
 }
