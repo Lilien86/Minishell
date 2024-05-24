@@ -60,9 +60,10 @@ void	print_env(char **env)
 		i++;
 	}
 	// i = 0;
+	// printf("\n\n\n");
+
 	// while (env[i])
 	// {
-	// 	printf("\n\n\n");
 	// 	printf("%s\n", env[i]);
 	// 	i++;
 	// }
@@ -78,7 +79,7 @@ int	length_until_equal(const char *str)
 	return (len);
 }
 
-int	process_export(t_token *tokens, char ***env, int *env_size)
+int	process_export(t_token *tokens, char ***env, t_minishell *shell)
 {
 	char	**new_env;
 
@@ -86,7 +87,7 @@ int	process_export(t_token *tokens, char ***env, int *env_size)
 	{
 		if (tokens->value[0] == '_' && tokens->value[1] == '=')
 			return (1);
-		new_env = add_new_env_var(tokens->value, env, env_size);
+		new_env = add_new_env_var(tokens->value, env, shell);
 		if (!new_env)
 			return (0);
 		*env = new_env;

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 14:25:45 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/21 11:32:18 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/22 11:33:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int			ft_atoi_endptr(const char *str, char **endptr);
 char		*ft_strjoinfree(char *s1, char const *s2);
 void		ft_sort_int_tab(int *tab, int size);
 void 		ft_sort_string_tab(char **tab);
+char		*ft_strstr(char *str, char *to_find);
+
 
 
 /*#####################################
