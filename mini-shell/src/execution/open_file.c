@@ -64,7 +64,6 @@ void	open_file_in(t_file *file, int is_append, t_minishell *shell, int status, i
 			&& file_exist_in_directory(get_variable_path(shell->env), file->name) == 1)
 		{
 			ft_putstr_fd("minishell: Permision denied\n", 2);
-			shell->exit_status = 1;
 			shell->redirect_array[index].infile.fd = -2;
 			return ;
 		}

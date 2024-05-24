@@ -24,8 +24,7 @@ int	handle_wait(t_minishell *shell)
 	while (i < shell->nb_cmds)
 	{
 		wait(&status);
-		if (i == 0 && WIFEXITED(status)
-			&& (shell->redirect_array[i].infile.fd != -2 && shell->redirect_array[i].outfile.fd != -2))
+		if (i == 0 && WIFEXITED(status))
 		{
 			first_status = WEXITSTATUS(status);
 		}
@@ -38,6 +37,12 @@ int	handle_wait(t_minishell *shell)
 void	handle_dup_close(int index, t_redirect *redirect_array,
 		t_minishell *shell, int pipes[MAX_PIPES][2])
 {
+	if (shell->redirect_array[index].infile.fd == -2
+		|| shell->redirect_array[index].outfile.fd == -2)
+	{
+		free_minishell(shell);
+		exit(1);
+	}
 	if (index < shell->nb_cmds - 1)
 		{
 			dup2(pipes[index][WRITE_END], STDOUT_FILENO);
@@ -90,8 +95,9 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 			execve(redirect_array[index].argv[0], redirect_array[index].argv,
 				shell->env);
 			//perror("execve");
+			ft_putstr_fd("minishell: command not found", 2);
 			free_minishell(shell);
-			exit(EXIT_FAILURE);
+			exit(127);
 		}
 	}
 	else
@@ -119,9 +125,6 @@ void	execute_command_shell(t_minishell *shell)
 	i = 0;
 	while (i < shell->nb_cmds)
 	{
-		while (shell->redirect_array[i].infile.fd == -2
-			|| shell->redirect_array[i].outfile.fd == -2)
-			i++;
 		if (shell->redirect_array[i].argv != NULL)
 			ft_exec(shell->redirect_array, i, shell, pipes);
 		i++;
