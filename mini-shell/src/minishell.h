@@ -174,6 +174,12 @@ int			handle_export_token(t_token *token, char ***env,
 char		*handle_plus_equal(char *env_var, char *var);
 int			length_until_plus_equal(const char *str);
 
+//EXIT_UTILS
+int			check_numbers_arg_exit(char *endptr, t_token *current,
+				t_minishell *shell);
+void		print_error_and_set_status(char *msg, int status,
+				t_minishell *shell);
+
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
