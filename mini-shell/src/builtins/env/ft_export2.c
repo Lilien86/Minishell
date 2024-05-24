@@ -13,7 +13,7 @@ int	is_valid_var_name(const char *var, t_minishell *shell)
 			if (*var == '+' && *(var + 1) == '=')
 			{
 				shell->is_plus_equal = 1;
-				var++;
+				//var++;
 			}
 			else
 				return (0);
