@@ -84,6 +84,8 @@ typedef struct s_minishell
 	int			is_single_quote;
 	int			is_double_quote;
 	int			last_var_ends_with_equal;
+	int			is_plus_equal;
+	int			env_size;
 
 }	t_minishell;
 
@@ -164,19 +166,25 @@ void		ft_export(t_token *tokens, char ***env, int *exit_status,
 				t_minishell *shell);
 void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(t_token *arg_lst, char **env, int *exit_status);
-char		**add_new_env_var(char *var, char ***env, int *env_size);
-int			is_valid_var_name(const char *var);
-int			handle_export_token(t_token *token, char ***env, int *env_size,
-				t_minishell *shell);
+char		**add_new_env_var(char *var, char ***env, t_minishell *shell);
+int			is_valid_var_name(const char *var, t_minishell *shell);
+int			handle_export_token(t_token *token, char ***env, t_minishell *shell);
 int			is_valid_var_value(const char *value);
+char 		*handle_plus_equal(char *env_var, char *var);
+int			length_until_plus_equal(const char *str);
+
+
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
 char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
-int			process_export(t_token *tokens, char ***env, int *env_size);
+int			process_export(t_token *tokens, char ***env, t_minishell *shell);
 void		print_argv(char **argv);
+
+//BUILTINS_UTILS2
+void remove_plus_char(char *str);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
