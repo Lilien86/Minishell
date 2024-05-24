@@ -1,12 +1,13 @@
 #include "../../minishell.h"
 
-static int	update_existing_var(char *var, char ***env, int var_len, t_minishell *shell)
+static int	update_existing_var(char *var, char ***env,
+				int var_len, t_minishell *shell)
 {
-	int	i;
-	char *eq;
-	char *new_value;
-	char *key;
-	char *concatened_value;
+	int		i;
+	char	*eq;
+	char	*new_value;
+	char	*key;
+	char	*concatened_value;
 
 	i = 0;
 	while (i < shell->env_size)
@@ -20,7 +21,8 @@ static int	update_existing_var(char *var, char ***env, int var_len, t_minishell 
 				if (!new_value)
 					return (0);
 				key = ft_strndup(var, (size_t)var_len);
-				concatened_value = ft_calloc((size_t)var_len + 1 + ft_strlen(new_value) + 1, sizeof(char*));
+				concatened_value = ft_calloc((size_t)var_len + 1
+						+ ft_strlen(new_value) + 1, sizeof(char*));
 				ft_strcpy(concatened_value, key);
 				ft_strcat(concatened_value, "=");
 				ft_strcat(concatened_value, new_value);
@@ -45,32 +47,32 @@ static int	update_existing_var(char *var, char ***env, int var_len, t_minishell 
 	return (0);
 }
 
-char *handle_plus_equal(char *env_var, char *var)
+char	*handle_plus_equal(char *env_var, char *var)
 {
-	char *eq_pos;
-    char *value_to_add;
-	char *existing_value;
-    char *new_value;
+	char	*eq_pos;
+	char	*value_to_add;
+	char	*existing_value;
+	char	*new_value;
 
 	eq_pos = ft_strchr(var, '=');
 	if (eq_pos != NULL)
-        value_to_add = eq_pos + 1;
-    else
-        value_to_add = "";
+		value_to_add = eq_pos + 1;
+	else
+		value_to_add = "";
 	if (ft_strchr(env_var, '='))
 	{
-    	existing_value = ft_strchr(env_var, '=') + 1;
+		existing_value = ft_strchr(env_var, '=') + 1;
 		if (existing_value == NULL)
 			return (NULL);
 	}
 	else
 		return (NULL);
-    new_value = malloc(ft_strlen(existing_value) + ft_strlen(value_to_add) + 1);
-    if (new_value == NULL)
-        return (NULL);
-    ft_strcpy(new_value, existing_value);
-    ft_strcat(new_value, value_to_add);
-    return new_value;
+	new_value = malloc(ft_strlen(existing_value) + ft_strlen(value_to_add) + 1);
+	if (new_value == NULL)
+		return (NULL);
+	ft_strcpy(new_value, existing_value);
+	ft_strcat(new_value, value_to_add);
+	return (new_value);
 }
 
 static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
@@ -106,23 +108,12 @@ static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
 	return (array);
 }
 
-static char	*prepare_env_var(char *var)
-{
-	char	*new_var;
-
-	new_var = NULL;
-	new_var = ft_strdup(var);
-	if (new_var == NULL)
-		return (NULL);
-	return (new_var);
-}
-
 char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
 {
 	char	**new_env;
 	char	*prepared_var;
 	int		var_len;
-	char 	*eq_plus;
+	char	*eq_plus;
 
 	prepared_var = prepare_env_var(var);
 	if (prepared_var == NULL)

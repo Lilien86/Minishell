@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 08:39:48 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/22 11:30:53 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/05/24 12:25:30 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/24 12:25:37 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ char	*ft_strstr(char *str, char *to_find)
 		if (is_present == 1)
 			return (str + j);
 		j++;
-	}	
+	}
 	return (0);
 }

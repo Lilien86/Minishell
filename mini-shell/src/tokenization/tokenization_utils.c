@@ -28,7 +28,8 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-void	identify_double_char_tokens(const char **input, t_token **head, t_minishell *shell)
+void	identify_double_char_tokens(const char **input, t_token **head,
+			t_minishell *shell)
 {
 	if (**input == '>' && *(*input + 1) == '>')
 	{

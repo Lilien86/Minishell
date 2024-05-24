@@ -14,7 +14,7 @@
 # include <sys/wait.h>
 # include <stdio.h>
 # include <limits.h>
-#include <dirent.h>
+# include <dirent.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -94,7 +94,8 @@ typedef struct s_minishell
 t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 void		add_token(t_token **head, t_token *new_token);
 t_token		*tokenize(const char *input, char **env, t_minishell *shell);
-void		identify_double_char_tokens(const char **input, t_token **head, t_minishell *shell);
+void		identify_double_char_tokens(const char **input,
+				t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
 
@@ -113,8 +114,8 @@ void		check_space_after_token(const char **input, t_token**head,
 				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, char **token_temp);
-char	*process_quoted_content(const char *quoted_part,
-			char quote_type, t_minishell *shell);
+char		*process_quoted_content(const char *quoted_part,
+				char quote_type, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -124,16 +125,15 @@ char		*append_char_to_str(char *str, char c);
 char		*append_char_to_strfree(char *str, char c);
 char		*process_single_quote(const char **input,
 				char *result, t_minishell *shell);
-void	append_segment(char **final_value, char *segment);
-
+void		append_segment(char **final_value, char *segment);
 
 //SUBSTITUTE_ENV2
 char		*process_dollar(const char **input, char **env,
 				char *result, t_minishell *shell);
 char		*substitute_env_vars(const char *input,
 				char **env, t_minishell *shell);
-char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell);
-
+char		*substitute_env_vars_handle_quotes(char *word, char **env,
+				t_minishell *shell);
 
 //SIGNALS
 void		handle_sigint(int sig);
@@ -169,12 +169,10 @@ void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(t_token *arg_lst, char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, t_minishell *shell);
 int			is_valid_var_name(const char *var, t_minishell *shell);
-int			handle_export_token(t_token *token, char ***env, t_minishell *shell);
-int			is_valid_var_value(const char *value);
-char 		*handle_plus_equal(char *env_var, char *var);
+int			handle_export_token(t_token *token, char ***env,
+				t_minishell *shell);
+char		*handle_plus_equal(char *env_var, char *var);
 int			length_until_plus_equal(const char *str);
-
-
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
@@ -185,7 +183,8 @@ int			process_export(t_token *tokens, char ***env, t_minishell *shell);
 void		print_argv(char **argv);
 
 //BUILTINS_UTILS2
-void remove_plus_char(char *str);
+void		remove_plus_char(char *str);
+char		*prepare_env_var(char *var);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
@@ -239,6 +238,5 @@ void		print_list(t_list *list);
 
 //FREEEEEEE
 void		free_tab_here_doc(t_file **tab_here_doc, int nb_cmds);
-
 
 #endif

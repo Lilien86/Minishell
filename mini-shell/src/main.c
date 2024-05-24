@@ -1,12 +1,13 @@
 #include "minishell.h"
 
-int	exit_signal = 0;
+int exit_signal = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell	*shell;
 	int			exit_status;
 
+	exit_status = 0;
 	(void)argc;
 	(void)argv;
 	shell = init_minishell(envp);

@@ -11,21 +11,12 @@ int	is_valid_var_name(const char *var, t_minishell *shell)
 		if (!ft_isalnum(*var) && *var != '_')
 		{
 			if (*var == '+' && *(var + 1) == '=')
-			{
 				shell->is_plus_equal = 1;
-				//var++;
-			}
 			else
 				return (0);
 		}
 		var++;
 	}
-	return (1);
-}
-
-int	is_valid_var_value(const char *value)
-{
-	(void)value;
 	return (1);
 }
 

@@ -47,7 +47,8 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	return (result);
 }
 
-char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell)
+char	*substitute_env_vars_handle_quotes(char *word, char **env,
+			t_minishell *shell)
 {
 	char	*result;
 	char	*temp;
