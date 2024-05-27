@@ -52,10 +52,10 @@ static	int	update_existing_var(char *var, char ***env,
 	return (0);
 }
 
-static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
+static char **copy_env_to_array(char ***env, t_minishell *shell)
 {
-	char	**array;
-	int		i;
+	char **array;
+	int i;
 
 	array = (char **)malloc(sizeof(char *) * ((size_t)(shell->env_size) + 2));
 	if (!array)
@@ -71,6 +71,18 @@ static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
 		}
 		i++;
 	}
+	return (array);
+}
+
+static char **create_new_env_array(char *var, char ***env, t_minishell *shell)
+{
+	char **array;
+	int i;
+
+	array = copy_env_to_array(env, shell);
+	if (!array)
+		return (NULL);
+	i = shell->env_size;
 	if (shell->is_plus_equal == 1)
 		remove_plus_char(var);
 	array[i] = ft_strdup(var);
@@ -82,6 +94,7 @@ static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
 	array[i + 1] = NULL;
 	return (array);
 }
+
 
 char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
 {
