@@ -110,8 +110,6 @@ void		free_tokens(t_token **tokens);
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
-void		check_space_after_token(const char **input, t_token**head,
-				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, char **token_temp);
 char		*process_quoted_content(const char *quoted_part,
@@ -123,8 +121,6 @@ char		*copy_env_value(char *key, char **env, t_minishell *shell);
 char		*substitute_var(const char *input, char **env, t_minishell *shell);
 char		*append_char_to_str(char *str, char c);
 char		*append_char_to_strfree(char *str, char c);
-char		*process_single_quote(const char **input,
-				char *result, t_minishell *shell);
 void		append_segment(char **final_value, char *segment);
 
 //SUBSTITUTE_ENV2
@@ -153,9 +149,6 @@ void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
-//HANDLE_INVALID
-int			execute_external_command(t_minishell *shell);
-
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
 void		ft_pwd(t_token *arg_lst, int *exit_status);
@@ -173,6 +166,10 @@ int			handle_export_token(t_token *token, char ***env,
 				t_minishell *shell);
 char		*handle_plus_equal(char *env_var, char *var);
 int			length_until_plus_equal(const char *str);
+int			update_existing_var(char *var, char ***env,
+				int var_len, t_minishell *shell);
+char		**create_new_env_array(char *var, char ***env,
+				t_minishell *shell);
 
 //EXIT_UTILS
 int			check_numbers_arg_exit(char *endptr, t_token *current,
