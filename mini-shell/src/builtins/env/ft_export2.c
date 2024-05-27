@@ -48,6 +48,36 @@ char	*handle_plus_equal(char *env_var, char *var)
 	return (new_value);
 }
 
+char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
+{
+	char	**new_env;
+	char	*prepared_var;
+	int		var_len;
+	char	*eq_plus;
+
+	prepared_var = prepare_env_var(var);
+	if (prepared_var == NULL)
+		return (NULL);
+	eq_plus = ft_strchr(var, '+');
+	if (eq_plus && *(eq_plus + 1) == '=')
+		var_len = length_until_plus_equal(var);
+	else
+		var_len = length_until_equal(var);
+	if (update_existing_var(prepared_var, env, var_len, shell))
+	{
+		free(prepared_var);
+		return (*env);
+	}
+	new_env = create_new_env_array(prepared_var, env, shell);
+	free(prepared_var);
+	if (new_env == NULL)
+		return (NULL);
+	(shell->env_size)++;
+	ft_free_tab(*env);
+	*env = new_env;
+	return (new_env);
+}
+
 int	handle_export_token(t_token *token, char ***env, t_minishell *shell)
 {
 	(void)shell;
