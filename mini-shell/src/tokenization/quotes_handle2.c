@@ -45,7 +45,29 @@ void	handle_quotes(const char **input, t_token **head,
 			if (!temp)
 				return ;
 			*token_temp = temp;
-			(*input)+= len;
+			(*input) += len;
 		}
 	}
+}
+
+void	append_segment(char **final_value, char *segment)
+{
+	char	*temp;
+
+	if (!segment)
+		return ;
+	temp = ft_strjoinfree(*final_value, segment);
+	if (!temp)
+		return ;
+	*final_value = temp;
+}
+
+int	handle_syntax_error(char **final_value,
+				t_token **head, char quote_type)
+{
+	ft_printf("minishell: syntax error: missing closing quote '%c'\n",
+		quote_type);
+	free(*final_value);
+	free_tokens(head);
+	return (0);
 }

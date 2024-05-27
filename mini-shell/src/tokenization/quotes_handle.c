@@ -40,56 +40,50 @@ static	char	*process_quoted_segment(const char *start,
 	return (processed_segment);
 }
 
-void	append_segment(char **final_value, char *segment)
-{
-	char	*temp;
-
-	if (!segment)
-		return ;
-	temp = ft_strjoinfree(*final_value, segment);
-	if (!temp)
-		return ;
-	*final_value = temp;
-}
-
-char	*add_quoted_token(const char **input, t_token **head,
-		char quote_type, t_minishell *shell)
+static int	process_segment(const char **input, char quote_type,
+			char **final_value, t_minishell *shell)
 {
 	const char	*start;
 	size_t		len;
-	char		*final_value;
 	char		*segment;
+
+	start = *input;
+	len = find_quote_end(*input, quote_type);
+	if ((*input)[len] != quote_type)
+		return (handle_syntax_error(final_value, &(shell->tokens), quote_type));
+
+	if (quote_type == '\'')
+		shell->is_single_quote = 1;
+	else if (quote_type == '"')
+		shell->is_double_quote = 1;
+
+	segment = process_quoted_segment(start, len, quote_type, shell);
+	if (!segment)
+	{
+		free(*final_value);
+		free_tokens(&(shell->tokens));
+		return (0);
+	}
+	append_segment(final_value, segment);
+	free(segment);
+	*input += len + 1;
+	return (1);
+}
+
+char	*add_quoted_token(const char **input, t_token **head,
+			char quote_type, t_minishell *shell)
+{
+	char	*final_value;
 
 	final_value = ft_strdup("");
 	if (!final_value)
 		return (NULL);
+
 	while (**input == quote_type)
 	{
 		(*input)++;
-		start = *input;
-		len = find_quote_end(*input, quote_type);
-		if ((*input)[len] != quote_type)
-		{
-			ft_printf("minishell: syntax error:"
-				"missing closing quote '%c'\n", quote_type);
-			free(final_value);
-			free_tokens(head);
+		if (!process_segment(input, quote_type, &final_value, shell))
 			return (NULL);
-		}
-		if (quote_type == '\'')
-			shell->is_single_quote = 1;
-		else if (quote_type == '"')
-			shell->is_double_quote = 1;
-		segment = process_quoted_segment(start, len, quote_type, shell);
-		if (!segment)
-		{
-			free(final_value);
-			free_tokens(head);
-			return (NULL);
-		}
-		append_segment(&final_value, segment);
-		free(segment);
-		*input += len + 1;
 	}
 	return (final_value);
 }

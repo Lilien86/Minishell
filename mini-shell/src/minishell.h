@@ -98,6 +98,8 @@ void		identify_double_char_tokens(const char **input,
 				t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
+int			handle_syntax_error(char **final_value,
+				t_token **head, char quote_type);
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
