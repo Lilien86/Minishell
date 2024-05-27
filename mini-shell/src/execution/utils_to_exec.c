@@ -1,19 +1,6 @@
 #include "../minishell.h"
 
-void    print_pos_dollars(t_pos_len *dollars, int size)
-{
-	int     i;
-
-	i = 0;
-	while (i < size)
-	{
-		printf("dollars[%d] --> pos/%d size/%d\n", i, dollars[i].pos, dollars[i].len);
-		i++;
-	}
-	return ;
-}
-
-int		counter_dollars(const char *content)
+int	counter_dollars(const char *content)
 {
 	int		counter;
 	int		i;
@@ -22,7 +9,7 @@ int		counter_dollars(const char *content)
 	i = 0;
 	if (content != NULL)
 	{
-		while(content[i] != '\0')
+		while (content[i] != '\0')
 		{
 			if (content[i] == '$')
 				counter++;
@@ -32,9 +19,9 @@ int		counter_dollars(const char *content)
 	return (counter);
 }
 
-void print_list(t_list *list)
+void	print_list(t_list *list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (list)
@@ -44,9 +31,9 @@ void print_list(t_list *list)
 	}
 }
 
-int  len_to_dollars(const char *content, int index)
+int	len_to_dollars(const char *content, int index)
 {
-	int     len;
+	int		len;
 
 	len = 0;
 	if (content[index] != '$')

@@ -48,7 +48,7 @@ static t_list	*replace_env_variable(const char *content, t_pos_len *dollars,
 	while (i < num_vars)
 	{
 		var = substitute_var(ft_substr(content, (unsigned int)dollars[i].pos,
-				(size_t)dollars[i].len), shell->env, shell);
+					(size_t)dollars[i].len), shell->env, shell);
 		if (var == NULL)
 			return (NULL);
 		ft_lstadd_back(&list, ft_lstnew(var));
@@ -57,7 +57,7 @@ static t_list	*replace_env_variable(const char *content, t_pos_len *dollars,
 	return (list);
 }
 
-static char *replace_content(t_list *list_content, t_list *list_vars)
+static char	*replace_content(t_list *list_content, t_list *list_vars)
 {
 	char	*new_content;
 	char	*tmp;
@@ -91,7 +91,7 @@ static char *replace_content(t_list *list_content, t_list *list_vars)
 	return (new_content);
 }
 
-const char  *here_doc_replace_var_env(const char *content, t_minishell *shell)
+const char	*here_doc_replace_var_env(const char *content, t_minishell *shell)
 {
 	t_pos_len	*dollars;
 	t_list		*list_content;
@@ -108,7 +108,7 @@ const char  *here_doc_replace_var_env(const char *content, t_minishell *shell)
 	dollars = ft_calloc((size_t)counter_dollars(content), sizeof(t_pos_len));
 	if (dollars == NULL)
 		return (content);
-	while(content[i] != '\0')
+	while (content[i] != '\0')
 	{
 		if (content[i] == '$')
 		{

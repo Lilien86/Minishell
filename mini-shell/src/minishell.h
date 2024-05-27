@@ -212,6 +212,8 @@ void		handle_input_redirect(t_minishell *cpy, t_token *current,
 void		check_file(t_file *file, int is_append, t_minishell *shell,
 				int status);
 void		handle_word(t_minishell *shell, t_token **current, int *i);
+void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
+				int pipes[MAX_PIPES][2]);
 
 //------here_doc
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **tab_here_doc);

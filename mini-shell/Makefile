@@ -33,7 +33,8 @@ src/execution/free_t_redirect.c \
 src/execution/search_path_cmd.c src/execution/execute.c \
 src/readline/utils_check.c src/execution/exec_here_doc.c \
 src/readline/utils_fd.c src/execution/fill_struct_here_doc.c src/execution/utils_to_exec.c \
-src/execution/replace_env_variable_here_doc.c src/execution/open_file.c
+src/execution/replace_env_variable_here_doc.c src/execution/open_file.c \
+src/execution/execute_two.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)
