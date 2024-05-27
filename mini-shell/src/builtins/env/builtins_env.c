@@ -46,7 +46,7 @@ static int	check_and_print_error(t_token *arg_lst, int *exit_status)
 {
 	if (arg_lst->next && arg_lst->next->value)
 	{
-		ft_printf("env: too many arguments\n");
+		ft_putstr_fd("env: too many arguments\n", 2);
 		*exit_status = 127;
 		return (1);
 	}
