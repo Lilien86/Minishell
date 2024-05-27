@@ -14,7 +14,8 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c src/struct_util.c \
+SRC = src/main.c src/shell_struct/struct_utils.c \
+src/shell_struct/struct_utils2.c\
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/tokenization/subtitute_env.c  src/tokenization/subtitute_env2.c \
 src/tokenization/subtitute_env_utils.c \
