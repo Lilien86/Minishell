@@ -38,7 +38,6 @@ int	update_existing_var(char *var, char ***env,
 		{
 			if (shell->is_plus_equal == 1)
 				return (update_with_plus_equal(var, var_len, i, shell));
-
 			eq = ft_strchr(var, '=');
 			if (!eq || (*(eq + 1) == '\0' && eq != &var[ft_strlen(var) - 1]))
 				return (1);
