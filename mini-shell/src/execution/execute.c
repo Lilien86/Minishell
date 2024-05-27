@@ -95,7 +95,7 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 			execve(redirect_array[index].argv[0], redirect_array[index].argv,
 				shell->env);
 			//perror("execve");
-			ft_putstr_fd("minishell: command not found", 2);
+			ft_putstr_fd("minishell: command not found\n", 2);
 			free_minishell(shell);
 			exit(127);
 		}

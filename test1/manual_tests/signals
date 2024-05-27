@@ -1,15 +1,21 @@
 CTRL+C
 CTRL+D
 CTRL+\
+
+#PAS BON LEAK lilien
 CTRL+C, CTRL+C, CTRL+C, exit
+
+
 CTRL+C, CTRL+C, CTRL+C, Ctrl+D
 
+#PAS BON INFINITE LOOP LILIEN
 cat | ls # testar dando depois:
 #- Enter
 #- Ctrl+D
 #- Ctrl+\
 #- Ctrl+C
 
+# BON (pas sur)
 grep oi | ls # testar dando depois:
 #- Enter + Ctrl+D
 #- Ctrl+D
@@ -18,6 +24,12 @@ grep oi | ls # testar dando depois:
 #- Ctrl+C
 #- "oi" + Enter + Ctrl+\
 
+#DONE
+hello + Ctrl+C
+# Check that the new line is empty
+
+
+#DONT TEST THEM FOR THE MOMENT
 ./test_files/loop.out # finalizar com:
 #- Ctrl+C
 #- Ctrl+\  -> workspaces: ^\Quit\n
@@ -35,5 +47,4 @@ ls | ./test_files/loop.out
 #- Ctrl+\
 #- Ctrl+D
 
-hello + Ctrl+C
-# Check that the new line is empty
+
