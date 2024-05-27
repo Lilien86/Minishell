@@ -24,7 +24,7 @@ static	int	update_with_plus_equal(char *var, int var_len, int i,
 	return (1);
 }
 
-static	int	update_existing_var(char *var, char ***env,
+int	update_existing_var(char *var, char ***env,
 			int var_len, t_minishell *shell)
 {
 	int		i;
@@ -75,7 +75,7 @@ static	char	**copy_env_to_array(char ***env, t_minishell *shell)
 	return (array);
 }
 
-static char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
+char	**create_new_env_array(char *var, char ***env, t_minishell *shell)
 {
 	char	**array;
 	int		i;
