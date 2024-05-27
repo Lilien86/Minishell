@@ -14,7 +14,7 @@ char	*process_dollar(const char **input, char **env, char *result,
 	ft_strcpy(new_result, result);
 	ft_strcat(new_result, temp);
 	free(temp);
-	var_len = var_length(*input + 1, shell) + 1; 
+	var_len = var_length(*input + 1, shell) + 1;
 	*input += var_len;
 	return (new_result);
 }
@@ -47,19 +47,16 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	return (result);
 }
 
-char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell)
+static char	*process_word(char *word, char **env,
+				char *result, t_minishell *shell)
 {
-	char	*result;
 	char	*temp;
 
-	result = ft_strdup("");
-	if (!result)
-		return (NULL);
 	while (*word)
 	{
 		if (shell->is_single_quote != 1 && *word == '$'
-			&& (ft_isalnum(*(word + 1)) \
-			|| *(word + 1) == '_' || *(word + 1) == '?'))
+			&& (ft_isalnum(*(word + 1)) || *(word + 1) == '_'
+				|| *(word + 1) == '?'))
 			temp = process_dollar((const char **)&word, env, result, shell);
 		else
 			temp = append_char_to_str(result, *word++);
@@ -68,15 +65,30 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *she
 			free(result);
 			return (NULL);
 		}
-		if (result)
-			free(result);
-		result = temp;	
+		free(result);
+		result = temp;
 	}
-	word = NULL;
-	word = ft_strdup(result);
-	free(result);
+	return (result);
+}
+
+char	*substitute_env_vars_handle_quotes(char *word, char **env,
+			t_minishell *shell)
+{
+	char	*result;
+	char	*final_result;
+
+	result = ft_strdup("");
+	if (!result)
+		return (NULL);
+	final_result = process_word(word, env, result, shell);
+	if (!final_result)
+		return (NULL);
+
+	word = ft_strdup(final_result);
+	free(final_result);
 	return (word);
 }
+
 
 char	*append_char_to_str(char *str, char c)
 {
@@ -84,27 +96,11 @@ char	*append_char_to_str(char *str, char c)
 	char	*new_str;
 
 	len = ft_strlen(str);
-	new_str = ft_calloc(sizeof(char),(len + 2));
+	new_str = ft_calloc(sizeof(char), (len + 2));
 	if (!new_str)
 		return (NULL);
 	ft_strncpy(new_str, str, len);
 	new_str[len] = c;
 	new_str[len + 1] = '\0';
-	return (new_str);
-}
-
-char	*append_char_to_strfree(char *str, char c)
-{
-	size_t	len;
-	char	*new_str;
-
-	len = ft_strlen(str);
-	new_str = malloc(sizeof(char) * (len + 2));
-	if (!new_str)
-		return (NULL);
-	ft_strncpy(new_str, str, len);
-	new_str[len] = c;
-	new_str[len + 1] = '\0';
-	free(str);
 	return (new_str);
 }

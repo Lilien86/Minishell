@@ -2,7 +2,7 @@
 
 int	is_flag_n(char *str)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (!str)
@@ -37,10 +37,10 @@ char	*ft_getenv(const char *name, char **env)
 
 void	print_env(char **env)
 {
-	int	i;
-	int	j;
-	char *eq;
-	int index;
+	int		i;
+	int		j;
+	char	*eq;
+	int		index;
 
 	i = 0;
 	ft_sort_string_tab(env);
@@ -52,21 +52,14 @@ void	print_env(char **env)
 			if (eq)
 			{
 				index = (int)(eq - env[i]);
-				printf("declare -x %.*s=\"%s\"\n", index, env[i], env[i] + index + 1);
+				printf("declare -x %.*s=\"%s\"\n", index,
+					env[i], env[i] + index + 1);
 			}
 			else
 				ft_printf("declare -x %s\n", env[i]);
 		}
 		i++;
 	}
-	// i = 0;
-	// printf("\n\n\n");
-
-	// while (env[i])
-	// {
-	// 	printf("%s\n", env[i]);
-	// 	i++;
-	// }
 }
 
 int	length_until_equal(const char *str)

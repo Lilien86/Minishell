@@ -11,10 +11,7 @@ int	is_valid_var_name(const char *var, t_minishell *shell)
 		if (!ft_isalnum(*var) && *var != '_')
 		{
 			if (*var == '+' && *(var + 1) == '=')
-			{
 				shell->is_plus_equal = 1;
-				var++;
-			}
 			else
 				return (0);
 		}
@@ -23,10 +20,62 @@ int	is_valid_var_name(const char *var, t_minishell *shell)
 	return (1);
 }
 
-int	is_valid_var_value(const char *value)
+char	*handle_plus_equal(char *env_var, char *var)
 {
-	(void)value;
-	return (1);
+	char	*eq_pos;
+	char	*value_to_add;
+	char	*existing_value;
+	char	*new_value;
+
+	eq_pos = ft_strchr(var, '=');
+	if (eq_pos != NULL)
+		value_to_add = eq_pos + 1;
+	else
+		value_to_add = "";
+	if (ft_strchr(env_var, '='))
+	{
+		existing_value = ft_strchr(env_var, '=') + 1;
+		if (existing_value == NULL)
+			return (NULL);
+	}
+	else
+		return (NULL);
+	new_value = malloc(ft_strlen(existing_value) + ft_strlen(value_to_add) + 1);
+	if (new_value == NULL)
+		return (NULL);
+	ft_strcpy(new_value, existing_value);
+	ft_strcat(new_value, value_to_add);
+	return (new_value);
+}
+
+char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
+{
+	char	**new_env;
+	char	*prepared_var;
+	int		var_len;
+	char	*eq_plus;
+
+	prepared_var = prepare_env_var(var);
+	if (prepared_var == NULL)
+		return (NULL);
+	eq_plus = ft_strchr(var, '+');
+	if (eq_plus && *(eq_plus + 1) == '=')
+		var_len = length_until_plus_equal(var);
+	else
+		var_len = length_until_equal(var);
+	if (update_existing_var(prepared_var, env, var_len, shell))
+	{
+		free(prepared_var);
+		return (*env);
+	}
+	new_env = create_new_env_array(prepared_var, env, shell);
+	free(prepared_var);
+	if (new_env == NULL)
+		return (NULL);
+	(shell->env_size)++;
+	ft_free_tab(*env);
+	*env = new_env;
+	return (new_env);
 }
 
 int	handle_export_token(t_token *token, char ***env, t_minishell *shell)

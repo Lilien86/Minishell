@@ -14,15 +14,17 @@ YELLOW = \033[0;33m
 RED = \033[0;31m
 NC = \033[0m
 
-SRC = src/main.c src/struct_util.c \
+SRC = src/main.c src/shell_struct/struct_utils.c \
+src/shell_struct/struct_utils2.c\
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/tokenization/subtitute_env.c  src/tokenization/subtitute_env2.c \
+src/tokenization/subtitute_env_utils.c \
 src/tokenization/quotes_handle.c src/tokenization/quotes_handle2.c \
 src/readline/add-readline.c src/readline/readline-history.c \
-src/readline/add-readline2.c src/readline/handle_invalid.c \
+src/readline/add-readline2.c \
 src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c src/builtins/builtins_utils2.c\
-src/builtins/exit.c src/builtins/cd.c \
+src/builtins/exit.c src/builtins/exit_utils.c src/builtins/cd.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
 src/builtins/env/ft_export2.c src/execution/generate_random_name.c \
 src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c \

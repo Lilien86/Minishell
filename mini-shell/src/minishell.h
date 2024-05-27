@@ -14,7 +14,7 @@
 # include <sys/wait.h>
 # include <stdio.h>
 # include <limits.h>
-#include <dirent.h>
+# include <dirent.h>
 
 # define MAX_HISTORY_SIZE 100
 
@@ -94,9 +94,12 @@ typedef struct s_minishell
 t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 void		add_token(t_token **head, t_token *new_token);
 t_token		*tokenize(const char *input, char **env, t_minishell *shell);
-void		identify_double_char_tokens(const char **input, t_token **head, t_minishell *shell);
+void		identify_double_char_tokens(const char **input,
+				t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
+int			handle_syntax_error(char **final_value,
+				t_token **head, char quote_type);
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
@@ -109,12 +112,10 @@ void		free_tokens(t_token **tokens);
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
-void		check_space_after_token(const char **input, t_token**head,
-				t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, char **token_temp);
-char	*process_quoted_content(const char *quoted_part,
-			char quote_type, t_minishell *shell);
+char		*process_quoted_content(const char *quoted_part,
+				char quote_type, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -122,18 +123,15 @@ char		*copy_env_value(char *key, char **env, t_minishell *shell);
 char		*substitute_var(const char *input, char **env, t_minishell *shell);
 char		*append_char_to_str(char *str, char c);
 char		*append_char_to_strfree(char *str, char c);
-char		*process_single_quote(const char **input,
-				char *result, t_minishell *shell);
-void	append_segment(char **final_value, char *segment);
-
+void		append_segment(char **final_value, char *segment);
 
 //SUBSTITUTE_ENV2
 char		*process_dollar(const char **input, char **env,
 				char *result, t_minishell *shell);
 char		*substitute_env_vars(const char *input,
 				char **env, t_minishell *shell);
-char	*substitute_env_vars_handle_quotes(char *word, char **env, t_minishell *shell);
-
+char		*substitute_env_vars_handle_quotes(char *word, char **env,
+				t_minishell *shell);
 
 //SIGNALS
 void		handle_sigint(int sig);
@@ -153,9 +151,6 @@ void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
 
-//HANDLE_INVALID
-int			execute_external_command(t_minishell *shell);
-
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
 void		ft_pwd(t_token *arg_lst, int *exit_status);
@@ -169,12 +164,20 @@ void		ft_unset(t_token *tokens, char ***env, int *exit_status);
 void		ft_env(t_token *arg_lst, char **env, int *exit_status);
 char		**add_new_env_var(char *var, char ***env, t_minishell *shell);
 int			is_valid_var_name(const char *var, t_minishell *shell);
-int			handle_export_token(t_token *token, char ***env, t_minishell *shell);
-int			is_valid_var_value(const char *value);
-char 		*handle_plus_equal(char *env_var, char *var);
+int			handle_export_token(t_token *token, char ***env,
+				t_minishell *shell);
+char		*handle_plus_equal(char *env_var, char *var);
 int			length_until_plus_equal(const char *str);
+int			update_existing_var(char *var, char ***env,
+				int var_len, t_minishell *shell);
+char		**create_new_env_array(char *var, char ***env,
+				t_minishell *shell);
 
-
+//EXIT_UTILS
+int			check_numbers_arg_exit(char *endptr, t_token *current,
+				t_minishell *shell);
+void		print_error_and_set_status(char *msg, int status,
+				t_minishell *shell);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
@@ -185,7 +188,8 @@ int			process_export(t_token *tokens, char ***env, t_minishell *shell);
 void		print_argv(char **argv);
 
 //BUILTINS_UTILS2
-void remove_plus_char(char *str);
+void		remove_plus_char(char *str);
+char		*prepare_env_var(char *var);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
@@ -239,6 +243,5 @@ void		print_list(t_list *list);
 
 //FREEEEEEE
 void		free_tab_here_doc(t_file **tab_here_doc, int nb_cmds);
-
 
 #endif

@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../minishell.h"
 
 void	print_data(t_redirect *data_array, int nb_cmds)
 {
@@ -56,41 +56,6 @@ t_minishell	*init_minishell(char **envp)
 	shell->env_size = 0;
 	init_history(shell->history);
 	return (shell);
-}
-
-void	free_minishell(t_minishell *shell)
-{
-	if (!shell)
-		return ;
-	if (shell->env)
-	{
-		ft_free_tab(shell->env);
-		shell->env = NULL;
-	}
-	free_tokens(&(shell->tokens));
-	shell->tokens = NULL;
-	if (shell->input)
-	{
-		free(shell->input);
-		shell->input = NULL;
-	}
-	free_history(shell->history);
-	*shell->history = NULL;
-	if (shell->redirect_array)
-	{
-		free_redirect_array (shell, shell->nb_cmds);
-		shell->redirect_array = NULL;
-	}
-	if (shell->tab_here_doc)
-	{
-		free_tab_here_doc(shell->tab_here_doc, shell->nb_cmds);
-		shell->tab_here_doc = NULL;
-	}
-	if (shell != NULL)
-	{
-		free(shell);
-		shell = NULL;
-	}
 }
 
 // void	free_minishell(t_minishell *shell)

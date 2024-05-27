@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 08:03:11 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/16 13:33:43 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/24 12:26:05 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strndup(const char *src, size_t n)
 		len++;
 		ptr++;
 	}
-	dup = (char *)ft_calloc((len + 1),sizeof(char));
+	dup = (char *)ft_calloc((len + 1), sizeof(char));
 	if (dup == NULL)
 		return (NULL);
 	while (i < len)
