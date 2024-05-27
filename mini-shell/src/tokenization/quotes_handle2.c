@@ -76,8 +76,7 @@ void	append_segment(char **final_value, char *segment)
 int	handle_syntax_error(char **final_value,
 				t_token **head, char quote_type)
 {
-	ft_printf("minishell: syntax error: missing closing quote '%c'\n",
-		quote_type);
+	ft_putstr_fd("minishell: syntax error: missing closing quote\n", 2);
 	free(*final_value);
 	free_tokens(head);
 	return (0);
