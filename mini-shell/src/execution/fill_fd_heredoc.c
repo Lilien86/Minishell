@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/22 09:25:57 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/24 12:29:29 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	here_doc_content_env = NULL;
 	while (1)
 	{
-		if (exit_signal == 1)
+		if (g_exit_signal == 1)
 		{
-			exit_signal = 0;
+			g_exit_signal = 0;
 			free(here_doc_content);
 			free_minishell(shell);
 			free(here_doc.name);

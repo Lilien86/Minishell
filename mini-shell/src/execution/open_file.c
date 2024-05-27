@@ -64,6 +64,7 @@ void	open_file_in(t_file *file, int is_append, t_minishell *shell, int status, i
 			&& file_exist_in_directory(get_variable_path(shell->env), file->name) == 1)
 		{
 			ft_putstr_fd("minishell: Permision denied\n", 2);
+			shell->exit_status = 1;
 			shell->redirect_array[index].infile.fd = -2;
 			return ;
 		}
@@ -84,9 +85,7 @@ void	open_file_out(t_file *file, int is_append, t_minishell *shell, int status, 
 
 	if (file->name != NULL)
 	{
-		if (is_append)
-			file->fd = open(file->name, O_WRONLY | O_APPEND);
-		else if (status == 1)
+		if (status == 1)
 			file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		else if (status == 0)
 			file->fd = open(file->name, O_RDONLY, 0644);
