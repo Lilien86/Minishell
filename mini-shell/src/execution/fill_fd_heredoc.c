@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:43:37 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/24 12:29:29 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/27 11:15:03 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*read_line(char *delimiter)
 	{
 		if (line != NULL)
 			free(line);
-		ft_putstr_fd("bash: warning: here-document at line 1 delimited by end-of-file (wanted `%s')\n", 2);
+		ft_putstr_fd("bash: warning: here-document at line 1 delimited"
+			"by end-of-file (wanted `%s')\n", 2);
 		return (NULL);
 	}
 	if (ft_strcmp(line, delimiter) == 0)
@@ -86,7 +87,7 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 			free(here_doc.name);
 			close(here_doc.fd);
 			ft_printf("\n");
-			exit(131);// exit(131) + recup exit code in main
+			exit(131);
 		}
 		temp = read_and_process_line(delimiter, here_doc_content);
 		if (temp == NULL)
@@ -99,7 +100,8 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	}
 	if (replace_env != 1)
 	{
-		here_doc_content_env = (char *)here_doc_replace_var_env(here_doc_content, shell);
+		here_doc_content_env = (char *)here_doc_replace_var_env(
+				here_doc_content, shell);
 		write_here_doc_in_file(here_doc_content_env, here_doc.fd, shell);
 	}
 	else

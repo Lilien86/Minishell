@@ -24,7 +24,6 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 	free(tab_here_doc);
 }
 
-
 static int	counter_here_doc(t_token *tokens)
 {
 	int	count;
@@ -57,12 +56,13 @@ static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 				replace_env = 1;
 			if (j == 0)
 			{
-				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(current) + 1),
-						sizeof(t_file *));
+				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(
+								current) + 1), sizeof(t_file *));
 				if (tab_here_doc[i] == NULL)
 					error_exit("Error malloc here_doc", shell);
 			}
-			tab_here_doc[i][j] = here_doc(current, shell, replace_env, tab_here_doc);
+			tab_here_doc[i][j] = here_doc(
+					current, shell, replace_env, tab_here_doc);
 			tab_here_doc[i][j].is_allocated = 1;
 			j++;
 		}
