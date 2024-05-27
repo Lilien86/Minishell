@@ -26,26 +26,29 @@ char	*handle_plus_equal(char *env_var, char *var)
 	char	*value_to_add;
 	char	*existing_value;
 	char	*new_value;
+    size_t existing_value_len;
 
 	eq_pos = ft_strchr(var, '=');
 	if (eq_pos != NULL)
 		value_to_add = eq_pos + 1;
 	else
 		value_to_add = "";
-	if (ft_strchr(env_var, '='))
-	{
-		existing_value = ft_strchr(env_var, '=') + 1;
-		if (existing_value == NULL)
-			return (NULL);
-	}
+	existing_value = ft_strchr(env_var, '=');
+	if (existing_value != NULL)
+		existing_value += 1;	
 	else
-		return (NULL);
-	new_value = malloc(ft_strlen(existing_value) + ft_strlen(value_to_add) + 1);
-	if (new_value == NULL)
-		return (NULL);
-	ft_strcpy(new_value, existing_value);
-	ft_strcat(new_value, value_to_add);
-	return (new_value);
+		existing_value = "";
+    existing_value_len = ft_strlen(existing_value);
+    new_value = malloc(existing_value_len + ft_strlen(value_to_add) + 1);
+    if (new_value == NULL)
+    {
+        return (NULL);
+    }
+
+    ft_strcpy(new_value, existing_value);
+    ft_strcat(new_value, value_to_add);
+
+    return (new_value);
 }
 
 char	**add_new_env_var(char *var, char ***env, t_minishell *shell)

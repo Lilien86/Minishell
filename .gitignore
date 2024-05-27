@@ -10,3 +10,6 @@ test1/mini_outfiles/outfile01
 test1/mini_outfiles/outfile02
 test1/outfiles/outfile01
 test1/outfiles/outfile02
+test1/bash_outfiles/outfile with spaces
+test1/mini_outfiles/outfile12345
+test1/outfiles/outfile12345
