@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   generate_random_name.c                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 09:52:25 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/09 13:54:52 by lauger           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "../minishell.h"
-#define FILENAME_LENGTH 10
+#include "../../minishell.h"
 
 void	handle_while_loop(int *i, const char *random_chars,
 	char *filename, int fd)

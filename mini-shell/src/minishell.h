@@ -21,8 +21,9 @@
 # define READ_END 0
 # define WRITE_END 1
 # define MAX_PIPES 512
+# define FILENAME_LENGTH 10
 
-extern int exit_signal;
+extern int g_exit_signal;
 
 typedef enum e_token_type
 {
@@ -197,6 +198,9 @@ void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
 char		**convert_linked_list_to_array(t_token *head);
 
+
+//-----------------------------------------
+
 //EXECUTION
 void		fill_t_redirect(t_minishell *shell);
 void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
@@ -206,23 +210,40 @@ void		execute_command_shell(t_minishell *shell);
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
 void		handle_output_redirect(t_minishell *cpy, t_token *current,
-				int *i, int is_double_redirect, t_minishell *shell);
+				int *i, t_minishell *shell);
+void		handle_output_redirect_append(t_minishell *cpy, t_token *current,
+				int *i, t_minishell *shell);
 void		handle_input_redirect(t_minishell *cpy, t_token *current,
 				int *i, t_minishell *shell);
 void		check_file(t_file *file, int is_append, t_minishell *shell,
 				int status);
 void		handle_word(t_minishell *shell, t_token **current, int *i);
+void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
+				int pipes[MAX_PIPES][2]);
 
-//------here_doc
-t_file		here_doc(t_token *current, t_minishell *shell, int replace_env, t_file **tab_here_doc);
-void		handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
-				int replace_env);
+//HERE_DOC
+t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,
+				t_file **tab_here_doc);
+void		handle_here_doc(t_minishell *shell, t_file here_doc,
+				char *delimiter, int replace_env);
 void		to_choice_here_doc(t_minishell *shell, int *i);
 t_file		**run_here_doc(t_minishell *shell);
+char		*read_line(char *delimiter);
+char		*update_here_doc_content(char *line, char *here_doc_content);
+t_file		**fill_tab_here_doc(t_token *current, t_minishell *shell,
+				t_file **tab_here_doc, int replace_env);
+int			counter_here_doc(t_token *tokens);
+t_list		*replace_env_variable(const char *content, t_pos_len *dollars,
+				int num_vars, t_minishell *shell);
+t_list		*fill_content_enough_variable_env(const char *content,
+				t_pos_len *dollars, int num_vars);
+char		*replace_content(t_list *list_content, t_list *list_vars);
 
 //OPEN_FILE
-void		open_file_in(t_file *file, int is_append, t_minishell *shell, int status, int index);
-void		open_file_out(t_file *file, int is_append, t_minishell *shell, int status, int index);
+void		open_file_in(t_file *file, int is_append, t_minishell *shell,
+				int index);
+void		open_file_out(t_file *file, t_minishell *shell, int index);
+void		open_file_out_append(t_file *file, t_minishell *shell, int index);
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);
@@ -232,12 +253,15 @@ void		print_linked_list(t_token *head);
 int			counter_cmds(t_token *tokens);
 
 //UTILS_FDS
-int			open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
+int			open_file_and_handle_errors(t_minishell *shell,
+				t_file here_doc_cpy);
+char		*get_variable_path(char **env);
+int			file_exist_in_directory(char *path, char *file);
 
 //UTILS TO EXEC
 const char	*here_doc_replace_var_env(const char *content, t_minishell *shell);
 void		print_pos_dollars(t_pos_len *dollars, int size);
-int			counter_dollars(const   char *content);
+int			counter_dollars(const char *content);
 int			len_to_dollars(const char *content, int index);
 void		print_list(t_list *list);
 

@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 {
@@ -24,57 +24,42 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 	free(tab_here_doc);
 }
 
+// static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
+// 	t_file **tab_here_doc, int replace_env)
+// {
+// 	int	i;
+// 	int	j;
 
-static int	counter_here_doc(t_token *tokens)
-{
-	int	count;
+// 	i = 0;
+// 	j = 0;
+// 	while (current != NULL)
+// 	{
+// 		if (current->type == TOKEN_HEREDOC)
+// 		{
+// 			if (current->next->quote_type != SINGLE_QUOTE)
+// 				replace_env = 1;
+// 			if (j == 0)
+// 			{
+// 				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(
+// 								current) + 1), sizeof(t_file *));
+// 				if (tab_here_doc[i] == NULL)
+// 					error_exit("Error malloc here_doc", shell);
+// 			}
+// 			tab_here_doc[i][j] = here_doc(
+// 					current, shell, replace_env, tab_here_doc);
+// 			tab_here_doc[i][j].is_allocated = 1;
+// 			j++;
+// 		}
+// 		else if (current->type == TOKEN_PIPE)
+// 		{
+// 			i++;
+// 			j = 0;
+// 		}
+// 		current = current->next;
+// 	}
+// 	return (tab_here_doc);
+// }
 
-	count = 0;
-	while (tokens != NULL)
-	{
-		if (tokens->type == TOKEN_HEREDOC)
-			count++;
-		if (tokens->type == TOKEN_PIPE)
-			break ;
-		tokens = tokens->next;
-	}
-	return (count);
-}
-
-static t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
-		t_file **tab_here_doc, int replace_env)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (current != NULL)
-	{
-		if (current->type == TOKEN_HEREDOC)
-		{
-			if (current->next->quote_type != SINGLE_QUOTE)
-				replace_env = 1;
-			if (j == 0)
-			{
-				tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(current) + 1),
-						sizeof(t_file *));
-				if (tab_here_doc[i] == NULL)
-					error_exit("Error malloc here_doc", shell);
-			}
-			tab_here_doc[i][j] = here_doc(current, shell, replace_env, tab_here_doc);
-			tab_here_doc[i][j].is_allocated = 1;
-			j++;
-		}
-		else if (current->type == TOKEN_PIPE)
-		{
-			i++;
-			j = 0;
-		}
-		current = current->next;
-	}
-	return (tab_here_doc);
-}
 t_file	**run_here_doc(t_minishell *shell)
 {
 	t_token		*current;

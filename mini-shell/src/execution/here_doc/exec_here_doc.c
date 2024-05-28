@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 {

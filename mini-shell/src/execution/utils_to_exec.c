@@ -1,19 +1,6 @@
 #include "../minishell.h"
 
-void    print_pos_dollars(t_pos_len *dollars, int size)
-{
-	int     i;
-
-	i = 0;
-	while (i < size)
-	{
-		printf("dollars[%d] --> pos/%d size/%d\n", i, dollars[i].pos, dollars[i].len);
-		i++;
-	}
-	return ;
-}
-
-int		counter_dollars(const char *content)
+int	counter_dollars(const char *content)
 {
 	int		counter;
 	int		i;
@@ -22,7 +9,7 @@ int		counter_dollars(const char *content)
 	i = 0;
 	if (content != NULL)
 	{
-		while(content[i] != '\0')
+		while (content[i] != '\0')
 		{
 			if (content[i] == '$')
 				counter++;
@@ -32,9 +19,9 @@ int		counter_dollars(const char *content)
 	return (counter);
 }
 
-void print_list(t_list *list)
+void	print_list(t_list *list)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (list)
@@ -44,9 +31,9 @@ void print_list(t_list *list)
 	}
 }
 
-int  len_to_dollars(const char *content, int index)
+int	len_to_dollars(const char *content, int index)
 {
-	int     len;
+	int		len;
 
 	len = 0;
 	if (content[index] != '$')
@@ -57,4 +44,52 @@ int  len_to_dollars(const char *content, int index)
 		len ++;
 	}
 	return (len);
+}
+
+char	*get_variable_path(char **env)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		{
+			path = ft_strdup(env[i] + 4);
+			if (path == NULL)
+			{
+				perror("Error malloc path");
+				exit(EXIT_FAILURE);
+			}
+			return (path);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	file_exist_in_directory(char *path, char *file)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+
+	dir = opendir(path);
+	if (dir == NULL)
+	{
+		perror("opendir");
+		return (0);
+	}
+	while ((entry = readdir(dir)) != NULL)
+	{
+		if (ft_strcmp(entry->d_name, file) == 0)
+		{
+			closedir(dir);
+			free(path);
+			return (1);
+		}
+	}
+	closedir(dir);
+	free(path);
+	return (0);
 }
