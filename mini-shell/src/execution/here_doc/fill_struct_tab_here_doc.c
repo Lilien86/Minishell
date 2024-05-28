@@ -49,6 +49,14 @@ t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	{
 		if (current->type == TOKEN_HEREDOC)
 		{
+			if (current->next == NULL
+				|| current->next->quote_type != TOKEN_WORD)
+			{
+				ft_putstr_fd("minishell: syntax error"
+					" near unexpected token `newline'\n", 2);
+				shell->exit_status = 258;
+				return (NULL);
+			}
 			process_here_doc_token(current, shell, tab_here_doc,
 				&i, &j, &replace_env);
 		}

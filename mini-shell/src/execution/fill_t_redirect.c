@@ -55,7 +55,7 @@ void	fill_redirect_array(t_minishell *shell)
 			handle_word(&cpy, &cpy.tokens, &i);
 		else
 		{
-			if (cpy.tokens->type != TOKEN_PIPE)
+			if (cpy.tokens->type != TOKEN_PIPE && cpy.tokens->next != NULL)
 				cpy.tokens = cpy.tokens->next;
 			cpy.tokens = cpy.tokens->next;
 		}

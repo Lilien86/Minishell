@@ -39,7 +39,8 @@ static	void	execute_input_commands(t_minishell *shell)
 	else
 	{
 		fill_t_redirect(shell);
-		execute_command_shell(shell);
+		if (shell->exit_status != 258)
+			execute_command_shell(shell);
 	}
 }
 
@@ -55,20 +56,6 @@ void	process_input(t_minishell *shell)
 	if (shell->tokens)
 		execute_input_commands(shell);
 }
-
-// static void	free_arg_to_list(t_token *arg_lst)
-// {
-// 	t_token	*tmp;
-
-// 	while (arg_lst)
-// 	{
-// 		tmp = arg_lst;
-// 		arg_lst = arg_lst->next;
-// 		free(tmp->value);
-// 		free(tmp);
-// 	}
-// 	free(arg_lst);
-// }
 
 int	execute_builtins(int argc, char **argv, t_minishell *shell)
 {
