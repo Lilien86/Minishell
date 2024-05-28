@@ -26,9 +26,9 @@ void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 	if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 		handle_input_redirect(&cpy, cpy.tokens, i, shell);
 	else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-		handle_output_redirect(&cpy, cpy.tokens, i, 0, shell);
+		handle_output_redirect(&cpy, cpy.tokens, i, shell);
 	else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-		handle_output_redirect(&cpy, cpy.tokens, i, 1, shell);
+		handle_output_redirect_append(&cpy, cpy.tokens, i, shell);
 	if (cpy.tokens->type == TOKEN_PIPE)
 	{
 		handle_pipe(&cpy, i);

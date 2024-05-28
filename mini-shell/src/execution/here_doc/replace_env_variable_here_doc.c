@@ -1,39 +1,5 @@
 #include "../../minishell.h"
 
-static char	*replace_content(t_list *list_content, t_list *list_vars)
-{
-	char	*new_content;
-	char	*tmp;
-
-	new_content = NULL;
-	tmp = NULL;
-	while (list_content)
-	{
-		if (new_content == NULL)
-			new_content = ft_strdup((char *)list_content->content);
-		else
-		{
-			tmp = ft_strjoin(new_content, (char *)list_content->content);
-			free(new_content);
-			new_content = tmp;
-		}
-		if (new_content == NULL)
-			return (NULL);
-		if (list_vars)
-		{
-			tmp = ft_strjoin(new_content, (char *)list_vars->content);
-			free(new_content);
-			new_content = tmp;
-			list_vars = list_vars->next;
-		}
-		list_content = list_content->next;
-	}
-	tmp = ft_strjoin(new_content, "\n");
-	free(new_content);
-	new_content = tmp;
-	return (new_content);
-}
-
 // const char	*here_doc_replace_var_env(const char *content, t_minishell *shell)
 // {
 // 	t_pos_len	*dollars;

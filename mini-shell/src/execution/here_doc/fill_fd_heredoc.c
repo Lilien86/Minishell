@@ -51,7 +51,7 @@ void	write_here_doc(t_minishell *shell, t_file here_doc,
 	char	*here_doc_content_env;
 
 	here_doc_content_env = NULL;
-	if (replace_env != 1)
+	if (replace_env != 0)
 	{
 		here_doc_content_env = (char *)here_doc_replace_var_env(
 				here_doc_content, shell);
