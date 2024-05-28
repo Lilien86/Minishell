@@ -221,6 +221,15 @@ void		handle_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 				int replace_env);
 void		to_choice_here_doc(t_minishell *shell, int *i);
 t_file		**run_here_doc(t_minishell *shell);
+char		*read_line(char *delimiter);
+char		*update_here_doc_content(char *line, char *here_doc_content);
+t_file		**fill_tab_here_doc(t_token *current, t_minishell *shell,
+				t_file **tab_here_doc, int replace_env);
+int			counter_here_doc(t_token *tokens);
+t_list		*replace_env_variable(const char *content, t_pos_len *dollars,
+				int num_vars, t_minishell *shell);
+t_list		*fill_content_enouth_variable_env(const char *content,
+				t_pos_len *dollars, int num_vars);
 
 //OPEN_FILE
 void		open_file_in(t_file *file, int is_append, t_minishell *shell, int status, int index);
@@ -235,6 +244,8 @@ int			counter_cmds(t_token *tokens);
 
 //UTILS_FDS
 int			open_file_and_handle_errors(t_minishell *shell, t_file here_doc_cpy);
+char		*get_variable_path(char **env);
+int			file_exist_in_directory(char *path, char *file);
 
 //UTILS TO EXEC
 const char	*here_doc_replace_var_env(const char *content, t_minishell *shell);

@@ -45,3 +45,51 @@ int	len_to_dollars(const char *content, int index)
 	}
 	return (len);
 }
+
+char	*get_variable_path(char **env)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "PWD=", 4) == 0)
+		{
+			path = ft_strdup(env[i] + 4);
+			if (path == NULL)
+			{
+				perror("Error malloc path");
+				exit(EXIT_FAILURE);
+			}
+			return (path);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int	file_exist_in_directory(char *path, char *file)
+{
+	DIR				*dir;
+	struct dirent	*entry;
+
+	dir = opendir(path);
+	if (dir == NULL)
+	{
+		perror("opendir");
+		return (0);
+	}
+	while ((entry = readdir(dir)) != NULL)
+	{
+		if (ft_strcmp(entry->d_name, file) == 0)
+		{
+			closedir(dir);
+			free(path);
+			return (1);
+		}
+	}
+	closedir(dir);
+	free(path);
+	return (0);
+}
