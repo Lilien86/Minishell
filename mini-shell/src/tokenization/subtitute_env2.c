@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:29:34 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/28 13:17:39 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env,
 {
 	char	*result;
 	char	*final_result;
+	char	*normalized_result; 
 
 	result = ft_strdup("");
 	if (!result)
@@ -95,6 +96,12 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env,
 	final_result = process_word(word, env, result, shell);
 	if (!final_result)
 		return (NULL);
+	if (!shell->is_double_quote)
+	{
+		normalized_result = normalize_spaces(final_result);
+		free(final_result);
+		final_result = normalized_result;
+	}
 	word = ft_strdup(final_result);
 	free(final_result);
 	return (word);
