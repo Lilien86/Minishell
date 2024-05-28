@@ -29,6 +29,11 @@ void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 		handle_output_redirect(&cpy, cpy.tokens, i, 0, shell);
 	else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
 		handle_output_redirect(&cpy, cpy.tokens, i, 1, shell);
+	if (cpy.tokens->type == TOKEN_PIPE)
+	{
+		handle_pipe(&cpy, i);
+		here_doc_available = 0;
+	}
 }
 
 void	fill_redirect_array(t_minishell *shell)
@@ -44,11 +49,6 @@ void	fill_redirect_array(t_minishell *shell)
 	while (cpy.tokens != NULL)
 	{
 		handle_input_output(cpy, &i, shell, here_doc_available);
-		if (cpy.tokens->type == TOKEN_PIPE)
-		{
-			handle_pipe(&cpy, &i);
-			here_doc_available = 0;
-		}
 		if (cpy.tokens->type == TOKEN_WORD
 			&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
 				&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))

@@ -21,6 +21,7 @@
 # define READ_END 0
 # define WRITE_END 1
 # define MAX_PIPES 512
+# define FILENAME_LENGTH 10
 
 extern int g_exit_signal;
 
@@ -228,7 +229,7 @@ t_file		**fill_tab_here_doc(t_token *current, t_minishell *shell,
 int			counter_here_doc(t_token *tokens);
 t_list		*replace_env_variable(const char *content, t_pos_len *dollars,
 				int num_vars, t_minishell *shell);
-t_list		*fill_content_enouth_variable_env(const char *content,
+t_list		*fill_content_enough_variable_env(const char *content,
 				t_pos_len *dollars, int num_vars);
 
 //OPEN_FILE

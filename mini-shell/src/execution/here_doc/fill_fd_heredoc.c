@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 static char	*read_and_process_line(char *delimiter, char *here_doc_content)
 {

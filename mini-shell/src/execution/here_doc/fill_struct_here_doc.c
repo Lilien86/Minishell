@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 {

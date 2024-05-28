@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 static char	*replace_content(t_list *list_content, t_list *list_vars)
 {
@@ -102,7 +102,7 @@ static void	process_content_and_vars(const char *content, t_pos_len *dollars,
 	t_list	*list_content;
 	t_list	*list_vars;
 
-	list_content = fill_content_enouth_variable_env(
+	list_content = fill_content_enough_variable_env(
 			content, dollars, counter_dollars(content));
 	list_vars = replace_env_variable(
 			content, dollars, counter_dollars(content), shell);
