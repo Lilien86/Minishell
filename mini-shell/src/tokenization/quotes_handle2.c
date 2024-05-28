@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_handle2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/28 10:28:43 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static void	process_quotes(const char **input, t_token **head,
@@ -46,43 +58,21 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 	*input += len;
 }
 
-void	handle_quotes(const char **input, t_token **head, t_minishell *shell, char **token_temp)
+void	handle_quotes(const char **input, t_token **head,
+			t_minishell *shell, char **token_temp)
 {
 	char	*temp_token;
-    char *substituted_segment;
 
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 	{
 		shell->is_single_quote = 0;
 		shell->is_double_quote = 0;
 		if (**input == '\'' || **input == '"')
-		{
 			process_quotes(input, head, shell, token_temp);
-			// if (shell->is_double_quote == 1)
-			// {
-			// 	temp_token = substitute_env_vars(*token_temp, shell->env, shell);
-			// 	if (temp_token)
-			// 	{
-			// 		free(*token_temp);
-			// 		*token_temp = temp_token;
-			// 	}
-			//}
-		}
 		else
-		{
-			// shell->is_single_quote = 0;
-			// shell->is_double_quote = 0;
 			process_non_quoted_segment(input, shell, token_temp);
-			// if (token_temp)
-			// {
-			// 	free(*token_temp);
-			// 	*token_temp = substituted_segment;
-			// }
-		}
 	}
 }
-
-
 
 void	append_segment(char **final_value, char *segment)
 {

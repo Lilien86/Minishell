@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotes_handle.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 10:27:27 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/28 10:27:40 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static	size_t	find_quote_end(const char *input, char quote_type)
@@ -55,7 +67,6 @@ static int	process_segment(const char **input, char quote_type,
 		shell->is_single_quote = 1;
 	else if (quote_type == '"')
 		shell->is_double_quote = 1;
-
 	segment = process_quoted_segment(start, len, quote_type, shell);
 	if (!segment)
 	{
@@ -77,7 +88,6 @@ char	*add_quoted_token(const char **input, t_token **head,
 	final_value = ft_strdup("");
 	if (!final_value)
 		return (NULL);
-
 	while (**input == quote_type)
 	{
 		(*input)++;

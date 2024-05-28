@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   subtitute_env2.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 10:29:31 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/28 10:29:34 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*process_dollar(const char **input, char **env, char *result,
@@ -83,12 +95,10 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env,
 	final_result = process_word(word, env, result, shell);
 	if (!final_result)
 		return (NULL);
-
 	word = ft_strdup(final_result);
 	free(final_result);
 	return (word);
 }
-
 
 char	*append_char_to_str(char *str, char c)
 {

@@ -1,15 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenization_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/28 10:29:52 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	add_word_token(const char **input, t_token **head,
 			char **env, t_minishell *shell)
 {
-	//char		*substituted_value;
 	char		*token_temp;
 
 	(void)env;
 	shell->is_single_quote = 0;
 	shell->is_double_quote = 0;
-	//substituted_value = NULL;
 	token_temp = ft_strdup("");
 	if (!token_temp)
 		return ;

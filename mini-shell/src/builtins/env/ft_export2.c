@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export2.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/28 10:31:15 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/28 10:31:19 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	is_valid_var_name(const char *var, t_minishell *shell)
@@ -26,7 +38,7 @@ char	*handle_plus_equal(char *env_var, char *var)
 	char	*value_to_add;
 	char	*existing_value;
 	char	*new_value;
-    size_t existing_value_len;
+	size_t	existing_value_len;
 
 	eq_pos = ft_strchr(var, '=');
 	if (eq_pos != NULL)
@@ -35,20 +47,18 @@ char	*handle_plus_equal(char *env_var, char *var)
 		value_to_add = "";
 	existing_value = ft_strchr(env_var, '=');
 	if (existing_value != NULL)
-		existing_value += 1;	
+		existing_value += 1;
 	else
 		existing_value = "";
-    existing_value_len = ft_strlen(existing_value);
-    new_value = malloc(existing_value_len + ft_strlen(value_to_add) + 1);
-    if (new_value == NULL)
-    {
-        return (NULL);
-    }
-
-    ft_strcpy(new_value, existing_value);
-    ft_strcat(new_value, value_to_add);
-
-    return (new_value);
+	existing_value_len = ft_strlen(existing_value);
+	new_value = malloc(existing_value_len + ft_strlen(value_to_add) + 1);
+	if (new_value == NULL)
+	{
+		return (NULL);
+	}
+	ft_strcpy(new_value, existing_value);
+	ft_strcat(new_value, value_to_add);
+	return (new_value);
 }
 
 char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
