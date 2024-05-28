@@ -51,7 +51,6 @@ static int	process_segment(const char **input, char quote_type,
 	len = find_quote_end(*input, quote_type);
 	if ((*input)[len] != quote_type)
 		return (handle_syntax_error(final_value, &(shell->tokens), quote_type));
-
 	if (quote_type == '\'')
 		shell->is_single_quote = 1;
 	else if (quote_type == '"')
