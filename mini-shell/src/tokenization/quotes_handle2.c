@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:28:43 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/29 12:11:41 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 void	handle_quotes(const char **input, t_token **head,
 			t_minishell *shell, char **token_temp)
 {
-	char	*temp_token;
-
 	while (**input && !ft_isspace(**input) && !is_special_char(**input))
 	{
 		shell->is_single_quote = 0;
@@ -89,6 +87,7 @@ void	append_segment(char **final_value, char *segment)
 int	handle_syntax_error(char **final_value,
 				t_token **head, char quote_type)
 {
+	(void)quote_type;
 	ft_putstr_fd("minishell: syntax error: missing closing quote\n", 2);
 	free(*final_value);
 	free_tokens(head);

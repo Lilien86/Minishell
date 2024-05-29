@@ -24,8 +24,8 @@ static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 
 void	open_file_in(t_file *file, int is_append, t_minishell *shell, int index)
 {
-	char	*path;
-
+	//char	*path;
+	(void)is_append;
 	if (file->name != NULL)
 	{
 		file->fd = open(file->name, O_RDONLY, 0644);
@@ -58,7 +58,7 @@ static void	handle_error_outfile(t_file *file, t_minishell *shell, int index)
 void	open_file_out(t_file *file, t_minishell *shell,
 	int index)
 {
-	char	*path;
+	//char	*path;
 
 	if (file->name != NULL)
 	{
@@ -70,7 +70,7 @@ void	open_file_out(t_file *file, t_minishell *shell,
 void	open_file_out_append(t_file *file, t_minishell *shell,
 	int index)
 {
-	char	*path;
+	//char	*path;
 
 	if (file->name != NULL)
 	{

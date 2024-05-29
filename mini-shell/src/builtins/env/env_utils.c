@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 09:50:58 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 10:01:42 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/29 12:12:05 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void sort_and_print_env(char **env, int env_size)
 	char	*eq;
 	int		index;
 
+	(void)env_size;
 	ft_sort_string_tab(env);
 	i = 0;
 	while (env[i])

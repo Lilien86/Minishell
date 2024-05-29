@@ -4,8 +4,8 @@ LIBFT = ./libft
 LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
-# CFLAGS = -g -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT) -g3
-CFLAGS = -g -Wconversion -Wunreachable-code -Wunused-function -I $(LIBFT) -g3
+#-Wconversion -Wunreachable-code -Wunused-function
+CFLAGS = -Wextra -Werror -Wall -g -I $(LIBFT) -g3
 
 LDFLAGS = -L $(LIBFT) -lft -lreadline
 
