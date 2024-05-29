@@ -89,7 +89,27 @@ int	file_exist_in_directory(char *path, char *file)
 			return (1);
 		}
 	}
+	if (access(file, F_OK) == 0 && access(file, X_OK) == -1)
+	{
+		closedir(dir);
+		free(path);
+		return (1);
+	}
 	closedir(dir);
 	free(path);
 	return (0);
+}
+
+int	is_file(const char *path)
+{
+	struct stat	statbuf;
+
+	if (stat(path, &statbuf) == -1)
+		return (-1);
+	if (S_ISREG(statbuf.st_mode))
+		return (1);
+	else if (S_ISDIR(statbuf.st_mode))
+		return (0);
+	else
+		return (-1);
 }

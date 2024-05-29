@@ -31,7 +31,15 @@ void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 		handle_output_redirect_append(&cpy, cpy.tokens, i, shell);
 	if (cpy.tokens->type == TOKEN_PIPE)
 	{
-		handle_pipe(&cpy, i);
+		if (cpy.tokens->next == NULL)
+		{
+			ft_putstr_fd("minishell: Error: parse error near\n", 2);
+			shell->exit_status = 1;
+			shell->redirect_array[0].infile.fd = -2;
+			return ;
+		}
+		else
+			handle_pipe(&cpy, i);
 		here_doc_available = 0;
 	}
 }
@@ -55,7 +63,7 @@ void	fill_redirect_array(t_minishell *shell)
 			handle_word(&cpy, &cpy.tokens, &i);
 		else
 		{
-			if (cpy.tokens->type != TOKEN_PIPE)
+			if (cpy.tokens->type != TOKEN_PIPE && cpy.tokens->next != NULL)
 				cpy.tokens = cpy.tokens->next;
 			cpy.tokens = cpy.tokens->next;
 		}

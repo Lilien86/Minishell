@@ -31,7 +31,7 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 			free_minishell(shell);
 			free(here_doc.name);
 			close(here_doc.fd);
-			ft_printf("\n");
+			//shell->exit_status = 131;
 			exit(131);
 		}
 		temp = read_and_process_line(delimiter, *here_doc_content);

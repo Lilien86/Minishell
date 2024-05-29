@@ -7,6 +7,7 @@ int	main(int argc, char **argv, char **envp)
 	t_minishell	*shell;
 	int			exit_status;
 
+	rl_catch_signals = 0;
 	exit_status = 0;
 	(void)argc;
 	(void)argv;

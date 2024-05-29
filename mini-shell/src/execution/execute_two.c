@@ -54,8 +54,14 @@ static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,
 	{
 		execve(redirect_array[index].argv[0], redirect_array[index].argv,
 			shell->env);
-		ft_putstr_fd("minishell: command not found", 2);
+		if (is_file(redirect_array[index].argv[0]) == 0)
+		{
+			ft_putstr_fd("minishell: Is a directory:"
+				" You need to use a command\n", 2);
+			exit(126);
+		}
 		free_minishell(shell);
+		ft_putstr_fd("minishell: command not found\n", 2);
 		exit(127);
 	}
 }
