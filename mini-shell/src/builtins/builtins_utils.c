@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:31:26 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:31:30 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/29 09:52:03 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,33 +45,6 @@ char	*ft_getenv(const char *name, char **env)
 		i++;
 	}
 	return (NULL);
-}
-
-void	print_env(char **env)
-{
-	int		i;
-	int		j;
-	char	*eq;
-	int		index;
-
-	i = 0;
-	ft_sort_string_tab(env);
-	while (env[i])
-	{
-		if (!(env[i][0] == '_' && env[i][1] == '='))
-		{
-			eq = ft_strchr(env[i], '=');
-			if (eq)
-			{
-				index = (int)(eq - env[i]);
-				printf("declare -x %.*s=\"%s\"\n", index,
-					env[i], env[i] + index + 1);
-			}
-			else
-				ft_printf("declare -x %s\n", env[i]);
-		}
-		i++;
-	}
 }
 
 int	length_until_equal(const char *str)
