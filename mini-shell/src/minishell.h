@@ -6,11 +6,13 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <signal.h>
+# include <fcntl.h>
+# include <sys/syscall.h>
 # include <unistd.h>
 # include <errno.h>
 # include <stdbool.h>
-# include <fcntl.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <stdio.h>
 # include <limits.h>
@@ -264,6 +266,7 @@ void		print_pos_dollars(t_pos_len *dollars, int size);
 int			counter_dollars(const char *content);
 int			len_to_dollars(const char *content, int index);
 void		print_list(t_list *list);
+int			is_file(const char *path);
 
 //FREEEEEEE
 void		free_tab_here_doc(t_file **tab_here_doc, int nb_cmds);
