@@ -25,7 +25,7 @@
 # define MAX_PIPES 1024
 # define FILENAME_LENGTH 10
 
-extern int g_exit_signal;
+extern int	g_exit_signal;
 
 typedef enum e_token_type
 {
@@ -137,7 +137,6 @@ char		*substitute_env_vars_handle_quotes(char *word, char **env,
 				t_minishell *shell);
 char		*normalize_spaces(char *str);
 
-
 //SIGNALS
 void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
@@ -202,7 +201,6 @@ t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
 char		**convert_linked_list_to_array(t_token *head);
-
 
 //-----------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:27 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:27:40 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/29 12:11:00 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ char	*add_quoted_token(const char **input, t_token **head,
 {
 	char	*final_value;
 
+	(void)head;
 	final_value = ft_strdup("");
 	if (!final_value)
 		return (NULL);

@@ -1,26 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add-readline2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/30 10:15:50 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-// static void unlink_file(t_file **tab_files)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (tab_files && tab_files[i] != NULL)
-// 	{
-// 		while (tab_files[i][j].name != NULL)
-// 		{
-// 			printf("Unlinking file: %s\n", tab_files[i][j].name);
-// 			unlink(tab_files[i][j].name);
-// 			free(tab_files[i][j].name);
-// 			tab_files[i][j].name = NULL;
-// 			j++;
-// 		}
-// 		//free(tab_files[i]);
-// 		i++;
-// 	}
-// }
 void	free_read(t_minishell *shell)
 {
 	if (shell->input != NULL)
@@ -81,3 +72,37 @@ void	print_linked_list(t_token *head)
 		current = current->next;
 	}
 }
+
+void	handle_input(t_minishell *shell)
+{
+	if (ft_strcmp(shell->input, "") == 0)
+		return ;
+	process_input(shell);
+	if (ft_strcmp(shell->input, "exit") == 0)
+	{
+		free_minishell(shell);
+		exit(shell->exit_status);
+	}
+}
+
+// static void unlink_file(t_file **tab_files)
+// {
+// 	int i;
+// 	int j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (tab_files && tab_files[i] != NULL)
+// 	{
+// 		while (tab_files[i][j].name != NULL)
+// 		{
+// 			printf("Unlinking file: %s\n", tab_files[i][j].name);
+// 			unlink(tab_files[i][j].name);
+// 			free(tab_files[i][j].name);
+// 			tab_files[i][j].name = NULL;
+// 			j++;
+// 		}
+// 		//free(tab_files[i]);
+// 		i++;
+// 	}
+// }

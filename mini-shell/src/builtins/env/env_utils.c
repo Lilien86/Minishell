@@ -6,18 +6,19 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 09:50:58 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 10:01:42 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:07:58 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void sort_and_print_env(char **env, int env_size)
+void	sort_and_print_env(char **env, int env_size)
 {
 	int		i;
 	char	*eq;
 	int		index;
 
+	(void)env_size;
 	ft_sort_string_tab(env);
 	i = 0;
 	while (env[i])
@@ -28,7 +29,8 @@ void sort_and_print_env(char **env, int env_size)
 			if (eq)
 			{
 				index = (int)(eq - env[i]);
-				printf("declare -x %.*s=\"%s\"\n", index, env[i], env[i] + index + 1);
+				printf("declare -x %.*s=\"%s\"\n", \
+					index, env[i], env[i] + index + 1);
 			}
 			else
 				printf("declare -x %s\n", env[i]);
@@ -37,7 +39,7 @@ void sort_and_print_env(char **env, int env_size)
 	}
 }
 
-void print_env(char **env)
+void	print_env(char **env)
 {
 	int		env_size;
 	char	**temp_env;
@@ -47,7 +49,7 @@ void print_env(char **env)
 		env_size++;
 	temp_env = ft_copy_tab(env);
 	if (temp_env == NULL)
-		return;
+		return ;
 	sort_and_print_env(temp_env, env_size);
 	ft_free_tab(temp_env);
 }

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 13:17:39 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:04:13 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env,
 {
 	char	*result;
 	char	*final_result;
-	char	*normalized_result; 
+	char	*normalized_result;
 
 	result = ft_strdup("");
 	if (!result)

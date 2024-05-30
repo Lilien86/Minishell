@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add-readline.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/05/30 10:15:43 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	debug_print_tokens(t_token *tokens)
@@ -13,28 +25,33 @@ void	debug_print_tokens(t_token *tokens)
 	}
 }
 
-static	void	execute_input_commands(t_minishell *shell)
+static void	execute_command_logic(t_minishell *shell)
+{
+	if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
+	{
+		execute_builtins(ft_strlen_map(shell->redirect_array->argv),
+			shell->redirect_array->argv, shell);
+	}
+	else
+	{
+		shell->redirect_array->argv[0] = check_command_existence(
+				shell->redirect_array[0].argv[0], shell->env);
+		if (shell->redirect_array->argv[0] == NULL)
+		{
+			ft_putstr_fd("minishell: command not found\n", 2);
+			shell->exit_status = 127;
+			return ;
+		}
+		execute_command_shell(shell);
+	}
+}
+
+static void	execute_input_commands(t_minishell *shell)
 {
 	if (is_token_redirection(shell->tokens) == 0)
 	{
 		fill_t_redirect(shell);
-		if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
-		{
-			execute_builtins(ft_strlen_map(shell->redirect_array->argv),
-				shell->redirect_array->argv, shell);
-		}
-		else
-		{
-			shell->redirect_array->argv[0] = check_command_existence(
-					shell->redirect_array[0].argv[0], shell->env);
-			if (shell->redirect_array->argv[0] == NULL)
-			{
-				ft_putstr_fd("minishell: command not found\n", 2);
-				shell->exit_status = 127;
-				return ;
-			}
-			execute_command_shell(shell);
-		}
+		execute_command_logic(shell);
 	}
 	else
 	{
@@ -52,7 +69,6 @@ void	process_input(t_minishell *shell)
 	shell->history[shell->history_index] = ft_strdup(shell->input);
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
 	shell->tokens = tokenize(shell->input, shell->env, shell);
-	//debug_print_tokens(shell->tokens);
 	if (shell->tokens)
 		execute_input_commands(shell);
 }
@@ -81,16 +97,4 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 		ft_env(arg_lst, shell->env, &shell->exit_status);
 	free_tokens(&arg_lst);
 	return (1);
-}
-
-void	handle_input(t_minishell *shell)
-{
-	if (ft_strcmp(shell->input, "") == 0)
-		return ;
-	process_input(shell);
-	if (ft_strcmp(shell->input, "exit") == 0)
-	{
-		free_minishell(shell);
-		exit(shell->exit_status);
-	}
 }
