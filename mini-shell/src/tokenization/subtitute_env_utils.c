@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:05 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 10:03:51 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:06:53 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	normalize_characters(const char *str, char *result)
 	result[j] = '\0';
 }
 
-char	*normalize_spaces(const char *str)
+char	*normalize_spaces(char *str)
 {
 	char	*result;
 
