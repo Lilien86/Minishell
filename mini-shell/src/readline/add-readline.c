@@ -39,7 +39,7 @@ static	void	execute_input_commands(t_minishell *shell)
 	else
 	{
 		fill_t_redirect(shell);
-		if (shell->exit_status != 258)
+		if (shell->exit_status != 1)
 			execute_command_shell(shell);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:25 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:32:29 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/29 13:55:22 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 void	handle_sigint(int sig)
 {
 	(void)sig;
-	rl_replace_line("", 0);
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
+	g_exit_signal = 1;
 }
 
 void	handle_sigquit(int sig)
+{
+	(void)sig;
+	g_exit_signal = 2;
+}
+
+void	handle_nothing(int sig)
 {
 	(void)sig;
 }

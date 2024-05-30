@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/27 13:38:18 by lauger           ###   ########.fr       */
+/*   Updated: 2024/05/30 11:32:18 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	count_words_in_token(t_token *token)
 
 void	error_exit(char *message, t_minishell *shell)
 {
-	perror(message);
+	ft_putstr_fd(message, 2);
 	shell->exit_status = 1;
 	free_minishell(shell);
 	exit(EXIT_FAILURE);

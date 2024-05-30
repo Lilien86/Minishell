@@ -22,7 +22,7 @@
 
 # define READ_END 0
 # define WRITE_END 1
-# define MAX_PIPES 512
+# define MAX_PIPES 1024
 # define FILENAME_LENGTH 10
 
 extern int g_exit_signal;
@@ -143,6 +143,7 @@ void		handle_sigint(int sig);
 void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
 void		handle_sigint_here_doc(int sig);
+void		handle_nothing(int sig);
 
 //UTILS
 char		*generate_random_filename(void);

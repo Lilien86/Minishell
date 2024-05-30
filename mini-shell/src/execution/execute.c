@@ -26,29 +26,46 @@ int	handle_wait(t_minishell *shell)
 	return (last_status);
 }
 
+static void	init_pipes(int pipes[MAX_PIPES][2], int nb_cmds)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PIPES)
+	{
+		pipes[i][0] = -1;
+		pipes[i][1] = -1;
+		i++;
+	}
+}
+
 void	execute_command_shell(t_minishell *shell)
 {
 	int		i;
 	int		pipes[MAX_PIPES][2];
 
 	i = 0;
-	while (i < shell->nb_cmds)
+	init_pipes(pipes, shell->nb_cmds);
+	if (shell->nb_cmds - 1 < MAX_PIPES)
 	{
-		if (shell->redirect_array[i].argv != NULL
-			&& check_builtins(shell->redirect_array[i].argv[0]) != 1)
+		while (i < shell->nb_cmds)
 		{
-			shell->redirect_array[i].argv[0] = check_command_existence(
-					shell->redirect_array[i].argv[0], shell->env);
+			if (shell->redirect_array[i].argv != NULL
+				&& check_builtins(shell->redirect_array[i].argv[0]) != 1)
+			{
+				shell->redirect_array[i].argv[0] = check_command_existence(
+						shell->redirect_array[i].argv[0], shell->env);
+			}
+			i++;
 		}
-		i++;
+		i = 0;
+		while (i < shell->nb_cmds)
+		{
+			if (shell->redirect_array[i].argv != NULL)
+				ft_exec(shell->redirect_array, i, shell, pipes);
+			i++;
+		}
+		shell->exit_status = handle_wait(shell);
 	}
-	i = 0;
-	while (i < shell->nb_cmds)
-	{
-		if (shell->redirect_array[i].argv != NULL)
-			ft_exec(shell->redirect_array, i, shell, pipes);
-		i++;
-	}
-	shell->exit_status = handle_wait(shell);
 	//printf("exit status: %d\n", shell->exit_status);
 }
