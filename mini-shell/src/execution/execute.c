@@ -30,6 +30,7 @@ static void	init_pipes(int pipes[MAX_PIPES][2])
 {
 	int	i;
 
+	(void)nb_cmds;
 	i = 0;
 	while (i < MAX_PIPES)
 	{
