@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:12 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:32:15 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 13:46:44 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_exit(t_token *tokens, t_minishell *shell)
 		local_exit_status = shell->exit_status;
 		free_minishell(shell);
 		ft_printf("exit\n");
+		free_tokens(&tokens);
 		exit(local_exit_status);
 	}
 	handle_exit_with_args(tokens, shell);

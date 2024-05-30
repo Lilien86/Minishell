@@ -101,4 +101,5 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		if (pipes[index][WRITE_END] != -1)
 			close(pipes[index][WRITE_END]);
 	}
+	signal(SIGINT, handle_sigint);
 }

@@ -14,7 +14,7 @@ int	handle_wait(t_minishell *shell)
 		pid = waitpid(-1, &status, 0);
 		if (pid == -1)
 		{
-			perror("waitpid");
+			ft_putstr_fd("Error: During execution\n", STDERR_FILENO);
 			break ;
 		}
 		if (WIFEXITED(status))
@@ -30,7 +30,6 @@ static void	init_pipes(int pipes[MAX_PIPES][2])
 {
 	int	i;
 
-	(void)nb_cmds;
 	i = 0;
 	while (i < MAX_PIPES)
 	{
@@ -62,7 +61,8 @@ void	execute_command_shell(t_minishell *shell)
 		i = 0;
 		while (i < shell->nb_cmds)
 		{
-			if (shell->redirect_array[i].argv != NULL)
+			if (shell->redirect_array[i].argv != NULL
+				&& shell->redirect_array[i].argv[0] != NULL)
 				ft_exec(shell->redirect_array, i, shell, pipes);
 			i++;
 		}
