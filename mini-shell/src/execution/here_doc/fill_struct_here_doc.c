@@ -55,6 +55,8 @@ void	to_choice_here_doc(t_minishell *shell, int *i)
 		return ;
 	if (shell->tab_here_doc && nb_here_doc != 0)
 	{
+		if (shell->exit_status == 1)
+			return ;
 		close (shell->tab_here_doc[*i][nb_here_doc - 1].fd);
 		shell->redirect_array[*i].infile.fd = open (
 				shell->tab_here_doc[*i][nb_here_doc - 1].name, O_RDONLY);

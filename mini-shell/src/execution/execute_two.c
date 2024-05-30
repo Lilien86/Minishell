@@ -5,12 +5,14 @@ static void	handle_infile_outfile(t_redirect *redirect_array, int index)
 	if (redirect_array[index].outfile.fd != -1)
 	{
 		dup2(redirect_array[index].outfile.fd, STDOUT_FILENO);
-		close(redirect_array[index].outfile.fd);
+		if (redirect_array[index].outfile.fd != -1)
+			close(redirect_array[index].outfile.fd);
 	}
 	if (redirect_array[index].infile.fd != -1)
 	{
 		dup2(redirect_array[index].infile.fd, STDIN_FILENO);
-		close(redirect_array[index].infile.fd);
+		if (redirect_array[index].infile.fd != -1)
+			close(redirect_array[index].infile.fd);
 	}
 }
 
@@ -26,14 +28,18 @@ static void	handle_dup_close(int index, t_redirect *redirect_array,
 	if (index < shell->nb_cmds - 1)
 	{
 		dup2(pipes[index][WRITE_END], STDOUT_FILENO);
-		close(pipes[index][READ_END]);
-		close(pipes[index][WRITE_END]);
+		if (pipes[index][WRITE_END] != -1)
+			close(pipes[index][WRITE_END]);
+		if (pipes[index][READ_END] != -1)
+			close(pipes[index][READ_END]);
 	}
 	if (index > 0)
 	{
 		dup2(pipes[index - 1][READ_END], STDIN_FILENO);
-		close(pipes[index - 1][WRITE_END]);
-		close(pipes[index - 1][READ_END]);
+		if (pipes[index - 1][WRITE_END] != -1)
+			close(pipes[index - 1][WRITE_END]);
+		if (pipes[index - 1][READ_END] != -1)
+			close(pipes[index - 1][READ_END]);
 	}
 	handle_infile_outfile(redirect_array, index);
 }
@@ -52,8 +58,9 @@ static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,
 	else if (redirect_array[index].argv != NULL
 		|| redirect_array[index].argv[0][0] == '$')
 	{
-		execve(redirect_array[index].argv[0], redirect_array[index].argv,
-			shell->env);
+		if (access(redirect_array[index].argv[0], F_OK) == 0)
+			execve(redirect_array[index].argv[0], redirect_array[index].argv,
+				shell->env);
 		if (is_file(redirect_array[index].argv[0]) == 0)
 		{
 			ft_putstr_fd("minishell: Is a directory:"
@@ -66,6 +73,8 @@ static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,
 	}
 }
 
+
+
 void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		int pipes[MAX_PIPES][2])
 {
@@ -73,6 +82,7 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 
 	if (index < shell->nb_cmds - 1)
 		pipe(pipes[index]);
+	signal(SIGINT, handle_nothing);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -81,11 +91,14 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 	}
 	if (pid == 0)
 	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, handle_sigquit);
 		handle_dup_close(index, redirect_array, shell, pipes);
 		handle_execute(shell, redirect_array, index);
 	}
 	else if (index < shell->nb_cmds - 1)
 	{
-		close(pipes[index][WRITE_END]);
+		if (pipes[index][WRITE_END] != -1)
+			close(pipes[index][WRITE_END]);
 	}
 }

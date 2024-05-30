@@ -72,9 +72,9 @@ t_file	here_doc(t_token *current, t_minishell *shell, int replace_env,
 {
 	t_file	here_doc;
 
-	if (current->next == NULL)
+	if (current->next == NULL || current->next->type != TOKEN_WORD)
 	{
-		ft_printf("Error:\nNo delimiter for here_doc\n");
+		ft_putstr_fd("Error:\nNo delimiter for here_doc\n", 2);
 		free_minishell(shell);
 		shell->exit_status = 1;
 		exit(EXIT_FAILURE);
