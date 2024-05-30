@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 09:53:33 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:15:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ void	print_linked_list(t_token *head)
 		ft_printf("%d Valeur: %s\n", i, current->value);
 		i++;
 		current = current->next;
+	}
+}
+
+void	handle_input(t_minishell *shell)
+{
+	if (ft_strcmp(shell->input, "") == 0)
+		return ;
+	process_input(shell);
+	if (ft_strcmp(shell->input, "exit") == 0)
+	{
+		free_minishell(shell);
+		exit(shell->exit_status);
 	}
 }
 

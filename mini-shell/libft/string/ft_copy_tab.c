@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:10:14 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 10:00:01 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:17:55 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	**ft_copy_tab(char **tab)
 	size_t	tab_size;
 
 	tab_size = ft_tab_len(tab);
-	tab_copy = (char **)ft_calloc(sizeof(char *),(tab_size + 1));
+	tab_copy = (char **)ft_calloc(sizeof(char *), (tab_size + 1));
 	if (!tab_copy)
 		return (NULL);
 	i = 0;

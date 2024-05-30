@@ -6,13 +6,13 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 09:50:58 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 09:45:56 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:07:58 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void sort_and_print_env(char **env, int env_size)
+void	sort_and_print_env(char **env, int env_size)
 {
 	int		i;
 	char	*eq;
