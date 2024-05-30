@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:31:15 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:31:19 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 09:49:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,12 @@ char	*handle_plus_equal(char *env_var, char *var)
 	return (new_value);
 }
 
+char	**free_and_return(char *var_to_free, char **var_to_return)
+{
+	free(var_to_free);
+	return (var_to_return);
+}
+
 char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
 {
 	char	**new_env;
@@ -77,10 +83,7 @@ char	**add_new_env_var(char *var, char ***env, t_minishell *shell)
 	else
 		var_len = length_until_equal(var);
 	if (update_existing_var(prepared_var, env, var_len, shell))
-	{
-		free(prepared_var);
-		return (*env);
-	}
+		return (free_and_return(prepared_var, *env));
 	new_env = create_new_env_array(prepared_var, env, shell);
 	free(prepared_var);
 	if (new_env == NULL)

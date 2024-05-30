@@ -35,7 +35,9 @@ int	check_redirect_in_to_pipe(t_token *tokens)
 	{
 		if (current->type == TOKEN_PIPE)
 			return (0);
-		else if (current->type == TOKEN_REDIRECT_IN || current->type == TOKEN_REDIRECT_OUT || current->type == TOKEN_DOUBLE_REDIRECT_OUT)
+		else if (current->type == TOKEN_REDIRECT_IN
+			||current->type == TOKEN_REDIRECT_OUT
+			|| current->type == TOKEN_DOUBLE_REDIRECT_OUT)
 			return (1);
 		current = current->next;
 	}

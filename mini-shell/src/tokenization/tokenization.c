@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 12:55:14 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 10:05:00 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,27 @@ void	add_token(t_token **head, t_token *new_token)
 	}
 }
 
-void add_token_based_on_char(const char **input, t_token **head, char **env, t_minishell *shell)
+void	add_token_based_on_char(const char **input,
+	t_token **head, char **env, t_minishell *shell)
 {
-    identify_double_char_tokens(input, head, shell);
-    if (**input == '>')
-    {
-        add_token(head, init_token(TOKEN_REDIRECT_OUT, ">", shell));
-        (*input)++;
-    }
-    else if (**input == '<')
-    {
-        add_token(head, init_token(TOKEN_REDIRECT_IN, "<", shell));
-        (*input)++;
-    }
-    else if (**input == '|')
-    {
-        add_token(head, init_token(TOKEN_PIPE, "|", shell));
-        (*input)++;
-    }
-    else
-        add_word_token(input, head, env, shell);
+	identify_double_char_tokens(input, head, shell);
+	if (**input == '>')
+	{
+		add_token(head, init_token(TOKEN_REDIRECT_OUT, ">", shell));
+		(*input)++;
+	}
+	else if (**input == '<')
+	{
+		add_token(head, init_token(TOKEN_REDIRECT_IN, "<", shell));
+		(*input)++;
+	}
+	else if (**input == '|')
+	{
+		add_token(head, init_token(TOKEN_PIPE, "|", shell));
+		(*input)++;
+	}
+	else
+		add_word_token(input, head, env, shell);
 }
 
 void	identify_and_add_token(const char **input, t_token **head,
