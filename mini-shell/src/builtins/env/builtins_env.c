@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:21 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 11:34:07 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 12:15:42 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 	}
 	if (found)
 		*exit_status = 0;
-	if (!found)
-		*exit_status = 2;
+	//if (!found)
+	//	*exit_status = 2;
 }
 
 static int	check_and_print_error(t_token *arg_lst, int *exit_status)
