@@ -7,7 +7,7 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 
 	i = 0;
 	j = 0;
-	while (tab_here_doc && i < nb_cmds - 1)
+	while (tab_here_doc && i < nb_cmds)
 	{
 		j = 0;
 		while (tab_here_doc[i] && tab_here_doc[i][j].name != NULL)

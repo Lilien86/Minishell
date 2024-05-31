@@ -1,14 +1,14 @@
 #include "../../minishell.h"
 
-static char	*read_and_process_line(char *delimiter, char *here_doc_content)
+static char	*read_and_process_line(char *delimiter)
 {
 	char	*line;
 
 	line = read_line(delimiter);
 	if (line == NULL)
 		return (NULL);
-	here_doc_content = update_here_doc_content(line, here_doc_content);
-	return (here_doc_content);
+	delimiter = ft_strjoin(line, "\n");
+	return (delimiter);
 }
 
 void	init_signals(void)
@@ -34,14 +34,14 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 			//shell->exit_status = 131;
 			exit(131);
 		}
-		temp = read_and_process_line(delimiter, *here_doc_content);
+		temp = read_and_process_line(delimiter);
 		if (temp == NULL)
-		{
-			free(temp);
-			*here_doc_content = ft_strjoin(*here_doc_content, "\n");
 			break ;
-		}
-		*here_doc_content = temp;
+		char *temp2 = *here_doc_content;
+		*here_doc_content = ft_strjoin(*here_doc_content, temp);
+		free(temp2);
+		free(temp);
+		// *here_doc_content = temp;
 	}
 }
 
@@ -64,10 +64,8 @@ void	write_here_doc(t_minishell *shell, t_file here_doc,
 	free_minishell(shell);
 	free(here_doc.name);
 	close(here_doc.fd);
-	if (here_doc_content != NULL)
-		free(here_doc_content);
-	if (here_doc_content_env != NULL)
-		free(here_doc_content_env);
+	free(here_doc_content);
+	free(here_doc_content_env);
 	exit(EXIT_SUCCESS);
 }
 

@@ -37,7 +37,7 @@
 // 	return (new_content);
 // }
 
-static void	allocate_and_fill_dollars(const char *content, t_pos_len **dollars_ptr)
+static t_pos_len	*allocate_and_fill_dollars(const char *content, t_pos_len *dollars_ptr)
 {
 	t_pos_len	*dollars;
 	int			i;
@@ -45,9 +45,9 @@ static void	allocate_and_fill_dollars(const char *content, t_pos_len **dollars_p
 
 	dollars = (t_pos_len *)ft_calloc(
 			(size_t)counter_dollars(content), sizeof(t_pos_len));
-	*dollars_ptr = dollars;
+	dollars_ptr = dollars;
 	if (dollars == NULL)
-		return ;
+		return (NULL);
 	i = 0;
 	j = 0;
 	while (content[i] != '\0')
@@ -60,10 +60,27 @@ static void	allocate_and_fill_dollars(const char *content, t_pos_len **dollars_p
 		}
 		i++;
 	}
+	return (dollars);
 }
 
-static void	process_content_and_vars(const char *content, t_pos_len *dollars,
-								t_minishell *shell, char **new_content)
+static void	ft_free_lst_char(t_list *head)
+{
+	t_list	*current;
+	t_list	*next_node;
+
+	current = head;
+	while (current != NULL)
+	{
+		next_node = current->next;
+		free(current->content);
+		current->content = NULL;
+		free(current);
+		current = next_node;
+	}
+}
+
+static char	*process_content_and_vars(const char *content, t_pos_len *dollars,
+								t_minishell *shell, char *new_content)
 {
 	t_list	*list_content;
 	t_list	*list_vars;
@@ -72,9 +89,10 @@ static void	process_content_and_vars(const char *content, t_pos_len *dollars,
 			content, dollars, counter_dollars(content));
 	list_vars = replace_env_variable(
 			content, dollars, counter_dollars(content), shell);
-	*new_content = replace_content(list_content, list_vars);
+	new_content = replace_content(list_content, list_vars);
 	ft_free_lst(list_vars);
-	ft_free_lst(list_content);
+	ft_free_lst_char(list_content);
+	return (new_content);
 }
 
 const char	*here_doc_replace_var_env(const char *content, t_minishell *shell)
@@ -86,10 +104,10 @@ const char	*here_doc_replace_var_env(const char *content, t_minishell *shell)
 	new_content = NULL;
 	if (content == NULL)
 		return (NULL);
-	allocate_and_fill_dollars(content, &dollars);
+	dollars = allocate_and_fill_dollars(content, dollars);
 	if (dollars == NULL)
 		return (content);
-	process_content_and_vars(content, dollars, shell, &new_content);
+	new_content = process_content_and_vars(content, dollars, shell, new_content);
 	free(dollars);
 	return (new_content);
 }

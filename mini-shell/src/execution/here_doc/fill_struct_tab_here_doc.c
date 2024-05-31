@@ -20,7 +20,7 @@ static void	init_here_doc_tab(t_file **tab_here_doc, int i,
 	t_token *current, t_minishell *shell)
 {
 	tab_here_doc[i] = ft_calloc(((size_t)counter_here_doc(current) + 1),
-			sizeof(t_file *));
+			sizeof(t_file));
 	if (tab_here_doc[i] == NULL)
 		error_exit("Error malloc here_doc", shell);
 }
