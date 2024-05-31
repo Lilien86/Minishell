@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:21 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 12:15:42 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/30 13:32:11 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 {
 	t_token	*current;
 	int		found;
+	t_token *tokens_copy;
 
 	found = 0;
+	tokens_copy = tokens->next;
 	current = tokens->next;
 	while (current)
 	{
@@ -52,8 +54,8 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 	}
 	if (found)
 		*exit_status = 0;
-	//if (!found)
-	//	*exit_status = 2;
+	if (tokens_copy && tokens_copy->value[0] == '-')
+		*exit_status = 2;
 }
 
 static int	check_and_print_error(t_token *arg_lst, int *exit_status)

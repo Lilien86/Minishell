@@ -54,6 +54,7 @@ t_minishell	*init_minishell(char **envp)
 	shell->is_single_quote = 0;
 	shell->is_plus_equal = 0;
 	shell->env_size = 0;
+	shell->syntax_error = 0;
 	init_history(shell->history);
 	return (shell);
 }

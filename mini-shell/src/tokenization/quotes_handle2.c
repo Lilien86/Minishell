@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 12:11:41 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:21:17 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 	len = 0;
 	start = *input;
 	while ((*input)[len] && !ft_isspace((*input)[len])
-		&& !is_special_char((*input)[len]) && (*input)[len]
+		&& (!is_special_char((*input)[len]) || ft_strncmp(*input, "||", 2) == 0) && (*input)[len]
 			!= '\'' && (*input)[len] != '"')
-		len++;
+			len++;
 	word = ft_strndup(start, (size_t)len);
 	if (!word)
 		return ;
@@ -61,14 +61,19 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 void	handle_quotes(const char **input, t_token **head,
 			t_minishell *shell, char **token_temp)
 {
-	while (**input && !ft_isspace(**input) && !is_special_char(**input))
+	while (**input && !ft_isspace(**input) && (!is_special_char(**input) || ft_strncmp(*input, "||", 2) == 0) && shell->syntax_error == 0)
 	{
 		shell->is_single_quote = 0;
 		shell->is_double_quote = 0;
 		if (**input == '\'' || **input == '"')
 			process_quotes(input, head, shell, token_temp);
 		else
+		{
 			process_non_quoted_segment(input, shell, token_temp);
+			if (shell->syntax_error == 1)
+				return ;
+		}
+			
 	}
 }
 
