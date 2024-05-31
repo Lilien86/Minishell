@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/31 10:45:59 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:19:18 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,15 @@ void	add_word_token(const char **input, t_token **head,
 	token_temp = ft_strdup("");
 	if (!token_temp)
 		return ;
-	if (**input && !ft_isspace(**input) && !is_special_char(**input))
+	if (**input && !ft_isspace(**input) && (!is_special_char(**input) || ft_strncmp(*input, "||", 2) == 0))
+	{
 		handle_quotes(input, head, shell, &token_temp);
+		if (shell->syntax_error == 1)
+		{
+			free(token_temp);
+			return ;
+		}
+	}
 	if (*token_temp || token_temp[0] == '\0')
 	{
 		add_token(head, init_token(TOKEN_WORD, token_temp, shell));

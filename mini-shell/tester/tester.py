@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    tester.py                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ysabik <ysabik@student.42.fr>              +#+  +:+       +#+         #
+#    By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 03:17:43 by ysabik            #+#    #+#              #
-#    Updated: 2024/02/17 02:07:01 by ysabik           ###   ########.fr        #
+#    Updated: 2024/05/31 12:45:51 by ybarbot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ valgrind_leak_chek_full: bool = False
 
 # Leave None to auto-detect a fixed prompt / heredoc prompt.
 prompt_regex: str | None = None
-heredoc_prompt_regex: str | None = None
+heredoc_prompt_regex: str | None = " > "
 
 # Set to False to print the detailed output of all tests.
 # None to auto-detect.
