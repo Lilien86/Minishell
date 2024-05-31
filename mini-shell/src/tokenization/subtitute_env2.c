@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/31 12:44:01 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/31 12:59:48 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,31 @@ char	*substitute_env_vars(const char *input, char **env, t_minishell *shell)
 	return (result);
 }
 
+int check_forbidden_characters(char **word, char *result, t_minishell *shell)
+{
+    char *error_msg;
+
+	error_msg = NULL;
+    if (**word == '(' || **word == ')')
+        error_msg = "syntax error: parenthesis are not allowed\n";
+    else if (ft_strncmp(*word, "&&", 2) == 0)
+        error_msg = "syntax error: logical operators '&&' are not allowed\n";
+	else if (ft_strncmp(*word, "||", 2) == 0)
+		error_msg = "syntax error: logical operators '||' are not allowed\n";
+    else if (**word == '*')
+        error_msg = "syntax error: wildcard '*' is not allowed\n";
+
+    if (error_msg) {
+        ft_putstr_fd(error_msg, 2);
+        shell->syntax_error = 1;
+        shell->exit_status = 2;
+        free(result);
+        return 1;
+    }
+    return 0;
+}
+
+
 static char	*process_word(char *word, char **env,
 				char *result, t_minishell *shell)
 {
@@ -66,14 +91,8 @@ static char	*process_word(char *word, char **env,
 
 	while (*word)
 	{
-		if (*word == '(' || *word == ')')
-		{
-			ft_putstr_fd("syntax error: parenthesis are not allowed\n", 2);
-			shell->syntax_error = 1;
-			shell->exit_status = 2;
-			free(result);
-			return (NULL);
-		}
+		if (check_forbidden_characters(&word, result, shell))
+            return NULL;
 		if (shell->is_single_quote != 1 && *word == '$'
 			&& (ft_isalnum(*(word + 1)) || *(word + 1) == '_'
 				|| *(word + 1) == '?'))
