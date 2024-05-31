@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 10:04:13 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/31 12:44:01 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ static char	*process_word(char *word, char **env,
 
 	while (*word)
 	{
+		if (*word == '(' || *word == ')')
+		{
+			ft_putstr_fd("syntax error: parenthesis are not allowed\n", 2);
+			shell->syntax_error = 1;
+			shell->exit_status = 2;
+			free(result);
+			return (NULL);
+		}
 		if (shell->is_single_quote != 1 && *word == '$'
 			&& (ft_isalnum(*(word + 1)) || *(word + 1) == '_'
 				|| *(word + 1) == '?'))
@@ -94,7 +102,7 @@ char	*substitute_env_vars_handle_quotes(char *word, char **env,
 	if (!result)
 		return (NULL);
 	final_result = process_word(word, env, result, shell);
-	if (!final_result)
+	if (final_result == NULL)
 		return (NULL);
 	if (!shell->is_double_quote)
 	{

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 13:51:06 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/05/31 12:39:38 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 	t_token	*head;
 
 	head = NULL;
+	shell->syntax_error = 0;
 	if (input)
 	{
 		while (*input)
@@ -97,6 +98,11 @@ t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 			if (*input == '\0')
 				break ;
 			identify_and_add_token(&input, &head, env, shell);
+			if (shell->syntax_error == 1)
+			{
+				free_tokens(&head);
+				return (NULL);
+			}
 		}
 	}
 	return (head);

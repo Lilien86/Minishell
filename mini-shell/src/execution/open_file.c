@@ -6,7 +6,7 @@ static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 		&& file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 1)
 	{
-		ft_putstr_fd("minishell: Permision denied\n", 2);
+		ft_putstr_fd("minishell: Permission denied\n", 2);
 		shell->exit_status = 1;
 		shell->redirect_array[index].infile.fd = -2;
 		return ;
@@ -39,7 +39,7 @@ static void	handle_error_outfile(t_file *file, t_minishell *shell, int index)
 		&& file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 1)
 	{
-		ft_putstr_fd("minishell: Permision denied\n", 2);
+		ft_putstr_fd("minishell: Permission denied\n", 2);
 		shell->exit_status = 1;
 		shell->redirect_array[index].outfile.fd = -2;
 		return ;
