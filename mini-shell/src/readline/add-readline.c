@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 12:27:49 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 13:24:51 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 	if (!argv || !argv[0])
 		return (1);
 	arg_lst = convert_argv_to_list(argc, argv);
-	if (ft_strncmp(arg_lst->value, "exit", 4) == 0)
-		ft_exit(arg_lst, shell);
-	else if (ft_strncmp(arg_lst->value, "echo", 4) == 0)
+	if (ft_strncmp(arg_lst->value, "echo", 4) == 0)
 		ft_echo(arg_lst, &shell->exit_status, shell);
 	else if (ft_strncmp(arg_lst->value, "cd", 2) == 0)
 		ft_cd(arg_lst, shell->env, &shell->exit_status);
@@ -110,6 +108,8 @@ int	execute_builtins(int argc, char **argv, t_minishell *shell)
 	else if (ft_strncmp(arg_lst->value, "env", 3) == 0
 		&& arg_lst->value[3] == '\0')
 		ft_env(arg_lst, shell->env, &shell->exit_status);
+	else if (ft_strncmp(arg_lst->value, "exit", 4) == 0)
+		ft_exit(arg_lst, shell);
 	free_tokens(&arg_lst);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 11:15:00 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 13:43:52 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	free_read(t_minishell *shell)
 
 int	read_input(t_minishell *shell)
 {
+	int local_exit_status;
+	
 	while (1)
 	{
 		if (shell->input != NULL)
@@ -45,13 +47,14 @@ int	read_input(t_minishell *shell)
 			free(shell->input);
 			shell->input = NULL;
 		}
-		g_exit_signal = 0;
+		//g_exit_signal = 0;
 		shell->input = readline("minishell > ");
 		if (shell->input == NULL)
 		{
+			local_exit_status = shell->exit_status;
 			free_minishell(shell);
 			ft_printf("exit\n");
-			exit(0);
+			exit(local_exit_status);
 		}
 		handle_input(shell);
 		free_read(shell);
