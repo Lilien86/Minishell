@@ -1,0 +1,109 @@
+#!/bin/bash
+
+MINISHELL_PATH="../../minishell"
+
+if [ ! -x $MINISHELL_PATH ]; then
+	echo $MINISHELL_PATH does not exist.
+	echo
+	echo "Enter the new path to minishell."
+	echo
+	read path
+	replace "$MINISHELL_PATH" "$path" -- ./vtester
+	MINISHELL_PATH=$path
+fi
+if [[ $1 ]]; then
+	test_lists=(
+		$1
+	)
+fi
+if [[ $1 == "mandatory" || !$1 ]]; then
+	test_lists=(
+		"redirects"
+		"pipes"
+		"builtins"
+		"extras"
+		"var"
+		"syntax"
+	)
+fi
+
+if [[ $1 == "bonus" ]]; then
+	test_lists=(
+		"redirects_bonus"
+		"bonus"
+		"builtins_bonus"
+		"var_bonus"
+		"wildcards"
+		"syntax_bonus"
+	)
+	touch '!'
+	touch ')'
+	touch '('
+	touch '*'
+	touch '8'
+	touch 'b'
+fi
+
+if [[ $1 == "all" ]]; then
+	test_lists=(
+		"redirects"
+		"pipes"
+		"builtins"
+		"extras"
+		"redirects_bonus"
+		"bonus"
+		"builtins_bonus"
+		"var"
+		"var_bonus"
+		"wildcards"
+		"syntax"
+		"syntax_bonus"
+	)
+	touch '!'
+	touch ')'
+	touch '('
+	touch '*'
+	touch '8'
+	touch 'b'
+fi
+
+chmod 000 ./test_files/invalid_permission
+mkdir ./outfiles
+mkdir ./mini_outfiles
+mkdir ./bash_outfiles
+mkdir ./logs
+rm -rf ./logs/*
+
+
+clear;
+for testfile in ${test_lists[*]}; do
+
+	echo $testfile
+	j=0
+	while read teste; do
+		((i++))
+
+		mkdir ./logs/$testfile
+		rm -rf ./outfiles/*
+		rm -rf ./mini_outfiles/*
+		((j+=1))
+		clear;
+		valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes --suppressions=../.vsupp --log-file=./logs/$testfile/log-$j $MINISHELL_PATH -c "$teste"
+		
+		printf "Test %3s: \n" $i
+		echo $teste
+	done < $testfile
+done
+
+chmod 666 ./test_files/invalid_permission
+rm -rf ./outfiles/*
+rm -rf ./bash_outfiles/*
+rm -rf ./mini_outfiles/*
+if [[ $1 == "all" || $1 == "bonus" ]]; then
+	rm '!'
+	rm ')'
+	rm '('
+	rm '*'
+	rm '8'
+	rm 'b'
+fi

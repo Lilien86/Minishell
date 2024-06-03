@@ -1,0 +1,15 @@
+qwer || exit
+echo b && exit
+ls && exit
+export a=1 && exit $a
+export A_B=c A_=d _B=c && echo $A_B $A_ $_B
+export UNO=1 DOS-2 TRES=3 || env | grep TRES
+export UNO=1 DOS-2 TRES=3 && env | grep TRES
+export UNO=1 DOS-2 451 && env | grep TRES
+export UNO=1 DOS-2 451 || env | grep TRES
+export UNO=1 DOS=2 TRES=3 || env | grep TRES
+export UNO=1 DOS=2 TRES=3 && env | grep TRES
+export a="./outfiles/out2" && ls > $a
+export a="./outfiles/out2" && ls > "$a"
+export a="out2" && ls > './outfiles/$a'
+export test="export x="echo"" arg="op" arg+="xd" && $test && $x $arg

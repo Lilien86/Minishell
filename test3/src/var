@@ -1,0 +1,105 @@
+$?
+$
+"$"
+'$'
+$=
+"$="
+'$='
+"$"$
+'$'$
+$"$"
+$'$'
+"$""$"
+'$''$'
+$PWD
+"$PWD"
+'$PWD'
+$EMPTY
+"$EMPTY"
+'$EMPTY'
+$EMPTY echo hi
+./$PATH
+"./$PATH"
+'./$PATH'
+./$USER
+"./$USER"
+./'$USER'
+echo $
+echo "$"
+echo '$'
+echo "$="
+echo '$='
+echo "$""$"
+echo "$"$
+echo '$'$
+echo $"$"
+echo $'$'
+echo $PATH
+echo $USER
+echo "$USER"
+echo "'$USER'"
+echo '"'$USER'"'
+echo "'"$USER"'"
+echo "'a"$USER"'$USER"
+echo "$USER'"$USER"'"
+echo """"$USER""""
+echo ''''$USER''''
+echo ""$USER""
+echo ''$USER''
+echo '"$USER"'
+echo '"q'$USER'"'
+echo '"'$USER'"q'
+echo '"$USER'$USER'"q'
+echo '"'$USER'$USER"q'
+echo b ">" ./outfiles/out
+ls | echo $PATH
+ls | echo $USER
+ls | echo "$USER"
+ls | echo "'$USER'"
+ls | echo '"'$USER'"'
+ls | echo ""$USER""
+ls | echo ''$USER''
+ls | echo '"$USER"'
+ls | echo $PATH | cat
+ls | echo $USER | cat
+ls | echo "$USER" | cat
+ls | echo "'$USER'" | cat
+ls | echo '"'$USER'"' | cat
+ls | echo ""$USER"" | cat
+ls | echo ''$USER'' | cat
+ls | echo '"$USER"' | cat
+echo $PATH | cat
+echo $USER | cat
+echo "$USER" | cat
+echo "'$USER'" | cat
+echo '"'$USER'"' | cat
+echo ""$USER"" | cat
+echo ''$USER'' | cat
+echo '"$USER"' | cat
+export test="echo b" | $test
+export xd="x"
+echo "xd" $USER "$USER" '''"'$USER'"'
+echo $ $ $
+echo $"HOME"
+echo $"HOM"E
+echo a$"HOME"
+echo a$"HOM"E
+echo $"42$"
+echo $"42$x"
+echo a$"42$"
+echo a$"42$x"
+echo $"HOME"$USER
+echo $"HOM"E$USER
+echo $"42$'HOME'"
+echo $'HOME'
+echo $'HOM'E
+echo a$'HOME'
+echo a$'HOM'E
+echo $'42$'
+echo $'42$x'
+echo a$'42$'
+echo a$'42$x'
+echo $'HOME'$USER
+echo $'HOM'E$USER
+echo $'42$"HOME"'
+echo $'$'

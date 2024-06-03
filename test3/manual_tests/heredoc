@@ -1,0 +1,69 @@
+<< a cat | cat -e 
+<< a << b << c cat | cat -e
+ls | << a cat | cat -e 
+ls | << a cat
+ls | << a << b << c cat | cat -e
+ls | << a << b << c cat
+<< a cat
+<< a << b << c cat
+
+cat << a
+cat << a << b << c
+cat << a | cat -e
+cat << a << b << c | cat -e
+ls | cat << a | cat -e 
+ls | cat << a << b << c | cat -e
+ls | cat << a
+ls | cat << a << b << c
+
+
+<< eof << fin 
+<< eof 
+
+cat <<HERE 
+$USER
+oi
+HERE
+
+cat <<HERE 
+'$USER'
+oi
+HERE
+
+cat <<HERE 
+"$USER"
+oi
+HERE
+
+cat <<""HERE 
+$USER
+oi
+HERE
+
+export USER=cc && cat <<HERE 
+"$USER"
+oi
+HERE
+
+unset USER=cc && cat <<HERE 
+"$USER"
+oi
+HERE
+
+ls && << a cat
+ls && cat << a
+
+cat <minishell.h <<HERE <missing | ls
+HERE
+
+cat <minishell.h <<HERE <missing <<DOC | echo oi
+HERE
+DOC
+
+ls | < ../Makefile cat << a << b << c > out > xd | cat -e
+
+<< a cat < Makefile
+
+<< eof << a cat << b
+
+ls -qwer && (<< a || << b)

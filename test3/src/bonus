@@ -1,0 +1,49 @@
+ls && ls
+ls || ls
+ls -wqer && ls
+ls -wqer || ls
+< local.supp echo b || echo a
+< local.supp echo b && echo a
+echo b || < local.supp echo a
+echo b && < local.supp echo a
+echo b < local.supp || echo a
+echo b < local.supp && echo a
+echo b || echo a < local.supp
+echo b && echo a < local.supp
+echo b < local.supp || echo a < local.supp
+echo b < local.supp && echo a < local.supp
+echo b < local.supp || echo a < local.supp
+echo b < local.supp && echo a < local.supp
+< local.supp echo b || < local.supp echo a
+< local.supp echo b && < local.supp echo a
+< local.supp echo b || < local.supp echo a
+< local.supp echo b && < local.supp echo a
+(ls) && ls
+ls && (ls)
+(ls) && (ls)
+(ls) || ls
+ls || (ls)
+(ls) || (ls)
+(ls -qwer) && ls
+ls -qwer && (ls)
+(ls -qwer) && (ls)
+(ls -qwer) || ls
+ls -qwer || (ls)
+(ls -qwer) || (ls)
+echo a && echo b || echo c || echo d
+echo a && echo b || echo c && echo d
+echo a && echo b || echo c || (echo d)
+echo a && echo b || echo c && (echo d)
+(echo a && echo b || echo c || (echo d) && echo p || (echo x) || echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo a && echo b || echo c && (echo d) && echo p || (echo x) || echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo a && (echo b) || echo c || (echo d) && echo p || (echo x) || echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo a && (echo b) || echo c && (echo d) && echo p || (echo x) || echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo a && (echo b) || echo c || (echo d) && echo p || (echo x) && echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo a && (echo b && echo 1 || echo 2) || echo c || (echo d && echo n) && echo p || (echo x && echo 8) && echo w && (echo y)) || echo e && echo f && (echo g) || (echo h)
+(echo 1a || echo 1b || echo 1c || echo 1d || (echo 2a && echo 2b && echo 2c || (echo 3a && echo 3b || echo 3c)))
+(echo 1a && (echo 2a && (echo 3a) || echo 2b) || (echo 2c && (echo 3b || echo 3c && (echo 4a)))) && echo 0a || echo 0b || echo 0c || echo 0d && echo 0e
+echo a || (echo b && echo c && echo d || (echo e) && (echo f)) || echo g && echo h && (echo i && echo j || (echo k))
+echo a && (echo b && echo c && echo d || (echo e) && (echo f)) || echo g && echo h && (echo i && echo j || (echo k))
+echo a && (echo b && echo c && echo d || (echo e) || (echo f) || echo w) || echo g && echo h && (echo i && echo j || (echo k))
+echo a && (echo b && echo c && echo d || (echo e) || (echo f) && echo w) || echo g && echo h && (echo i && echo j || (echo k))
+(ls && echo b) || (echo c && echo d)

@@ -1,0 +1,56 @@
+||
+|| echo oi
+&&
+> &&
+> ||
+>>>
+<<<
+<>
+><
+>><
+<<>
+echo a && ()
+(echo a )&& ()
+() && ()
+() && (echo a)
+(&&)
+(|)
+(||)
+(<)
+(>)
+(<<)
+(>>)
+echo a && (&&)
+echo a && (|)
+echo a && (||)
+echo a && (<)
+echo a && (>)
+echo a && (<<)
+echo a && (>>)
+echo a || (&&)
+echo a || (|)
+echo a || (||)
+echo a || (<)
+echo a || (>)
+echo a || (<<)
+echo a || (>>)
+ls (&&) ls
+ls (||) ls
+ls (<<) ls
+ls (>>) ls
+ls (<) ls
+ls (>) ls
+ls (|) ls
+ls(&&)ls
+ls(||)ls
+ls(<<)ls
+ls(>>)ls
+ls(<)ls
+ls(>)ls
+ls(|)ls
+> *
+>> *
+< *
+*
+> *
+>> *

@@ -1,0 +1,233 @@
+cat -e < "./test_files/missing"> ./outfiles/outfile01 && echo qwkerwqersad4fas$PATH
+cat -e < "./test_files/missing"> ./outfiles/outfile01 || ls
+ls >./outfiles/outfile01 && cat ./outfiles/outfile01
+cat <minishell.h && ls
+echo oi || echo tchau
+env | grep USER || grep lucas
+ls && ls | cat -e | grep $
+ls -qwer && ls | cat -e | grep $
+ls || ls | cat -e | grep $
+ls -qwer || ls | cat -e | grep $
+ls && ls > ./outfiles/outfile01 > ./outfiles/outfile02
+ls || ls > ./outfiles/outfile01 > ./outfiles/outfile02
+ls -wqer && ls > ./outfiles/outfile01 > ./outfiles/outfile02
+ls -wqer || ls > ./outfiles/outfile01 > ./outfiles/outfile02
+ls && ls | cat -e | grep $ > ./outfiles/outfile01 > ./outfiles/outfile02
+ls -qwer && ls | cat -e | grep $ > ./outfiles/outfile01 > ./outfiles/outfile02
+ls || ls | cat -e | grep $ > ./outfiles/outfile01 > ./outfiles/outfile02
+ls -qwer || ls | cat -e | grep $ > ./outfiles/outfile01 > ./outfiles/outfile02
+ls > ./outfiles/outfile01 > ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls > ./outfiles/outfile01 > ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls -wqer > ./outfiles/outfile01 > ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls -wqer > ./outfiles/outfile01 > ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls > ./outfiles/outfile01 > ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer > ./outfiles/outfile01 > ./outfiles/outfile02 && ls | cat -e | grep $
+ls > ./outfiles/outfile01 > ./outfiles/outfile02 || ls | cat -e | grep $
+ls -qwer > ./outfiles/outfile01 > ./outfiles/outfile02 || ls | cat -e | grep $
+ls >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./outfiles/out
+ls >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./outfiles/out > ./outfiles/out2
+ls -qwer >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./outfiles/out
+ls -qwer >./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b > ./outfiles/out > ./outfiles/out2
+ls >./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b > ./outfiles/out > ./outfiles/out2
+ls && cat < "./test_files/infile" < "./test_files/infile_big"
+ls || cat < "./test_files/infile" < "./test_files/infile_big"
+ls -wqer && cat < "./test_files/infile" < "./test_files/infile_big"
+ls -wqer || cat < "./test_files/infile" < "./test_files/infile_big"
+ls && ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces" | grep $
+ls -qwer && ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces" | grep $
+ls || ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces" | grep $
+ls -qwer || ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces" | grep $
+ls && ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces"
+ls -qwer && ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces"
+ls || ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces"
+ls -qwer || ls | cat | cat -e < "./test_files/infile" < "./test_files/file name with spaces"
+cat < "./test_files/infile" < "./test_files/file name with spaces" && echo qwkerwqersad4fas$PATH
+cat < "./test_files/infile" < "./test_files/file name with spaces" || echo qwkerwqersad4fas$PATH
+cat -wqer < "./test_files/infile" < "./test_files/file name with spaces" && echo qwkerwqersad4fas$PATH
+cat -wqer < "./test_files/infile" < "./test_files/file name with spaces" || echo qwkerwqersad4fas$PATH
+cat < "./test_files/infile" < "./test_files/file name with spaces" && ls | cat -e | grep $
+cat -qwer < "./test_files/infile" < "./test_files/file name with spaces" && ls | cat -e | grep $
+cat < "./test_files/infile" < "./test_files/file name with spaces" || ls | cat -e | grep $
+cat -qwer < "./test_files/infile" < "./test_files/file name with spaces" || ls | cat -e | grep $
+cat <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces"
+cat <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces" < "./test_files/infile"
+cat -qwer <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces"
+cat -qwer <"./test_files/infile" || cat "./test_files/infile" || cat -e < "./test_files/file name with spaces" < "./test_files/infile"
+cat <"./test_files/infile" || cat "./test_files/infile" || cat -e < "./test_files/file name with spaces" < "./test_files/infile"
+ls && ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls || ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls -wqer && ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls -wqer || ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls && ls | cat -e | grep $ >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls -qwer && ls | cat -e | grep $ >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls || ls | cat -e | grep $ >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls -qwer || ls | cat -e | grep $ >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls -wqer >> ./outfiles/outfile01 >> ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls -wqer >> ./outfiles/outfile01 >> ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer >> ./outfiles/outfile01 >> ./outfiles/outfile02 && ls | cat -e | grep $
+ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 || ls | cat -e | grep $
+ls -qwer >> ./outfiles/outfile01 >> ./outfiles/outfile02 || ls | cat -e | grep $
+ls >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./outfiles/out
+ls >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./outfiles/out >> ./outfiles/out2
+ls -qwer >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./outfiles/out
+ls -qwer >>./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b >> ./outfiles/out >> ./outfiles/out2
+ls >>./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b >> ./outfiles/out >> ./outfiles/out2
+ls > ./tests_files/invalid_permission > ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls > ./outfiles/outfile02 > ./tests_files/invalid_permission  && echo qwkerwqersad4fas$PATH
+ls > ./tests_files/invalid_permission  > ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls >./outfiles/outfile02  > ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls >./tests_files/invalid_permission > ./tests_files/invalid_permission  && echo qwkerwqersad4fas$PATH
+ls > ./tests_files/invalid_permission  > ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls -wqer > ./tests_files/invalid_permission > ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls -wqer > ./outfiles/outfile02 > ./tests_files/invalid_permission && echo qwkerwqersad4fas$PATH
+ls -wqer > ./tests_files/invalid_permission > ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls -wqer > ./outfiles/outfile02  > ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls -wqer > ./tests_files/invalid_permission > ./tests_files/invalid_permission && echo qwkerwqersad4fas$PATH
+ls -wqer > ./tests_files/invalid_permission > ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls > ./outfiles/outfile01 > ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer > ./tests_files/invalid_permission > ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer > ./outfiles/outfile02 > ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer && ls | cat -e | grep $
+ls -qwer || ls | cat -e | grep $
+ls > ./tests_files/invalid_permission > ./outfiles/outfile02 || ls | cat -e | grep $
+ls -qwer > ./outfiles/outfile01 > ./outfiles/outfile02 || ls | cat -e | grep $
+ls >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./tests_files/invalid_permission
+ls >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./outfiles/out > ./tests_files/invalid_permission
+ls -qwer >./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b > ./tests_files/invalid_permission
+ls -qwer >./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b > ./tests_files/invalid_permission > ./outfiles/out2
+ls >./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b > ./outfiles/out > ./tests_files/invalid_permission
+ls >> ./tests_files/invalid_permission >> ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls >> ./outfiles/outfile02 >> ./tests_files/invalid_permission  && echo qwkerwqersad4fas$PATH
+ls >> ./tests_files/invalid_permission  >> ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls >>./outfiles/outfile02  >> ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls >>./tests_files/invalid_permission >> ./tests_files/invalid_permission  && echo qwkerwqersad4fas$PATH
+ls >> ./tests_files/invalid_permission  >> ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls -wqer >> ./tests_files/invalid_permission >> ./outfiles/outfile02 && echo qwkerwqersad4fas$PATH
+ls -wqer >> ./outfiles/outfile02 >> ./tests_files/invalid_permission && echo qwkerwqersad4fas$PATH
+ls -wqer >> ./tests_files/invalid_permission >> ./outfiles/outfile02 || echo qwkerwqersad4fas$PATH
+ls -wqer >> ./outfiles/outfile02  >> ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls -wqer >> ./tests_files/invalid_permission >> ./tests_files/invalid_permission && echo qwkerwqersad4fas$PATH
+ls -wqer >> ./tests_files/invalid_permission >> ./tests_files/invalid_permission || echo qwkerwqersad4fas$PATH
+ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 && ls | cat -e | grep $
+ls -qwer >> ./tests_files/invalid_permission >> ./outfiles/outfile02 && ls | cat -e | grep $
+ls >> ./tests_files/invalid_permission >> ./outfiles/outfile02 || ls | cat -e | grep $
+ls -qwer >> ./outfiles/outfile01 >> ./outfiles/outfile02 || ls | cat -e | grep $
+ls >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./tests_files/invalid_permission
+ls >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./outfiles/out >> ./tests_files/invalid_permission
+ls -qwer >>./outfiles/outfile01 && cat ./outfiles/outfile01 && echo b >> ./tests_files/invalid_permission
+ls -qwer >>./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b >> ./tests_files/invalid_permission >> ./outfiles/out2
+ls >>./outfiles/outfile01 || cat ./outfiles/outfile01 || echo b >> ./outfiles/out >> ./tests_files/invalid_permission
+ls && cat < "./test_files/infile" < "missing"
+ls || cat < "./test_files/infile" < "./test_files/missing"
+ls -wqer && cat < "./test_files/infile" < "./test_files/missing"
+ls -wqer || cat < "./test_files/infile" < "./test_files/missing"
+ls && ls | cat | cat -e < "./test_files/infile" < "./test_files/missing" | grep $
+ls -qwer && ls | cat | cat -e < "./test_files/infile" < "./test_files/missing" | grep $
+ls || ls | cat | cat -e < "./test_files/infile" < "./test_files/missing" | grep $
+ls -qwer || ls | cat | cat -e < "./test_files/infile" < "./test_files/missing" | grep $
+ls && ls | cat | cat -e < "./test_files/infile" < "./test_files/missing"
+ls -qwer && ls | cat | cat -e < "./test_files/infile" < "./test_files/missing"
+ls || ls | cat | cat -e < "./test_files/infile" < "./test_files/missing"
+ls -qwer || ls | cat | cat -e < "./test_files/infile" < "./test_files/missing"
+cat < "./test_files/infile" < "./test_files/missing" && echo qwkerwqersad4fas$PATH
+cat < "./test_files/infile" < "./test_files/missing" || echo qwkerwqersad4fas$PATH
+cat -wqer < "./test_files/infile" < "./test_files/missing" && echo qwkerwqersad4fas$PATH
+cat -wqer < "./test_files/infile" < "./test_files/missing" || echo qwkerwqersad4fas$PATH
+cat < "./test_files/infile" < "./test_files/missing" && ls | cat -e | grep $
+cat -qwer < "./test_files/infile" < "./test_files/missing" && ls | cat -e | grep $
+cat < "./test_files/infile" < "./test_files/missing" || ls | cat -e | grep $
+cat -qwer < "./test_files/infile" < "./test_files/missing" || ls | cat -e | grep $
+cat <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/missing"
+cat <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/missing" < "./test_files/infile"
+cat -qwer <"./test_files/infile" && cat "./test_files/infile" && cat -e < "./test_files/missing"
+cat -qwer <"./test_files/infile" || cat "./test_files/infile" || cat -e < "./test_files/missing" < "./test_files/infile"
+cat <"./test_files/infile" || cat "./test_files/infile" || cat -e < "./test_files/missing" < "./test_files/infile"
+cat -e < "./test_files/missing" && ls - l
+cat -e < "./test_files/missing" || ls
+ls -wqer && >> "./outfiles/outfile" >> "./outfiles/outfile_big" echo xd
+ls -wqer || >> "./outfiles/outfile" >> "./outfiles/outfile_big" echo xd
+ls && ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" echo xd$ | grep $
+ls -qwer && ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" echo xd$ | grep $
+ls || ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" echo xd$ | grep $
+ls -qwer || ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" ls | grep $
+ls && ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" ls
+ls -qwer && ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" ls 
+ls || ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" ls 
+ls -qwer || ls | ls | >> "./outfiles/outfile" >> "./outfiles/outfile2" ls
+>> "./outfiles/outfile" >> "./outfiles/outfile2" echo test && echo coucou
+>> "./outfiles/outfile" >> "./outfiles/outfile2" echo test || echo coucou
+>> "./outfiles/outfile" >> "./outfiles/outfile2" ls -wqer && echo coucou
+>> "./outfiles/outfile" >> "./outfiles/outfile2" ls -wqer || echo coucou
+>> "./outfiles/outfile" >> "./outfiles/outfile2" echo test && ls | ls | grep $
+>> "./outfiles/outfile" >> "./outfiles/outfile2" ls -qwer && ls | ls | grep $
+>> "./outfiles/outfile" >> "./outfiles/outfile2" echo test || ls | ls | grep $
+>> "./outfiles/outfile" >> "./outfiles/outfile2" ls -qwer || ls | ls | grep $
+ls >>"./outfiles/outfile" && ls "./outfiles/outfile" && >> "/outfiles/outfile" ls
+>>"./outfiles/outfile" echo test && ls "./outfiles/outfile" && ls >> "/outfiles/outfile"
+ls >>"./outfiles/outfile" && ls "./outfiles/outfile" && >> "/outfiles/outfile" >> "./outfiles/outfile" ls 
+>>"./outfiles/outfile" echo test && echo xd && ls >> "/outfiles/outfile" >> "./outfiles/outfile"
+>>"./outfiles/outfile" ls -qwer && echo xd && ls >> "/outfiles/outfile"
+>>"./outfiles/outfile" ls -qwer || echo xd || ls >> "/outfiles/outfile" >> "./outfiles/outfile"
+ls -qwer >>"./outfiles/outfile" && echo xd && >> "/outfiles/outfile" ls 
+ls -qwer >>"./outfiles/outfile" || echo xd || >> "/outfiles/outfile" >> "./outfiles/outfile" ls 
+ls >>"./outfiles/outfile" || echo xd || >> "/outfiles/outfile" >> "./outfiles/outfile" ls 
+>>"./outfiles/outfile" echo test || echo xd || echo test >> "/outfiles/outfile" >> "./outfiles/outfile"
+ls -wqer && > "./outfiles/outfile" > "./outfiles/outfile_big" echo xd
+ls -wqer || > "./outfiles/outfile" > "./outfiles/outfile_big" echo xd
+ls && ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" echo xd$ | grep $
+ls -qwer && ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" echo xd$ | grep $
+ls || ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" echo xd$ | grep $
+ls -qwer || ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" ls | grep $
+ls && ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" ls
+ls -qwer && ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" ls 
+ls || ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" ls 
+ls -qwer || ls | ls | > "./outfiles/outfile" > "./outfiles/outfile2" ls
+> "./outfiles/outfile" > "./outfiles/outfile2" echo test && echo coucou
+> "./outfiles/outfile" > "./outfiles/outfile2" echo test || echo coucou
+> "./outfiles/outfile" > "./outfiles/outfile2" ls -wqer && echo coucou
+> "./outfiles/outfile" > "./outfiles/outfile2" ls -wqer || echo coucou
+> "./outfiles/outfile" > "./outfiles/outfile2" echo test && ls | ls | grep $
+> "./outfiles/outfile" > "./outfiles/outfile2" ls -qwer && ls | ls | grep $
+> "./outfiles/outfile" > "./outfiles/outfile2" echo test || ls | ls | grep $
+> "./outfiles/outfile" > "./outfiles/outfile2" ls -qwer || ls | ls | grep $
+ls >"./outfiles/outfile" && ls "./outfiles/outfile" && > ". ./outfiles/outfile" ls
+>"./outfiles/outfile" echo test && ls "./outfiles/outfile" && ls > ". ./outfiles/outfile"
+ls >"./outfiles/outfile" && ls "./outfiles/outfile" && > ". ./outfiles/outfile" > "./outfiles/outfile" ls 
+>"./outfiles/outfile" echo test && echo xd && ls > ". ./outfiles/outfile" > "./outfiles/outfile"
+>"./outfiles/outfile" ls -qwer && echo xd && ls > ". ./outfiles/outfile"
+>"./outfiles/outfile" ls -qwer || echo xd || ls > ". ./outfiles/outfile" > "./outfiles/outfile"
+ls -qwer >"./outfiles/outfile" && echo xd && > ". ./outfiles/outfile" ls 
+ls -qwer >"./outfiles/outfile" || echo xd || > ". ./outfiles/outfile" > "./outfiles/outfile" ls 
+ls >"./outfiles/outfile" || echo xd || > ". ./outfiles/outfile" > "./outfiles/outfile" ls 
+>"./outfiles/outfile" echo test || echo xd || echo test > ". ./outfiles/outfile" > "./outfiles/outfile"
+ls -wqer && < "./test_files/infile" < "./test_files/infile_big" cat
+ls -wqer || < "./test_files/infile" < "./test_files/infile_big" cat
+ls && ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e | grep $
+ls -qwer && ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e | grep $
+ls || ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e  | grep $
+ls -qwer || ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e | grep $
+ls && ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e
+ls -qwer && ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e 
+ls || ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e 
+ls -qwer || ls | cat | < "./test_files/infile" < "./test_files/file name with spaces" cat -e
+< "./test_files/infile" < "./test_files/file name with spaces" cat && ls -l
+< "./test_files/infile" < "./test_files/file name with spaces" cat || ls -l
+< "./test_files/infile" < "./test_files/file name with spaces" cat -wqer && ls -l
+< "./test_files/infile" < "./test_files/file name with spaces" cat -wqer || ls -l
+< "./test_files/infile" < "./test_files/file name with spaces" cat && ls | cat -e | grep $
+< "./test_files/infile" < "./test_files/file name with spaces" cat -qwer && ls | cat -e | grep $
+< "./test_files/infile" < "./test_files/file name with spaces" cat || ls | cat -e | grep $
+< "./test_files/infile" < "./test_files/file name with spaces" cat -qwer || ls | cat -e | grep $
+cat <"./test_files/infile" && cat "./test_files/infile" && < "./test_files/file name with spaces" cat -e
+<"./test_files/infile" cat && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces"
+cat <"./test_files/infile" && cat "./test_files/infile" && < "./test_files/file name with spaces" < "./test_files/infile" cat -e 
+<"./test_files/infile" cat && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces" < "./test_files/infile"
+<"./test_files/infile" cat -qwer && cat "./test_files/infile" && cat -e < "./test_files/file name with spaces"
+<"./test_files/infile" cat -qwer || cat "./test_files/infile" || cat -e < "./test_files/file name with spaces" < "./test_files/infile"
+cat -qwer <"./test_files/infile" && cat "./test_files/infile" && < "./test_files/file name with spaces" cat -e 
+cat -qwer <"./test_files/infile" || cat "./test_files/infile" || < "./test_files/file name with spaces" < "./test_files/infile" cat -e 
+cat <"./test_files/infile" || cat "./test_files/infile" || < "./test_files/file name with spaces" < "./test_files/infile" cat -e 
+<"./test_files/infile" cat || cat "./test_files/infile" || cat -e < "./test_files/file name with spaces" < "./test_files/infile"

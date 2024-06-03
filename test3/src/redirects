@@ -1,0 +1,197 @@
+cat -e < "./test_files/missing" | ls
+cat -e < "./test_files/missing"> ./outfiles/outfile01
+cat -e < "./test_files/missing"> ./outfiles/outfile01 | ls
+< ./test_files/infile grep hi
+"<infile" <         ./test_files/infile grep hi
+< ./test_files/infile echo hi bye bye
+<./test_files/infile_big <./test_files/infile grep hi
+<"./test_files/infile" echo "bonjour       42"
+<"./test_files/file name with spaces" cat
+<./test_files/infile_big ./test_files/infile cat
+<"1""2""3""4""5" cat
+<"./test_files/infile" <missing <"./test_files/infile" echo 
+<missing <"./test_files/infile" <missing echo
+<"./test_files/infile" cat
+<"./test_files/infile_big" echo | <"./test_files/infile" cat
+<"./test_files/infile_big" echo | "./test_files/infile" cat
+<"./test_files/infile_big" echo | <"./test_files/infile" echo
+echo hi | <"./test_files/infile" cat
+echo hi | "./test_files/infile" cat
+
+<missing cat
+<missing cat | cat
+<missing cat | echo oi
+<missing cat | <"./test_files/infile" cat
+<123 <456 echo hi | echo 42
+< ./test_files/infile grep hi > ./outfiles/outfile01
+< ./test_files/infile ls > ./outfiles/outfile01
+< ./test_files/infile ls > ./outfiles/outfile01 > ./outfiles/outfile02
+< ./test_files/infile ls > ./outfiles/outfile01 >> ./outfiles/outfile02
+< ./test_files/infile ls >> ./outfiles/outfile01 > ./outfiles/outfile02
+< ./test_files/infile ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+< ./test_files/infile ls > ./outfiles/outfile01 > ./outfiles/outfile02 | cat -e
+< ./test_files/infile ls > ./outfiles/outfile01 >> ./outfiles/outfile02 | cat -e
+< ./test_files/infile ls >> ./outfiles/outfile01 > ./outfiles/outfile02 | cat -e
+< ./test_files/infile ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 | cat -e
+ls | < ./test_files/infile ls > ./outfiles/outfile01 > ./outfiles/outfile02
+ls |< ./test_files/infile ls > ./outfiles/outfile01 >> ./outfiles/outfile02
+ls |< ./test_files/infile ls >> ./outfiles/outfile01 > ./outfiles/outfile02
+ls |< ./test_files/infile ls >> ./outfiles/outfile01 >> ./outfiles/outfile02
+ls | < ./test_files/infile ls > ./outfiles/outfile01 > ./outfiles/outfile02 | cat -e
+ls |< ./test_files/infile ls > ./outfiles/outfile01 >> ./outfiles/outfile02 | cat -e
+ls |< ./test_files/infile ls >> ./outfiles/outfile01 > ./outfiles/outfile02 | cat -e
+ls |< ./test_files/infile ls >> ./outfiles/outfile01 >> ./outfiles/outfile02 | cat -e
+ls |< ./test_files/infile grep hi | cat -e
+ls | ls >./outfiles/outfile 
+ls | ls >./outfiles/outfile | cat -e
+> ./outfiles/outfile echo hi
+">./outfiles/outfile" >         ./outfiles/outfile echo hi
+> ./outfiles/outfile echo hi bye bye
+>./outfiles/outfile_big >./outfiles/outfile echo hi
+>"./outfiles/outfile" echo "bonjour       42"
+>"./outfiles/outfile" ls
+>./outfiles/outfile_big ./outfiles/outfile ls
+>./outfiles/"1""2""3""4""5" ls
+>"./outfiles/outfile" >./test_files/invalid_permission >"./outfiles/outfile" echo 
+>./test_files/invalid_permission >"./outfiles/outfile" >./test_files/invalid_permission echo
+>"./outfiles/outfile" ls
+>"./outfiles/outfile_big" echo | >"./outfiles/outfile" ls
+>"./outfiles/outfile_big" echo | "./outfiles/outfile" ls
+>"./outfiles/outfile_big" echo | >"./outfiles/outfile" echo
+echo hi | >"./outfiles/outfile" ls
+echo hi | "./outfiles/outfile" ls
+>"./outfiles/outfile" ls | echo hi
+>"./outfiles/outfile" ls | grep hello
+>"./outfiles/outfile" ls | echo hi
+>./test_files/invalid_permission ls
+>./test_files/invalid_permission ls | cat
+>./test_files/invalid_permission ls | echo oi
+>./test_files/invalid_permission ls | >"./outfiles/outfile_big" ls
+>./outfiles/123 >./outfiles/456 echo hi | echo 42
+ls | ls >>./outfiles/outfile 
+ls | ls >>./outfiles/outfile | cat -e
+>> ./outfiles/outfile echo hi
+">> ./outfiles/outfile" >>         ./outfiles/outfile echo hi
+>> ./outfiles/outfile echo hi bye bye
+>>./outfiles/outfile_big >>./outfiles/outfile echo hi
+>>"./outfiles/outfile" echo "bonjour       42"
+>>" ./outfiles/outfile" ls
+>>./outfiles/outfile_big ./outfiles/outfile ls
+>>./outfiles/"1""2""3""4""5" ls
+>>"./outfiles/outfile" >>./test_files/invalid_permission  >>"./outfiles/outfile" echo 
+>>./test_files/invalid_permission  >>"./outfiles/outfile" >>./test_files/invalid_permission  echo
+>>"./outfiles/outfile" ls
+>>"./outfiles/outfile_big" echo | >>"./outfiles/outfile" ls
+>>"./outfiles/outfile_big" echo | "./outfiles/outfile" ls
+>>"./outfiles/outfile_big" echo | >>"./outfiles/outfile" echo
+echo hi | >>"./outfiles/outfile" ls
+echo hi | "./outfiles/outfile" ls
+>>"./outfiles/outfile" ls | echo hi
+>>"./outfiles/outfile" ls | grep hello
+>>"./outfiles/outfile" ls | echo hi
+>>./test_files/invalid_permission ls
+>>./test_files/invalid_permission ls | cat
+>>./test_files/invalid_permission ls | echo oi
+>>./test_files/invalid_permission ls | >>"./outfiles/outfile" ls
+>>./outfiles/123 >>./outfiles/456 echo hi | echo 42
+< ./test_files/infile < ./test_files/infile cat -e < ./test_files/infile < ./test_files/infile_big > "./outfiles/outfile"
+grep hi <./test_files/infile
+grep hi "<infile" <         ./test_files/infile
+echo hi < ./test_files/infile bye bye
+grep hi <./test_files/infile_big <./test_files/infile
+echo <"./test_files/infile" "bonjour       42"
+cat <"./test_files/file name with spaces"
+cat <./test_files/infile_big ./test_files/infile
+cat <"1""2""3""4""5"
+echo <"./test_files/infile" <missing <"./test_files/infile"
+echo <missing <"./test_files/infile" <missing
+cat <"./test_files/infile"
+echo <"./test_files/infile_big" | cat <"./test_files/infile"
+echo <"./test_files/infile_big" | cat "./test_files/infile"
+echo <"./test_files/infile_big" | echo <"./test_files/infile"
+echo hi | cat <"./test_files/infile"
+echo hi | cat "./test_files/infile"
+
+cat <missing
+cat <missing | cat
+cat <missing | echo oi
+cat <missing | cat <"./test_files/infile"
+echo <123 <456 hi | echo 42
+ls >./outfiles/outfile01
+ls >         ./outfiles/outfile01
+echo hi >         ./outfiles/outfile01 bye
+ls >./outfiles/outfile01 >./outfiles/outfile02
+ls >./outfiles/outfile01 >./test_files/invalid_permission
+ls >"./outfiles/outfile with spaces"
+ls >"./outfiles/outfile""1""2""3""4""5"
+ls >"./outfiles/outfile01" >./test_files/invalid_permission >"./outfiles/outfile02"
+ls >./test_files/invalid_permission >"./outfiles/outfile01" >./test_files/invalid_permission
+cat <"./test_files/infile" >"./outfiles/outfile01"
+echo hi >./outfiles/outfile01 | echo bye
+echo hi >./outfiles/outfile01 >./outfiles/outfile02 | echo bye
+echo hi | echo >./outfiles/outfile01 bye
+echo hi | echo bye >./outfiles/outfile01 >./outfiles/outfile02
+echo hi >./outfiles/outfile01 | echo bye >./outfiles/outfile02
+echo hi >./outfiles/outfile01 >./test_files/invalid_permission | echo bye
+echo hi >./test_files/invalid_permission | echo bye
+echo hi >./test_files/invalid_permission >./outfiles/outfile01 | echo bye
+echo hi | echo bye >./test_files/invalid_permission
+echo hi | >./outfiles/outfile01 echo bye >./test_files/invalid_permission
+echo hi | echo bye >./test_files/invalid_permission >./outfiles/outfile01
+cat <"./test_files/infile" >./test_files/invalid_permission
+cat >./test_files/invalid_permission <"./test_files/infile"
+cat <missing >./outfiles/outfile01
+cat >./outfiles/outfile01 <missing
+cat <missing >./test_files/invalid_permission
+cat >./test_files/invalid_permission <missing
+cat >./outfiles/outfile01 <missing >./test_files/invalid_permission
+ls >>./outfiles/outfile01
+ls >>      ./outfiles/outfile01
+ls >>./outfiles/outfile01 >./outfiles/outfile01
+ls >./outfiles/outfile01 >>./outfiles/outfile01
+ls >./outfiles/outfile01 >>./outfiles/outfile01 >./outfiles/outfile02
+ls >>./outfiles/outfile01 >>./outfiles/outfile02
+ls >>./test_files/invalid_permission
+ls >>./test_files/invalid_permission >>./outfiles/outfile01
+ls >>./outfiles/outfile01 >>./test_files/invalid_permission
+ls >./outfiles/outfile01 >>./test_files/invalid_permission >>./outfiles/outfile02
+ls <missing >>./test_files/invalid_permission >>./outfiles/outfile02
+ls >>./test_files/invalid_permission >>./outfiles/outfile02 <missing
+echo hi >>./outfiles/outfile01 | echo bye
+echo hi >>./outfiles/outfile01 >>./outfiles/outfile02 | echo bye
+echo hi | echo >>./outfiles/outfile01 bye
+echo hi | echo bye >>./outfiles/outfile01 >>./outfiles/outfile02
+echo hi >>./outfiles/outfile01 | echo bye >>./outfiles/outfile02
+echo hi >>./test_files/invalid_permission | echo bye
+echo hi >>./test_files/invalid_permission >./outfiles/outfile01 | echo bye
+echo hi | echo bye >>./test_files/invalid_permission
+echo hi | echo >>./outfiles/outfile01 bye >./test_files/invalid_permission
+cat <minishell.h>./outfiles/outfile
+cat <pipes>./outfiles/outfile
+ls <pipes>./outfiles/outfile
+ls <pipes>./outfiles/outfile > ./outfiles/outfile2
+ls <pipes>./outfiles/outfile >> ./outfiles/outfile2
+ls <pipes>>./outfiles/outfile > ./outfiles/outfile2
+ls <pipes>>./outfiles/outfile >> ./outfiles/outfile2
+ls <pipes>./outfiles/outfile | cat -e
+ls <pipes>./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls <pipes>./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+ls <pipes>>./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls <pipes>>./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+ls | ls <pipes>./outfiles/outfile > ./outfiles/outfile2
+ls | ls <pipes>./outfiles/outfile >> ./outfiles/outfile2
+ls | ls <pipes>>./outfiles/outfile > ./outfiles/outfile2
+ls | ls <pipes>>./outfiles/outfile >> ./outfiles/outfile2
+ls | ls <pipes>./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls | ls <pipes>./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+ls | ls <pipes>>./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls | ls <pipes>>./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+ls | ls >./outfiles/outfile > ./outfiles/outfile2
+ls | ls >./outfiles/outfile >> ./outfiles/outfile2
+ls | ls >>./outfiles/outfile > ./outfiles/outfile2
+ls | ls >>./outfiles/outfile >> ./outfiles/outfile2
+ls | ls >./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls | ls >./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+ls | ls >>./outfiles/outfile > ./outfiles/outfile2 | cat -e
+ls | ls >>./outfiles/outfile >> ./outfiles/outfile2 | cat -e
+cat <minishell.h|ls

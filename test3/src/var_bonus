@@ -1,0 +1,26 @@
+export test="echo b" && $test
+export test="ls && ls" && $test
+export xd="$a" && export a="wekhr" && unset $xd && echo $a
+export test="$PATH" && echo $test
+export $USER=$PATH && echo $USER
+export test='$PATH' && echo $test
+export a="" && echo $a
+export a= && echo $a
+export a+="b" && echo $a
+export a="c" a+="e" && echo $a
+export test="cat "var"" && $test
+export test="export x="echo"" arg="op" arg+="xd" && $test && $x $arg
+export a && echo $a
+export lol=mdr && echo $lol "$lol" '$lol' $"" $'' $""lol $''lol "'lol'" '"lol"' "'"lol"'" '"'lol'"' "$" '$' $? $. "'$lol'" "test  $lol  test" 'test  $lol  test' "'test  $lol  test'" '"test  $lol  test"' '"''$lol''"' "'""'"'"''$PWD''"'
+export xd="./" df=$USER && export zd=export && $zd abc+=$xd$df
+(ls DOsuigaiudgasuo && echo $?) || echo $?
+(dsapohdsioahd || echo $?) && exit
+export xd="Makefile Makefile" && <$xd
+export xd="'Makefile' 'Makefile'" && <$xd
+export xd="'Makefile Makefile'" && echo $xd &&<$xd
+export xd="'Makefile'" && <$xd cat
+export xd="'Makefile'" && <"$xd" cat
+export xd="'Makefile'" && <'$xd' cat
+export xxd="export bc" && export ad="=abc hh+=dcdddddcd00000000000000" && $xdd$ad && echo $bc $hh
+qwer || echo $?
+ls && echo $?

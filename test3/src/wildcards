@@ -1,0 +1,80 @@
+echo *.md
+echo built*
+echo oi*
+echo *.supp
+echo 'bye *' bo*s bye
+echo bo*s
+echo 'bye *' mini* bye
+echo *ME*
+echo "*"
+"*"
+manual*
+echo * | awk -v RS=" " '{print}' | sort
+<*.txt
+echo 'bye *' t*.c bye
+echo *EMPTY hello READ* world
+cat <README*
+echo "pip*"
+echo pip*
+echo *bonus *.supp bonjour
+echo m*n*
+echo *****s
+echo *s
+echo *****us
+echo *us
+echo *i*
+echo *i***
+echo ***i*
+echo ****i****
+echo ****di****
+echo *di*
+echo *****di*****
+echo v****
+echo va****
+echo va*
+echo va*****
+echo *vs*p
+echo 'bye *'
+cat *.md
+cat built*
+cat oi*
+cat *.supp
+cat 'bye *' bo*s bye
+cat bo*s
+cat 'bye *' mini* bye
+cat *ME*
+cat "*"
+cat 'bye *' t*.c bye
+cat *EMPTY hello READ* world
+cat "pip*"
+cat pip*
+cat *bonus *.supp bonjour
+cat m*n*
+cat *****s
+cat *s
+cat *****us
+cat *us
+cat *i*
+cat *i***
+cat ***i*
+cat ****i****
+cat ****di****
+cat *di*
+cat *****di*****
+cat v****
+cat va****
+cat va*
+cat va*****
+cat *vs*p
+cat 'bye *'
+*
+*a
+**a
+***a
+a*
+a**
+a***
+echo *
+export a="*" && echo $a
+export a="*.supp" && cat $a
+export a=* && echo $a
