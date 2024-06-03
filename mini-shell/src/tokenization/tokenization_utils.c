@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 12:47:31 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:04:39 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ void	identify_double_char_tokens(const char **input, t_token **head,
 		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>", shell));
 		*input += 2;
 		if (**input == '\0' || **input == ' ')
+		{
 			*input += 1;
+			while (**input == ' ')
+				*input += 1;
+		}
 		return ;
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
@@ -61,7 +65,11 @@ void	identify_double_char_tokens(const char **input, t_token **head,
 		add_token(head, init_token(TOKEN_HEREDOC, "<<", shell));
 		*input += 2;
 		if (**input == '\0' || **input == ' ')
+		{
 			*input += 1;
+			while (**input == ' ')
+				*input += 1;
+		}
 		return ;
 	}
 }
