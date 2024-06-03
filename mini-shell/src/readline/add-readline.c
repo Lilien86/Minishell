@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 11:22:37 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:45:51 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ void	debug_print_tokens(t_token *tokens)
 			current->type, current->quote_type, current->value);
 		current = current->next;
 	}
+}
+
+int	check_first_token(t_token *tokens, t_minishell *shell) {
+    if (tokens && (ft_strcmp(tokens->value, "./") == 0 ||
+                   ft_strcmp(tokens->value, "../") == 0 ||
+                   ft_strcmp(tokens->value, ".") == 0 ||
+                   ft_strcmp(tokens->value, "..") == 0)) {
+        ft_putstr_fd("minishell: syntax error: unexpected path\n", 2);
+        shell->exit_status = 2;
+        return (1);
+    }
+    return (0);
 }
 
 static void	execute_command_logic(t_minishell *shell)
@@ -71,7 +83,7 @@ void	process_input(t_minishell *shell)
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
 	shell->tokens = tokenize(shell->input, shell->env, shell);
 	//debug_print_tokens(shell->tokens);
-	if (shell->tokens)
+	if (shell->tokens && !check_first_token(shell->tokens, shell))
 		execute_input_commands(shell);
 }
 
