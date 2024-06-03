@@ -13,6 +13,8 @@ else
 		"pipes"
 		"redirects"
 		"extras"
+		"quotes"
+		"dollars"
 	)
 fi
 
