@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:12 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 13:46:44 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/03 14:18:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 
 	i = 0;
 	current = tokens->next;
+	while (ft_isspace(current->value[i]) && current->value[i] != '\0')
+		i++;
 	if (current->value[0] == '-' || current->value[0] == '+')
 		i++;
 	if (check_exit_arg_validity(current, shell, &i) == 0)

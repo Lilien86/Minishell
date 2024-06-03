@@ -99,7 +99,7 @@ typedef struct s_minishell
 t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 void		add_token(t_token **head, t_token *new_token);
 t_token		*tokenize(const char *input, char **env, t_minishell *shell);
-void		identify_double_char_tokens(const char **input,
+int			identify_double_char_tokens(const char **input,
 				t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
