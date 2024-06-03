@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 11:12:52 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:16:38 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	process_input(t_minishell *shell)
 	shell->history[shell->history_index] = ft_strdup(shell->input);
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
 	shell->tokens = tokenize(shell->input, shell->env, shell);
-	debug_print_tokens(shell->tokens);
+	//debug_print_tokens(shell->tokens);
 	if (shell->tokens)
 		execute_input_commands(shell);
 }
