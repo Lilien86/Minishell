@@ -1,4 +1,3 @@
-
 $PWD
 $EMPTY
 $EMPTY echo hi
@@ -13,3 +12,21 @@ minishell.h
 $
 $?
 README.md
+ghfjdfghjdlgfjdgfdslk/ls
+minishell
+minishell hfjkdhgfjkdl gfhdjkl
+echo LVL= $SHLVL
+./minishell
+echo LVL= $SHLVL
+exit 42
+echo ret = $? et LVL= $SHLVL
+export SHLVL=999
+./minishell
+echo LVL= $SHLVL
+exit
+unset PATH
+minishell
+echo LVL= $SHLVL
+exit
+unset HOME
+unset USER
