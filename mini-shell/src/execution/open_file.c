@@ -74,7 +74,7 @@ void	open_file_out_append(t_file *file, t_minishell *shell,
 
 	if (file->name != NULL)
 	{
-		file->fd = open(file->name, O_WRONLY | O_APPEND);
+		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND);
 		handle_error_outfile(file, shell, index);
 	}
 }

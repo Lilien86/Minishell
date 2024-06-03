@@ -15,13 +15,15 @@ int	init_redirect_array(t_minishell *shell)
 	return (1);
 }
 
-void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
-		int here_doc_available)
+static void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
+		int here_doc_available, int *id_here_doc)
 {
+
 	if (cpy.tokens->type == TOKEN_HEREDOC && here_doc_available == 0)
 	{
-		to_choice_here_doc(&cpy, i);
+		to_choice_here_doc(&cpy, i, *id_here_doc);
 		here_doc_available = 1;
+		*id_here_doc = 1;
 	}
 	if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 		handle_input_redirect(&cpy, cpy.tokens, i, shell);
@@ -39,8 +41,11 @@ void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 			return ;
 		}
 		else
+		{
 			handle_pipe(&cpy, i);
-		here_doc_available = 0;
+			*id_here_doc = 0;
+		}
+		//here_doc_available = 0;
 	}
 }
 
@@ -49,6 +54,7 @@ void	fill_redirect_array(t_minishell *shell)
 	t_minishell	cpy;
 	int			i;
 	int			here_doc_available;
+	static int	id_here_doc = 0;
 
 	shell->tab_here_doc = run_here_doc(shell);
 	cpy = *shell;
@@ -56,7 +62,7 @@ void	fill_redirect_array(t_minishell *shell)
 	i = 0;
 	while (cpy.tokens != NULL)
 	{
-		handle_input_output(cpy, &i, shell, here_doc_available);
+		handle_input_output(cpy, &i, shell, here_doc_available, &id_here_doc);
 		if (cpy.tokens->type == TOKEN_WORD
 			&& (cpy.tokens->value != cpy.redirect_array[i].infile.name
 				&& cpy.tokens->value != cpy.redirect_array[i].outfile.name))
@@ -68,6 +74,7 @@ void	fill_redirect_array(t_minishell *shell)
 			cpy.tokens = cpy.tokens->next;
 		}
 	}
+	id_here_doc = 0;
 }
 
 void	fill_t_redirect(t_minishell *shell)

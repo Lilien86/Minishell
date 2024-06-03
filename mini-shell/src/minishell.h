@@ -57,6 +57,7 @@ typedef struct s_pos_len
 {
 	int				pos;
 	int				len;
+	int				origine_len;
 }	t_pos_len;
 
 typedef struct s_file
@@ -230,7 +231,7 @@ t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,
 				t_file **tab_here_doc);
 void		handle_here_doc(t_minishell *shell, t_file here_doc,
 				char *delimiter, int replace_env);
-void		to_choice_here_doc(t_minishell *shell, int *i);
+void		to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc);
 t_file		**run_here_doc(t_minishell *shell);
 char		*read_line(char *delimiter);
 char		*update_here_doc_content(char *line, char *here_doc_content);

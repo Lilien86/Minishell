@@ -7,7 +7,7 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 
 	i = 0;
 	j = 0;
-	while (tab_here_doc && i < nb_cmds - 1)
+	while (tab_here_doc && i < nb_cmds)
 	{
 		j = 0;
 		while (tab_here_doc[i] && tab_here_doc[i][j].name != NULL)
@@ -39,21 +39,20 @@ t_file	**run_here_doc(t_minishell *shell)
 	return (tab_here_doc);
 }
 
-void	to_choice_here_doc(t_minishell *shell, int *i)
+void	to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc)
 {
 	int		j;
 	int		nb_here_doc;
 
 	j = 0;
+	//(void)id_here_doc;
 	nb_here_doc = counter_here_doc(shell->tokens);
-	while (nb_here_doc != 0 && j != *i)
+	while (nb_here_doc != 0 && j < nb_here_doc - 1)
 	{
 		close(shell->tab_here_doc[*i][j].fd);
 		j++;
 	}
-	if (shell->exit_status == 258)
-		return ;
-	if (shell->tab_here_doc && nb_here_doc != 0)
+	if (shell->tab_here_doc && nb_here_doc != 0 && id_here_doc == 0)
 	{
 		if (shell->exit_status == 1)
 			return ;
