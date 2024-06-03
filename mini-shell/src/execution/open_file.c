@@ -2,8 +2,7 @@
 
 static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 {
-	if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0
-		&& file_exist_in_directory(get_variable_path(shell->env),
+	if (file->fd == -1 && file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 1)
 	{
 		ft_putstr_fd("minishell: Permission denied\n", 2);
@@ -11,8 +10,7 @@ static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 		shell->redirect_array[index].infile.fd = -2;
 		return ;
 	}
-	else if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0
-		&& file_exist_in_directory(get_variable_path(shell->env),
+	else if (file->fd == -1 && file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 0)
 	{
 		ft_putstr_fd("minishell: No such file or directory\n", 2);
@@ -35,8 +33,7 @@ void	open_file_in(t_file *file, int is_append, t_minishell *shell, int index)
 
 static void	handle_error_outfile(t_file *file, t_minishell *shell, int index)
 {
-	if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0
-		&& file_exist_in_directory(get_variable_path(shell->env),
+	if (file->fd == -1 && file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 1)
 	{
 		ft_putstr_fd("minishell: Permission denied\n", 2);
@@ -44,8 +41,7 @@ static void	handle_error_outfile(t_file *file, t_minishell *shell, int index)
 		shell->redirect_array[index].outfile.fd = -2;
 		return ;
 	}
-	else if (file->fd == -1 && check_redirect_in_to_pipe(shell->tokens) == 0
-		&& file_exist_in_directory(get_variable_path(shell->env),
+	else if (file->fd == -1 && file_exist_in_directory(get_variable_path(shell->env),
 			file->name) == 0)
 	{
 		ft_putstr_fd("minishell: No such file or directory\n", 2);
@@ -62,7 +58,11 @@ void	open_file_out(t_file *file, t_minishell *shell,
 
 	if (file->name != NULL)
 	{
-		file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (file_exist_in_directory(get_variable_path(shell->env),
+				file->name) == 1)
+			file->fd = open(file->name, O_WRONLY);
+		else
+			file->fd = open(file->name, O_WRONLY | O_CREAT, 0644);
 		handle_error_outfile(file, shell, index);
 	}
 }
@@ -74,7 +74,7 @@ void	open_file_out_append(t_file *file, t_minishell *shell,
 
 	if (file->name != NULL)
 	{
-		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND);
+		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		handle_error_outfile(file, shell, index);
 	}
 }
