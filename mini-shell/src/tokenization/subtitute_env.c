@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:13 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:29:18 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:06:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,12 @@ char	*substitute_var(const char *input, char **env, t_minishell *shell)
 	if (input[0] == '$')
 	{
 		if (input[1] == '?')
-			return (get_exit_status_str(shell->exit_status));
+		{
+			if (g_exit_signal != 0)
+				return (get_exit_status_str(g_exit_signal));
+			else
+				return (get_exit_status_str(shell->exit_status));
+		}
 		input++;
 		return (get_env_var(input, env, shell));
 	}
