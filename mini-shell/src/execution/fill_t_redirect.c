@@ -87,7 +87,7 @@ void	fill_t_redirect(t_minishell *shell)
 	shell->redirect_array[0].outfile.name = NULL;
 	shell->redirect_array[0].outfile.fd = -1;
 	shell->redirect_array[0].argv = NULL;
-	shell->exit_status = 0;
+	//shell->exit_status = 0;
 	fill_redirect_array(shell);
 	//print_data(shell->redirect_array, shell->nb_cmds);
 }
