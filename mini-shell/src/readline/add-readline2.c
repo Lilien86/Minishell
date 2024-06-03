@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 10:15:50 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 11:15:00 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	read_input(t_minishell *shell)
 			free(shell->input);
 			shell->input = NULL;
 		}
+		g_exit_signal = 0;
 		shell->input = readline("minishell > ");
 		if (shell->input == NULL)
 		{
@@ -78,11 +79,11 @@ void	handle_input(t_minishell *shell)
 	if (ft_strcmp(shell->input, "") == 0)
 		return ;
 	process_input(shell);
-	if (ft_strcmp(shell->input, "exit") == 0)
-	{
-		free_minishell(shell);
-		exit(shell->exit_status);
-	}
+	// if (ft_strcmp(shell->input, "exit") == 0)
+	// {
+	// 	free_minishell(shell);
+	// 	exit(shell->exit_status);
+	// }
 }
 
 // static void unlink_file(t_file **tab_files)
