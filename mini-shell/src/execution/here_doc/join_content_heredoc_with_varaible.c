@@ -47,7 +47,7 @@ static int	add_substring_to_list(const char *content, int start, int end,
 	return (0);
 }
 
-static void	process_dollars(const char *content, t_pos_len *dollars,
+static t_list	*string_enouth_var(const char *content, t_pos_len *dollars,
 	int num_vars, t_list **list)
 {
 	int	i;
@@ -59,14 +59,15 @@ static void	process_dollars(const char *content, t_pos_len *dollars,
 	{
 		if (dollars[i].pos > start)
 		{
-			if (add_substring_to_list(content, start, dollars[i].pos, list))
-				return ;
+			if (add_substring_to_list(content, start, dollars[i].pos, list) == 1)
+				return (NULL);
 		}
-		start = dollars[i].pos + dollars[i].len;
+		start = dollars[i].pos + dollars[i].origine_len;
 		i++;
 	}
 	if ((size_t)start < ft_strlen(content))
 		add_substring_to_list(content, start, (int)ft_strlen(content), list);
+	return (*list);
 }
 
 t_list	*fill_content_enough_variable_env(const char *content,
@@ -77,7 +78,7 @@ t_list	*fill_content_enough_variable_env(const char *content,
 	list = NULL;
 	if (content == NULL || dollars == NULL)
 		return (NULL);
-	process_dollars(content, dollars, num_vars, &list);
+	list = string_enouth_var(content, dollars, num_vars, &list);
 	return (list);
 }
 
