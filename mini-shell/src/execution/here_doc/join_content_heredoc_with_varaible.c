@@ -1,4 +1,16 @@
-# include "../../minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join_content_heredoc_with_varaible.c               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:45:10 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:51:48 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../minishell.h"
 
 // t_list	*fill_content_enouth_variable_env(const char *content,
 // 			t_pos_len *dollars, int num_vars)
@@ -59,7 +71,8 @@ static t_list	*string_enouth_var(const char *content, t_pos_len *dollars,
 	{
 		if (dollars[i].pos > start)
 		{
-			if (add_substring_to_list(content, start, dollars[i].pos, list) == 1)
+			if (add_substring_to_list(content, start,
+					dollars[i].pos, list) == 1)
 				return (NULL);
 		}
 		start = dollars[i].pos + dollars[i].origine_len;

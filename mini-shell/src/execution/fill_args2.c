@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_fd_heredoc_two.c                              :+:      :+:    :+:   */
+/*   fill_args2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 12:43:48 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:51:57 by ybarbot          ###   ########.fr       */
+/*   Created: 2024/06/04 13:07:27 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 13:08:17 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
-char	*read_line(char *delimiter)
+void	error_exit(char *message, t_minishell *shell)
 {
-	char	*line;
-
-	line = readline(" > ");
-	if (line == NULL)
-	{
-		if (line != NULL)
-			free(line);
-		ft_putstr_fd("bash: warning: here-document at line 1 delimited"
-			"by end-of-file (wanted `%s')\n", 2);
-		return (NULL);
-	}
-	if (ft_strcmp(line, delimiter) == 0)
-	{
-		if (line != NULL)
-			free(line);
-		return (NULL);
-	}
-	return (line);
+	ft_putstr_fd(message, 2);
+	shell->exit_status = 1;
+	free_minishell(shell);
+	exit(EXIT_FAILURE);
 }

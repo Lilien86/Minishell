@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:47:29 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 13:04:28 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	handle_wait(t_minishell *shell)
@@ -39,6 +51,31 @@ static void	init_pipes(int pipes[MAX_PIPES][2])
 	}
 }
 
+static void	check_commands(t_minishell *shell, int i)
+{
+	while (i < shell->nb_cmds)
+	{
+		if (shell->redirect_array[i].argv != NULL
+			&& check_builtins(shell->redirect_array[i].argv[0]) != 1)
+		{
+			shell->redirect_array[i].argv[0] = check_command_existence(
+					shell->redirect_array[i].argv[0], shell->env);
+		}
+		i++;
+	}
+}
+
+static void	execute_commands(t_minishell *shell, int i, int pipes[MAX_PIPES][2])
+{
+	while (i < shell->nb_cmds)
+	{
+		if (shell->redirect_array[i].argv != NULL
+			&& shell->redirect_array[i].argv[0] != NULL)
+			ft_exec(shell->redirect_array, i, shell, pipes);
+		i++;
+	}
+}
+
 void	execute_command_shell(t_minishell *shell)
 {
 	int		i;
@@ -48,24 +85,8 @@ void	execute_command_shell(t_minishell *shell)
 	init_pipes(pipes);
 	if (shell->nb_cmds - 1 < MAX_PIPES)
 	{
-		while (i < shell->nb_cmds)
-		{
-			if (shell->redirect_array[i].argv != NULL
-				&& check_builtins(shell->redirect_array[i].argv[0]) != 1)
-			{
-				shell->redirect_array[i].argv[0] = check_command_existence(
-						shell->redirect_array[i].argv[0], shell->env);
-			}
-			i++;
-		}
-		i = 0;
-		while (i < shell->nb_cmds)
-		{
-			if (shell->redirect_array[i].argv != NULL
-				&& shell->redirect_array[i].argv[0] != NULL)
-				ft_exec(shell->redirect_array, i, shell, pipes);
-			i++;
-		}
+		check_commands(shell, i);
+		execute_commands(shell, i, pipes);
 		shell->exit_status = handle_wait(shell);
 	}
 	//printf("exit status: %d\n", shell->exit_status);

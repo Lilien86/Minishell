@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_struct_tab_here_doc.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:44:33 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 int	counter_here_doc(t_token *tokens)
@@ -40,10 +52,10 @@ static void	process_here_doc_token(t_token *current, t_minishell *shell,
 static int	isnt_token_word(t_token *current)
 {
 	if (current->next->type == TOKEN_PIPE
-			|| current->next->type == TOKEN_REDIRECT_IN
-			|| current->next->type == TOKEN_REDIRECT_OUT
-			|| current->next->type == TOKEN_DOUBLE_REDIRECT_OUT
-			|| current->next->type == TOKEN_HEREDOC)
+		|| current->next->type == TOKEN_REDIRECT_IN
+		|| current->next->type == TOKEN_REDIRECT_OUT
+		|| current->next->type == TOKEN_DOUBLE_REDIRECT_OUT
+		|| current->next->type == TOKEN_HEREDOC)
 		return (1);
 	else
 		return (0);

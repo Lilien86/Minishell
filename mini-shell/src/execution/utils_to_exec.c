@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_to_exec.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:50:40 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 13:25:27 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	counter_dollars(const char *content)
@@ -69,18 +81,12 @@ char	*get_variable_path(char **env)
 	return (NULL);
 }
 
-int	file_exist_in_directory(char *path, char *file)
+int	check_file_in_directory(DIR *dir, char *path, char *file)
 {
-	DIR				*dir;
 	struct dirent	*entry;
 
-	dir = opendir(path);
-	if (dir == NULL)
-	{
-		perror("opendir");
-		return (0);
-	}
-	while ((entry = readdir(dir)) != NULL)
+	entry = readdir(dir);
+	while (entry != NULL)
 	{
 		if (ft_strcmp(entry->d_name, file) == 0)
 		{
@@ -88,28 +94,7 @@ int	file_exist_in_directory(char *path, char *file)
 			free(path);
 			return (1);
 		}
+		entry = readdir(dir);
 	}
-	if (access(file, F_OK) == 0 && access(file, X_OK) == -1)
-	{
-		closedir(dir);
-		free(path);
-		return (1);
-	}
-	closedir(dir);
-	free(path);
 	return (0);
-}
-
-int	is_file(const char *path)
-{
-	struct stat	statbuf;
-
-	if (stat(path, &statbuf) == -1)
-		return (-1);
-	if (S_ISREG(statbuf.st_mode))
-		return (1);
-	else if (S_ISDIR(statbuf.st_mode))
-		return (0);
-	else
-		return (-1);
 }

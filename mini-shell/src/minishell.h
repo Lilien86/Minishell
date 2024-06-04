@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:40:50 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:14:15 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,9 @@ void		fill_t_redirect(t_minishell *shell);
 void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 char		*check_command_existence(char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
+int			init_redirect_array(t_minishell *shell);
+void		handle_input_output(t_minishell cpy, int *i,
+			t_minishell *shell, int here_doc_available, int *id_here_doc);
 
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
@@ -292,6 +295,7 @@ int			counter_dollars(const char *content);
 int			len_to_dollars(const char *content, int index);
 void		print_list(t_list *list);
 int			is_file(const char *path);
+int			check_file_in_directory(DIR *dir, char *path, char *file);
 
 //FREE
 void		free_tab_here_doc(t_file **tab_here_doc, int nb_cmds);

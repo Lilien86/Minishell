@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:31:44 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:31:47 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:57:49 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ void	ft_pwd(t_token *arg_lst, int *exit_status)
 {
 	char	*cwd;
 
-	if (arg_lst->next && arg_lst->next->value)
-	{
-		ft_putstr_fd("pwd: too many arguments\n", 2);
-		*exit_status = 127;
-		return ;
-	}
+	(void)arg_lst;
 	cwd = getcwd(NULL, 0);
 	if (cwd != NULL)
 	{
