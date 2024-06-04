@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 11:29:11 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:10:07 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	process_input(t_minishell *shell)
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
 	shell->tokens = tokenize(shell->input, shell->env, shell);
 	//debug_print_tokens(shell->tokens);
-	if (shell->tokens && !check_first_token(shell->tokens, shell))
-		execute_input_commands(shell);
+	execute_input_commands(shell);
 }
 
 int	execute_builtins(int argc, char **argv, t_minishell *shell)
