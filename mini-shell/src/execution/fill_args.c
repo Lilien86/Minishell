@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/30 13:30:59 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:08:08 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,6 @@ int	count_words_in_token(t_token *token)
 		token = token->next;
 	}
 	return (count);
-}
-
-void	error_exit(char *message, t_minishell *shell)
-{
-	ft_putstr_fd(message, 2);
-	shell->exit_status = 1;
-	free_minishell(shell);
-	exit(EXIT_FAILURE);
 }
 
 void	concate_argv(char ***argv1, char **argv2, t_minishell *shell)
