@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 10:26:50 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:39:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,35 @@ static void	process_quotes(const char **input, t_token **head,
 	*token_temp = temp;
 }
 
-static void	process_non_quoted_segment(const char **input, t_minishell *shell,
-				char **token_temp)
+static char	*get_word(const char **input)
 {
 	const char	*start;
 	int			len;
 	char		*word;
-	char		*temp;
 
 	len = 0;
 	start = *input;
-while ((*input)[len] && !ft_isspace((*input)[len])
-    && (!is_special_char((*input)[len]) || ft_strncmp(*input, "||", 2) == 0) && (*input)[len]
-    != '\'' && (*input)[len] != '"' && ((*input)[len] != '$' || ((*input)[len + 1] != '\0' &&  ((*input)[len + 1] != '\'' && (*input)[len + 1] != '"'))))
-    len++;
-if ((*input)[len] == '$' && (*input)[len + 1] == '\0')
-    len++;
-word = ft_strndup(start, (size_t)len);
+	while ((*input)[len] && !ft_isspace((*input)[len])
+		&& (!is_special_char((*input)[len])
+		|| ft_strncmp(*input, "||", 2) == 0) && (*input)[len]
+		!= '\'' && (*input)[len] != '"' && ((*input)[len] != '$'
+		|| ((*input)[len + 1] != '\0' && ((*input)[len + 1]
+		!= '\'' && (*input)[len + 1] != '"'))))
+		len++;
+	if ((*input)[len] == '$' && (*input)[len + 1] == '\0')
+		len++;
+	word = ft_strndup(start, (size_t)len);
+	*input += len;
+	return (word);
+}
+
+static void	process_non_quoted_segment(const char **input, t_minishell *shell,
+				char **token_temp)
+{
+	char		*word;
+	char		*temp;
+
+	word = get_word(input);
 	if (!word)
 		return ;
 	temp = substitute_env_vars_handle_quotes(word, shell->env, shell);
@@ -57,19 +69,21 @@ word = ft_strndup(start, (size_t)len);
 	if (!temp)
 		return ;
 	*token_temp = temp;
-	*input += len;
 }
 
 void	handle_quotes(const char **input, t_token **head,
 			t_minishell *shell, char **token_temp)
 {
-	while (**input && !ft_isspace(**input) && (!is_special_char(**input) || ft_strncmp(*input, "||", 2) == 0) && shell->syntax_error == 0)
+	while (**input && !ft_isspace(**input)
+		&& (!is_special_char(**input)
+			|| ft_strncmp(*input, "||", 2) == 0) && shell->syntax_error == 0)
 	{
 		shell->is_single_quote = 0;
 		shell->is_double_quote = 0;
 		if (**input == '\'' || **input == '"')
 			process_quotes(input, head, shell, token_temp);
-		else if (**input == '$' && *(*input + 1) != '\0' &&  (*(*input + 1) == '\'' || *(*input + 1) == '"'))
+		else if (**input == '$' && *(*input + 1) != '\0'
+			&& (*(*input + 1) == '\'' || *(*input + 1) == '"'))
 		{
 			(*input)++;
 			process_quotes(input, head, shell, token_temp);
@@ -80,7 +94,6 @@ void	handle_quotes(const char **input, t_token **head,
 			if (shell->syntax_error == 1)
 				return ;
 		}
-			
 	}
 }
 
@@ -94,14 +107,4 @@ void	append_segment(char **final_value, char *segment)
 	if (!temp)
 		return ;
 	*final_value = temp;
-}
-
-int	handle_syntax_error(char **final_value,
-				t_token **head, char quote_type)
-{
-	(void)quote_type;
-	ft_putstr_fd("minishell: syntax error: missing closing quote\n", 2);
-	free(*final_value);
-	free_tokens(head);
-	return (0);
 }

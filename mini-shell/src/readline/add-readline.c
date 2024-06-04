@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 10:47:19 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:29:11 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ void	debug_print_tokens(t_token *tokens)
 			current->type, current->quote_type, current->value);
 		current = current->next;
 	}
-}
-
-int	check_first_token(t_token *tokens, t_minishell *shell)
-{
-	if (tokens && (ft_strcmp(tokens->value, "./") == 0
-			|| ft_strcmp(tokens->value, "../") == 0
-			|| ft_strcmp(tokens->value, ".") == 0
-			|| ft_strcmp(tokens->value, "..") == 0))
-	{
-		ft_putstr_fd("minishell: syntax error: unexpected path\n", 2);
-		shell->exit_status = 2;
-		return (1);
-	}
-	return (0);
 }
 
 static void	execute_command_logic(t_minishell *shell)
@@ -71,7 +57,8 @@ static void	execute_input_commands(t_minishell *shell)
 	{
 		fill_t_redirect(shell);
 		//ft_printf("exit_status; %d\n", shell->exit_status);
-		if (shell->exit_status != 1 && shell->exit_status != 131 && shell->exit_status != 2)
+		if (shell->exit_status != 1 && shell->exit_status != 130
+			&& shell->exit_status != 2)
 			execute_command_shell(shell);
 	}
 }

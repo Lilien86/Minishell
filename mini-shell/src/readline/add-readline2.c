@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 13:43:52 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:29:47 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	free_read(t_minishell *shell)
 
 int	read_input(t_minishell *shell)
 {
-	int local_exit_status;
-	
+	int	local_exit_status;
+
 	while (1)
 	{
 		if (shell->input != NULL)
@@ -47,7 +47,6 @@ int	read_input(t_minishell *shell)
 			free(shell->input);
 			shell->input = NULL;
 		}
-		//g_exit_signal = 0;
 		shell->input = readline("minishell > ");
 		if (shell->input == NULL)
 		{
@@ -87,6 +86,20 @@ void	handle_input(t_minishell *shell)
 	// 	free_minishell(shell);
 	// 	exit(shell->exit_status);
 	// }
+}
+
+int	check_first_token(t_token *tokens, t_minishell *shell)
+{
+	if (tokens && (ft_strcmp(tokens->value, "./") == 0
+			|| ft_strcmp(tokens->value, "../") == 0
+			|| ft_strcmp(tokens->value, ".") == 0
+			|| ft_strcmp(tokens->value, "..") == 0))
+	{
+		ft_putstr_fd("minishell: syntax error: unexpected path\n", 2);
+		shell->exit_status = 2;
+		return (1);
+	}
+	return (0);
 }
 
 // static void unlink_file(t_file **tab_files)

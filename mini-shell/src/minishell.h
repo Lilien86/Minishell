@@ -91,7 +91,7 @@ typedef struct s_minishell
 	int			last_var_ends_with_equal;
 	int			is_plus_equal;
 	int			env_size;
-	int		    syntax_error;
+	int			syntax_error;
 
 }	t_minishell;
 
@@ -113,6 +113,8 @@ char		*add_quoted_token(const char **input, t_token **head,
 void		add_word_token(const char **input, t_token **head, char **env,
 				t_minishell *shell);
 void		free_tokens(t_token **tokens);
+int			handle_syntax_error(char **final_value,
+				t_token **head, char quote_type);
 
 //TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
@@ -157,13 +159,13 @@ void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
+int			check_first_token(t_token *tokens, t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
 void		ft_pwd(t_token *arg_lst, int *exit_status);
 void		ft_exit(t_token *tokens, t_minishell *shell);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
-
 
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env, int *exit_status,
@@ -187,7 +189,11 @@ int			check_numbers_arg_exit(char *endptr, t_token *current,
 void		print_error_and_set_status(char *msg, int status,
 				t_minishell *shell);
 int			strlen_without_space(const char *s);
-
+int			check_length_and_sign(t_token *current, t_minishell *shell,
+				int i_sign);
+int			process_exit_arg(t_token *current, t_minishell *shell, int *i);
+int			check_exit_arg_validity(t_token *current,
+				t_minishell *shell, int *i);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);

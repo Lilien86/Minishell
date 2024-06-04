@@ -20,6 +20,7 @@ src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/tokenization/subtitute_env.c  src/tokenization/subtitute_env2.c \
 src/tokenization/subtitute_env_utils.c \
 src/tokenization/quotes_handle.c src/tokenization/quotes_handle2.c \
+src/tokenization/quotes_handle_utils.c \
 src/readline/add-readline.c src/readline/readline-history.c \
 src/readline/add-readline2.c \
 src/signal/handle_signal.c \

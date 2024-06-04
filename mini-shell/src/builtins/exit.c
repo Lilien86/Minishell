@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:12 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 14:52:28 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:31:09 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static	int	check_length_and_value(t_token *current, t_minishell *shell)
 	return (1);
 }
 
-static	int	check_exit_arg_validity(t_token *current,
+int	check_exit_arg_validity(t_token *current,
 				t_minishell *shell, int *i)
 {
-	int i_sign;
+	int	i_sign;
 
 	i_sign = *i - 1;
 	while (current->value[*i])
@@ -60,15 +60,8 @@ static	int	check_exit_arg_validity(t_token *current,
 		}
 		(*i)++;
 	}
-	if ((strlen_without_space(current->value) > 19 && current->value[i_sign] != '-'
-			&& current->value[i_sign] != '+')
-		|| (strlen_without_space(current->value) > 20 && (current->value[i_sign] == '-'
-				|| current->value[i_sign] == '+')))
-	{
-		print_error_and_set_status("minishell: exit: numeric "
-			"argument required\n", 2, shell);
+	if (!check_length_and_sign(current, shell, i_sign))
 		return (0);
-	}
 	if (check_length_and_value(current, shell) == 0)
 		return (0);
 	else
@@ -84,11 +77,7 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 
 	i = 0;
 	current = tokens->next;
-	while (ft_isspace(current->value[i]) && current->value[i] != '\0')
-		i++;
-	if (current->value[i] == '-' || current->value[i] == '+')
-		i++;
-	if (check_exit_arg_validity(current, shell, &i) == 0)
+	if (!process_exit_arg(current, shell, &i))
 		return ;
 	exit_code = ft_atoi_endptr(current->value, &endptr);
 	if (check_numbers_arg_exit(endptr, current, shell) == 0)

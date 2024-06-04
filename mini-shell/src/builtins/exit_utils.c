@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:03 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 14:52:32 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:26:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,44 @@ int	check_numbers_arg_exit(char *endptr, t_token *current,
 
 int	strlen_without_space(const char *s)
 {
-    int	i;
-    const char *p;
+	int			i;
+	const char	*p;
 
-    if (!s)
-        return (0);
-    p = s;
-    while (ft_isspace(*p) && *p != '\0')
-        p++;
+	if (!s)
+		return (0);
+	p = s;
+	while (ft_isspace(*p) && *p != '\0')
+		p++;
+	i = 0;
+	while (p[i] != '\0')
+		i++;
+	return (i);
+}
 
-    i = 0;
-    while (p[i] != '\0')
-        i++;
+int	check_length_and_sign(t_token *current, t_minishell *shell,
+				int i_sign)
+{
+	if ((strlen_without_space(current->value) > 19
+			&& current->value[i_sign] != '-'
+			&& current->value[i_sign] != '+')
+		|| (strlen_without_space(current->value) > 20
+			&& (current->value[i_sign] == '-'
+				|| current->value[i_sign] == '+')))
+	{
+		print_error_and_set_status("minishell: exit: numeric "
+			"argument required\n", 2, shell);
+		return (0);
+	}
+	return (1);
+}
 
-    return (i);
+int	process_exit_arg(t_token *current, t_minishell *shell, int *i)
+{
+	while (ft_isspace(current->value[*i]) && current->value[*i] != '\0')
+		(*i)++;
+	if (current->value[*i] == '-' || current->value[*i] == '+')
+		(*i)++;
+	if (check_exit_arg_validity(current, shell, i) == 0)
+		return (0);
+	return (1);
 }
