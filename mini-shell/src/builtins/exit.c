@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:32:12 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 13:46:44 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/03 14:52:28 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ static	int	check_length_and_value(t_token *current, t_minishell *shell)
 static	int	check_exit_arg_validity(t_token *current,
 				t_minishell *shell, int *i)
 {
+	int i_sign;
+
+	i_sign = *i - 1;
 	while (current->value[*i])
 	{
 		if (!ft_isdigit(current->value[*i]))
@@ -57,12 +60,12 @@ static	int	check_exit_arg_validity(t_token *current,
 		}
 		(*i)++;
 	}
-	if ((ft_strlen(current->value) > 19 && current->value[0] != '-'
-			&& current->value[0] != '+')
-		|| (ft_strlen(current->value) > 20 && (current->value[0] == '-'
-				|| current->value[0] == '+')))
+	if ((strlen_without_space(current->value) > 19 && current->value[i_sign] != '-'
+			&& current->value[i_sign] != '+')
+		|| (strlen_without_space(current->value) > 20 && (current->value[i_sign] == '-'
+				|| current->value[i_sign] == '+')))
 	{
-		print_error_and_set_status("minishell: exit: numeric"
+		print_error_and_set_status("minishell: exit: numeric "
 			"argument required\n", 2, shell);
 		return (0);
 	}
@@ -81,7 +84,9 @@ static void	handle_exit_with_args(t_token *tokens, t_minishell *shell)
 
 	i = 0;
 	current = tokens->next;
-	if (current->value[0] == '-' || current->value[0] == '+')
+	while (ft_isspace(current->value[i]) && current->value[i] != '\0')
+		i++;
+	if (current->value[i] == '-' || current->value[i] == '+')
 		i++;
 	if (check_exit_arg_validity(current, shell, &i) == 0)
 		return ;

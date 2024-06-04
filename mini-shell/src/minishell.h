@@ -99,7 +99,7 @@ typedef struct s_minishell
 t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 void		add_token(t_token **head, t_token *new_token);
 t_token		*tokenize(const char *input, char **env, t_minishell *shell);
-void		identify_double_char_tokens(const char **input,
+int			identify_double_char_tokens(const char **input,
 				t_token **head, t_minishell *shell);
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
@@ -164,6 +164,7 @@ void		ft_pwd(t_token *arg_lst, int *exit_status);
 void		ft_exit(t_token *tokens, t_minishell *shell);
 void		ft_cd(t_token *tokens, char **env, int *exit_status);
 
+
 //BUILTINS_ENV
 void		ft_export(t_token *tokens, char ***env, int *exit_status,
 				t_minishell *shell);
@@ -185,6 +186,8 @@ int			check_numbers_arg_exit(char *endptr, t_token *current,
 				t_minishell *shell);
 void		print_error_and_set_status(char *msg, int status,
 				t_minishell *shell);
+int			strlen_without_space(const char *s);
+
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);

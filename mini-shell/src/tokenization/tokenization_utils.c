@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 14:04:39 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/03 14:26:35 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-void	identify_double_char_tokens(const char **input, t_token **head,
+int	identify_double_char_tokens(const char **input, t_token **head,
 			t_minishell *shell)
 {
 	if (**input == '>' && *(*input + 1) == '>')
@@ -54,11 +54,12 @@ void	identify_double_char_tokens(const char **input, t_token **head,
 		*input += 2;
 		if (**input == '\0' || **input == ' ')
 		{
-			*input += 1;
+			if (**input != '\0')
+				*input += 1;
 			while (**input == ' ')
 				*input += 1;
 		}
-		return ;
+		return (1);
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
 	{
@@ -66,12 +67,14 @@ void	identify_double_char_tokens(const char **input, t_token **head,
 		*input += 2;
 		if (**input == '\0' || **input == ' ')
 		{
-			*input += 1;
+			if (**input != '\0')
+				*input += 1;
 			while (**input == ' ')
 				*input += 1;
 		}
-		return ;
+		return (1);
 	}
+	return (0);
 }
 
 void	free_tokens(t_token **tokens)
