@@ -14,7 +14,7 @@ int	handle_wait(t_minishell *shell)
 		pid = waitpid(-1, &status, 0);
 		if (pid == -1)
 		{
-			ft_putstr_fd("Error: During execution\n", STDERR_FILENO);
+			//ft_putstr_fd("Error: During execution\n", STDERR_FILENO);
 			break ;
 		}
 		if (WIFEXITED(status))

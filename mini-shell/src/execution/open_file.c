@@ -20,10 +20,11 @@ static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 	}
 }
 
-void	open_file_in(t_file *file, int is_append, t_minishell *shell, int index)
+void	open_file_in(t_file *file, int is_append, t_minishell *cpy, int index, t_minishell *shell)
 {
 	//char	*path;
 	(void)is_append;
+	(void)cpy;
 	if (file->name != NULL)
 	{
 		file->fd = open(file->name, O_RDONLY, 0644);
@@ -51,27 +52,23 @@ static void	handle_error_outfile(t_file *file, t_minishell *shell, int index)
 	}
 }
 
-void	open_file_out(t_file *file, t_minishell *shell,
-	int index)
+void	open_file_out(t_file *file, t_minishell *cpy,
+	int index, t_minishell *shell)
 {
 	//char	*path;
-
+	(void)cpy;
 	if (file->name != NULL)
 	{
-		if (file_exist_in_directory(get_variable_path(shell->env),
-				file->name) == 1)
-			file->fd = open(file->name, O_WRONLY);
-		else
-			file->fd = open(file->name, O_WRONLY | O_CREAT, 0644);
+		file->fd = open(file->name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		handle_error_outfile(file, shell, index);
 	}
 }
 
-void	open_file_out_append(t_file *file, t_minishell *shell,
-	int index)
+void	open_file_out_append(t_file *file, t_minishell *cpy,
+	int index, t_minishell *shell)
 {
 	//char	*path;
-
+	(void)cpy;
 	if (file->name != NULL)
 	{
 		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);

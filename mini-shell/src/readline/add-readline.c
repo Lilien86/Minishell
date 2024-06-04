@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add-readline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 11:29:11 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:40:22 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ static void	execute_input_commands(t_minishell *shell)
 	{
 		fill_t_redirect(shell);
 		//ft_printf("exit_status; %d\n", shell->exit_status);
-		if (shell->exit_status != 1 && shell->exit_status != 130
-			&& shell->exit_status != 2)
+		if (shell->exit_status != 130 && shell->exit_status != 2)
 			execute_command_shell(shell);
 	}
 }

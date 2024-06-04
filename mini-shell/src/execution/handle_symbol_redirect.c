@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/04 09:03:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 13:39:13 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	handle_input_redirect(t_minishell *cpy, t_token *current,
 		return ;
 	}
 	cpy->redirect_array[*i].infile.name = current->next->value;
-	open_file_in(&cpy->redirect_array[*i].infile, 0, cpy, *i);
+	open_file_in(&cpy->redirect_array[*i].infile, 0, cpy, *i, shell);
 }
 
 void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
@@ -37,7 +37,7 @@ void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
 		return ;
 	}
 	cpy->redirect_array[*i].outfile.name = current->next->value;
-	open_file_out(&cpy->redirect_array[*i].outfile, cpy, *i);
+	open_file_out(&cpy->redirect_array[*i].outfile, cpy, *i, shell);
 }
 
 void	handle_output_redirect_append(t_minishell *cpy,
@@ -51,7 +51,7 @@ void	handle_output_redirect_append(t_minishell *cpy,
 		return ;
 	}
 	cpy->redirect_array[*i].outfile.name = current->next->value;
-	open_file_out_append(&cpy->redirect_array[*i].outfile, cpy, *i);
+	open_file_out_append(&cpy->redirect_array[*i].outfile, cpy, *i, shell);
 }
 
 void	handle_pipe(t_minishell *shell, int *i)
