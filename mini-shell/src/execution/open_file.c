@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:49:34 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:13:47 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:14:46 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	open_file_out(t_file *file, t_minishell *cpy,
 void	open_file_out_append(t_file *file, t_minishell *cpy,
 	int index, t_minishell *shell)
 {
+	(void)cpy;
 	if (file->name != NULL)
 	{
 		file->fd = open(file->name, O_WRONLY | O_CREAT | O_APPEND, 0644);
