@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:13 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:44:17 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:15:22 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc)
 	int		nb_here_doc;
 
 	j = 0;
-	//(void)id_here_doc;
 	nb_here_doc = counter_here_doc(shell->tokens);
 	while (nb_here_doc != 0 && j < nb_here_doc - 1)
 	{

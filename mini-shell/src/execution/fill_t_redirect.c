@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:48:39 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:14:04 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 			handle_pipe(&cpy, i);
 			*id_here_doc = 0;
 		}
-		//here_doc_available = 0;
 	}
 }
 
@@ -106,7 +105,6 @@ void	fill_t_redirect(t_minishell *shell)
 	shell->redirect_array[0].outfile.name = NULL;
 	shell->redirect_array[0].outfile.fd = -1;
 	shell->redirect_array[0].argv = NULL;
-	//shell->exit_status = 0;
 	fill_redirect_array(shell);
 	//print_data(shell->redirect_array, shell->nb_cmds);
 }

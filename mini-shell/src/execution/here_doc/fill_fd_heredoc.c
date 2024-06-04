@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:52:24 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:15:58 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 			free_minishell(shell);
 			free(here_doc.name);
 			close(here_doc.fd);
-			//shell->exit_status = 131;
-			exit(131);
+			exit(130);
 		}
 		temp = read_and_process_line(delimiter);
 		if (temp == NULL)
@@ -57,7 +56,6 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 		*here_doc_content = ft_strjoin(*here_doc_content, temp);
 		free(temp2);
 		free(temp);
-		// *here_doc_content = temp;
 	}
 }
 

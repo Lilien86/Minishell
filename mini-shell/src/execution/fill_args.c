@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/04 13:08:08 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:10:12 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	}
 	else
 		shell->redirect_array[*i].argv = new_argv;
-		//free_argv(new_argv);
 }
+//free_argv(new_argv);
