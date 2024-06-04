@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 09:38:45 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:59:25 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_word_token(const char **input, t_token **head,
 	if (!token_temp)
 		return ;
 	if (**input && !ft_isspace(**input) && (!is_special_char(**input)
-				|| ft_strncmp(*input, "||", 2) == 0))
+			|| ft_strncmp(*input, "||", 2) == 0))
 	{
 		handle_quotes(input, head, shell, &token_temp);
 		if (shell->syntax_error == 1)
@@ -33,10 +33,9 @@ void	add_word_token(const char **input, t_token **head,
 			return ;
 		}
 	}
-	if ((*token_temp) || (token_temp[0] == '\0'&& (shell->is_double_quote || shell->is_single_quote)))
-	{
+	if ((*token_temp) || (token_temp[0] == '\0'
+			&& (shell->is_double_quote || shell->is_single_quote)))
 		add_token(head, init_token(TOKEN_WORD, token_temp, shell));
-	}
 	free(token_temp);
 }
 
@@ -45,33 +44,31 @@ int	is_special_char(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
+void	update_input(const char **input)
+{
+	*input += 2;
+	if (**input == '\0' || **input == ' ')
+	{
+		if (**input != '\0')
+			*input += 1;
+		while (**input == ' ')
+			*input += 1;
+	}
+}
+
 int	identify_double_char_tokens(const char **input, t_token **head,
-			t_minishell *shell)
+		t_minishell *shell)
 {
 	if (**input == '>' && *(*input + 1) == '>')
 	{
 		add_token(head, init_token(TOKEN_DOUBLE_REDIRECT_OUT, ">>", shell));
-		*input += 2;
-		if (**input == '\0' || **input == ' ')
-		{
-			if (**input != '\0')
-				*input += 1;
-			while (**input == ' ')
-				*input += 1;
-		}
+		update_input(input);
 		return (1);
 	}
 	else if (**input == '<' && *(*input + 1) == '<')
 	{
 		add_token(head, init_token(TOKEN_HEREDOC, "<<", shell));
-		*input += 2;
-		if (**input == '\0' || **input == ' ')
-		{
-			if (**input != '\0')
-				*input += 1;
-			while (**input == ' ')
-				*input += 1;
-		}
+		update_input(input);
 		return (1);
 	}
 	return (0);

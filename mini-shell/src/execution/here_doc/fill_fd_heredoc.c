@@ -37,8 +37,8 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 		temp = read_and_process_line(delimiter);
 		if (temp == NULL)
 		{
-			break ;
 			shell->exit_status = 2;
+			break ;
 		}
 		char *temp2 = *here_doc_content;
 		*here_doc_content = ft_strjoin(*here_doc_content, temp);

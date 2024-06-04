@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 14:28:06 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 11:59:47 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	add_token(t_token **head, t_token *new_token)
 void	add_token_based_on_char(const char **input,
 	t_token **head, char **env, t_minishell *shell)
 {
-	int is_double_char;
-	
+	int	is_double_char;
+
 	is_double_char = 0;
 	if (identify_double_char_tokens(input, head, shell))
 		is_double_char = 1;
