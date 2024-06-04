@@ -21,6 +21,13 @@ static void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 
 	if (cpy.tokens->type == TOKEN_HEREDOC && here_doc_available == 0)
 	{
+		if (cpy.tokens->next == NULL || check_valid_redirect(cpy.tokens->next) == 1)
+		{
+			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
+			shell->exit_status = 2;
+			shell->redirect_array[0].infile.fd = -2;
+			return ;
+		}
 		to_choice_here_doc(&cpy, i, *id_here_doc);
 		here_doc_available = 1;
 		*id_here_doc = 1;
