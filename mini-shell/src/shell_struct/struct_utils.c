@@ -35,6 +35,19 @@ int	is_token_redirection(t_token *token)
 	return (0);
 }
 
+int	check_valid_redirect(t_token *token)
+{
+	t_token	*tmp;
+
+	tmp = token;
+	if (tmp->type == TOKEN_REDIRECT_IN || tmp->type == TOKEN_REDIRECT_OUT
+		|| tmp->type == TOKEN_DOUBLE_REDIRECT_OUT
+		|| tmp->type == TOKEN_HEREDOC || tmp->type == TOKEN_PIPE)
+		return (1);
+	else
+		return (0);
+}
+
 t_minishell	*init_minishell(char **envp)
 {
 	t_minishell	*shell;

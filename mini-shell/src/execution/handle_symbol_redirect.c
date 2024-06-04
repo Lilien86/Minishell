@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/28 10:41:35 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 09:03:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	handle_input_redirect(t_minishell *cpy, t_token *current,
 	int *i, t_minishell *shell)
 {
-	if (current->next == NULL)
+	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: parse error near\n", 2);
-		shell->exit_status = 1;
+		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `<'\n", 2);
+		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;
 	}
@@ -29,10 +29,10 @@ void	handle_input_redirect(t_minishell *cpy, t_token *current,
 void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
 			t_minishell *shell)
 {
-	if (current->next == NULL)
+	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: parse error near\n", 2);
-		shell->exit_status = 1;
+		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `>'\n", 2);
+		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;
 	}
@@ -43,10 +43,10 @@ void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
 void	handle_output_redirect_append(t_minishell *cpy,
 	t_token *current, int *i, t_minishell *shell)
 {
-	if (current->next == NULL)
+	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: parse error near\n", 2);
-		shell->exit_status = 1;
+		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `>>'\n", 2);
+		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;
 	}

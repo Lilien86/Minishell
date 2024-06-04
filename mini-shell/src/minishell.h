@@ -259,6 +259,7 @@ int			is_token_redirection(t_token *token);
 t_token		*convert_argv_to_list(int argc, char **argv);
 void		print_linked_list(t_token *head);
 int			counter_cmds(t_token *tokens);
+int			check_valid_redirect(t_token *token);
 
 //UTILS_FDS
 int			open_file_and_handle_errors(t_minishell *shell,
