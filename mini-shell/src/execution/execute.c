@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:29 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:04:28 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:32:55 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	execute_commands(t_minishell *shell, int i, int pipes[MAX_PIPES][2])
 	while (i < shell->nb_cmds)
 	{
 		if (shell->redirect_array[i].argv != NULL
-			&& shell->redirect_array[i].argv[0] != NULL)
+			&& shell->redirect_array[i].argv[0] != NULL && is_file(shell->redirect_array[i].argv[0]) != 0)
 			ft_exec(shell->redirect_array, i, shell, pipes);
 		i++;
 	}

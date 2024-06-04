@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add-readline.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:14:09 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 14:43:36 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	debug_print_tokens(t_token *tokens)
 
 static void	execute_command_logic(t_minishell *shell)
 {
+	if (shell->redirect_array[0].argv == NULL)
+		return ;
 	if (check_builtins(shell->redirect_array[0].argv[0]) == 1)
 	{
 		execute_builtins(ft_strlen_map(shell->redirect_array->argv),
@@ -51,7 +53,8 @@ static void	execute_input_commands(t_minishell *shell)
 	if (is_token_redirection(shell->tokens) == 0)
 	{
 		fill_t_redirect(shell);
-		execute_command_logic(shell);
+		if (shell->exit_status != 130 && shell->exit_status != 2)
+			execute_command_logic(shell);
 	}
 	else
 	{
