@@ -37,14 +37,13 @@ static void	process_here_doc_token(t_token *current, t_minishell *shell,
 	(*j)++;
 }
 
-static int	is_token_word(t_token *current)
+static int	isnt_token_word(t_token *current)
 {
-	if ((current->next->quote_type != TOKEN_WORD
-			|| current->next->type == TOKEN_PIPE
+	if (current->next->type == TOKEN_PIPE
 			|| current->next->type == TOKEN_REDIRECT_IN
 			|| current->next->type == TOKEN_REDIRECT_OUT
 			|| current->next->type == TOKEN_DOUBLE_REDIRECT_OUT
-			|| current->next->type == TOKEN_HEREDOC))
+			|| current->next->type == TOKEN_HEREDOC)
 		return (1);
 	else
 		return (0);
@@ -62,7 +61,7 @@ t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	{
 		if (current->type == TOKEN_HEREDOC)
 		{
-			if (current->next == NULL || is_token_word(current) == 1)
+			if (current->next == NULL || isnt_token_word(current) == 1)
 			{
 				ft_putstr_fd("minishell: syntax error"
 					" near unexpected token `newline'\n", 2);

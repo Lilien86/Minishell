@@ -35,8 +35,8 @@ static void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 	{
 		if (cpy.tokens->next == NULL)
 		{
-			ft_putstr_fd("minishell: Error: parse error near\n", 2);
-			shell->exit_status = 1;
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+			shell->exit_status = 2;
 			shell->redirect_array[0].infile.fd = -2;
 			return ;
 		}
