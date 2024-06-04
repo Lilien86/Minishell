@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:29:50 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/03 14:26:35 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 09:38:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	add_word_token(const char **input, t_token **head,
 			return ;
 		}
 	}
-	if (*token_temp || token_temp[0] == '\0')
+	if ((*token_temp) || (token_temp[0] == '\0'&& (shell->is_double_quote || shell->is_single_quote)))
 	{
 		add_token(head, init_token(TOKEN_WORD, token_temp, shell));
 	}

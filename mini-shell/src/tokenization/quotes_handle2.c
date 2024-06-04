@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/31 13:21:17 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 10:26:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 
 	len = 0;
 	start = *input;
-	while ((*input)[len] && !ft_isspace((*input)[len])
-		&& (!is_special_char((*input)[len]) || ft_strncmp(*input, "||", 2) == 0) && (*input)[len]
-			!= '\'' && (*input)[len] != '"')
-			len++;
-	word = ft_strndup(start, (size_t)len);
+while ((*input)[len] && !ft_isspace((*input)[len])
+    && (!is_special_char((*input)[len]) || ft_strncmp(*input, "||", 2) == 0) && (*input)[len]
+    != '\'' && (*input)[len] != '"' && ((*input)[len] != '$' || ((*input)[len + 1] != '\0' &&  ((*input)[len + 1] != '\'' && (*input)[len + 1] != '"'))))
+    len++;
+if ((*input)[len] == '$' && (*input)[len + 1] == '\0')
+    len++;
+word = ft_strndup(start, (size_t)len);
 	if (!word)
 		return ;
 	temp = substitute_env_vars_handle_quotes(word, shell->env, shell);
@@ -67,6 +69,11 @@ void	handle_quotes(const char **input, t_token **head,
 		shell->is_double_quote = 0;
 		if (**input == '\'' || **input == '"')
 			process_quotes(input, head, shell, token_temp);
+		else if (**input == '$' && *(*input + 1) != '\0' &&  (*(*input + 1) == '\'' || *(*input + 1) == '"'))
+		{
+			(*input)++;
+			process_quotes(input, head, shell, token_temp);
+		}
 		else
 		{
 			process_non_quoted_segment(input, shell, token_temp);
