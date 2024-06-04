@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:00:53 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 13:27:20 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,7 @@ int			counter_dollars(const char *content);
 int			len_to_dollars(const char *content, int index);
 void		print_list(t_list *list);
 int			is_file(const char *path);
+int			check_file_in_directory(DIR *dir, char *path, char *file);
 
 //FREE
 void		free_tab_here_doc(t_file **tab_here_doc, int nb_cmds);
