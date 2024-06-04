@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_env_variable_here_doc.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:45:52 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:52:42 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-static int find_origine_len(const char *content, int pos)
+static int	find_origine_len(const char *content, int pos)
 {
 	int	i;
 	int	cnt;
@@ -15,7 +27,8 @@ static int find_origine_len(const char *content, int pos)
 	return (cnt);
 }
 
-static t_pos_len	*allocate_and_fill_dollars(const char *content, t_pos_len *dollars_ptr)
+static t_pos_len	*allocate_and_fill_dollars(const char *content,
+	t_pos_len *dollars_ptr)
 {
 	t_pos_len	*dollars;
 	int			i;
@@ -87,7 +100,8 @@ const char	*here_doc_replace_var_env(const char *content, t_minishell *shell)
 	dollars = allocate_and_fill_dollars(content, dollars);
 	if (dollars == NULL)
 		return (content);
-	new_content = process_content_and_vars(content, dollars, shell, new_content);
+	new_content = process_content_and_vars(content, dollars,
+			shell, new_content);
 	free(dollars);
 	return (new_content);
 }

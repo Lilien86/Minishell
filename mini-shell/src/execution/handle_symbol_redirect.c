@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_symbol_redirect.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/04 09:03:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 12:49:25 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	handle_input_redirect(t_minishell *cpy, t_token *current,
 {
 	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `<'\n", 2);
+		ft_putstr_fd("minishell: Error: syntax error near"
+			" unexpected token `newline' `<'\n", 2);
 		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;
@@ -31,7 +32,8 @@ void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
 {
 	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `>'\n", 2);
+		ft_putstr_fd("minishell: Error: syntax error near"
+			" unexpected token `newline' `>'\n", 2);
 		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;
@@ -45,7 +47,8 @@ void	handle_output_redirect_append(t_minishell *cpy,
 {
 	if (current->next == NULL || check_valid_redirect(current->next) == 1)
 	{
-		ft_putstr_fd("minishell: Error: syntax error near unexpected token `newline' `>>'\n", 2);
+		ft_putstr_fd("minishell: Error: syntax error near"
+			" unexpected token `newline' `>>'\n", 2);
 		shell->exit_status = 2;
 		shell->redirect_array[0].infile.fd = -2;
 		return ;

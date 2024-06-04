@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_two.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:47:07 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:47:13 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 static void	handle_infile_outfile(t_redirect *redirect_array, int index)
@@ -72,8 +84,6 @@ static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,
 		exit(127);
 	}
 }
-
-
 
 void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		int pipes[MAX_PIPES][2])

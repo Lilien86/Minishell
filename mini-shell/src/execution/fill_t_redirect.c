@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_t_redirect.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:48:39 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int	init_redirect_array(t_minishell *shell)
@@ -18,10 +30,10 @@ int	init_redirect_array(t_minishell *shell)
 static void	handle_input_output(t_minishell cpy, int *i, t_minishell *shell,
 		int here_doc_available, int *id_here_doc)
 {
-
 	if (cpy.tokens->type == TOKEN_HEREDOC && here_doc_available == 0)
 	{
-		if (cpy.tokens->next == NULL || check_valid_redirect(cpy.tokens->next) == 1)
+		if (cpy.tokens->next == NULL
+			|| check_valid_redirect(cpy.tokens->next) == 1)
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			shell->exit_status = 2;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fill_fd_heredoc.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/04 12:44:00 by ybarbot           #+#    #+#             */
+/*   Updated: 2024/06/04 12:52:24 by ybarbot          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 static char	*read_and_process_line(char *delimiter)
@@ -21,6 +33,7 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	char **here_doc_content)
 {
 	char	*temp;
+	char	*temp2;
 
 	while (1)
 	{
@@ -40,7 +53,7 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 			shell->exit_status = 2;
 			break ;
 		}
-		char *temp2 = *here_doc_content;
+		temp2 = *here_doc_content;
 		*here_doc_content = ft_strjoin(*here_doc_content, temp);
 		free(temp2);
 		free(temp);

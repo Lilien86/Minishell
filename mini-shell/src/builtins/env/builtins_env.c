@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:21 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 13:32:11 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/04 12:43:13 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_unset(t_token *tokens, char ***env, int *exit_status)
 {
 	t_token	*current;
 	int		found;
-	t_token *tokens_copy;
+	t_token	*tokens_copy;
 
 	found = 0;
 	tokens_copy = tokens->next;
