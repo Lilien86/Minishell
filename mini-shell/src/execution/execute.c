@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:29 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:32:55 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:09:48 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,28 @@ static void	check_commands(t_minishell *shell, int i)
 	}
 }
 
+void	check_invalid_folder(char *folder, t_minishell *shell)
+{
+	if (folder && (ft_strcmp(folder, "./") == 0
+			|| ft_strcmp(folder, "../") == 0
+			|| ft_strcmp(folder, ".") == 0
+			|| ft_strcmp(folder, "..") == 0))
+	{
+		ft_putstr_fd("minishell: syntax error: unexpected path\n", 2);
+		shell->exit_status = 126;
+
+	}
+}
+
 static void	execute_commands(t_minishell *shell, int i, int pipes[MAX_PIPES][2])
 {
 	while (i < shell->nb_cmds)
 	{
 		if (shell->redirect_array[i].argv != NULL
-			&& shell->redirect_array[i].argv[0] != NULL && is_file(shell->redirect_array[i].argv[0]) != 0)
+			&& shell->redirect_array[i].argv[0] != NULL && is_file(shell->redirect_array[0].argv[0]) != 0)
 			ft_exec(shell->redirect_array, i, shell, pipes);
+		else if (is_file(shell->redirect_array[0].argv[0]) == 0)
+			check_invalid_folder(shell->redirect_array[0].argv[0], shell);
 		i++;
 	}
 }

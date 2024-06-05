@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 12:11:17 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/05 13:12:21 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct s_coord
 {
 	int		i;
 	int		j;
+	int		replace_env;
 }	t_coord;
 
 typedef struct s_index_and_available_here_doc
