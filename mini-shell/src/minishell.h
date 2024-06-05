@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 10:35:11 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/05 12:11:17 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,12 @@ typedef struct s_coord
 	int		i;
 	int		j;
 }	t_coord;
+
+typedef struct s_index_and_available_here_doc
+{
+	int		i;
+	int		here_doc_available;
+}	t_index_and_available_here_doc;
 
 //PARSING
 typedef struct s_minishell
@@ -239,8 +245,8 @@ void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 char		*check_command_existence(char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
 int			init_redirect_array(t_minishell *shell);
-void		handle_input_output(t_minishell cpy, int *i,
-			t_minishell *shell, int here_doc_available, int *id_here_doc);
+void		handle_input_output(t_minishell cpy, t_index_and_available_here_doc *index_and_available_here,
+				t_minishell *shell, int *id_here_doc);
 
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
