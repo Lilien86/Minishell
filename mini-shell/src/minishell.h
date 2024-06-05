@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:14:15 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:17:04 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ char		*check_command_existence(char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
 int			init_redirect_array(t_minishell *shell);
 void		handle_input_output(t_minishell cpy, int *i,
-			t_minishell *shell, int here_doc_available, int *id_here_doc);
+				t_minishell *shell, int here_doc_available, int *id_here_doc);
 
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
@@ -271,8 +271,11 @@ char		*replace_content(t_list *list_content, t_list *list_vars);
 //OPEN_FILE
 void		open_file_in(t_file *file, int is_append, t_minishell *cpy,
 				int index, t_minishell *shell);
-void		open_file_out(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
-void		open_file_out_append(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
+void		open_file_out(t_file *file, t_minishell *cpy,
+				int index, t_minishell *shell);
+void		open_file_out_append(t_file *file, t_minishell *cpy,
+				int index, t_minishell *shell);
+
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);

@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:00:31 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:15:36 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ int	init_redirect_array(t_minishell *shell)
 	}
 	return (1);
 }
-static void	handle_heredoc(t_minishell cpy, int *i, t_minishell *shell, int *here_doc_available, int *id_here_doc)
+
+static void	handle_heredoc(t_minishell cpy, int *i, t_minishell *shell,
+			int *here_doc_available, int *id_here_doc)
 {
 	if (cpy.tokens->type == TOKEN_HEREDOC && *here_doc_available == 0)
 	{
-		if (cpy.tokens->next == NULL || check_valid_redirect(cpy.tokens->next) == 1)
+		if (cpy.tokens->next == NULL
+			|| check_valid_redirect(cpy.tokens->next) == 1)
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			shell->exit_status = 2;
