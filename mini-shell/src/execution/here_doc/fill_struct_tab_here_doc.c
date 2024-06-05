@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 09:58:46 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/05 11:15:14 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static void	init_here_doc_tab(t_file **tab_here_doc, int i,
 }
 
 static void	process_here_doc_token(t_token *current, t_minishell *shell,
-	t_file **tab_here_doc, int *i, int *j, int *replace_env)
+	t_file **tab_here_doc, t_coord *coord, int *replace_env)
 {
 	if (current->next->quote_type != SINGLE_QUOTE)
 		*replace_env = 1;
-	if (*j == 0)
-		init_here_doc_tab(tab_here_doc, *i, current, shell);
-	tab_here_doc[*i][*j] = here_doc(current, shell, *replace_env, tab_here_doc);
-	tab_here_doc[*i][*j].is_allocated = 1;
-	(*j)++;
+	if (coord->j == 0)
+		init_here_doc_tab(tab_here_doc, coord->i, current, shell);
+	tab_here_doc[coord->i][coord->j] = here_doc(current, shell, *replace_env, tab_here_doc);
+	tab_here_doc[coord->i][coord->j].is_allocated = 1;
+	(coord->j)++;
 }
 
 static int	isnt_token_word(t_token *current)
@@ -64,11 +64,10 @@ static int	isnt_token_word(t_token *current)
 t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	t_file **tab_here_doc, int replace_env)
 {
-	int	i;
-	int	j;
+	t_coord	coord;
 
-	i = 0;
-	j = 0;
+	coord.i = 0;
+	coord.j = 0;
 	while (current != NULL)
 	{
 		if (current->type == TOKEN_HEREDOC)
@@ -82,12 +81,12 @@ t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 				return (NULL);
 			}
 			process_here_doc_token(current, shell, tab_here_doc,
-				&i, &j, &replace_env);
+				&coord, &replace_env);
 		}
 		else if (current->type == TOKEN_PIPE)
 		{
-			i++;
-			j = 0;
+			coord.i++;
+			coord.j = 0;
 		}
 		current = current->next;
 	}

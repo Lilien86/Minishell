@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 09:58:28 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/05 10:35:11 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ typedef struct s_redirect
 
 typedef struct s_coord
 {
-	int		x;
-	int		y;
+	int		i;
+	int		j;
 }	t_coord;
 
 //PARSING
