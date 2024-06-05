@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 09:17:04 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:26:21 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_minishell
 	int			is_plus_equal;
 	int			env_size;
 	int			syntax_error;
+	t_minishell	cpy;
 
 }	t_minishell;
 

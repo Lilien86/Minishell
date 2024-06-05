@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:49:34 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:14:46 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:24:06 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ static void	handle_error_infile(t_file *file, t_minishell *shell, int index)
 	}
 }
 
-void	open_file_in(t_file *file, int is_append, t_minishell *cpy, int index, t_minishell *shell)
+void	open_file_in(t_file *file, int index, t_minishell *shell)
 {
-	(void)is_append;
-	(void)cpy;
 	if (file->name != NULL)
 	{
 		file->fd = open(file->name, O_RDONLY, 0644);

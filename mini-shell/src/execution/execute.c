@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:29 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:04:28 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 08:38:15 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	handle_wait(t_minishell *shell)
 		pid = waitpid(-1, &status, 0);
 		if (pid == -1)
 		{
-			//ft_putstr_fd("Error: During execution\n", STDERR_FILENO);
 			break ;
 		}
 		if (WIFEXITED(status))
@@ -70,7 +69,8 @@ static void	execute_commands(t_minishell *shell, int i, int pipes[MAX_PIPES][2])
 	while (i < shell->nb_cmds)
 	{
 		if (shell->redirect_array[i].argv != NULL
-			&& shell->redirect_array[i].argv[0] != NULL)
+			&& shell->redirect_array[i].argv[0] != NULL
+			&& is_file(shell->redirect_array[i].argv[0]) != 0)
 			ft_exec(shell->redirect_array, i, shell, pipes);
 		i++;
 	}
