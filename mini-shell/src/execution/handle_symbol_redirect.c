@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_symbol_redirect.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:06:14 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/05 08:38:29 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/04 14:12:51 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	handle_input_redirect(t_minishell *cpy, t_token *current,
 		return ;
 	}
 	cpy->redirect_array[*i].infile.name = current->next->value;
-	open_file_in(&cpy->redirect_array[*i].infile, *i, shell);
+	open_file_in(&cpy->redirect_array[*i].infile, 0, cpy, *i, shell);
 }
 
 void	handle_output_redirect(t_minishell *cpy, t_token *current, int *i,
