@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_t_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:00:31 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/05 09:22:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@ int	init_redirect_array(t_minishell *shell)
 	}
 	return (1);
 }
-static void	handle_heredoc(t_minishell cpy, int *i, t_minishell *shell, int *here_doc_available, int *id_here_doc)
+
+static void	handle_heredoc(*i, t_minishell *shell,
+	int *here_doc_available, int *id_here_doc)
 {
-	if (cpy.tokens->type == TOKEN_HEREDOC && *here_doc_available == 0)
+	if (shell->cpy.tokens->type == TOKEN_HEREDOC && *here_doc_available == 0)
 	{
-		if (cpy.tokens->next == NULL || check_valid_redirect(cpy.tokens->next) == 1)
+		if (cpy.tokens->next == NULL
+			|| check_valid_redirect(cpy.tokens->next) == 1)
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			shell->exit_status = 2;
@@ -43,14 +46,14 @@ static void	handle_heredoc(t_minishell cpy, int *i, t_minishell *shell, int *her
 	}
 }
 
-static void	handle_redirects(t_minishell cpy, int *i, t_minishell *shell)
+static void	handle_redirects(int *i, t_minishell *shell)
 {
-	if (cpy.tokens->type == TOKEN_REDIRECT_IN)
-		handle_input_redirect(&cpy, cpy.tokens, i, shell);
-	else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
-		handle_output_redirect(&cpy, cpy.tokens, i, shell);
-	else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
-		handle_output_redirect_append(&cpy, cpy.tokens, i, shell);
+	if (shell->cpy.tokens->type == TOKEN_REDIRECT_IN)
+		handle_input_redirect(&shell->cpy, shell->cpy.tokens, i, shell);
+	else if (shell->cpy.tokens->type == TOKEN_REDIRECT_OUT)
+		handle_output_redirect(&shell->cpy, shell->cpy.tokens, i, shell);
+	else if (shell->cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
+		handle_output_redirect_append(&shell->cpy, shell->cpy.tokens, i, shell);
 }
 
 static void	handle_pipe_local(t_minishell cpy, int *i,
@@ -76,7 +79,8 @@ static void	handle_pipe_local(t_minishell cpy, int *i,
 void	handle_input_output(t_minishell cpy, int *i,
 		t_minishell *shell, int here_doc_available, int *id_here_doc)
 {
-	handle_heredoc(cpy, i, shell, &here_doc_available, id_here_doc);
-	handle_redirects(cpy, i, shell);
-	handle_pipe_local(cpy, i, shell, id_here_doc);
+	shell->cpy = cpy;
+	handle_heredoc(i, shell, &here_doc_available, id_here_doc);
+	handle_redirects(i, shell);
+	handle_pipe_local(i, shell, id_here_doc);
 }
