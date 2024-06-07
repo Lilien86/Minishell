@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_two.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:07 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:47:13 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/07 11:17:17 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	handle_dup_close(int index, t_redirect *redirect_array,
 			close(pipes[index - 1][READ_END]);
 	}
 	handle_infile_outfile(redirect_array, index);
-	//close_fd_redirect_array(shell, shell->nb_cmds);
 }
 
 static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,

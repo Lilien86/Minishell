@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 12:11:36 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 13:23:36 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ static void	handle_pipe_local(t_minishell cpy, int *i,
 {
 	if (cpy.tokens->type == TOKEN_PIPE)
 	{
-		if (cpy.tokens->next == NULL)
+		if (cpy.tokens->next == NULL || cpy.tokens->next->type == TOKEN_PIPE)
 		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+			//ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 			shell->exit_status = 2;
 			shell->redirect_array[0].infile.fd = -2;
 			return ;
