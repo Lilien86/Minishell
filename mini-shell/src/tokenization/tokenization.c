@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 11:59:47 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:34:36 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,27 +87,45 @@ void	identify_and_add_token(const char **input, t_token **head,
 		add_word_token(input, head, env, shell);
 }
 
+static void check_first_argument(const char **input, t_minishell *shell)
+{
+    while (**input && ft_isspace(**input))
+        (*input)++;
+	
+    if ((ft_strncmp(*input, "''", 2) == 0) || (ft_strncmp(*input, "\"\"", 2) == 0))
+    {
+        printf("Command not found\n");
+        shell->exit_status = 126;
+    }
+	else if (**input == '|')
+    {
+        printf("syntax error near unexpected token `|'\n");
+        shell->exit_status = 2;
+    }
+}
+
 t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 {
-	t_token	*head;
+    t_token	*head;
 
-	head = NULL;
-	shell->syntax_error = 0;
-	if (input)
-	{
-		while (*input)
-		{
-			while (*input && ft_isspace(*input))
-				input++;
-			if (*input == '\0')
-				break ;
-			identify_and_add_token(&input, &head, env, shell);
-			if (shell->syntax_error == 1)
-			{
-				free_tokens(&head);
-				return (NULL);
-			}
-		}
-	}
-	return (head);
+    head = NULL;
+    shell->syntax_error = 0;
+    if (input)
+    {
+        check_first_argument(&input, shell);
+        while (*input)
+        {
+            while (*input && ft_isspace(*input))
+                input++;
+            if (*input == '\0')
+                break ;
+            identify_and_add_token(&input, &head, env, shell);
+            if (shell->syntax_error == 1)
+            {
+                free_tokens(&head);
+                return (NULL);
+            }
+        }
+    }
+    return (head);
 }
