@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:10:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/07 12:02:46 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:06:28 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,13 @@ void	free_redirect_array(t_minishell *shell, int size)
 	{
 		if (shell->redirect_array[i].infile.name != NULL)
 			free_file_names(shell, i);
-		if (shell->redirect_array[i].infile.fd != -1 && shell->redirect_array[i].infile.fd != -2 && shell->redirect_array[i].infile.fd != 0)
+		if (shell->redirect_array[i].infile.fd != -1
+			&& shell->redirect_array[i].infile.fd != -2
+			&& shell->redirect_array[i].infile.fd != 0)
 			close(shell->redirect_array[i].infile.fd);
-		if (shell->redirect_array[i].outfile.fd != -1 && shell->redirect_array[i].outfile.fd != -2 && shell->redirect_array[i].outfile.fd != 0)
+		if (shell->redirect_array[i].outfile.fd != -1
+			&& shell->redirect_array[i].outfile.fd != -2
+			&& shell->redirect_array[i].outfile.fd != 0)
 			close(shell->redirect_array[i].outfile.fd);
 		if (shell->redirect_array[i].argv != NULL)
 			free_arguments(shell, i);

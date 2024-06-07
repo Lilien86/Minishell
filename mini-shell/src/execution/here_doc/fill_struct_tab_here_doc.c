@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 13:34:37 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:28:42 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	process_here_doc_token(t_token *current, t_minishell *shell,
 		coord->replace_env = 1;
 	if (coord->j == 0)
 		init_here_doc_tab(tab_here_doc, coord->i, current, shell);
-	tab_here_doc[coord->i][coord->j] = here_doc(current, shell, coord->replace_env, tab_here_doc);
+	tab_here_doc[coord->i][coord->j] = here_doc(
+			current, shell, coord->replace_env, tab_here_doc);
 	tab_here_doc[coord->i][coord->j].is_allocated = 1;
 	(coord->j)++;
 }
@@ -61,7 +62,8 @@ static int	isnt_token_word(t_token *current)
 		return (0);
 }
 
-static void process_token(t_token *current, t_minishell *shell, t_file **tab_here_doc, t_coord *coord)
+static void	process_token(t_token *current, t_minishell *shell,
+		t_file **tab_here_doc, t_coord *coord)
 {
 	if (current->type == TOKEN_HEREDOC)
 	{
@@ -71,7 +73,7 @@ static void process_token(t_token *current, t_minishell *shell, t_file **tab_her
 				" near unexpected token `newline'\n", 2);
 			shell->exit_status = 1;
 			shell->redirect_array[0].infile.fd = -1;
-			return;
+			return ;
 		}
 		process_here_doc_token(current, shell, tab_here_doc,
 			coord);
@@ -83,10 +85,10 @@ static void process_token(t_token *current, t_minishell *shell, t_file **tab_her
 	}
 }
 
-t_file    **fill_tab_here_doc(t_token *current, t_minishell *shell,
+t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	t_file **tab_here_doc, int replace_env)
 {
-	t_coord    coord;
+	t_coord	coord;
 
 	coord.i = 0;
 	coord.j = 0;

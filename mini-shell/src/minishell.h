@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 13:12:21 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:07:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,8 +282,7 @@ t_list		*fill_content_enough_variable_env(const char *content,
 char		*replace_content(t_list *list_content, t_list *list_vars);
 
 //OPEN_FILE
-void		open_file_in(t_file *file, int is_append, t_minishell *cpy,
-				int index, t_minishell *shell);
+void		open_file_in(t_file *file, int index, t_minishell *shell);
 void		open_file_out(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
 void		open_file_out_append(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
 //UTILS_CHECK

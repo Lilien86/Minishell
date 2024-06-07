@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 13:23:36 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:27:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ static void	handle_heredoc(t_minishell cpy,
 	t_index_and_available_here_doc *index_and_available_here,
 		t_minishell *shell, int *id_here_doc)
 {
-	if (cpy.tokens->type == TOKEN_HEREDOC && index_and_available_here->here_doc_available == 0)
+	if (cpy.tokens->type == TOKEN_HEREDOC
+		&& index_and_available_here->here_doc_available == 0)
 	{
-		if (cpy.tokens->next == NULL || check_valid_redirect(cpy.tokens->next) == 1)
+		if (cpy.tokens->next == NULL
+			|| check_valid_redirect(cpy.tokens->next) == 1)
 		{
 			ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 			shell->exit_status = 2;
@@ -63,7 +65,6 @@ static void	handle_pipe_local(t_minishell cpy, int *i,
 	{
 		if (cpy.tokens->next == NULL || cpy.tokens->next->type == TOKEN_PIPE)
 		{
-			//ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 			shell->exit_status = 2;
 			shell->redirect_array[0].infile.fd = -2;
 			return ;
