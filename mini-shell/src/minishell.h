@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 16:07:43 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:49:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,8 +283,10 @@ char		*replace_content(t_list *list_content, t_list *list_vars);
 
 //OPEN_FILE
 void		open_file_in(t_file *file, int index, t_minishell *shell);
-void		open_file_out(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
-void		open_file_out_append(t_file *file, t_minishell *cpy, int index, t_minishell *shell);
+void		open_file_out(t_file *file, t_minishell *cpy, int index,
+				t_minishell *shell);
+void		open_file_out_append(t_file *file, t_minishell *cpy, int index,
+				t_minishell *shell);
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);

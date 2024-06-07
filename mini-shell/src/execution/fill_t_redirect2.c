@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:58:15 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 15:42:56 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/07 16:48:44 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	fill_redirect_array(t_minishell *shell)
 
 	shell->tab_here_doc = run_here_doc(shell);
 	cpy = *shell;
-	index_and_available_here = ft_calloc(1, sizeof(t_index_and_available_here_doc));
+	index_and_available_here = ft_calloc(
+			1, sizeof(t_index_and_available_here_doc));
 	index_and_available_here->here_doc_available = 0;
 	index_and_available_here->i = 0;
 	while (cpy.tokens != NULL)
