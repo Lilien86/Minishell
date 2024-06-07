@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 13:34:36 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/07 13:42:29 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,24 @@ void	identify_and_add_token(const char **input, t_token **head,
 		add_word_token(input, head, env, shell);
 }
 
-static void check_first_argument(const char **input, t_minishell *shell)
+static int check_first_argument(const char **input, t_minishell *shell)
 {
     while (**input && ft_isspace(**input))
         (*input)++;
 	
     if ((ft_strncmp(*input, "''", 2) == 0) || (ft_strncmp(*input, "\"\"", 2) == 0))
     {
-        printf("Command not found\n");
-        shell->exit_status = 126;
+        ft_putstr_fd(" command not found\n", 2);
+        shell->exit_status = 127;
+		return (1);
     }
 	else if (**input == '|')
     {
-        printf("syntax error near unexpected token `|'\n");
+        ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
         shell->exit_status = 2;
+		return (1);
     }
+	return (0);
 }
 
 t_token	*tokenize(const char *input, char **env, t_minishell *shell)
@@ -112,7 +115,8 @@ t_token	*tokenize(const char *input, char **env, t_minishell *shell)
     shell->syntax_error = 0;
     if (input)
     {
-        check_first_argument(&input, shell);
+        if (check_first_argument(&input, shell) != 0)
+			return (NULL);
         while (*input)
         {
             while (*input && ft_isspace(*input))
