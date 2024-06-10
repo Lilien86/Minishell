@@ -6,13 +6,12 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 19:42:44 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:44:30 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 
 # include <readline/readline.h>
 # include <readline/history.h>
