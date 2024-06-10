@@ -6,29 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/10 17:50:16 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:55 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	if (argv == NULL)
-	{
-		printf("Le tableau argv est NULL.\n");
-		return ;
-	}
-	while (argv[i] != NULL)
-	{
-		printf("%s ", argv[i]);
-		i++;
-	}
-	printf("\n");
-}
 
 void	free_argv(char **argv)
 {

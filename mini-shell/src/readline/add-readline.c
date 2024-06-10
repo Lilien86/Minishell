@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 14:26:51 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:51:44 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static void	execute_input_commands(t_minishell *shell)
 	else
 	{
 		fill_t_redirect(shell);
-		//ft_printf("exit_status; %d\n", shell->exit_status);
 		if (shell->exit_status != 2)
 			execute_command_shell(shell);
 	}
@@ -73,7 +72,6 @@ void	process_input(t_minishell *shell)
 	shell->history[shell->history_index] = ft_strdup(shell->input);
 	shell->history_index = (shell->history_index + 1) % MAX_HISTORY_SIZE;
 	shell->tokens = tokenize(shell->input, shell->env, shell);
-	//debug_print_tokens(shell->tokens);
 	execute_input_commands(shell);
 }
 
