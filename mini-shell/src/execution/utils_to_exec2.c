@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_to_exec2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:24:42 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:25:40 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:49:34 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,42 @@ int	is_file(const char *path)
 		return (0);
 	else
 		return (-1);
+}
+
+void	init_pipes(int pipes[MAX_PIPES][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PIPES)
+	{
+		pipes[i][0] = -1;
+		pipes[i][1] = -1;
+		i++;
+	}
+}
+
+int	handle_wait(t_minishell *shell)
+{
+	int		i;
+	int		status;
+	int		last_status;
+	pid_t	pid;
+
+	i = 0;
+	last_status = shell->exit_status;
+	while (i < shell->nb_cmds)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid == -1)
+		{
+			break ;
+		}
+		if (WIFEXITED(status))
+			last_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			last_status = WTERMSIG(status);
+		i++;
+	}
+	return (last_status);
 }

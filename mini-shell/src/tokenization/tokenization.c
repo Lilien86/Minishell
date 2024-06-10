@@ -6,35 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 15:48:50 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:44:10 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_token	*init_token(t_token_type type, char *value, t_minishell *shell)
-{
-	t_token	*token;
-
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
-		return (NULL);
-	token->type = type;
-	if (shell->is_single_quote == 1)
-		token->quote_type = SINGLE_QUOTE;
-	else if (shell->is_double_quote == 1)
-		token->quote_type = DOUBLE_QUOTE;
-	else
-		token->quote_type = NO_QUOTE;
-	token->value = ft_strdup(value);
-	if (!token->value)
-	{
-		free(token);
-		return (NULL);
-	}
-	token->next = NULL;
-	return (token);
-}
 
 void	add_token(t_token **head, t_token *new_token)
 {

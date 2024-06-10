@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 16:49:43 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:49:47 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, char **token_temp);
 char		*process_quoted_content(const char *quoted_part,
 				char quote_type, t_minishell *shell);
+t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -246,7 +247,8 @@ void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 char		*check_command_existence(char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
 int			init_redirect_array(t_minishell *shell);
-void		handle_input_output(t_minishell cpy, t_index_and_available_here_doc *index_and_available_here,
+void		handle_input_output(t_minishell cpy,
+				t_index_and_available_here_doc *index_and_available_here,
 				t_minishell *shell, int *id_here_doc);
 
 void		error_exit(char *message, t_minishell *shell);
@@ -262,6 +264,8 @@ void		check_file(t_file *file, int is_append, t_minishell *shell,
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 				int pipes[MAX_PIPES][2]);
+void		init_pipes(int pipes[MAX_PIPES][2]);
+int			handle_wait(t_minishell *shell);
 
 //HERE_DOC
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,

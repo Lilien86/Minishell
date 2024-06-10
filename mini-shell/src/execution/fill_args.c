@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/07 16:26:36 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:16 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,40 +55,6 @@ int	count_words_in_token(t_token *token)
 	}
 	return (count);
 }
-
-// void	concate_argv(char ***argv1, char **argv2, t_minishell *shell)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**temp_argv;
-
-// 	temp_argv = ft_calloc(
-// 			ft_tab_len(*argv1) + ft_tab_len(argv2) + 1, sizeof(char *));
-// 	i = 0;
-// 	while (temp_argv[i] != NULL)
-// 		i++;
-// 	j = 0;
-// 	while(argv1[0][j] != NULL)
-// 	{
-// 		temp_argv[i] = ft_strdup(argv1[0][j]);
-// 		if (temp_argv[i] == NULL)
-// 			error_exit("Error:\nduring concate_argv\n", shell);
-// 		i++;
-// 		j++;
-// 	}
-// 	j = 0;
-// 	while (argv2[j] != NULL)
-// 	{
-// 		temp_argv[i] = ft_strdup(argv2[j]);
-// 		if (temp_argv[i] == NULL)
-// 			error_exit("Error:\nduring concate_argv\n", shell);
-// 		i++;
-// 		j++;
-// 	}
-// 	temp_argv[i] = NULL;
-// 	free_argv(*argv1);
-// 	*argv1 = temp_argv;
-// }
 
 void	append_argv(
 		char **temp_argv, char **argv2, t_minishell *shell, int start_index)
