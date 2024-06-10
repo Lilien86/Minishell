@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:32:24 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:28:40 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:11:12 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	print_data(t_redirect *data_array, int nb_cmds)
 		ft_printf("Outfile : %s\n", data_array[i].outfile.name);
 		ft_printf("Infile fd : %d\n", data_array[i].infile.fd);
 		ft_printf("Outfile fd : %d\n", data_array[i].outfile.fd);
-		//print_argv(data_array[i].argv);
 		ft_printf("-------\n\n");
 		i++;
 	}
