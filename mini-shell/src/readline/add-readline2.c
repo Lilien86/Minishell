@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add-readline2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:08 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 18:47:33 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,39 +82,3 @@ void	handle_input(t_minishell *shell)
 		return ;
 	process_input(shell);
 }
-
-// int	check_first_token(t_token *tokens, t_minishell *shell)
-// {
-// 	if (tokens && (ft_strcmp(tokens->value, "./") == 0
-// 			|| ft_strcmp(tokens->value, "../") == 0
-// 			|| ft_strcmp(tokens->value, ".") == 0
-// 			|| ft_strcmp(tokens->value, "..") == 0))
-// 	{
-// 		ft_putstr_fd("minishell: syntax error: unexpected path\n", 2);
-// 		shell->exit_status = 126;
-// 		return (1);
-// 	}
-// 	return (0);
-// }
-
-// static void unlink_file(t_file **tab_files)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (tab_files && tab_files[i] != NULL)
-// 	{
-// 		while (tab_files[i][j].name != NULL)
-// 		{
-// 			printf("Unlinking file: %s\n", tab_files[i][j].name);
-// 			unlink(tab_files[i][j].name);
-// 			free(tab_files[i][j].name);
-// 			tab_files[i][j].name = NULL;
-// 			j++;
-// 		}
-// 		//free(tab_files[i]);
-// 		i++;
-// 	}
-// }
