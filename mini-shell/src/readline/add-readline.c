@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:52:11 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:12:21 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:34:58 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	execute_command_logic(t_minishell *shell)
 			shell->exit_status = 127;
 			return ;
 		}
-		execute_command_shell(shell);
+		if (shell->exit_status != 2)
+			execute_command_shell(shell);
 	}
 }
 
@@ -53,14 +54,12 @@ static void	execute_input_commands(t_minishell *shell)
 	if (is_token_redirection(shell->tokens) == 0)
 	{
 		fill_t_redirect(shell);
-		if (shell->exit_status != 2)
-			execute_command_logic(shell);
+		execute_command_logic(shell);
 	}
 	else
 	{
 		fill_t_redirect(shell);
-		if (shell->exit_status != 2)
-			execute_command_shell(shell);
+		execute_command_shell(shell);
 	}
 }
 

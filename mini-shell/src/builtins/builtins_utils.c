@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:31:26 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 09:52:03 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 20:05:06 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_getenv(const char *name, char **env)
 	i = 0;
 	while (env[i])
 	{
-		if (strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
+		if (ft_strncmp(env[i], name, name_len) == 0 && env[i][name_len] == '=')
 			return (&env[i][name_len + 1]);
 		i++;
 	}

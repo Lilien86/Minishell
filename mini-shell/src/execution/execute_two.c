@@ -6,28 +6,11 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:07 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 14:20:09 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 20:21:21 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// void	close_fd_redirect_array(t_minishell *shell, int size)
-// {
-// 	int	i;
-
-// 	if (shell->redirect_array == NULL)
-// 		return ;
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		if (shell->redirect_array[i].infile.fd != -1)
-// 			close(shell->redirect_array[i].infile.fd);
-// 		if (shell->redirect_array[i].outfile.fd != -1)
-// 			close(shell->redirect_array[i].outfile.fd);
-// 		i++;
-// 	}
-// }
 
 static void	handle_infile_outfile(t_redirect *redirect_array, int index)
 {
