@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:30 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/28 10:30:35 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:06:38 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,12 @@ static	int	update_with_plus_equal(char *var, int var_len, int i,
 	key = ft_strndup(var, (size_t)var_len);
 	concatened_value = ft_calloc((size_t)var_len + 1
 			+ ft_strlen(new_value) + 1, sizeof(char*));
+	if (!concatened_value)
+	{
+		free(new_value);
+		free(key);
+		return (0);
+	}
 	ft_strcpy(concatened_value, key);
 	ft_strcat(concatened_value, "=");
 	ft_strcat(concatened_value, new_value);

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:58:15 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:45:46 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:05:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_index_and_available_here_doc	*initialize_variables(t_minishell *shell,
 	*cpy = *shell;
 	index_and_available_here = ft_calloc(
 			1, sizeof(t_index_and_available_here_doc));
+	if (!index_and_available_here)
+		error_exit("Error malloc index_and_available_here", shell);
 	index_and_available_here->here_doc_available = 0;
 	index_and_available_here->i = 0;
 	*id_here_doc = 0;
