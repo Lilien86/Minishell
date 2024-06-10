@@ -3,31 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/05 09:26:21 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 19:42:44 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <signal.h>
 # include <fcntl.h>
-# include <sys/syscall.h>
-# include <unistd.h>
 # include <errno.h>
-# include <stdbool.h>
-# include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <stdio.h>
-# include <limits.h>
 # include <dirent.h>
 
 # define MAX_HISTORY_SIZE 100
@@ -86,6 +80,19 @@ typedef struct s_redirect
 	char		**argv;
 }	t_redirect;
 
+typedef struct s_coord
+{
+	int		i;
+	int		j;
+	int		replace_env;
+}	t_coord;
+
+typedef struct s_index_and_available_here_doc
+{
+	int		i;
+	int		here_doc_available;
+}	t_index_and_available_here_doc;
+
 //PARSING
 typedef struct s_minishell
 {
@@ -104,7 +111,6 @@ typedef struct s_minishell
 	int			is_plus_equal;
 	int			env_size;
 	int			syntax_error;
-	t_minishell	cpy;
 
 }	t_minishell;
 
@@ -136,6 +142,7 @@ void		handle_quotes(const char **input, t_token **head,
 				t_minishell *shell, char **token_temp);
 char		*process_quoted_content(const char *quoted_part,
 				char quote_type, t_minishell *shell);
+t_token		*init_token(t_token_type type, char *value, t_minishell *shell);
 
 //SUBSTITUTE_ENV
 int			var_length(const char *str, t_minishell *shell);
@@ -172,7 +179,6 @@ void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
-int			check_first_token(t_token *tokens, t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
@@ -214,7 +220,6 @@ char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, t_minishell *shell);
-void		print_argv(char **argv);
 
 //BUILTINS_UTILS2
 void		remove_plus_char(char *str);
@@ -224,7 +229,6 @@ char		*prepare_env_var(char *var);
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
-char		**convert_linked_list_to_array(t_token *head);
 
 //-----------------------------------------
 
@@ -234,8 +238,9 @@ void		write_here_doc_in_file(char *content, int fd, t_minishell *shell);
 char		*check_command_existence(char *cmd, char *env[]);
 void		execute_command_shell(t_minishell *shell);
 int			init_redirect_array(t_minishell *shell);
-void		handle_input_output(t_minishell cpy, int *i,
-				t_minishell *shell, int here_doc_available, int *id_here_doc);
+void		handle_input_output(t_minishell cpy,
+				t_index_and_available_here_doc *index_and_available_here,
+				t_minishell *shell, int *id_here_doc);
 
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
@@ -250,6 +255,9 @@ void		check_file(t_file *file, int is_append, t_minishell *shell,
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 				int pipes[MAX_PIPES][2]);
+void		init_pipes(int pipes[MAX_PIPES][2]);
+int			handle_wait(t_minishell *shell);
+int			isnt_token_word(t_token *current);
 
 //HERE_DOC
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,
@@ -270,13 +278,11 @@ t_list		*fill_content_enough_variable_env(const char *content,
 char		*replace_content(t_list *list_content, t_list *list_vars);
 
 //OPEN_FILE
-void		open_file_in(t_file *file, int is_append, t_minishell *cpy,
-				int index, t_minishell *shell);
-void		open_file_out(t_file *file, t_minishell *cpy,
-				int index, t_minishell *shell);
-void		open_file_out_append(t_file *file, t_minishell *cpy,
-				int index, t_minishell *shell);
-
+void		open_file_in(t_file *file, int index, t_minishell *shell);
+void		open_file_out(t_file *file, t_minishell *cpy, int index,
+				t_minishell *shell);
+void		open_file_out_append(t_file *file, t_minishell *cpy, int index,
+				t_minishell *shell);
 //UTILS_CHECK
 int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);
@@ -294,7 +300,6 @@ int			file_exist_in_directory(char *path, char *file);
 
 //UTILS TO EXEC
 const char	*here_doc_replace_var_env(const char *content, t_minishell *shell);
-void		print_pos_dollars(t_pos_len *dollars, int size);
 int			counter_dollars(const char *content);
 int			len_to_dollars(const char *content, int index);
 void		print_list(t_list *list);

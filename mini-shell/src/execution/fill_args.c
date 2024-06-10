@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fill_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 11:31:32 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/04 13:10:12 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:50:55 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	if (argv == NULL)
-	{
-		printf("Le tableau argv est NULL.\n");
-		return ;
-	}
-	while (argv[i] != NULL)
-	{
-		printf("%s ", argv[i]);
-		i++;
-	}
-	printf("\n");
-}
 
 void	free_argv(char **argv)
 {
@@ -56,27 +38,47 @@ int	count_words_in_token(t_token *token)
 	return (count);
 }
 
-void	concate_argv(char ***argv1, char **argv2, t_minishell *shell)
+void	append_argv(
+		char **temp_argv, char **argv2, t_minishell *shell, int start_index)
 {
-	int		i;
-	int		j;
-	char	**temp_argv;
+	int	i;
+	int	j;
 
-	temp_argv = *argv1;
-	i = 0;
+	i = start_index;
 	j = 0;
-	while (temp_argv[i] != NULL)
-		i++;
-	j = 0;
-	while (argv2[j] != NULL)
+	while (argv2[j])
 	{
 		temp_argv[i] = ft_strdup(argv2[j]);
-		if (temp_argv[i] == NULL)
-			error_exit("Error:\nduring concate_argv\n", shell);
+		if (!temp_argv[i])
+			error_exit("Error: during strdup in append_argv\n", shell);
 		i++;
 		j++;
 	}
 	temp_argv[i] = NULL;
+}
+
+void	concate_argv(char ***argv1, char **argv2, t_minishell *shell)
+{
+	char	**temp_argv;
+	int		i;
+	int		j;
+
+	temp_argv = ft_calloc(
+			ft_tab_len(*argv1) + ft_tab_len(argv2) + 1, sizeof(char *));
+	if (!temp_argv)
+		error_exit("Error: Memory allocation failed\n", shell);
+	i = 0;
+	j = 0;
+	while ((*argv1)[j])
+	{
+		temp_argv[i] = ft_strdup((*argv1)[j]);
+		if (!temp_argv[i])
+			error_exit("Error: during strdup in concate_argv\n", shell);
+		i++;
+		j++;
+	}
+	append_argv(temp_argv, argv2, shell, i);
+	free_argv(*argv1);
 	*argv1 = temp_argv;
 }
 
@@ -108,4 +110,3 @@ void	handle_word(t_minishell *shell, t_token **current, int *i)
 	else
 		shell->redirect_array[*i].argv = new_argv;
 }
-//free_argv(new_argv);

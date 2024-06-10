@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenization.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:30:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 11:59:47 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/10 17:44:10 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-t_token	*init_token(t_token_type type, char *value, t_minishell *shell)
-{
-	t_token	*token;
-
-	token = (t_token *)ft_calloc(sizeof(t_token), 1);
-	if (!token)
-		return (NULL);
-	token->type = type;
-	if (shell->is_single_quote == 1)
-		token->quote_type = SINGLE_QUOTE;
-	else if (shell->is_double_quote == 1)
-		token->quote_type = DOUBLE_QUOTE;
-	else
-		token->quote_type = NO_QUOTE;
-	token->value = ft_strdup(value);
-	if (!token->value)
-	{
-		free(token);
-		return (NULL);
-	}
-	token->next = NULL;
-	return (token);
-}
 
 void	add_token(t_token **head, t_token *new_token)
 {
@@ -87,6 +63,26 @@ void	identify_and_add_token(const char **input, t_token **head,
 		add_word_token(input, head, env, shell);
 }
 
+static int	check_first_argument(const char **input, t_minishell *shell)
+{
+	while (**input && ft_isspace(**input))
+		(*input)++;
+	if ((ft_strncmp(*input, "''", 2) == 0)
+		|| (ft_strncmp(*input, "\"\"", 2) == 0))
+	{
+		ft_putstr_fd(" command not found\n", 2);
+		shell->exit_status = 127;
+		return (1);
+	}
+	else if (**input == '|')
+	{
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+		shell->exit_status = 2;
+		return (1);
+	}
+	return (0);
+}
+
 t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 {
 	t_token	*head;
@@ -95,6 +91,8 @@ t_token	*tokenize(const char *input, char **env, t_minishell *shell)
 	shell->syntax_error = 0;
 	if (input)
 	{
+		if (check_first_argument(&input, shell) != 0)
+			return (NULL);
 		while (*input)
 		{
 			while (*input && ft_isspace(*input))

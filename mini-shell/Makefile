@@ -17,9 +17,9 @@ NC = \033[0m
 SRC = src/main.c src/shell_struct/struct_utils.c \
 src/shell_struct/struct_utils2.c\
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
-src/tokenization/subtitute_env.c  src/tokenization/subtitute_env2.c \
+src/tokenization/subtitute_env.c  src/tokenization/env_variable_handling.c \
 src/tokenization/subtitute_env_utils.c \
-src/tokenization/quotes_handle.c src/tokenization/quotes_handle2.c \
+src/tokenization/quotes_handle.c src/tokenization/quotes_processing.c \
 src/tokenization/quotes_handle_utils.c \
 src/readline/add-readline.c src/readline/readline-history.c \
 src/readline/add-readline2.c \
@@ -30,9 +30,9 @@ src/builtins/env/env_utils.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
 src/builtins/env/ft_export2.c src/execution/here_doc/generate_random_name.c \
 src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c \
-src/execution/fill_t_redirect2.c \
+src/execution/process_t_redirect.c \
 src/execution/fill_args.c src/execution/here_doc/fill_fd_heredoc.c src/execution/here_doc/fill_fd_heredoc_two.c \
-src/execution/fill_args2.c \
+src/execution/error_exit.c \
 src/execution/free_t_redirect.c \
 src/execution/search_path_cmd.c src/execution/execute.c \
 src/readline/utils_check.c src/execution/here_doc/exec_here_doc.c \
@@ -40,7 +40,7 @@ src/readline/utils_fd.c src/execution/here_doc/fill_struct_here_doc.c src/execut
 src/execution/utils_to_exec.c src/execution/utils_to_exec2.c \
 src/execution/here_doc/replace_env_variable_here_doc.c src/execution/open_file.c \
 src/execution/execute_two.c src/execution/here_doc/join_content_heredoc_with_varaible.c \
-src/execution/here_doc/replace_content_var_in_heredoc.c
+src/execution/here_doc/replace_content_var_in_heredoc.c src/tokenization/init_token.c
 
 OBJ_DIR = ./obj
 OBJ = $(SRC:./src/%.c=$(OBJ_DIR)/%.o)
