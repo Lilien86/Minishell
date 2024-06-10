@@ -6,28 +6,22 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 19:23:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 19:27:56 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>
+
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 # include <signal.h>
 # include <fcntl.h>
-# include <sys/syscall.h>
-# include <unistd.h>
 # include <errno.h>
-# include <stdbool.h>
-# include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <stdio.h>
-# include <limits.h>
 # include <dirent.h>
 
 # define MAX_HISTORY_SIZE 100
