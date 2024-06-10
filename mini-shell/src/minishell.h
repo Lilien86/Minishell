@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 17:49:47 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:28:32 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,6 @@ char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, t_minishell *shell);
-void		print_argv(char **argv);
 
 //BUILTINS_UTILS2
 void		remove_plus_char(char *str);
@@ -266,6 +265,7 @@ void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 				int pipes[MAX_PIPES][2]);
 void		init_pipes(int pipes[MAX_PIPES][2]);
 int			handle_wait(t_minishell *shell);
+int			isnt_token_word(t_token *current);
 
 //HERE_DOC
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,

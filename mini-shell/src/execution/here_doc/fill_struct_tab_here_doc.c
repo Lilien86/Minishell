@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/07 16:28:42 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:21:49 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,6 @@ static void	process_here_doc_token(t_token *current, t_minishell *shell,
 			current, shell, coord->replace_env, tab_here_doc);
 	tab_here_doc[coord->i][coord->j].is_allocated = 1;
 	(coord->j)++;
-}
-
-static int	isnt_token_word(t_token *current)
-{
-	if (current->next->type == TOKEN_PIPE
-		|| current->next->type == TOKEN_REDIRECT_IN
-		|| current->next->type == TOKEN_REDIRECT_OUT
-		|| current->next->type == TOKEN_DOUBLE_REDIRECT_OUT
-		|| current->next->type == TOKEN_HEREDOC)
-		return (1);
-	else
-		return (0);
 }
 
 static void	process_token(t_token *current, t_minishell *shell,

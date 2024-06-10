@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:24:42 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 17:49:34 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/10 18:22:32 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,16 @@ int	handle_wait(t_minishell *shell)
 		i++;
 	}
 	return (last_status);
+}
+
+int	isnt_token_word(t_token *current)
+{
+	if (current->next->type == TOKEN_PIPE
+		|| current->next->type == TOKEN_REDIRECT_IN
+		|| current->next->type == TOKEN_REDIRECT_OUT
+		|| current->next->type == TOKEN_DOUBLE_REDIRECT_OUT
+		|| current->next->type == TOKEN_HEREDOC)
+		return (1);
+	else
+		return (0);
 }
