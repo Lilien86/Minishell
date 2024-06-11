@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 19:44:30 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 09:49:20 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,6 @@ int			check_redirect_in_to_pipe(t_token *tokens);
 int			check_builtins(char *cmd);
 int			is_token_redirection(t_token *token);
 t_token		*convert_argv_to_list(int argc, char **argv);
-void		print_linked_list(t_token *head);
 int			counter_cmds(t_token *tokens);
 int			check_valid_redirect(t_token *token);
 

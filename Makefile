@@ -5,7 +5,7 @@ LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
 
-CFLAGS = -Wextra -Werror -Wall -Wconversion -Wunreachable-code -Wunused-function -g -I $(LIBFT) -g3
+CFLAGS = -Wextra -Werror -Wall -I $(LIBFT)
 
 LDFLAGS = -L $(LIBFT) -lft -lreadline
 
@@ -15,14 +15,14 @@ RED = \033[0;31m
 NC = \033[0m
 
 SRC = src/main.c src/shell_struct/struct_utils.c \
-src/shell_struct/struct_utils2.c\
+src/shell_struct/free_utils.c\
 src/tokenization/tokenization.c src/tokenization/tokenization_utils.c \
 src/tokenization/subtitute_env.c  src/tokenization/env_variable_handling.c \
 src/tokenization/subtitute_env_utils.c \
 src/tokenization/quotes_handle.c src/tokenization/quotes_processing.c \
 src/tokenization/quotes_handle_utils.c \
-src/readline/add-readline.c src/readline/readline-history.c \
-src/readline/add-readline2.c \
+src/readline/add_readline.c src/readline/readline_history.c \
+src/readline/add_readline_utils.c \
 src/signal/handle_signal.c \
 src/builtins/builtins.c src/builtins/builtins_utils.c src/builtins/builtins_utils2.c\
 src/builtins/exit.c src/builtins/exit_utils.c src/builtins/cd.c \

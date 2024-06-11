@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:53:02 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:47:33 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 09:49:00 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,6 @@ int	read_input(t_minishell *shell)
 		free_read(shell);
 	}
 	return (0);
-}
-
-void	print_linked_list(t_token *head)
-{
-	t_token		*current;
-	int			i;
-
-	current = head;
-	i = 0;
-	while (current != NULL)
-	{
-		ft_printf("%d Valeur: %s\n", i, current->value);
-		i++;
-		current = current->next;
-	}
 }
 
 void	handle_input(t_minishell *shell)
