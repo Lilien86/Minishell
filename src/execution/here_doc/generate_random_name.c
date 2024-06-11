@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:41 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:44:44 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:09:54 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*generate_random_filename(void)
 	fd = open("/dev/urandom", O_RDONLY);
 	if (fd == -1)
 	{
-		perror("Erreur lors de l'ouverture de /dev/urandom");
+		perror("Error when opening /dev/urandom");
 		exit(EXIT_FAILURE);
 	}
 	filename = ft_calloc((FILENAME_LENGTH + 1), sizeof(char));

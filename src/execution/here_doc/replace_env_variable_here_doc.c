@@ -6,13 +6,13 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:45:52 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:52:42 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:12:08 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	find_origine_len(const char *content, int pos)
+static int	find_origin_len(const char *content, int pos)
 {
 	int	i;
 	int	cnt;
@@ -47,8 +47,8 @@ static t_pos_len	*allocate_and_fill_dollars(const char *content,
 		{
 			dollars[j].pos = i;
 			dollars[j].len = len_to_dollars(content, i);
-			dollars[j].origine_len = find_origine_len(content, i);
-			ft_printf("origine_len %d\n", dollars[j].origine_len);
+			dollars[j].origin_len = find_origin_len(content, i);
+			ft_printf("origin_len %d\n", dollars[j].origin_len);
 			j++;
 		}
 		i++;

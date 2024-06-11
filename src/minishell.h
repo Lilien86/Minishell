@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 09:49:20 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:22:36 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_pos_len
 {
 	int				pos;
 	int				len;
-	int				origine_len;
+	int				origin_len;
 }	t_pos_len;
 
 typedef struct s_file
@@ -92,7 +92,6 @@ typedef struct s_index_and_available_here_doc
 	int		here_doc_available;
 }	t_index_and_available_here_doc;
 
-//PARSING
 typedef struct s_minishell
 {
 	char		**env;
@@ -133,8 +132,6 @@ void		add_word_token(const char **input, t_token **head, char **env,
 void		free_tokens(t_token **tokens);
 int			handle_syntax_error(char **final_value,
 				t_token **head, char quote_type);
-
-//TOKENIZATION_UTILS2
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
@@ -150,8 +147,6 @@ char		*substitute_var(const char *input, char **env, t_minishell *shell);
 char		*append_char_to_str(char *str, char c);
 char		*append_char_to_strfree(char *str, char c);
 void		append_segment(char **final_value, char *segment);
-
-//SUBSTITUTE_ENV2
 char		*process_dollar(const char **input, char **env,
 				char *result, t_minishell *shell);
 char		*substitute_env_vars(const char *input,
@@ -219,8 +214,6 @@ char		*ft_getenv(const char *name, char **env);
 void		print_env(char **env);
 int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, t_minishell *shell);
-
-//BUILTINS_UTILS2
 void		remove_plus_char(char *str);
 char		*prepare_env_var(char *var);
 
@@ -228,8 +221,6 @@ char		*prepare_env_var(char *var);
 t_minishell	*init_minishell(char **envp);
 void		free_minishell(t_minishell *shell);
 void		print_data(t_redirect *data_array, int nb_cmds);
-
-//-----------------------------------------
 
 //EXECUTION
 void		fill_t_redirect(t_minishell *shell);
@@ -240,7 +231,6 @@ int			init_redirect_array(t_minishell *shell);
 void		handle_input_output(t_minishell cpy,
 				t_index_and_available_here_doc *index_and_available_here,
 				t_minishell *shell, int *id_here_doc);
-
 void		error_exit(char *message, t_minishell *shell);
 void		handle_pipe(t_minishell *shell, int *i);
 void		handle_output_redirect(t_minishell *cpy, t_token *current,
@@ -249,21 +239,19 @@ void		handle_output_redirect_append(t_minishell *cpy, t_token *current,
 				int *i, t_minishell *shell);
 void		handle_input_redirect(t_minishell *cpy, t_token *current,
 				int *i, t_minishell *shell);
-void		check_file(t_file *file, int is_append, t_minishell *shell,
-				int status);
 void		handle_word(t_minishell *shell, t_token **current, int *i);
 void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 				int pipes[MAX_PIPES][2]);
 void		init_pipes(int pipes[MAX_PIPES][2]);
 int			handle_wait(t_minishell *shell);
-int			isnt_token_word(t_token *current);
+int			is_not_token_word(t_token *current);
 
 //HERE_DOC
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,
 				t_file **tab_here_doc);
 void		handle_here_doc(t_minishell *shell, t_file here_doc,
 				char *delimiter, int replace_env);
-void		to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc);
+void		choose_here_doc(t_minishell *shell, int *i, int id_here_doc);
 t_file		**run_here_doc(t_minishell *shell);
 char		*read_line(char *delimiter);
 char		*update_here_doc_content(char *line, char *here_doc_content);

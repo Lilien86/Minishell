@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_to_exec2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:24:42 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:22:32 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:08:37 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	handle_wait(t_minishell *shell)
 	return (last_status);
 }
 
-int	isnt_token_word(t_token *current)
+int	is_not_token_word(t_token *current)
 {
 	if (current->next->type == TOKEN_PIPE
 		|| current->next->type == TOKEN_REDIRECT_IN

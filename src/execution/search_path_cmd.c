@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_path_cmd.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 10:10:16 by lauger            #+#    #+#             */
-/*   Updated: 2024/05/21 09:55:52 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:23:50 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*find_command_in_directory(const char *cmd, const char *directory)
 	return (command_path);
 }
 
-static char	*check_command_existence_two(const char *cmd, char **directories)
+static char	*locate_executable_command(const char *cmd, char **directories)
 {
 	char	*command_path;
 	char	*result;
@@ -98,7 +98,7 @@ char	*check_command_existence(char *cmd, char *env[])
 	free(path);
 	if (!tab_directories)
 		return (NULL);
-	result = check_command_existence_two(cmd, tab_directories);
+	result = locate_executable_command(cmd, tab_directories);
 	if (!result)
 		return (cmd);
 	free(cmd);

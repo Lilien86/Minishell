@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_struct_tab_here_doc.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:21:49 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:09:23 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	process_token(t_token *current, t_minishell *shell,
 {
 	if (current->type == TOKEN_HEREDOC)
 	{
-		if (current->next == NULL || isnt_token_word(current) == 1)
+		if (current->next == NULL || is_not_token_word(current) == 1)
 		{
 			ft_putstr_fd("minishell: syntax error"
 				" near unexpected token `newline'\n", 2);

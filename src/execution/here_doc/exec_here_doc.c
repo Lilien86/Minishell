@@ -6,11 +6,33 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:43:38 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:43:41 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:05:59 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*read_line(char *delimiter)
+{
+	char	*line;
+
+	line = readline(" > ");
+	if (line == NULL)
+	{
+		if (line != NULL)
+			free(line);
+		ft_putstr_fd("bash: warning: here-document at line 1 delimited"
+			"by end-of-file (wanted `%s')\n", 2);
+		return (NULL);
+	}
+	if (ft_strcmp(line, delimiter) == 0)
+	{
+		if (line != NULL)
+			free(line);
+		return (NULL);
+	}
+	return (line);
+}
 
 void	write_here_doc_in_file(char *content, int fd, t_minishell *shell)
 {

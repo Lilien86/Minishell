@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:13 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:15:22 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:06:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_file	**run_here_doc(t_minishell *shell)
 	return (tab_here_doc);
 }
 
-void	to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc)
+void	choose_here_doc(t_minishell *shell, int *i, int id_here_doc)
 {
 	int		j;
 	int		nb_here_doc;
@@ -71,7 +71,7 @@ void	to_choice_here_doc(t_minishell *shell, int *i, int id_here_doc)
 		shell->redirect_array[*i].infile.fd = open (
 				shell->tab_here_doc[*i][nb_here_doc - 1].name, O_RDONLY);
 		if (shell->tab_here_doc[*i][nb_here_doc - 1].fd == -1)
-			error_exit("Error open here_doc", shell);
+			error_exit("Error opening here_doc", shell);
 		shell->redirect_array[*i].infile.name = shell->tab_here_doc[*i][
 			nb_here_doc - 1].name;
 	}

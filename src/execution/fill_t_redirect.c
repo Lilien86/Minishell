@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_t_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 20:25:01 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/11 10:05:29 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	handle_heredoc(t_minishell cpy,
 			shell->redirect_array[0].infile.fd = -2;
 			return ;
 		}
-		to_choice_here_doc(&cpy, &index_and_available_here->i, *id_here_doc);
+		choose_here_doc(&cpy, &index_and_available_here->i, *id_here_doc);
 		index_and_available_here->here_doc_available = 1;
 		*id_here_doc = 1;
 	}

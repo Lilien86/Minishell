@@ -1,51 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_content_heredoc_with_varaible.c               :+:      :+:    :+:   */
+/*   join_content_heredoc_with_variable.c               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:45:10 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:51:48 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 10:11:19 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// t_list	*fill_content_enouth_variable_env(const char *content,
-// 			t_pos_len *dollars, int num_vars)
-// {
-// 	int		i;
-// 	t_list	*list;
-// 	int		start;
-// 	char	*sub;
-
-// 	i = 0;
-// 	list = NULL;
-// 	start = 0;
-// 	while (i < num_vars)
-// 	{
-// 		if (dollars[i].pos > start)
-// 		{
-// 			sub = ft_substr(content, (unsigned int)start,
-// 					(size_t)(dollars[i].pos) - (size_t)start);
-// 			if (sub == NULL)
-// 				return (NULL);
-// 			ft_lstadd_back(&list, ft_lstnew(sub));
-// 		}
-// 		start = dollars[i].pos + dollars[i].len;
-// 		i++;
-// 	}
-// 	if ((size_t)start < ft_strlen(content))
-// 	{
-// 		sub = ft_substr(content, (unsigned int)start,
-// 				(size_t)ft_strlen(content) - (size_t)start);
-// 		if (sub == NULL)
-// 			return (NULL);
-// 		ft_lstadd_back(&list, ft_lstnew(sub));
-// 	}
-// 	return (list);
-// }
 
 static int	add_substring_to_list(const char *content, int start, int end,
 	t_list **list)
@@ -59,7 +24,7 @@ static int	add_substring_to_list(const char *content, int start, int end,
 	return (0);
 }
 
-static t_list	*string_enouth_var(const char *content, t_pos_len *dollars,
+static t_list	*string_enough_var(const char *content, t_pos_len *dollars,
 	int num_vars, t_list **list)
 {
 	int	i;
@@ -75,7 +40,7 @@ static t_list	*string_enouth_var(const char *content, t_pos_len *dollars,
 					dollars[i].pos, list) == 1)
 				return (NULL);
 		}
-		start = dollars[i].pos + dollars[i].origine_len;
+		start = dollars[i].pos + dollars[i].origin_len;
 		i++;
 	}
 	if ((size_t)start < ft_strlen(content))
@@ -91,7 +56,7 @@ t_list	*fill_content_enough_variable_env(const char *content,
 	list = NULL;
 	if (content == NULL || dollars == NULL)
 		return (NULL);
-	list = string_enouth_var(content, dollars, num_vars, &list);
+	list = string_enough_var(content, dollars, num_vars, &list);
 	return (list);
 }
 
