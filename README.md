@@ -4,7 +4,7 @@
 
 The Minishell project is about building a simplified [Unix shell](https://en.wikipedia.org/wiki/Unix_shell#:~:text=A%20Unix%20shell%20is%20a,the%20system%20using%20shell%20scripts.), focusing on basic command execution, process management, and input/output handling to simulate core shell functionalities in a minimalistic style. 🚀
 
-![Badge](doc\Screenshot 2024-06-18 184751.png)
+![Badge](doc/Screenshot%202024-06-18%20184751.png)
 
 ## How to use it :
 #### (Works only on Mac or Linux) ⚠️
