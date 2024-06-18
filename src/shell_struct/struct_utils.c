@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 11:32:24 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 19:11:12 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/13 14:09:02 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_minishell	*init_minishell(char **envp)
 	shell->is_plus_equal = 0;
 	shell->env_size = 0;
 	shell->syntax_error = 0;
+	shell->reset_exc = 0;
 	init_history(shell->history);
+	init_pipes(shell->pipes);
 	return (shell);
 }

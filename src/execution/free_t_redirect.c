@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 11:10:09 by lauger            #+#    #+#             */
-/*   Updated: 2024/06/07 16:06:28 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/14 12:19:09 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ void	free_arguments(t_minishell *shell, int index)
 	}
 }
 
+int	is_valid_fd(int fd)
+{
+	if (fd == -1 || fd == -2 || fd == 0 || fd == 1 || fd == 2)
+		return (0);
+	return (1);
+}
+
 void	free_redirect_array(t_minishell *shell, int size)
 {
 	int	i;
@@ -53,13 +60,9 @@ void	free_redirect_array(t_minishell *shell, int size)
 	{
 		if (shell->redirect_array[i].infile.name != NULL)
 			free_file_names(shell, i);
-		if (shell->redirect_array[i].infile.fd != -1
-			&& shell->redirect_array[i].infile.fd != -2
-			&& shell->redirect_array[i].infile.fd != 0)
+		if (is_valid_fd(shell->redirect_array[i].infile.fd) == 1)
 			close(shell->redirect_array[i].infile.fd);
-		if (shell->redirect_array[i].outfile.fd != -1
-			&& shell->redirect_array[i].outfile.fd != -2
-			&& shell->redirect_array[i].outfile.fd != 0)
+		if (is_valid_fd(shell->redirect_array[i].outfile.fd) == 1)
 			close(shell->redirect_array[i].outfile.fd);
 		if (shell->redirect_array[i].argv != NULL)
 			free_arguments(shell, i);

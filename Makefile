@@ -5,7 +5,7 @@ LIBFT_LIBRARY = $(LIBFT)/libft.a
 
 CC = /bin/cc
 
-CFLAGS = -Wextra -Werror -Wall -I $(LIBFT)
+CFLAGS = -Wextra -Werror -Wall -g -I $(LIBFT)
 
 LDFLAGS = -L $(LIBFT) -lft -lreadline
 
@@ -23,15 +23,18 @@ src/tokenization/quotes_handle.c src/tokenization/quotes_processing.c \
 src/tokenization/quotes_handle_utils.c \
 src/readline/add_readline.c src/readline/readline_history.c \
 src/readline/add_readline_utils.c \
-src/signal/handle_signal.c \
+src/signal/handle_signal.c src/signal/signal_utils.c\
 src/builtins/builtins.c src/builtins/builtins_utils.c src/builtins/builtins_utils2.c\
 src/builtins/exit.c src/builtins/exit_utils.c src/builtins/cd.c \
-src/builtins/env/env_utils.c \
+src/builtins/env/env_utils.c src/builtins/env/default_pwd.c \
+src/builtins/env/update_pwd.c \
+src/builtins/env/default_shlvl.c \
 src/builtins/env/ft_export.c src/builtins/env/builtins_env.c \
 src/builtins/env/ft_export_utils.c src/execution/here_doc/generate_random_name.c \
 src/execution/fill_t_redirect.c src/execution/handle_symbol_redirect.c \
 src/execution/process_t_redirect.c \
 src/execution/fill_args.c src/execution/here_doc/fill_fd_heredoc.c \
+src/execution/here_doc/fd_heredoc_utils.c \
 src/execution/error_exit.c \
 src/execution/free_t_redirect.c \
 src/execution/search_path_cmd.c src/execution/execute.c \
@@ -39,6 +42,8 @@ src/readline/utils_check.c src/execution/here_doc/exec_here_doc.c \
 src/readline/utils_fd.c src/execution/here_doc/fill_struct_here_doc.c src/execution/here_doc/fill_struct_tab_here_doc.c \
 src/execution/utils_to_exec.c src/execution/utils_to_exec2.c \
 src/execution/here_doc/replace_env_variable_here_doc.c src/execution/open_file.c \
+src/execution/here_doc/heredoc_utils.c \
+src/execution/execute_utils.c \
 src/execution/execute_final.c src/execution/here_doc/join_content_heredoc_with_variable.c \
 src/execution/here_doc/replace_content_var_in_heredoc.c src/tokenization/init_token.c
 

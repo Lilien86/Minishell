@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes_handle2.c                                   :+:      :+:    :+:   */
+/*   quotes_processing.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:55 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 19:20:54 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/14 11:21:34 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	process_non_quoted_segment(const char **input, t_minishell *shell,
 void	handle_quotes(const char **input, t_token **head,
 			t_minishell *shell, char **token_temp)
 {
+	shell->syntax_error = 0;
 	while (**input && !ft_isspace(**input)
 		&& (!is_special_char(**input)
 			|| ft_strncmp(*input, "||", 2) == 0) && shell->syntax_error == 0)

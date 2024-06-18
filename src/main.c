@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:09 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 12:00:12 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/14 14:13:28 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int argc, char **argv, char **envp)
 	if (!shell)
 		return (1);
 	init_signal_handlers();
+	set_pwd_if_not_defined(&shell->env);
+	increment_shlvl(&shell->env);
 	read_input(shell);
 	exit_status = shell->exit_status;
 	free_minishell(shell);

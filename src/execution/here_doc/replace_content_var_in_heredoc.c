@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_content_var_in_heredoc.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:45:21 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:10:19 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/17 11:15:19 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static char	*append_content(char *current_content, const char *new_part)
 	if (current_content == NULL)
 		return (ft_strdup(new_part));
 	new_content = ft_strjoin(current_content, new_part);
+	if (new_content == NULL)
+		return (NULL);
 	free(current_content);
 	return (new_content);
 }

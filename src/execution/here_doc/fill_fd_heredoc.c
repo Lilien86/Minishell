@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_fd_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:04:06 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/18 11:47:56 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,9 @@ void	read_here_doc(t_minishell *shell, t_file here_doc, char *delimiter,
 	char	*temp;
 	char	*temp2;
 
+	(void)here_doc;
 	while (1)
 	{
-		if (g_exit_signal == 1)
-		{
-			g_exit_signal = 0;
-			free(*here_doc_content);
-			free_minishell(shell);
-			free(here_doc.name);
-			close(here_doc.fd);
-			exit(130);
-		}
 		temp = read_and_process_line(delimiter);
 		if (temp == NULL)
 		{
@@ -89,6 +81,7 @@ void	handle_here_doc(t_minishell *shell, t_file here_doc,
 	char	*here_doc_content;
 
 	here_doc_content = NULL;
+	remember_fd_here_doc(&here_doc, shell);
 	init_signals();
 	read_here_doc(shell, here_doc, delimiter, &here_doc_content);
 	write_here_doc(shell, here_doc, here_doc_content, replace_env);

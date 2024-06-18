@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:43:38 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:25:47 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/18 11:18:17 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ static t_file	fork_here_doc(char *delimiter, t_minishell *shell,
 	int replace_env, t_file **tab_here_doc)
 {
 	pid_t	pid;
-	int		status;
 	t_file	here_doc;
 
 	here_doc.name = generate_and_assign_filename(shell);
@@ -85,12 +84,11 @@ static t_file	fork_here_doc(char *delimiter, t_minishell *shell,
 	pid = fork();
 	if (pid == 0)
 	{
+		rl_catch_signals = 1;
 		handle_here_doc(shell, here_doc, delimiter, replace_env);
 	}
 	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-	}
+		handle_parent_process(pid, shell);
 	else
 	{
 		perror("Error:\nduring fork_here_doc");

@@ -6,7 +6,7 @@
 /*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 09:50:58 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/10 18:48:43 by lauger           ###   ########.fr       */
+/*   Updated: 2024/06/14 15:42:57 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,31 @@ void	print_env(char **env)
 		return ;
 	sort_and_print_env(temp_env, env_size);
 	ft_free_tab(temp_env);
+}
+
+void	environment_trail(char **env, int *exit_status)
+{
+	int		i;
+	char	*equal_sign_ptr;
+
+	i = 0;
+	while (env[i] != NULL)
+	{
+		equal_sign_ptr = ft_strchr(env[i], '=');
+		if (equal_sign_ptr != NULL && *(equal_sign_ptr + 1) != '\0')
+		{
+			if (!(*(equal_sign_ptr + 1) == '\'' && *(equal_sign_ptr + 2) \
+				== '\'' && *(equal_sign_ptr + 3) == '\0'))
+			{
+				if (ft_printf("%s\n", env[i]) < 0)
+				{
+					perror("env command failed");
+					*exit_status = 1;
+					return ;
+				}
+			}
+		}
+		i++;
+	}
+	*exit_status = 0;
 }

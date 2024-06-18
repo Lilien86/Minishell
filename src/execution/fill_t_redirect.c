@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_t_redirect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:48:37 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:05:29 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/13 10:16:23 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,12 @@ static void	handle_redirects(t_minishell cpy, int *i, t_minishell *shell)
 {
 	if (cpy.tokens->type == TOKEN_REDIRECT_IN)
 		handle_input_redirect(&cpy, cpy.tokens, i, shell);
+	if (shell->redirect_array[0].infile.fd == -2)
+		return ;
 	else if (cpy.tokens->type == TOKEN_REDIRECT_OUT)
 		handle_output_redirect(&cpy, cpy.tokens, i, shell);
+	if (shell->redirect_array[0].outfile.fd == -2)
+		return ;
 	else if (cpy.tokens->type == TOKEN_DOUBLE_REDIRECT_OUT)
 		handle_output_redirect_append(&cpy, cpy.tokens, i, shell);
 }
@@ -65,6 +69,7 @@ static void	handle_pipe_local(t_minishell cpy, int *i,
 	{
 		if (cpy.tokens->next == NULL || cpy.tokens->next->type == TOKEN_PIPE)
 		{
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 			shell->exit_status = 2;
 			shell->redirect_array[0].infile.fd = -2;
 			return ;

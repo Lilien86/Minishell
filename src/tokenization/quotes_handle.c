@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:27:27 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/29 12:11:00 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/17 10:15:06 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ static int	process_segment(const char **input, char quote_type,
 	start = *input;
 	len = find_quote_end(*input, quote_type);
 	if ((*input)[len] != quote_type)
-		return (handle_syntax_error(final_value, &(shell->tokens), quote_type));
+		return (handle_syntax_error(final_value, &(shell->tokens),
+				quote_type, shell));
 	if (quote_type == '\'')
 		shell->is_single_quote = 1;
 	else if (quote_type == '"')

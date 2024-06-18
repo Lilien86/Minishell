@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_struct_here_doc.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:13 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:06:34 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/14 12:19:43 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	free_tab_here_doc(t_file **tab_here_doc, int nb_cmds)
 		j = 0;
 		while (tab_here_doc[i] && tab_here_doc[i][j].name != NULL)
 		{
-			close(tab_here_doc[i][j].fd);
+			if (is_valid_fd(tab_here_doc[i][j].fd) == 1)
+				close(tab_here_doc[i][j].fd);
 			unlink(tab_here_doc[i][j].name);
 			free(tab_here_doc[i][j].name);
 			j++;

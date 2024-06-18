@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 10:31:44 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/04 13:57:49 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/11 14:18:51 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_echo(t_token *tokens, int *exit_status, t_minishell *shell)
 		current = current->next;
 	}
 	*exit_status = 0;
+	g_exit_signal = 0;
 	echo_print_tokens(current, exit_status, newline, shell);
 }
 

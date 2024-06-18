@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:00:35 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:22:36 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:02:19 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ typedef struct s_redirect
 	t_file		infile;
 	t_file		outfile;
 	char		**argv;
+	int			pid;
 }	t_redirect;
 
 typedef struct s_coord
@@ -109,6 +110,8 @@ typedef struct s_minishell
 	int			is_plus_equal;
 	int			env_size;
 	int			syntax_error;
+	int			pipes[MAX_PIPES][2];
+	int			reset_exc;
 
 }	t_minishell;
 
@@ -121,7 +124,7 @@ int			identify_double_char_tokens(const char **input,
 void		add_token_based_on_char(const char **input,
 				t_token **head, char **env, t_minishell *shell);
 int			handle_syntax_error(char **final_value,
-				t_token **head, char quote_type);
+				t_token **head, char quote_type, t_minishell *shell);
 
 //TOKENIZATION_UTILS
 int			is_special_char(char c);
@@ -130,8 +133,6 @@ char		*add_quoted_token(const char **input, t_token **head,
 void		add_word_token(const char **input, t_token **head, char **env,
 				t_minishell *shell);
 void		free_tokens(t_token **tokens);
-int			handle_syntax_error(char **final_value,
-				t_token **head, char quote_type);
 void		identify_and_add_token(const char **input,
 				t_token **head, char **env, t_minishell *shell);
 void		handle_quotes(const char **input, t_token **head,
@@ -161,6 +162,11 @@ void		handle_sigquit(int sig);
 void		init_signal_handlers(void);
 void		handle_sigint_here_doc(int sig);
 void		handle_nothing(int sig);
+void		handle_sigint_without_prefix(int sig);
+void		handle_sigquit_here_doc(int sig);
+void		handle_sigquit_two(int sig);
+void		handle_nothing_two(int sig);
+void		handle_nothing_two(int sig);
 
 //UTILS
 char		*generate_random_filename(void);
@@ -173,6 +179,7 @@ void		handle_input(t_minishell *shell);
 void		free_history(char *history[MAX_HISTORY_SIZE]);
 void		init_history(char *history[MAX_HISTORY_SIZE]);
 void		process_input(t_minishell *shell);
+int			execute_builtins_helper(t_token *arg_lst, t_minishell *shell);
 
 //BUILTINS
 void		ft_echo(t_token *tokens, int *exit_status, t_minishell *shell);
@@ -195,6 +202,10 @@ int			update_existing_var(char *var, char ***env,
 				int var_len, t_minishell *shell);
 char		**create_new_env_array(char *var, char ***env,
 				t_minishell *shell);
+void		set_pwd_if_not_defined(char ***env);
+void		increment_shlvl(char ***env);
+void		update_env_with_pwd(char **env, char *new_pwd);
+char		*create_new_pwd(void);
 
 //EXIT_UTILS
 int			check_numbers_arg_exit(char *endptr, t_token *current,
@@ -207,6 +218,7 @@ int			check_length_and_sign(t_token *current, t_minishell *shell,
 int			process_exit_arg(t_token *current, t_minishell *shell, int *i);
 int			check_exit_arg_validity(t_token *current,
 				t_minishell *shell, int *i);
+void		close_fd_pipe(int pipes[MAX_PIPES][2]);
 
 //BUILTINS_UTILS
 int			is_flag_n(char *str);
@@ -216,6 +228,7 @@ int			length_until_equal(const char *str);
 int			process_export(t_token *tokens, char ***env, t_minishell *shell);
 void		remove_plus_char(char *str);
 char		*prepare_env_var(char *var);
+void		environment_trail(char **env, int *exit_status);
 
 //STRUCT_UTILS
 t_minishell	*init_minishell(char **envp);
@@ -245,6 +258,8 @@ void		ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 void		init_pipes(int pipes[MAX_PIPES][2]);
 int			handle_wait(t_minishell *shell);
 int			is_not_token_word(t_token *current);
+void		handle_execute(t_minishell *shell, t_redirect *redirect_array,
+				int index);
 
 //HERE_DOC
 t_file		here_doc(t_token *current, t_minishell *shell, int replace_env,
@@ -263,6 +278,9 @@ t_list		*replace_env_variable(const char *content, t_pos_len *dollars,
 t_list		*fill_content_enough_variable_env(const char *content,
 				t_pos_len *dollars, int num_vars);
 char		*replace_content(t_list *list_content, t_list *list_vars);
+void		remember_fd_here_doc(t_file *here_doc, t_minishell *shell);
+void		handle_fork_error(t_minishell *shell);
+void		handle_parent_process(pid_t pid, t_minishell *shell);
 
 //OPEN_FILE
 void		open_file_in(t_file *file, int index, t_minishell *shell);
@@ -283,6 +301,7 @@ int			open_file_and_handle_errors(t_minishell *shell,
 				t_file here_doc_cpy);
 char		*get_variable_path(char **env);
 int			file_exist_in_directory(char *path, char *file);
+int			is_valid_fd(int fd);
 
 //UTILS TO EXEC
 const char	*here_doc_replace_var_env(const char *content, t_minishell *shell);

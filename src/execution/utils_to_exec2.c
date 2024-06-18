@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_to_exec2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 13:24:42 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:08:37 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/14 15:43:32 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	is_file(const char *path)
 {
 	struct stat	statbuf;
 
+	if (!path)
+		return (-1);
 	if (stat(path, &statbuf) == -1)
 		return (-1);
 	if (S_ISREG(statbuf.st_mode))
@@ -64,26 +66,25 @@ void	init_pipes(int pipes[MAX_PIPES][2])
 
 int	handle_wait(t_minishell *shell)
 {
-	int		i;
 	int		status;
 	int		last_status;
-	pid_t	pid;
+	int		nb_cmds;
 
-	i = 0;
 	last_status = shell->exit_status;
-	while (i < shell->nb_cmds)
+	signal(SIGINT, handle_sigint_without_prefix);
+	waitpid(shell->redirect_array[shell->nb_cmds - 1].pid, &status, 0);
+	close_fd_pipe(shell->pipes);
+	nb_cmds = shell->nb_cmds;
+	while (0 < nb_cmds)
 	{
-		pid = waitpid(-1, &status, 0);
-		if (pid == -1)
-		{
-			break ;
-		}
-		if (WIFEXITED(status))
-			last_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			last_status = WTERMSIG(status);
-		i++;
+		waitpid(shell->redirect_array[nb_cmds - 1].pid, &status, 0);
+		nb_cmds--;
 	}
+	if (WIFEXITED(status))
+		last_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		last_status = WEXITSTATUS(status);
+	signal(SIGINT, handle_sigint);
 	return (last_status);
 }
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_utils2.c                                    :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lauger <lauger@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 09:56:00 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/05/30 09:56:02 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/13 13:47:39 by lauger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	free_minishell_part2(t_minishell *shell)
 {
 	if (shell->redirect_array)
 	{
+		if (shell->nb_cmds == 0)
+			shell->nb_cmds++;
 		free_redirect_array(shell, shell->nb_cmds);
 		shell->redirect_array = NULL;
 	}

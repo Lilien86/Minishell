@@ -6,11 +6,26 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:47:07 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:24:26 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:00:45 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	close_fd_pipe(int pipes[MAX_PIPES][2])
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_PIPES)
+	{
+		if (pipes[i][WRITE_END] != -1)
+			close(pipes[i][WRITE_END]);
+		if (pipes[i][READ_END] != -1)
+			close(pipes[i][READ_END]);
+		i++;
+	}
+}
 
 static void	handle_infile_outfile(t_redirect *redirect_array, int index)
 {
@@ -35,6 +50,7 @@ static void	handle_dup_close(int index, t_redirect *redirect_array,
 		|| shell->redirect_array[index].outfile.fd == -2)
 	{
 		free_minishell(shell);
+		close_fd_pipe(pipes);
 		exit(1);
 	}
 	if (index < shell->nb_cmds - 1)
@@ -56,35 +72,6 @@ static void	handle_dup_close(int index, t_redirect *redirect_array,
 	handle_infile_outfile(redirect_array, index);
 }
 
-static void	handle_execute(t_minishell *shell, t_redirect *redirect_array,
-	int index)
-{
-	if (redirect_array[index].argv != NULL
-		&& check_builtins(redirect_array[index].argv[0]) == 1)
-	{
-		execute_builtins(ft_strlen_map(redirect_array[index].argv),
-			redirect_array[index].argv, shell);
-		free_minishell(shell);
-		exit(EXIT_SUCCESS);
-	}
-	else if (redirect_array[index].argv != NULL
-		|| redirect_array[index].argv[0][0] == '$')
-	{
-		if (access(redirect_array[index].argv[0], F_OK) == 0)
-			execve(redirect_array[index].argv[0], redirect_array[index].argv,
-				shell->env);
-		if (is_file(redirect_array[index].argv[0]) == 0)
-		{
-			ft_putstr_fd("minishell: Is a directory:"
-				" You need to use a command\n", 2);
-			exit(126);
-		}
-		free_minishell(shell);
-		ft_putstr_fd("minishell: command not found\n", 2);
-		exit(127);
-	}
-}
-
 void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		int pipes[MAX_PIPES][2])
 {
@@ -94,6 +81,7 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 		pipe(pipes[index]);
 	signal(SIGINT, handle_nothing);
 	pid = fork();
+	redirect_array->pid = pid;
 	if (pid == -1)
 	{
 		perror("fork");
@@ -101,15 +89,13 @@ void	ft_exec(t_redirect *redirect_array, int index, t_minishell *shell,
 	}
 	if (pid == 0)
 	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, handle_sigquit);
 		handle_dup_close(index, redirect_array, shell, pipes);
 		handle_execute(shell, redirect_array, index);
 	}
 	else if (index < shell->nb_cmds - 1)
-	{
 		if (pipes[index][WRITE_END] != -1)
 			close(pipes[index][WRITE_END]);
-	}
+	g_exit_signal = 0;
 	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, handle_sigquit_two);
 }

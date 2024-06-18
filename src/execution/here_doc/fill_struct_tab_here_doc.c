@@ -6,7 +6,7 @@
 /*   By: ybarbot <ybarbot@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:44:31 by ybarbot           #+#    #+#             */
-/*   Updated: 2024/06/11 10:09:23 by ybarbot          ###   ########.fr       */
+/*   Updated: 2024/06/18 12:00:05 by ybarbot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,11 @@ static void	process_token(t_token *current, t_minishell *shell,
 	{
 		if (current->next == NULL || is_not_token_word(current) == 1)
 		{
-			ft_putstr_fd("minishell: syntax error"
-				" near unexpected token `newline'\n", 2);
 			shell->exit_status = 1;
 			shell->redirect_array[0].infile.fd = -1;
 			return ;
 		}
-		process_here_doc_token(current, shell, tab_here_doc,
-			coord);
+		process_here_doc_token(current, shell, tab_here_doc, coord);
 	}
 	else if (current->type == TOKEN_PIPE)
 	{
@@ -85,6 +82,11 @@ t_file	**fill_tab_here_doc(t_token *current, t_minishell *shell,
 	{
 		process_token(current, shell, tab_here_doc, &coord);
 		current = current->next;
+		if (g_exit_signal == 1)
+		{
+			g_exit_signal = 0;
+			break ;
+		}
 	}
 	return (tab_here_doc);
 }
