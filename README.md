@@ -1,4 +1,4 @@
-# Minishell 🐚
+# 🖳 Minishell 
 
 🌐[My Twitter account](https://x.com/Lilien_RIG)
 
