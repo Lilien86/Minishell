@@ -2,10 +2,12 @@
 
 [My Twitter account](https://x.com/Lilien_RIG)
 
-Minishell is a simplified [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) shell environment capable of parsing commands and launching executables with arguments, plus several built-in functions. 🚀
+The Minishell project is about building a simplified [Unix shell](https://en.wikipedia.org/wiki/Unix_shell#:~:text=A%20Unix%20shell%20is%20a,the%20system%20using%20shell%20scripts.), focusing on basic command execution, process management, and input/output handling to simulate core shell functionalities in a minimalistic style. 🚀
+
+![Badge](doc\Screenshot 2024-06-18 184751.png)
 
 ## How to use it :
-#### (Works only on Mac or Linux)
+#### (Works only on Mac or Linux) ⚠️
 
 ```bash
 # Clone the repository
@@ -27,8 +29,17 @@ make
 - Handles environment variables (`$HOME`) and the return code (`$?`).
 - Ctrl-C, Ctrl-\, and Ctrl-D are implemented to handle interrupts and exits.
 - Built-in functions: `echo`, `pwd`, `cd`, `env`, `export`, `unset`, and `exit`.
+- Using all commands of the original shell.
 
+## Sources
+- [Minishell: Building a mini-bash](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218)
+- [What is the Pipe is C](https://www.codequoi.com/en/pipe-an-inter-process-communication-method/)
+- [Handling files descriptors](https://www.codequoi.com/en/handling-a-file-by-its-descriptor-in-c/)
+- [Understanding signals](https://medium.com/@razika28/signals-ad83f38f80b6)
 ## Credits
 #### This project was made with [Yvann](https://x.com/yvann_mp4) in 3 months at [42 School](https://en.wikipedia.org/wiki/42_(school)).
-- I was responsible for the parsing, environment variables, built-in functions, and signal handling.
-- Lilien took care of the execution, heredoc, redirection and piping, input files.
+- I was responsible for the execution, redirection, multi pipes, here doc, and handleing files descriptor.
+- Yvann took care of the parsing, tokenise, signals and builtins.
+
+#### You can find the subject publish on thsi web site
+[Subject](https://yannick.eu/content/files/2023/07/en.subject.minishell.pdf)
