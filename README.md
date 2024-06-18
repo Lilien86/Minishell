@@ -2,12 +2,12 @@
 
 [My Twitter account](https://x.com/Lilien_RIG)
 
+![Untitled](https://github.com/Lilien86/42-minishell/assets/125573483/247b1202-2b1b-4793-b0f5-031d8fd2cef7)
+
 The Minishell project is about building a simplified [Unix shell](https://en.wikipedia.org/wiki/Unix_shell#:~:text=A%20Unix%20shell%20is%20a,the%20system%20using%20shell%20scripts.), focusing on basic command execution, process management, and input/output handling to simulate core shell functionalities in a minimalistic style. 🚀
 
 # Result
 ![Screenshot 2024-06-18 184751](https://github.com/Lilien86/42-minishell/assets/125573483/e5411797-9e20-4a49-a1d3-7e3e8dc6cc43)
-
-![Untitled](https://github.com/Lilien86/42-minishell/assets/125573483/247b1202-2b1b-4793-b0f5-031d8fd2cef7)
 
 ## How to use it :
 #### (Works only on Mac or Linux) ⚠️
